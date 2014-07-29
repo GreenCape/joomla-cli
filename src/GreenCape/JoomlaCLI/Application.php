@@ -46,9 +46,7 @@
 namespace GreenCape\JoomlaCLI;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -70,7 +68,7 @@ class Application extends BaseApplication
 	 */
 	public function __construct()
 	{
-		parent::__construct('Joomla CLI', '1.0.0');
+		parent::__construct('Joomla CLI', '0.1.0');
 		$this->setCatchExceptions(false);
 		$this->addPlugins(__DIR__ . '/Commands');
 	}
