@@ -23,9 +23,9 @@
         "phpunit/phpunit": "~4"
     },
     "autoload": {
-        "psr-0": {
-            "GreenCape\\JoomlaCLI\\": "src"
-        }
+        "classmap": [
+            "src"
+        ]
     },
     "bin": [
         "joomla"
