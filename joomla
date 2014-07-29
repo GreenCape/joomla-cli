@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Joomla CLI
+ *
+ * @package   JoomlaCLI
+ * @author    Niels Braczek <nbraczek@bsds.de.de>.
+ * @copyright 2014 Niels Braczek <nbraczek@bsds.de.de>.
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
+ * @since     File available since Release 0.1.0
+ */
+
+$loaded = false;
+
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        require $file;
+        $loaded = true;
+        break;
+    }
+}
+
+if (!$loaded) {
+    die(
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+}
+
+$console = new \GreenCape\JoomlaCLI\Application();
+$console->run();
