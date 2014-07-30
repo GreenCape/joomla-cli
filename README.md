@@ -19,7 +19,7 @@ Simply add a dependency on `greencape/joomla-cli` to your project's `composer.js
 
     {
         "require": {
-            "greencape/joomla-cli": "*"
+            "greencape/joomla-cli": "*@dev"
         }
     }
 
