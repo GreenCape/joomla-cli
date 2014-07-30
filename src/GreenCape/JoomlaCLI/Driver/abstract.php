@@ -2,7 +2,7 @@
 /**
  * GreenCape Joomla Command Line Interface
  *
- * Copyright (c) 2012-2013, Niels Braczek <nbraczek@bsds.de>.
+ * Copyright (c) 2012-2014, Niels Braczek <nbraczek@bsds.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -17,7 +17,7 @@
  *     the documentation and/or other materials provided with the
  *     distribution.
  *
- *   * Neither the name of Niels Braczek nor the names of his
+ *   * Neither the name of GreenCape or Niels Braczek nor the names of his
  *     contributors may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
  *
@@ -37,10 +37,10 @@
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
  * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   2012-2013 Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/AGPL-3.0 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3 (AGPL-3.0)
- * @link        http://www.bsds.de/
- * @since       File available since Release 1.0.0
+ * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link        http://www.greencape.com/
+ * @since       File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -51,9 +51,9 @@ namespace GreenCape\JoomlaCLI;
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
  * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   2012-2013 Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/AGPL-3.0 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3 (AGPL-3.0)
- * @link        http://www.bsds.de/
+ * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link        http://www.greencape.com/
  * @since       File available since Release 1.0.0
  */
 abstract class JoomlaDriver
