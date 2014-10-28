@@ -108,6 +108,7 @@
             <fileset dir="${basedir}/vendor/symfony">
                 <include name="**/*.php" />
                 <exclude name="**/Tests/**" />
+                <exclude name="**/autoload.php" />
             </fileset>
         </copy>
 

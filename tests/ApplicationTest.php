@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GreenCape Joomla Command Line Interface
  *
@@ -34,51 +35,52 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Unittests
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Unittests
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
-
 class ApplicationTest extends PHPUnit_Framework_TestCase
 {
-	/** @var  \GreenCape\JoomlaCLI\Application */
-	private $console;
+    /** @var  \GreenCape\JoomlaCLI\Application */
+    private $console;
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{
-		$this->console = new \GreenCape\JoomlaCLI\Application();
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->console = new \GreenCape\JoomlaCLI\Application();
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+    }
 
-	public function commandNameProvider()
-	{
-		return array(
-			'install' => array('install'),
-			'version' => array('version'),
-		);
-	}
+    public function commandNameProvider()
+    {
+        return array(
+            'install'   => array('install'),
+            'version'   => array('version'),
+            'overrides' => array('overrides'),
+        );
+    }
 
-	/**
-	 * @dataProvider commandNameProvider
-	 * @param string $command
-	 */
-	public function testCommandIsPresent($command)
-	{
-		$this->assertTrue($this->console->has($command));
-	}
+    /**
+     * @dataProvider commandNameProvider
+     *
+     * @param string $command
+     */
+    public function testCommandIsPresent($command)
+    {
+        $this->assertTrue($this->console->has($command));
+    }
 }

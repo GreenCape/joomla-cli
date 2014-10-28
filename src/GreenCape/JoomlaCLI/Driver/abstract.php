@@ -34,13 +34,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -48,87 +48,80 @@ namespace GreenCape\JoomlaCLI;
 /**
  * The abstract version driver provides common methods for most Joomla! versions.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 1.0.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 1.0.0
  */
 abstract class JoomlaDriver
 {
-	/**
-	 * Setup the environment
-	 *
-	 * @param   string  $basePath     The root of the Joomla! application
-	 * @param   string  $application  The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 */
-	public function setupEnvironment($basePath, $application = 'site')
-	{
-		if ($application != 'site')
-		{
-			$basePath .= '/' . $application;
-		}
+    /**
+     * Setup the environment
+     *
+     * @param   string $basePath The root of the Joomla! application
+     * @param   string $application The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     */
+    public function setupEnvironment($basePath, $application = 'site')
+    {
+        if ($application != 'site') {
+            $basePath .= '/' . $application;
+        }
 
-		$server = array(
-			'HTTP_HOST'       => 'undefined',
-			'HTTP_USER_AGENT' => 'undefined',
-			'REQUEST_METHOD'  => 'GET',
-		);
-		$_SERVER = array_merge($_SERVER, $server);
+        $server = array(
+            'HTTP_HOST' => 'undefined',
+            'HTTP_USER_AGENT' => 'undefined',
+            'REQUEST_METHOD' => 'GET',
+        );
+        $_SERVER = array_merge($_SERVER, $server);
 
-		if (file_exists($basePath . '/defines.php'))
-		{
-			include_once $basePath . '/defines.php';
-		}
+        if (file_exists($basePath . '/defines.php')) {
+            include_once $basePath . '/defines.php';
+        }
 
-		if (!defined('_JDEFINES'))
-		{
-			define('JPATH_BASE', $basePath);
-			require_once JPATH_BASE . '/includes/defines.php';
-		}
+        if (!defined('_JDEFINES')) {
+            define('JPATH_BASE', $basePath);
+            require_once JPATH_BASE . '/includes/defines.php';
+        }
 
-		require_once JPATH_BASE . '/includes/framework.php';
+        require_once JPATH_BASE . '/includes/framework.php';
 
-		if ($application == 'administrator')
-		{
-			require_once JPATH_BASE.'/includes/helper.php';
-			require_once JPATH_BASE.'/includes/toolbar.php';
+        if ($application == 'administrator') {
+            require_once JPATH_BASE . '/includes/helper.php';
+            require_once JPATH_BASE . '/includes/toolbar.php';
+        }
 
-			// JUri uses $_SERVER['HTTP_HOST'] without check
-			$_SERVER['HTTP_HOST'] = 'CLI';
-		}
+        $app = \JFactory::getApplication($application);
+        $app->initialise();
+    }
 
-		$app = \JFactory::getApplication($application);
-		$app->initialise();
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param   string $key The key
+     * @param   mixed $value The value
+     *
+     * @return  mixed  The value
+     */
+    abstract public function setCfg($key, $value);
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param   string  $key    The key
-	 * @param   mixed   $value  The value
-	 *
-	 * @return  mixed  The value
-	 */
-	abstract public function setCfg($key, $value);
+    /**
+     * Gets a configuration value.
+     *
+     * @param   string $key The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    abstract public function getCfg($key);
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param   string  $key  The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	abstract public function getCfg($key);
-
-	/**
-	 * @param $manifest
-	 *
-	 * @return array
-	 */
-	abstract public function getExtensionInfo($manifest);
+    /**
+     * @param $manifest
+     *
+     * @return array
+     */
+    abstract public function getExtensionInfo($manifest);
 }

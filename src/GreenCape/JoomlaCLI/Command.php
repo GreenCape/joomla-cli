@@ -34,13 +34,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -54,97 +54,99 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The abstract command provides common methods for most JoomlaCLI commands.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 1.0.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 1.0.0
  */
 abstract class Command extends BaseCommand
 {
-	/** @var JoomlaDriver */
-	protected $joomla;
+    /** @var JoomlaDriver */
+    protected $joomla;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   string  $name  The name of the command
-	 */
-	public function __construct($name = null)
-	{
-		parent::__construct($name);
-		$this->addGlobalOptions();
-	}
+    /**
+     * Constructor.
+     *
+     * @param   string $name The name of the command
+     */
+    public function __construct($name = null)
+    {
+        parent::__construct($name);
+        $this->addGlobalOptions();
+    }
 
-	/**
-	 * Add options common to all commands
-	 *
-	 * @return  void
-	 */
-	protected function addGlobalOptions()
-	{
-		$this
-			->addOption(
-				'basepath',
-				'b',
-				InputOption::VALUE_REQUIRED,
-				'The root of the Joomla! installation. Defaults to the current working directory.',
-				'.'
-			)
-		;
-	}
+    /**
+     * Add options common to all commands
+     *
+     * @return  void
+     */
+    protected function addGlobalOptions()
+    {
+        $this
+            ->addOption(
+                'basepath',
+                'b',
+                InputOption::VALUE_REQUIRED,
+                'The root of the Joomla! installation. Defaults to the current working directory.',
+                '.'
+            );
+    }
 
-	/**
-	 * Setup the environment
-	 *
-	 * @param   string           $application  The application, eg., 'site' or 'administration'
-	 * @param   InputInterface   $input        An InputInterface instance
-	 * @param   OutputInterface  $output       An OutputInterface instance
-	 *
-	 * @return  void
-	 */
-	protected function setupEnvironment($application, InputInterface $input, OutputInterface $output)
-	{
-		$basePath = $this->handleBasePath($input, $output);
-		$driverFactory = new DriverFactory;
-		$this->joomla = $driverFactory->create($basePath);
+    /**
+     * Setup the environment
+     *
+     * @param   string $application The application, eg., 'site' or 'administration'
+     * @param   InputInterface $input An InputInterface instance
+     * @param   OutputInterface $output An OutputInterface instance
+     *
+     * @return  void
+     */
+    protected function setupEnvironment($application, InputInterface $input, OutputInterface $output)
+    {
+        $basePath = $this->handleBasePath($input, $output);
+        $driverFactory = new DriverFactory;
+        $this->joomla = $driverFactory->create($basePath);
 
-		$this->joomla->setupEnvironment($basePath, $application);
-	}
+        $this->joomla->setupEnvironment($basePath, $application);
+    }
 
-	/**
-	 * Read the base path from the options
-	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 *
-	 * @return  string  The base path
-	 */
-	protected function handleBasePath(InputInterface $input, OutputInterface $output)
-	{
-		$path = realpath($input->getOption('basepath'));
-		$this->writeln($output, 'Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
+    /**
+     * Read the base path from the options
+     *
+     * @param   InputInterface $input An InputInterface instance
+     * @param   OutputInterface $output An OutputInterface instance
+     *
+     * @return  string  The base path
+     */
+    protected function handleBasePath(InputInterface $input, OutputInterface $output)
+    {
+        $path = realpath($input->getOption('basepath'));
+        $this->writeln($output, 'Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
-		return $path;
-	}
+        return $path;
+    }
 
-	/**
-	 * Proxy for OutputInterface::writeln()
-	 *
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 * @param   string|array     $message
-	 * @param   int              $level    One of OutputInterface::VERBOSITY_*
-	 * @param   int              $mode     One of OutputInterface::OUTPUT_*
-	 *
-	 * @return  void
-	 */
-	protected function writeln(OutputInterface $output, $message, $level = OutputInterface::VERBOSITY_NORMAL, $mode = OutputInterface::OUTPUT_NORMAL)
-	{
-		if ($output->getVerbosity() >= $level)
-		{
-			$output->writeln($message, $mode);
-		}
-	}
+    /**
+     * Proxy for OutputInterface::writeln()
+     *
+     * @param   OutputInterface $output An OutputInterface instance
+     * @param   string|array $message
+     * @param   int $level One of OutputInterface::VERBOSITY_*
+     * @param   int $mode One of OutputInterface::OUTPUT_*
+     *
+     * @return  void
+     */
+    protected function writeln(
+        OutputInterface $output,
+        $message,
+        $level = OutputInterface::VERBOSITY_NORMAL,
+        $mode = OutputInterface::OUTPUT_NORMAL
+    ) {
+        if ($output->getVerbosity() >= $level) {
+            $output->writeln($message, $mode);
+        }
+    }
 }

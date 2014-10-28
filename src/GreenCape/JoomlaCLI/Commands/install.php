@@ -34,13 +34,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -54,185 +54,178 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The Install command allows the installation of Joomla! extensions from the command line.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 1.0.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 1.0.0
  */
 class InstallCommand extends Command
 {
-	/**
-	 * Configure the options for the install command
-	 *
-	 * @return  void
-	 */
-	protected function configure()
-	{
-		$this
-			->setName('install')
+    /**
+     * Configure the options for the install command
+     *
+     * @return  void
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('install')
+            ->setDescription('Install a Joomla! extension')
+            ->addArgument(
+                'extension',
+                InputArgument::REQUIRED,
+                'The path to the extension.'
+            );
+    }
 
-			->setDescription('Install a Joomla! extension')
+    /**
+     * Execute the install command
+     *
+     * @param   InputInterface $input An InputInterface instance
+     * @param   OutputInterface $output An OutputInterface instance
+     *
+     * @return  integer  0 if everything went fine, 1 on error
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->setupEnvironment('administrator', $input, $output);
 
-			->addArgument(
-			'extension',
-				InputArgument::REQUIRED,
-				'The path to the extension.'
-			);
-	}
+        // Enable debug, so that JInstaller::install() throws exceptions on problems
+        $this->joomla->setCfg('debug', 1);
 
-	/**
-	 * Execute the install command
-	 *
-	 * @param   InputInterface  $input  An InputInterface instance
-	 * @param   OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, 1 on error
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$this->setupEnvironment('administrator', $input, $output);
+        $installer = \JInstaller::getInstance();
 
-		// Enable debug, so that JInstaller::install() throws exceptions on problems
-		$this->joomla->setCfg('debug', 1);
+        if ($installer->install($this->handleExtension($input, $output))) {
+            $output->writeln($this->getExtensionInfo($installer));
 
-		$installer = \JInstaller::getInstance();
+            return 0;
+        } else {
+            $output->writeln('Installation failed due to unknown reason.');
 
-		if ($installer->install($this->handleExtension($input, $output)))
-		{
-			$output->writeln($this->getExtensionInfo($installer));
+            return 1;
+        }
+    }
 
-			return 0;
-		}
-		else
-		{
-			$output->writeln('Installation failed due to unknown reason.');
+    /**
+     * Handle the specified extension
+     * An extension can be provided as a download, a directory, or an archive.
+     * This method prepares the installation by providing the extension in a
+     * temporary directory ready for install.
+     *
+     * @param   InputInterface $input An InputInterface instance
+     * @param   OutputInterface $output An OutputInterface instance
+     *
+     * @return  string  The location of the prepared extension
+     */
+    protected function handleExtension(InputInterface $input, OutputInterface $output)
+    {
+        $source = $input->getArgument('extension');
 
-			return 1;
-		}
-	}
+        if (strpos($source, '://')) {
+            $tmpPath = $this->handleDownload($output, $source);
+        } elseif (is_dir($source)) {
+            $tmpPath = $this->handleDirectory($output, $source);
+        } else {
+            $tmpPath = $this->handleArchive($output, $source);
+        }
 
-	/**
-	 * Handle the specified extension
-	 * An extension can be provided as a download, a directory, or an archive.
-	 * This method prepares the installation by providing the extension in a
-	 * temporary directory ready for install.
-	 *
-	 * @param   InputInterface  $input  An InputInterface instance
-	 * @param   OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  string  The location of the prepared extension
-	 */
-	protected function handleExtension(InputInterface $input, OutputInterface $output)
-	{
-		$source = $input->getArgument('extension');
+        return $tmpPath;
+    }
 
-		if (strpos($source, '://'))
-		{
-			$tmpPath = $this->handleDownload($output, $source);
-		}
-		elseif (is_dir($source))
-		{
-			$tmpPath = $this->handleDirectory($output, $source);
-		}
-		else
-		{
-			$tmpPath = $this->handleArchive($output, $source);
-		}
+    /**
+     * Get information about the installed extension
+     *
+     * @param   \JInstaller $installer
+     *
+     * @return  array  A message array suitable for OutputInterface::write[ln]
+     */
+    private function getExtensionInfo($installer)
+    {
+        $manifest = $installer->getManifest();
+        $data = $this->joomla->getExtensionInfo($manifest);
 
-		return $tmpPath;
-	}
+        $message = array(
+            'Installed '
+            . $data['type']
+            . ' <info>'
+            . $data['name']
+            . '</info> version <info>'
+            . $data['version']
+            . '</info>',
+            '',
+            wordwrap($data['description'], 60),
+            ''
+        );
 
-	/**
-	 * Get information about the installed extension
-	 *
-	 * @param   \JInstaller $installer
-	 *
-	 * @return  array  A message array suitable for OutputInterface::write[ln]
-	 */
-	private function getExtensionInfo($installer)
-	{
-		$manifest = $installer->getManifest();
-		$data     = $this->joomla->getExtensionInfo($manifest);
+        return $message;
+    }
 
-		$message = array(
-			'Installed ' . $data['type'] . ' <info>' . $data['name'] . '</info> version <info>' . $data['version'] . '</info>',
-			'',
-			wordwrap($data['description'], 60),
-			''
-		);
+    /**
+     * Prepare the installation for an extension specified by a URL
+     *
+     * @param   OutputInterface $output An OutputInterface instance
+     * @param   string $source The extension source
+     *
+     * @return  string  The location of the prepared extension
+     */
+    private function handleDownload(OutputInterface $output, $source)
+    {
+        $this->writeln($output, "Downloading $source", OutputInterface::VERBOSITY_VERBOSE);
 
-		return $message;
-	}
+        return $this->unpack(\JInstallerHelper::downloadPackage($source));
+    }
 
-	/**
-	 * Prepare the installation for an extension specified by a URL
-	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
-	 *
-	 * @return  string  The location of the prepared extension
-	 */
-	private function handleDownload(OutputInterface $output, $source)
-	{
-		$this->writeln($output, "Downloading $source", OutputInterface::VERBOSITY_VERBOSE);
+    /**
+     * Prepare the installation for an extension specified by a directory
+     *
+     * @param   OutputInterface $output An OutputInterface instance
+     * @param   string $source The extension source
+     *
+     * @return  string  The location of the prepared extension
+     */
+    private function handleDirectory(OutputInterface $output, $source)
+    {
+        $tmpPath = $this->joomla->getCfg('tmp_path') . '/' . uniqid('install_');
+        $this->writeln($output, "Copying $source", OutputInterface::VERBOSITY_VERBOSE);
 
-		return $this->unpack(\JInstallerHelper::downloadPackage($source));
-	}
+        mkdir($tmpPath);
+        copy($source, $tmpPath);
 
-	/**
-	 * Prepare the installation for an extension specified by a directory
-	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
-	 *
-	 * @return  string  The location of the prepared extension
-	 */
-	private function handleDirectory(OutputInterface $output, $source)
-	{
-		$tmpDir  = $this->joomla->getCfg('tmp_path');
-		$tmpPath = $tmpDir . '/' . uniqid('install_');
-		$this->writeln($output, "Copying $source", OutputInterface::VERBOSITY_VERBOSE);
+        return $tmpPath;
+    }
 
-		mkdir($tmpPath);
-		copy($source, $tmpPath);
+    /**
+     * Prepare the installation for an extension in an archive
+     *
+     * @param   OutputInterface $output An OutputInterface instance
+     * @param   string $source The extension source
+     *
+     * @return  string  The location of the prepared extension
+     */
+    private function handleArchive(OutputInterface $output, $source)
+    {
+        $tmpPath = $this->joomla->getCfg('tmp_path') . '/' . basename($source);
+        $this->writeln($output, "Extracting $source", OutputInterface::VERBOSITY_VERBOSE);
 
-		return $tmpPath;
-	}
+        copy($source, $tmpPath);
 
-	/**
-	 * Prepare the installation for an extension in an archive
-	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
-	 *
-	 * @return  string  The location of the prepared extension
-	 */
-	private function handleArchive(OutputInterface $output, $source)
-	{
-		$tmpDir  = $this->joomla->getCfg('tmp_path');
-		$tmpPath = $tmpDir . '/' . basename($source);
-		$this->writeln($output, "Extracting $source", OutputInterface::VERBOSITY_VERBOSE);
+        return $this->unpack($tmpPath);
+    }
 
-		copy($source, $tmpPath);
+    /**
+     * Unpack an extension archive
+     *
+     * @param   string $tmpPath The location of the archive
+     *
+     * @return  string  The location of the unpacked extension
+     */
+    private function unpack($tmpPath)
+    {
+        $result = \JInstallerHelper::unpack($tmpPath);
 
-		return $this->unpack($tmpPath);
-	}
-
-	/**
-	 * Unpack an extension archive
-	 *
-	 * @param   string $tmpPath The location of the archive
-	 *
-	 * @return  string  The location of the unpacked extension
-	 */
-	private function unpack($tmpPath)
-	{
-		$result  = \JInstallerHelper::unpack($tmpPath);
-		$tmpPath = $result['extractdir'];
-
-		return $tmpPath;
-	}
+        return $result['extractdir'];
+    }
 }

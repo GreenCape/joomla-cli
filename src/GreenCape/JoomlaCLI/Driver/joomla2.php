@@ -34,13 +34,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -48,72 +48,74 @@ namespace GreenCape\JoomlaCLI;
 /**
  * Version specific methods
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 1.0.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 1.0.0
  */
 class Joomla2Driver extends JoomlaDriver
 {
-	/**
-	 * Setup the environment
-	 *
-	 * @param   string  $basePath     The root of the Joomla! application
-	 * @param   string  $application  The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 */
-	public function setupEnvironment($basePath, $application = 'site')
-	{
-		define('DS', DIRECTORY_SEPARATOR);
+    /**
+     * Setup the environment
+     *
+     * @param   string $basePath The root of the Joomla! application
+     * @param   string $application The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     */
+    public function setupEnvironment($basePath, $application = 'site')
+    {
+        define('DS', DIRECTORY_SEPARATOR);
 
-		parent::setupEnvironment($basePath, $application);
+        parent::setupEnvironment($basePath, $application);
 
-		jimport('joomla.application.component.helper');
-	}
+        jimport('joomla.application.component.helper');
+    }
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param   string  $key    The key
-	 * @param   mixed   $value  The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return \JFactory::getConfig()->set($key, $value);
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param   string $key The key
+     * @param   mixed $value The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return \JFactory::getConfig()
+            ->set($key, $value);
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param   string  $key  The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return \JFactory::getConfig()->get($key);
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param   string $key The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return \JFactory::getConfig()
+            ->get($key);
+    }
 
-	/**
-	 * @param $manifest
-	 *
-	 * @return array
-	 */
-	public function getExtensionInfo($manifest)
-	{
-		$data                = array();
-		$data['type']        = (string) $manifest['type'];
-		$data['extension']   = (string) $manifest->name;
-		$data['name']        = \JText::_($manifest->name);
-		$data['version']     = (string) $manifest->version;
-		$data['description'] = \JText::_($manifest->description);
+    /**
+     * @param $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest)
+    {
+        $data = array();
+        $data['type'] = (string)$manifest['type'];
+        $data['extension'] = (string)$manifest->name;
+        $data['name'] = \JText::_($manifest->name);
+        $data['version'] = (string)$manifest->version;
+        $data['description'] = \JText::_($manifest->description);
 
-		return $data;
-	}
+        return $data;
+    }
 }

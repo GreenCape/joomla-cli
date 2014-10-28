@@ -34,13 +34,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -54,77 +54,67 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The version command reports the version of a Joomla! installation.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2014 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
- * @link        http://www.greencape.com/
- * @since       File available since Release 1.0.0
+ * @license         http://opensource.org/licenses/GPL-2.0 GNU General Public License, version 2.0 (GPLv2)
+ * @link            http://www.greencape.com/
+ * @since           File available since Release 1.0.0
  */
 class VersionCommand extends Command
 {
-	/**
-	 * Configure the options for the version command
-	 *
-	 * @return  void
-	 */
-	protected function configure()
-	{
-		$this
-			->setName('version')
+    /**
+     * Configure the options for the version command
+     *
+     * @return  void
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('version')
+            ->setDescription('Show the Joomla! version')
+            ->addOption(
+                'long',
+                'l',
+                InputOption::VALUE_NONE,
+                'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
+            )
+            ->addOption(
+                'short',
+                's',
+                InputOption::VALUE_NONE,
+                'The short version info, eg. x.y.z'
+            )
+            ->addOption(
+                'release',
+                'r',
+                InputOption::VALUE_NONE,
+                'The release info, eg. x.y'
+            );
+    }
 
-			->setDescription('Show the Joomla! version')
+    /**
+     * Execute the version command
+     *
+     * @param   InputInterface $input An InputInterface instance
+     * @param   OutputInterface $output An OutputInterface instance
+     *
+     * @return  void
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->setupEnvironment('site', $input, $output);
 
-			->addOption(
-				'long',
-				'l',
-				InputOption::VALUE_NONE,
-				'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
-			)
+        $version = new \JVersion;
 
-			->addOption(
-				'short',
-				's',
-				InputOption::VALUE_NONE,
-				'The short version info, eg. x.y.z'
-			)
-
-			->addOption(
-				'release',
-				'r',
-				InputOption::VALUE_NONE,
-				'The release info, eg. x.y'
-			)
-		;
-	}
-
-	/**
-	 * Execute the version command
-	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 *
-	 * @return  void
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$this->setupEnvironment('site', $input, $output);
-
-		$version = new \JVersion;
-
-		if ($input->getOption('short'))
-		{
-			$result = $version->getShortVersion();
-		}
-		elseif ($input->getOption('release'))
-		{
-			$result = $version->RELEASE;
-		}
-		else
-		{
-			$result = $version->getLongVersion();
-		}
-		$output->writeln($result);
-	}
+        if ($input->getOption('short')) {
+            $result = $version->getShortVersion();
+        } elseif ($input->getOption('release')) {
+            $result = $version->RELEASE;
+        } else {
+            $result = $version->getLongVersion();
+        }
+        $output->writeln($result);
+    }
 }

@@ -46,7 +46,7 @@
 namespace GreenCape\JoomlaCLI;
 
 /**
- * The driver factory instantiates the proper driver for the addressed Joomla! version.
+ * Version specific methods
  *
  * @package         GreenCape\JoomlaCLI
  * @subpackage      Driver
@@ -56,59 +56,93 @@ namespace GreenCape\JoomlaCLI;
  * @link            http://www.greencape.com/
  * @since           File available since Release 1.0.0
  */
-class DriverFactory
+class Joomla15Driver extends JoomlaDriver
 {
     /**
-     * Create a version specific driver to Joomla
+     * Setup the environment
      *
-     * @param   string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
+     * @param   string $basePath The root of the Joomla! application
+     * @param   string $application The application, eg., 'site' or 'administration'
      *
-     * @return  JoomlaDriver
-     *
-     * @throws  \RuntimeException
+     * @return  void
      */
-    public function create($basePath)
+    public function setupEnvironment($basePath, $application = 'site')
     {
-        $parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
-        while (!empty($parts)) {
-            $version = implode('', $parts);
-            $classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
-            if (class_exists($classname)) {
-                return new $classname;
-            }
-            array_pop($parts);
+        if ($application != 'site') {
+            $basePath .= '/' . $application;
         }
-        throw new \RuntimeException('No driver found');
+
+        $server = array(
+            'HTTP_HOST' => 'undefined',
+            'HTTP_USER_AGENT' => 'undefined',
+            'REQUEST_METHOD' => 'GET',
+        );
+        $_SERVER = array_merge($_SERVER, $server);
+
+        define('JPATH_BASE', $basePath);
+        define('DS', DIRECTORY_SEPARATOR);
+
+        require_once JPATH_BASE . '/includes/defines.php';
+        require_once JPATH_LIBRARIES . '/loader.php';
+
+        spl_autoload_register('__autoload');
+
+        require_once JPATH_BASE . '/includes/framework.php';
+
+        if ($application == 'administrator') {
+            require_once JPATH_BASE . '/includes/helper.php';
+            require_once JPATH_BASE . '/includes/toolbar.php';
+        }
+
+        jimport('joomla.installer.installer');
+        jimport('joomla.installer.helper');
+
+        $mainframe = \JFactory::getApplication($application);
+        $mainframe->initialise();
     }
 
     /**
-     * Load the Joomla version
+     * Set a configuration value.
      *
-     * @param   string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
+     * @param   string $key The key
+     * @param   mixed $value The value
      *
-     * @return  \JVersion
-     *
-     * @throws  \RuntimeException
+     * @return  mixed  The value
      */
-    private function loadVersion($basePath)
+    public function setCfg($key, $value)
     {
-        static $locations = array(
-            '/libraries/cms/version/version.php',
-            '/libraries/joomla/version.php',
-        );
+        return \JFactory::getConfig()
+            ->setValue('config.' . $key, $value);
+    }
 
-        define('_JEXEC', 1);
+    /**
+     * Gets a configuration value.
+     *
+     * @param   string $key The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return \JFactory::getConfig()
+            ->getValue('config.' . $key);
+    }
 
-        foreach ($locations as $location) {
-            if (file_exists($basePath . $location)) {
-                $code = file_get_contents($basePath . $location);
-                $code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
-                eval('?>' . $code);
-                $classes = get_declared_classes();
+    /**
+     * @param $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest)
+    {
+        $data = array();
+        $manifest = $manifest->document;
+        $data['type'] = (string)$manifest->attributes('type');
+        $data['extension'] = (string)$manifest->name[0]->data();
+        $data['name'] = \JText::_($manifest->name[0]->data());
+        $data['version'] = (string)$manifest->version[0]->data();
+        $data['description'] = \JText::_($manifest->description[0]->data());
 
-                return new \JVersion;
-            }
-        }
-        throw new \RuntimeException('Unable to locate version information');
+        return $data;
     }
 }
