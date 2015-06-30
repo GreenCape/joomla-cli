@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @author      Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -31,76 +31,69 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-
 /**
- * The main Joomla CLI application.
+ * The driver factory instantiates the proper driver for the addressed Joomla! version.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @since       Class available since Release 1.0.0
  */
-class Application extends BaseApplication
+class DriverFactory
 {
 	/**
-	 * Constructor
+	 * Create a version specific driver to Joomla
+	 *
+	 * @param   string  $basePath  The Joomla base path (same as JPATH_BASE within Joomla)
+	 *
+	 * @return  JoomlaDriver
+	 *
+	 * @throws  \RuntimeException
 	 */
-	public function __construct()
+	public function create($basePath)
 	{
-		parent::__construct('Joomla CLI', '0.1.0');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Commands');
-	}
-
-	/**
-	 * Runs the current application.
-	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  \Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null)
-	{
-		try
+		$parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
+		while (!empty($parts))
 		{
-			parent::run($input, $output);
-		}
-		catch (\Exception $e)
-		{
-			if (null === $output) {
-				$output = new ConsoleOutput();
+			$version = implode('_', $parts);
+			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
+			if (class_exists($classname))
+			{
+				return new $classname;
 			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
+			array_pop($parts);
 		}
+		throw new \RuntimeException('No driver found');
 	}
 
 	/**
-	 * Dynamically add all commands from a path
+	 * Load the Joomla version
 	 *
-	 * @param   string  $path  The directory with the plugins
+	 * @param   string $basePath  The Joomla base path (same as JPATH_BASE within Joomla)
 	 *
-	 * @return  void
+	 * @return  \JVersion
+	 *
+	 * @throws  \RuntimeException
 	 */
-	private function addPlugins($path)
+	private function loadVersion($basePath)
 	{
-		foreach (glob($path . '/*.php') as $filename)
+		static $locations = array(
+			'/libraries/cms/version/version.php',
+			'/libraries/joomla/version.php',
+		);
+
+		define('_JEXEC', 1);
+
+		foreach ($locations as $location)
 		{
-			include_once $filename;
-			$commandClass = __NAMESPACE__ . '\\' . ucfirst(basename($filename, '.php')) . 'Command';
-			$command = new $commandClass;
-			$this->add($command);
+			if (file_exists($basePath . $location))
+			{
+				$code = file_get_contents($basePath . $location);
+				$code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
+				eval('?>' . $code);
+				$classes = get_declared_classes();
+				return new \JVersion;
+			}
 		}
+		throw new \RuntimeException('Unable to locate version information');
 	}
 }

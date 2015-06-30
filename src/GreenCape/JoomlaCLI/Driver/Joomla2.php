@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @author      Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -31,76 +31,71 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-
 /**
- * The main Joomla CLI application.
+ * Version specific methods
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @since       Class available since Release 1.0.0
  */
-class Application extends BaseApplication
+class Joomla2Driver extends JoomlaDriver
 {
 	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		parent::__construct('Joomla CLI', '0.1.0');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Commands');
-	}
-
-	/**
-	 * Runs the current application.
+	 * Setup the environment
 	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  \Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null)
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (\Exception $e)
-		{
-			if (null === $output) {
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
-		}
-	}
-
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param   string  $path  The directory with the plugins
+	 * @param   string  $basePath     The root of the Joomla! application
+	 * @param   string  $application  The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
 	 */
-	private function addPlugins($path)
+	public function setupEnvironment($basePath, $application = 'site')
 	{
-		foreach (glob($path . '/*.php') as $filename)
-		{
-			include_once $filename;
-			$commandClass = __NAMESPACE__ . '\\' . ucfirst(basename($filename, '.php')) . 'Command';
-			$command = new $commandClass;
-			$this->add($command);
-		}
+		define('DS', DIRECTORY_SEPARATOR);
+
+		parent::setupEnvironment($basePath, $application);
+
+		jimport('joomla.application.component.helper');
+	}
+
+	/**
+	 * Set a configuration value.
+	 *
+	 * @param   string  $key    The key
+	 * @param   mixed   $value  The value
+	 *
+	 * @return  mixed  The value
+	 */
+	public function setCfg($key, $value)
+	{
+		return \JFactory::getConfig()->set($key, $value);
+	}
+
+	/**
+	 * Gets a configuration value.
+	 *
+	 * @param   string  $key  The name of the value to get
+	 *
+	 * @return  mixed  The value
+	 */
+	public function getCfg($key)
+	{
+		return \JFactory::getConfig()->get($key);
+	}
+
+	/**
+	 * @param $manifest
+	 *
+	 * @return array
+	 */
+	public function getExtensionInfo($manifest)
+	{
+		$data                = array();
+		$data['type']        = (string) $manifest['type'];
+		$data['extension']   = (string) $manifest->name;
+		$data['name']        = \JText::_($manifest->name);
+		$data['version']     = (string) $manifest->version;
+		$data['description'] = \JText::_($manifest->description);
+
+		return $data;
 	}
 }

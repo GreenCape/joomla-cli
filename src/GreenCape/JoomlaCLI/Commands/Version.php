@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Command
  * @author      Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -31,76 +31,82 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command as BaseCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * The main Joomla CLI application.
+ * The version command reports the version of a Joomla! installation.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Command
  * @since       Class available since Release 1.0.0
  */
-class Application extends BaseApplication
+class VersionCommand extends Command
 {
 	/**
-	 * Constructor
+	 * Configure the options for the version command
+	 *
+	 * @return  void
 	 */
-	public function __construct()
+	protected function configure()
 	{
-		parent::__construct('Joomla CLI', '0.1.0');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Commands');
+		$this
+			->setName('version')
+
+			->setDescription('Show the Joomla! version')
+
+			->addOption(
+				'long',
+				'l',
+				InputOption::VALUE_NONE,
+				'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
+			)
+
+			->addOption(
+				'short',
+				's',
+				InputOption::VALUE_NONE,
+				'The short version info, eg. x.y.z'
+			)
+
+			->addOption(
+				'release',
+				'r',
+				InputOption::VALUE_NONE,
+				'The release info, eg. x.y'
+			)
+		;
 	}
 
 	/**
-	 * Runs the current application.
+	 * Execute the version command
 	 *
 	 * @param   InputInterface   $input   An InputInterface instance
 	 * @param   OutputInterface  $output  An OutputInterface instance
 	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  \Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null)
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (\Exception $e)
-		{
-			if (null === $output) {
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
-		}
-	}
-
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param   string  $path  The directory with the plugins
-	 *
 	 * @return  void
 	 */
-	private function addPlugins($path)
+	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		foreach (glob($path . '/*.php') as $filename)
+		$this->setupEnvironment('site', $input, $output);
+
+		$version = new \JVersion;
+
+		if ($input->getOption('short'))
 		{
-			include_once $filename;
-			$commandClass = __NAMESPACE__ . '\\' . ucfirst(basename($filename, '.php')) . 'Command';
-			$command = new $commandClass;
-			$this->add($command);
+			$result = $version->getShortVersion();
 		}
+		elseif ($input->getOption('release'))
+		{
+			$result = $version->RELEASE;
+		}
+		else
+		{
+			$result = $version->getLongVersion();
+		}
+		$output->writeln($result);
 	}
 }

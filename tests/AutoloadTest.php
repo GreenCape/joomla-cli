@@ -26,23 +26,19 @@
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @since       File available since Release 1.1.0
  */
 
 namespace GreenCapeTest;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class AutoloadTest extends \PHPUnit_Framework_TestCase
 {
-	/** @var  \GreenCape\JoomlaCLI\Application */
-	private $console;
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp()
 	{
-		$this->console = new \GreenCape\JoomlaCLI\Application();
 	}
 
 	/**
@@ -53,20 +49,26 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 	}
 
-	public function commandNameProvider()
+	public function testVendorClassesAreFoundByAutoloader()
 	{
-		return array(
-			'install' => array('install'),
-			'version' => array('version'),
-		);
+		try
+		{
+			$this->assertInstanceOf('phpDocumentor\\Reflection\\DocBlock', new \phpDocumentor\Reflection\DocBlock(''));
+		} catch (\Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
 	}
 
-	/**
-	 * @dataProvider commandNameProvider
-	 * @param string $command
-	 */
-	public function testCommandIsPresent($command)
+	public function testSourceClassesAreFoundByAutoloader()
 	{
-		$this->assertTrue($this->console->has($command));
+		try
+		{
+			$this->assertInstanceOf('GreenCape\\JoomlaCLI\\Application', new \GreenCape\JoomlaCLI\Application());
+			$this->assertInstanceOf('GreenCape\\JoomlaCLI\\DriverFactory', new \GreenCape\JoomlaCLI\DriverFactory());
+		} catch (\Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
 	}
 }

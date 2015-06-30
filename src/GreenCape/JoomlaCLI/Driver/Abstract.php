@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @author      Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -31,76 +31,86 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-
 /**
- * The main Joomla CLI application.
+ * The abstract version driver provides common methods for most Joomla! versions.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @since       Class available since Release 1.0.0
  */
-class Application extends BaseApplication
+abstract class JoomlaDriver
 {
 	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		parent::__construct('Joomla CLI', '0.1.0');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Commands');
-	}
-
-	/**
-	 * Runs the current application.
+	 * Setup the environment
 	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  \Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null)
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (\Exception $e)
-		{
-			if (null === $output) {
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
-		}
-	}
-
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param   string  $path  The directory with the plugins
+	 * @param   string  $basePath     The root of the Joomla! application
+	 * @param   string  $application  The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
 	 */
-	private function addPlugins($path)
+	public function setupEnvironment($basePath, $application = 'site')
 	{
-		foreach (glob($path . '/*.php') as $filename)
+		if ($application != 'site')
 		{
-			include_once $filename;
-			$commandClass = __NAMESPACE__ . '\\' . ucfirst(basename($filename, '.php')) . 'Command';
-			$command = new $commandClass;
-			$this->add($command);
+			$basePath .= '/' . $application;
 		}
+
+		$server = array(
+			'HTTP_HOST'       => 'undefined',
+			'HTTP_USER_AGENT' => 'undefined',
+			'REQUEST_METHOD'  => 'GET',
+		);
+		$_SERVER = array_merge($_SERVER, $server);
+
+		if (file_exists($basePath . '/defines.php'))
+		{
+			include_once $basePath . '/defines.php';
+		}
+
+		if (!defined('_JDEFINES'))
+		{
+			define('JPATH_BASE', $basePath);
+			require_once JPATH_BASE . '/includes/defines.php';
+		}
+
+		require_once JPATH_BASE . '/includes/framework.php';
+
+		if ($application == 'administrator')
+		{
+			require_once JPATH_BASE.'/includes/helper.php';
+			require_once JPATH_BASE.'/includes/toolbar.php';
+
+			// JUri uses $_SERVER['HTTP_HOST'] without check
+			$_SERVER['HTTP_HOST'] = 'CLI';
+		}
+
+		$app = \JFactory::getApplication($application);
+		$app->initialise();
 	}
+
+	/**
+	 * Set a configuration value.
+	 *
+	 * @param   string  $key    The key
+	 * @param   mixed   $value  The value
+	 *
+	 * @return  mixed  The value
+	 */
+	abstract public function setCfg($key, $value);
+
+	/**
+	 * Gets a configuration value.
+	 *
+	 * @param   string  $key  The name of the value to get
+	 *
+	 * @return  mixed  The value
+	 */
+	abstract public function getCfg($key);
+
+	/**
+	 * @param $manifest
+	 *
+	 * @return array
+	 */
+	abstract public function getExtensionInfo($manifest);
 }
