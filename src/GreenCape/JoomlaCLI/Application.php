@@ -97,8 +97,7 @@ class Application extends BaseApplication
 	{
 		foreach (glob($path . '/*.php') as $filename)
 		{
-			include_once $filename;
-			$commandClass = __NAMESPACE__ . '\\' . ucfirst(basename($filename, '.php')) . 'Command';
+			$commandClass = __NAMESPACE__ . '\\' . basename($filename, '.php') . 'Command';
 			$command = new $commandClass;
 			$this->add($command);
 		}
