@@ -53,13 +53,14 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 	}
 
-	public function commandNameProvider()
-	{
-		return array(
-			'install' => array('install'),
-			'version' => array('version'),
-		);
-	}
+    public function commandNameProvider()
+    {
+        return array(
+            'install'   => array('install'),
+            'version'   => array('version'),
+            'overrides' => array('overrides'),
+        );
+    }
 
 	/**
 	 * @dataProvider commandNameProvider

@@ -20,13 +20,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -43,8 +43,8 @@ class Joomla1_5Driver extends JoomlaDriver
 	/**
 	 * Setup the environment
 	 *
-	 * @param   string  $basePath     The root of the Joomla! application
-	 * @param   string  $application  The application, eg., 'site' or 'administration'
+	 * @param   string $basePath    The root of the Joomla! application
+	 * @param   string $application The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
 	 */
@@ -55,7 +55,7 @@ class Joomla1_5Driver extends JoomlaDriver
 			$basePath .= '/' . $application;
 		}
 
-		$server = array(
+		$server  = array(
 			'HTTP_HOST'       => 'undefined',
 			'HTTP_USER_AGENT' => 'undefined',
 			'REQUEST_METHOD'  => 'GET',
@@ -74,8 +74,8 @@ class Joomla1_5Driver extends JoomlaDriver
 
 		if ($application == 'administrator')
 		{
-			require_once JPATH_BASE.'/includes/helper.php';
-			require_once JPATH_BASE.'/includes/toolbar.php';
+			require_once JPATH_BASE . '/includes/helper.php';
+			require_once JPATH_BASE . '/includes/toolbar.php';
 
 			// JUri uses $_SERVER['HTTP_HOST'] without check
 			$_SERVER['HTTP_HOST'] = 'CLI';
@@ -91,8 +91,8 @@ class Joomla1_5Driver extends JoomlaDriver
 	/**
 	 * Set a configuration value.
 	 *
-	 * @param   string  $key    The key
-	 * @param   mixed   $value  The value
+	 * @param   string $key   The key
+	 * @param   mixed  $value The value
 	 *
 	 * @return  mixed  The value
 	 */
@@ -104,7 +104,7 @@ class Joomla1_5Driver extends JoomlaDriver
 	/**
 	 * Gets a configuration value.
 	 *
-	 * @param   string  $key  The name of the value to get
+	 * @param   string $key The name of the value to get
 	 *
 	 * @return  mixed  The value
 	 */
@@ -122,10 +122,10 @@ class Joomla1_5Driver extends JoomlaDriver
 	{
 		$data                = array();
 		$manifest            = $manifest->document;
-		$data['type']        = (string) $manifest->attributes('type');
-		$data['extension']   = (string) $manifest->name[0]->data();
+		$data['type']        = (string)$manifest->attributes('type');
+		$data['extension']   = (string)$manifest->name[0]->data();
 		$data['name']        = \JText::_($manifest->name[0]->data());
-		$data['version']     = (string) $manifest->version[0]->data();
+		$data['version']     = (string)$manifest->version[0]->data();
 		$data['description'] = \JText::_($manifest->description[0]->data());
 
 		return $data;
