@@ -5,14 +5,21 @@
          syntaxCheck="false"
          bootstrap="../vendor/autoload.php"
          strict="true">
-  <testsuites>
-    <testsuite name="JoomlaCLI">
-      <directory suffix="Test.php">../tests</directory>
-    </testsuite>
-  </testsuites>
-  <filter>
-    <whitelist addUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">../src</directory>
-    </whitelist>
-  </filter>
+
+    <testsuites>
+        <testsuite name="JoomlaCLI">
+            <directory suffix="Test.php">../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="junit" target="../../build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

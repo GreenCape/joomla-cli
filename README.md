@@ -1,3 +1,6 @@
+![SensioLabsInsight](https://insight.sensiolabs.com/projects/c2895e80-cc5a-4f4c-906f-3efe53bd6ff4/mini.png)
+[![Code Climate](https://codeclimate.com/github/GreenCape/joomla-cli/badges/gpa.svg)](https://codeclimate.com/github/GreenCape/joomla-cli)
+[![Test Coverage](https://codeclimate.com/github/GreenCape/joomla-cli/badges/coverage.svg)](https://codeclimate.com/github/GreenCape/joomla-cli/coverage)
 [![Latest Stable Version](https://poser.pugx.org/greencape/joomla-cli/v/stable.png)](https://packagist.org/packages/greencape/joomla-cli)
 [![Build Status](https://api.travis-ci.org/GreenCape/joomla-cli.svg?branch=master)](https://travis-ci.org/greencape/joomla-cli)
 
@@ -6,10 +9,6 @@
 `joomla-cli` is a tool for managing Joomla! from the command line.
 
 ## Installation
-
-### PHP Archive (PHAR)
-
-[ToDo]
 
 ### Composer
 
