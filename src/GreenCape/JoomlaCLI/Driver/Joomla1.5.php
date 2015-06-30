@@ -38,7 +38,7 @@ namespace GreenCape\JoomlaCLI;
  * @subpackage  Driver
  * @since       Class available since Release 1.0.0
  */
-class Joomla1_5Driver extends JoomlaDriver
+class Joomla1Dot5Driver extends JoomlaDriver
 {
 	/**
 	 * Setup the environment

@@ -54,7 +54,7 @@ class DriverFactory
 		$parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
 		while (!empty($parts))
 		{
-			$version = implode('_', $parts);
+			$version = implode('Dot', $parts);
 			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
 			if (class_exists($classname))
 			{
