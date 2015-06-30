@@ -36,7 +36,7 @@ namespace GreenCape\JoomlaCLI;
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
- * @since       Class available since Release 1.0.0
+ * @since       Class available since Release 0.1.0
  */
 class DriverFactory
 {

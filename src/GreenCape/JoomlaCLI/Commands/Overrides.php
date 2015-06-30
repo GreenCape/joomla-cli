@@ -26,7 +26,7 @@
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link        http://greencape.github.io
- * @since       File available since Release 0.2.0
+ * @since       File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -43,7 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Command
- * @since       Class available since Release 0.2.0
+ * @since       Class available since Release 0.1.0
  * @see         http://docs.joomla.org/Understanding_Output_Overrides for version 1.5+
  * @see         http://docs.joomla.org/Layout_Overrides_in_Joomla for version 2.5+
  * @see         http://docs.joomla.org/J3.x:Sharing_layouts_across_views_or_extensions_with_JLayout for version 3+

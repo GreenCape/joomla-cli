@@ -40,7 +40,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Command
- * @since       Class available since Release 1.0.0
+ * @since       Class available since Release 0.1.0
  */
 class VersionCommand extends Command
 {

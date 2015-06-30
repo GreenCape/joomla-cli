@@ -36,7 +36,7 @@ namespace GreenCape\JoomlaCLI;
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
- * @since       Class available since Release 1.0.0
+ * @since       Class available since Release 0.1.0
  */
 class Joomla3Driver extends JoomlaDriver
 {
@@ -76,22 +76,5 @@ class Joomla3Driver extends JoomlaDriver
 	public function getCfg($key)
 	{
 		return \JFactory::getConfig()->get($key);
-	}
-
-	/**
-	 * @param $manifest
-	 *
-	 * @return array
-	 */
-	public function getExtensionInfo($manifest)
-	{
-		$data                = array();
-		$data['type']        = (string) $manifest['type'];
-		$data['extension']   = (string) $manifest->name;
-		$data['name']        = \JText::_($manifest->name);
-		$data['version']     = (string) $manifest->version;
-		$data['description'] = \JText::_($manifest->description);
-
-		return $data;
 	}
 }
