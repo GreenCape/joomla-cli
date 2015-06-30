@@ -58,7 +58,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         return array(
             'install'   => array('install'),
             'version'   => array('version'),
-            'overrides' => array('overrides'),
         );
     }
 
