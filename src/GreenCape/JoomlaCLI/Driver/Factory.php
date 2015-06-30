@@ -90,7 +90,7 @@ class DriverFactory
 				$code = file_get_contents($basePath . $location);
 				$code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
 				eval('?>' . $code);
-				$classes = get_declared_classes();
+
 				return new \JVersion;
 			}
 		}
