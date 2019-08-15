@@ -56,7 +56,7 @@ class InstallCommand extends Command
 	{
 		$this
 			->setName('install')
-			->setDescription('Install a Joomla! extension')
+			->setDescription('Installs a Joomla! extension')
 			->addArgument(
 				'extension',
 				InputArgument::REQUIRED,
@@ -81,7 +81,7 @@ class InstallCommand extends Command
 
 		$installer = JInstaller::getInstance();
 
-		if ($installer->install($this->handleExtension($input, $output)))
+		if (!$installer->install($this->handleExtension($input, $output)))
 		{
 			$output->writeln($this->getExtensionInfo($installer));
 
@@ -156,7 +156,7 @@ class InstallCommand extends Command
 	 */
 	private function handleDownload(OutputInterface $output, $source): string
 	{
-		$this->writeln($output, "Downloading $source", OutputInterface::VERBOSITY_VERBOSE);
+		$output->writeln("Downloading $source", OutputInterface::VERBOSITY_VERBOSE);
 
 		return $this->unpack(JInstallerHelper::downloadPackage($source));
 	}
@@ -173,7 +173,7 @@ class InstallCommand extends Command
 	{
 		$tmpDir  = $this->joomla->getCfg('tmp_path');
 		$tmpPath = $tmpDir . '/' . uniqid('install_', true);
-		$this->writeln($output, "Copying $source", OutputInterface::VERBOSITY_VERBOSE);
+		$output->writeln("Copying $source", OutputInterface::VERBOSITY_VERBOSE);
 
 		if (!mkdir($tmpPath) && !is_dir($tmpPath))
 		{
@@ -196,7 +196,7 @@ class InstallCommand extends Command
 	{
 		$tmpDir  = $this->joomla->getCfg('tmp_path');
 		$tmpPath = $tmpDir . '/' . basename($source);
-		$this->writeln($output, "Extracting $source", OutputInterface::VERBOSITY_VERBOSE);
+		$output->writeln("Extracting $source", OutputInterface::VERBOSITY_VERBOSE);
 
 		copy($source, $tmpPath);
 

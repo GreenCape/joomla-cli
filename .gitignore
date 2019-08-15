@@ -8,3 +8,4 @@ vendor
 debug.php
 gource.mp4
 data/*
+.cache

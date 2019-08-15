@@ -31,34 +31,35 @@
 
 namespace GreenCapeTest;
 
-use GreenCape\JoomlaCLI\Application;
+use Exception;
+use GreenCape\JoomlaCLI\SetupCommand;
 use PHPUnit_Framework_TestCase;
+use RuntimeException;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 
-class ApplicationTest extends PHPUnit_Framework_TestCase
+class SetupTest extends PHPUnit_Framework_TestCase
 {
-	/** @var  Application */
-	private $console;
+	private $cacheDir = 'tests/tmp';
 
-	/**
-	 * @return array
-	 */
-	public function commandNameProvider(): array
+	public function testSetupCreatesAVersionCacheAtTheProvidedLocation(): void
 	{
-		return array(
-			'install'  => array('install'),
-			'version'  => array('version'),
-			'override' => array('override'),
-		);
-	}
+		$command = new SetupCommand();
+		$input   = new StringInput("--file={$this->cacheDir}/versions.json");
+		$output  = new NullOutput();
 
-	/**
-	 * @dataProvider commandNameProvider
-	 *
-	 * @param string $command
-	 */
-	public function testCommandsArePresent($command): void
-	{
-		$this->assertTrue($this->console->has($command));
+		try
+		{
+			$command->run($input, $output);
+
+			$this->assertFileExists($this->cacheDir . '/versions.json');
+
+			unlink($this->cacheDir . '/versions.json');
+		}
+		catch (Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
 	}
 
 	/**
@@ -67,7 +68,10 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->console = new Application();
+		if (!@mkdir($this->cacheDir, 0777, true) && !is_dir($this->cacheDir))
+		{
+			throw new RuntimeException(sprintf('Directory "%s" could not be created', $this->cacheDir));
+		}
 	}
 
 	/**
@@ -76,5 +80,9 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
+		if (!rmdir($this->cacheDir))
+		{
+			throw new RuntimeException(sprintf('Directory "%s" could not be removed', $this->cacheDir));
+		}
 	}
 }

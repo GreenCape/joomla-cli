@@ -59,8 +59,8 @@ class OverridesCommand extends Command
 	protected function configure(): void
 	{
 		$this
-			->setName('overrides')
-			->setDescription('Create template and layout overrides')
+			->setName('override')
+			->setDescription('Creates template and layout overrides')
 			->addOption(
 				'force',
 				'f',
@@ -113,7 +113,7 @@ class OverridesCommand extends Command
 				continue;
 			}
 			$componentDir = basename($component);
-			$this->writeln($output, $componentDir, OutputInterface::VERBOSITY_VERY_VERBOSE);
+			$output->writeln($componentDir, OutputInterface::VERBOSITY_VERY_VERBOSE);
 			$this->safeCopyViews($component . '/views/*', $templateDir . '/' . $componentDir, $force, $output);
 		}
 	}
@@ -173,7 +173,7 @@ class OverridesCommand extends Command
 	private function prepareTemplateDirectory($templatePath, OutputInterface $output): string
 	{
 		$templateDir = $templatePath . '/html';
-		$this->writeln($output, "Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
+		$output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
 		$this->safeMakeDir($templateDir, $output);
 
@@ -194,7 +194,7 @@ class OverridesCommand extends Command
 		$target   = $toDir . '/' . $filename;
 		if ($force || !file_exists($target))
 		{
-			$this->writeln($output, "Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
+			$output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
 			copy($source, $target);
 		}
 	}
@@ -221,7 +221,7 @@ class OverridesCommand extends Command
 	{
 		if (!file_exists($dir))
 		{
-			$this->writeln($output, "Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
+			$output->writeln("Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
 
 			if (!mkdir($dir, 0775, true) && !is_dir($dir))
 			{
@@ -247,7 +247,7 @@ class OverridesCommand extends Command
 				continue;
 			}
 			$dir = basename($container);
-			$this->writeln($output, $dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
+			$output->writeln($dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
 			$overlayDir = $toDir . '/' . $dir;
 			$this->safeMakeDir($overlayDir, $output);
 			$this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);

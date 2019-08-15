@@ -51,7 +51,7 @@ class Application extends BaseApplication
 	 */
 	public function __construct()
 	{
-		parent::__construct('Joomla CLI', '0.1.0');
+		parent::__construct('Joomla CLI', '0.1.1');
 		$this->setCatchExceptions(false);
 		$this->addPlugins(__DIR__ . '/Commands');
 	}

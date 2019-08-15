@@ -105,26 +105,8 @@ abstract class Command extends BaseCommand
 	protected function handleBasePath(InputInterface $input, OutputInterface $output): string
 	{
 		$path = realpath($input->getOption('basepath'));
-		$this->writeln($output, 'Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
+		$output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
 		return $path;
-	}
-
-	/**
-	 * Proxy for OutputInterface::writeln()
-	 *
-	 * @param OutputInterface $output An OutputInterface instance
-	 * @param string|array    $message
-	 * @param int             $level  One of OutputInterface::VERBOSITY_*
-	 * @param int             $mode   One of OutputInterface::OUTPUT_*
-	 *
-	 * @return  void
-	 */
-	protected function writeln(OutputInterface $output, $message, $level = OutputInterface::VERBOSITY_NORMAL, $mode = OutputInterface::OUTPUT_NORMAL): void
-	{
-		if ($output->getVerbosity() >= $level)
-		{
-			$output->writeln($message, $mode);
-		}
 	}
 }

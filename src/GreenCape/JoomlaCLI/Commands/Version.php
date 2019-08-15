@@ -54,7 +54,7 @@ class VersionCommand extends Command
 	{
 		$this
 			->setName('version')
-			->setDescription('Show the Joomla! version')
+			->setDescription('Shows the Joomla! version')
 			->addOption(
 				'long',
 				'l',
