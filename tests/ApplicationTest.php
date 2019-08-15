@@ -20,13 +20,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Unittests
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Unittests
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCapeTest;
@@ -38,6 +38,28 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 {
 	/** @var  Application */
 	private $console;
+
+	/**
+	 * @return array
+	 */
+	public function commandNameProvider(): array
+	{
+		return array(
+			'install'  => array('install'),
+			'version'  => array('version'),
+			'override' => array('override'),
+		);
+	}
+
+	/**
+	 * @dataProvider commandNameProvider
+	 *
+	 * @param string $command
+	 */
+	public function testCommandIsPresent($command): void
+	{
+		$this->assertTrue($this->console->has($command));
+	}
 
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
@@ -54,25 +76,5 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-	}
-
-	/**
-	 * @return array
-	 */
-	public function commandNameProvider(): array
-	{
-        return array(
-            'install'   => array('install'),
-            'version'   => array('version'),
-        );
-    }
-
-	/**
-	 * @dataProvider commandNameProvider
-	 * @param string $command
-	 */
-	public function testCommandIsPresent($command): void
-	{
-		$this->assertTrue($this->console->has($command));
 	}
 }
