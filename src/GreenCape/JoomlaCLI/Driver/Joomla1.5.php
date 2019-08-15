@@ -1,10 +1,11 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
 /**
  * GreenCape Joomla Command Line Interface
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -23,13 +24,17 @@
  * @package         GreenCape\JoomlaCLI
  * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
  * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
+
+use Exception;
+use JFactory;
+use JText;
 
 /**
  * Version specific methods
@@ -43,14 +48,15 @@ class Joomla1Dot5Driver extends JoomlaDriver
 	/**
 	 * Setup the environment
 	 *
-	 * @param   string $basePath    The root of the Joomla! application
-	 * @param   string $application The application, eg., 'site' or 'administration'
+	 * @param string $basePath    The root of the Joomla! application
+	 * @param string $application The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
+	 * @throws Exception
 	 */
-	public function setupEnvironment($basePath, $application = 'site')
+	public function setupEnvironment($basePath, $application = 'site'): void
 	{
-		if ($application != 'site')
+		if ($application !== 'site')
 		{
 			$basePath .= '/' . $application;
 		}
@@ -66,13 +72,14 @@ class Joomla1Dot5Driver extends JoomlaDriver
 		define('DS', DIRECTORY_SEPARATOR);
 
 		require_once JPATH_BASE . '/includes/defines.php';
+		/** @noinspection PhpUndefinedConstantInspection - defined in defines.php */
 		require_once JPATH_LIBRARIES . '/loader.php';
 
 		spl_autoload_register('__autoload');
 
 		require_once JPATH_BASE . '/includes/framework.php';
 
-		if ($application == 'administrator')
+		if ($application === 'administrator')
 		{
 			require_once JPATH_BASE . '/includes/helper.php';
 			require_once JPATH_BASE . '/includes/toolbar.php';
@@ -84,49 +91,50 @@ class Joomla1Dot5Driver extends JoomlaDriver
 		jimport('joomla.installer.installer');
 		jimport('joomla.installer.helper');
 
-		$mainframe = \JFactory::getApplication($application);
+		$mainframe = JFactory::getApplication($application);
 		$mainframe->initialise();
 	}
 
 	/**
 	 * Set a configuration value.
 	 *
-	 * @param   string $key   The key
-	 * @param   mixed  $value The value
+	 * @param string $key   The key
+	 * @param mixed  $value The value
 	 *
 	 * @return  mixed  The value
 	 */
 	public function setCfg($key, $value)
 	{
-		return \JFactory::getConfig()->setValue('config.' . $key, $value);
+		return JFactory::getConfig()->setValue('config.' . $key, $value);
 	}
 
 	/**
 	 * Gets a configuration value.
 	 *
-	 * @param   string $key The name of the value to get
+	 * @param string $key The name of the value to get
 	 *
 	 * @return  mixed  The value
 	 */
 	public function getCfg($key)
 	{
-		return \JFactory::getConfig()->getValue('config.' . $key);
+		return JFactory::getConfig()->getValue('config.' . $key);
 	}
 
 	/**
-	 * @param $manifest
+	 *
+	 * @param object $manifest
 	 *
 	 * @return array
 	 */
-	public function getExtensionInfo($manifest)
+	public function getExtensionInfo($manifest): array
 	{
 		$data                = array();
 		$manifest            = $manifest->document;
-		$data['type']        = (string)$manifest->attributes('type');
-		$data['extension']   = (string)$manifest->name[0]->data();
-		$data['name']        = \JText::_($manifest->name[0]->data());
-		$data['version']     = (string)$manifest->version[0]->data();
-		$data['description'] = \JText::_($manifest->description[0]->data());
+		$data['type']        = (string) $manifest->attributes('type');
+		$data['extension']   = (string) $manifest->name[0]->data();
+		$data['name']        = JText::_($manifest->name[0]->data());
+		$data['version']     = (string) $manifest->version[0]->data();
+		$data['description'] = JText::_($manifest->description[0]->data());
 
 		return $data;
 	}

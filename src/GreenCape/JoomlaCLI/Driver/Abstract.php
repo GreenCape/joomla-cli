@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,16 +20,19 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
+
+use JFactory;
+use JText;
 
 /**
  * The abstract version driver provides common methods for most Joomla! versions.
@@ -43,19 +46,19 @@ abstract class JoomlaDriver
 	/**
 	 * Setup the environment
 	 *
-	 * @param   string  $basePath     The root of the Joomla! application
-	 * @param   string  $application  The application, eg., 'site' or 'administration'
+	 * @param string $basePath    The root of the Joomla! application
+	 * @param string $application The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
 	 */
-	public function setupEnvironment($basePath, $application = 'site')
+	public function setupEnvironment($basePath, $application = 'site'): void
 	{
-		if ($application != 'site')
+		if ($application !== 'site')
 		{
 			$basePath .= '/' . $application;
 		}
 
-		$server = array(
+		$server  = array(
 			'HTTP_HOST'       => 'undefined',
 			'HTTP_USER_AGENT' => 'undefined',
 			'REQUEST_METHOD'  => 'GET',
@@ -75,24 +78,24 @@ abstract class JoomlaDriver
 
 		require_once JPATH_BASE . '/includes/framework.php';
 
-		if ($application == 'administrator')
+		if ($application === 'administrator')
 		{
-			require_once JPATH_BASE.'/includes/helper.php';
-			require_once JPATH_BASE.'/includes/toolbar.php';
+			require_once JPATH_BASE . '/includes/helper.php';
+			require_once JPATH_BASE . '/includes/toolbar.php';
 
 			// JUri uses $_SERVER['HTTP_HOST'] without check
 			$_SERVER['HTTP_HOST'] = 'CLI';
 		}
 
-		$app = \JFactory::getApplication($application);
+		$app = JFactory::getApplication($application);
 		$app->initialise();
 	}
 
 	/**
 	 * Set a configuration value.
 	 *
-	 * @param   string  $key    The key
-	 * @param   mixed   $value  The value
+	 * @param string $key   The key
+	 * @param mixed  $value The value
 	 *
 	 * @return  mixed  The value
 	 */
@@ -101,7 +104,7 @@ abstract class JoomlaDriver
 	/**
 	 * Gets a configuration value.
 	 *
-	 * @param   string  $key  The name of the value to get
+	 * @param string $key The name of the value to get
 	 *
 	 * @return  mixed  The value
 	 */
@@ -112,14 +115,14 @@ abstract class JoomlaDriver
 	 *
 	 * @return array
 	 */
-	public function getExtensionInfo($manifest)
+	public function getExtensionInfo($manifest): array
 	{
 		$data                = array();
-		$data['type']        = (string)$manifest['type'];
-		$data['extension']   = (string)$manifest->name;
-		$data['name']        = \JText::_($manifest->name);
-		$data['version']     = (string)$manifest->version;
-		$data['description'] = \JText::_($manifest->description);
+		$data['type']        = (string) $manifest['type'];
+		$data['extension']   = (string) $manifest->name;
+		$data['name']        = JText::_($manifest->name);
+		$data['version']     = (string) $manifest->version;
+		$data['description'] = JText::_($manifest->description);
 
 		return $data;
 	}

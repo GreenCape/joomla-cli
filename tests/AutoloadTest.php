@@ -20,19 +20,50 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Unittests
- * @author      Niels Braczek <nbraczek@bsds.de>
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Unittests
+ * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 1.1.0
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 1.1.0
  */
 
 namespace GreenCapeTest;
 
-class AutoloadTest extends \PHPUnit_Framework_TestCase
+use Exception;
+use GreenCape\JoomlaCLI\Application;
+use GreenCape\JoomlaCLI\DriverFactory;
+use phpDocumentor\Reflection\DocBlock;
+use PHPUnit_Framework_TestCase;
+
+class AutoloadTest extends PHPUnit_Framework_TestCase
 {
+	public function testVendorClassesAreFoundByAutoloader(): void
+	{
+		try
+		{
+			$this->assertInstanceOf(DocBlock::class, new DocBlock(''));
+		}
+		catch (Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
+	}
+
+	public function testSourceClassesAreFoundByAutoloader(): void
+	{
+		try
+		{
+			$this->assertInstanceOf(Application::class, new Application());
+			$this->assertInstanceOf(DriverFactory::class, new DriverFactory());
+		}
+		catch (Exception $e)
+		{
+			$this->fail($e->getMessage());
+		}
+	}
+
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -47,28 +78,5 @@ class AutoloadTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-	}
-
-	public function testVendorClassesAreFoundByAutoloader()
-	{
-		try
-		{
-			$this->assertInstanceOf('phpDocumentor\\Reflection\\DocBlock', new \phpDocumentor\Reflection\DocBlock(''));
-		} catch (\Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
-
-	public function testSourceClassesAreFoundByAutoloader()
-	{
-		try
-		{
-			$this->assertInstanceOf('GreenCape\\JoomlaCLI\\Application', new \GreenCape\JoomlaCLI\Application());
-			$this->assertInstanceOf('GreenCape\\JoomlaCLI\\DriverFactory', new \GreenCape\JoomlaCLI\DriverFactory());
-		} catch (\Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
 	}
 }

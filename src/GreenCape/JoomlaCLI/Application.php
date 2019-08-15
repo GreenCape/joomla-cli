@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,17 +20,18 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Core
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
 
+use Exception;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -58,22 +59,23 @@ class Application extends BaseApplication
 	/**
 	 * Runs the current application.
 	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
+	 * @param InputInterface  $input  An InputInterface instance
+	 * @param OutputInterface $output An OutputInterface instance
 	 *
 	 * @return  integer  0 if everything went fine, or an error code
 	 *
-	 * @throws  \Exception on problems
+	 * @throws  Exception on problems
 	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null)
+	public function run(InputInterface $input = null, OutputInterface $output = null): int
 	{
 		try
 		{
 			parent::run($input, $output);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
-			if (null === $output) {
+			if (null === $output)
+			{
 				$output = new ConsoleOutput();
 			}
 			$message = array(
@@ -83,22 +85,26 @@ class Application extends BaseApplication
 				''
 			);
 			$output->writeln($message);
+
+			return 1;
 		}
+
+		return 0;
 	}
 
 	/**
 	 * Dynamically add all commands from a path
 	 *
-	 * @param   string  $path  The directory with the plugins
+	 * @param string $path The directory with the plugins
 	 *
 	 * @return  void
 	 */
-	private function addPlugins($path)
+	private function addPlugins($path): void
 	{
 		foreach (glob($path . '/*.php') as $filename)
 		{
 			$commandClass = __NAMESPACE__ . '\\' . basename($filename, '.php') . 'Command';
-			$command = new $commandClass;
+			$command      = new $commandClass;
 			$this->add($command);
 		}
 	}

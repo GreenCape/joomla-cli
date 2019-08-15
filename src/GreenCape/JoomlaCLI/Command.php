@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,13 +20,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
@@ -51,7 +51,7 @@ abstract class Command extends BaseCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   string  $name  The name of the command
+	 * @param string $name The name of the command
 	 */
 	public function __construct($name = null)
 	{
@@ -64,7 +64,7 @@ abstract class Command extends BaseCommand
 	 *
 	 * @return  void
 	 */
-	protected function addGlobalOptions()
+	protected function addGlobalOptions(): void
 	{
 		$this
 			->addOption(
@@ -73,24 +73,23 @@ abstract class Command extends BaseCommand
 				InputOption::VALUE_REQUIRED,
 				'The root of the Joomla! installation. Defaults to the current working directory.',
 				'.'
-			)
-		;
+			);
 	}
 
 	/**
 	 * Setup the environment
 	 *
-	 * @param   string           $application  The application, eg., 'site' or 'administration'
-	 * @param   InputInterface   $input        An InputInterface instance
-	 * @param   OutputInterface  $output       An OutputInterface instance
+	 * @param string          $application The application, eg., 'site' or 'administration'
+	 * @param InputInterface  $input       An InputInterface instance
+	 * @param OutputInterface $output      An OutputInterface instance
 	 *
 	 * @return  void
 	 */
-	protected function setupEnvironment($application, InputInterface $input, OutputInterface $output)
+	protected function setupEnvironment($application, InputInterface $input, OutputInterface $output): void
 	{
-		$basePath = $this->handleBasePath($input, $output);
+		$basePath      = $this->handleBasePath($input, $output);
 		$driverFactory = new DriverFactory;
-		$this->joomla = $driverFactory->create($basePath);
+		$this->joomla  = $driverFactory->create($basePath);
 
 		$this->joomla->setupEnvironment($basePath, $application);
 	}
@@ -98,12 +97,12 @@ abstract class Command extends BaseCommand
 	/**
 	 * Read the base path from the options
 	 *
-	 * @param   InputInterface   $input   An InputInterface instance
-	 * @param   OutputInterface  $output  An OutputInterface instance
+	 * @param InputInterface  $input  An InputInterface instance
+	 * @param OutputInterface $output An OutputInterface instance
 	 *
 	 * @return  string  The base path
 	 */
-	protected function handleBasePath(InputInterface $input, OutputInterface $output)
+	protected function handleBasePath(InputInterface $input, OutputInterface $output): string
 	{
 		$path = realpath($input->getOption('basepath'));
 		$this->writeln($output, 'Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
@@ -114,14 +113,14 @@ abstract class Command extends BaseCommand
 	/**
 	 * Proxy for OutputInterface::writeln()
 	 *
-	 * @param   OutputInterface  $output  An OutputInterface instance
-	 * @param   string|array     $message
-	 * @param   int              $level    One of OutputInterface::VERBOSITY_*
-	 * @param   int              $mode     One of OutputInterface::OUTPUT_*
+	 * @param OutputInterface $output An OutputInterface instance
+	 * @param string|array    $message
+	 * @param int             $level  One of OutputInterface::VERBOSITY_*
+	 * @param int             $mode   One of OutputInterface::OUTPUT_*
 	 *
 	 * @return  void
 	 */
-	protected function writeln(OutputInterface $output, $message, $level = OutputInterface::VERBOSITY_NORMAL, $mode = OutputInterface::OUTPUT_NORMAL)
+	protected function writeln(OutputInterface $output, $message, $level = OutputInterface::VERBOSITY_NORMAL, $mode = OutputInterface::OUTPUT_NORMAL): void
 	{
 		if ($output->getVerbosity() >= $level)
 		{

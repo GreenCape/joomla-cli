@@ -31,9 +31,12 @@
 
 namespace GreenCapeTest;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+use GreenCape\JoomlaCLI\Application;
+use PHPUnit_Framework_TestCase;
+
+class ApplicationTest extends PHPUnit_Framework_TestCase
 {
-	/** @var  \GreenCape\JoomlaCLI\Application */
+	/** @var  Application */
 	private $console;
 
 	/**
@@ -42,7 +45,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->console = new \GreenCape\JoomlaCLI\Application();
+		$this->console = new Application();
 	}
 
 	/**
@@ -53,8 +56,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 	}
 
-    public function commandNameProvider()
-    {
+	/**
+	 * @return array
+	 */
+	public function commandNameProvider(): array
+	{
         return array(
             'install'   => array('install'),
             'version'   => array('version'),
@@ -65,7 +71,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	 * @dataProvider commandNameProvider
 	 * @param string $command
 	 */
-	public function testCommandIsPresent($command)
+	public function testCommandIsPresent($command): void
 	{
 		$this->assertTrue($this->console->has($command));
 	}

@@ -5,3 +5,6 @@ build/*.phar
 build/*.tgz
 cache.properties
 vendor
+debug.php
+gource.mp4
+data/*

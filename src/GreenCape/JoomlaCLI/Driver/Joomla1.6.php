@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,13 +20,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;

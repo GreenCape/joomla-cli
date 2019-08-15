@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,17 +20,20 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Command
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
 
+use JInstaller;
+use JInstallerHelper;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -49,15 +52,13 @@ class InstallCommand extends Command
 	 *
 	 * @return  void
 	 */
-	protected function configure()
+	protected function configure(): void
 	{
 		$this
 			->setName('install')
-
 			->setDescription('Install a Joomla! extension')
-
 			->addArgument(
-			'extension',
+				'extension',
 				InputArgument::REQUIRED,
 				'The path to the extension.'
 			);
@@ -66,19 +67,19 @@ class InstallCommand extends Command
 	/**
 	 * Execute the install command
 	 *
-	 * @param   InputInterface  $input  An InputInterface instance
-	 * @param   OutputInterface $output An OutputInterface instance
+	 * @param InputInterface  $input  An InputInterface instance
+	 * @param OutputInterface $output An OutputInterface instance
 	 *
 	 * @return  integer  0 if everything went fine, 1 on error
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->setupEnvironment('administrator', $input, $output);
 
 		// Enable debug, so that JInstaller::install() throws exceptions on problems
 		$this->joomla->setCfg('debug', 1);
 
-		$installer = \JInstaller::getInstance();
+		$installer = JInstaller::getInstance();
 
 		if ($installer->install($this->handleExtension($input, $output)))
 		{
@@ -86,12 +87,10 @@ class InstallCommand extends Command
 
 			return 0;
 		}
-		else
-		{
-			$output->writeln('Installation failed due to unknown reason.');
 
-			return 1;
-		}
+		$output->writeln('Installation failed due to unknown reason.');
+
+		return 1;
 	}
 
 	/**
@@ -100,12 +99,12 @@ class InstallCommand extends Command
 	 * This method prepares the installation by providing the extension in a
 	 * temporary directory ready for install.
 	 *
-	 * @param   InputInterface  $input  An InputInterface instance
-	 * @param   OutputInterface $output An OutputInterface instance
+	 * @param InputInterface  $input  An InputInterface instance
+	 * @param OutputInterface $output An OutputInterface instance
 	 *
 	 * @return  string  The location of the prepared extension
 	 */
-	protected function handleExtension(InputInterface $input, OutputInterface $output)
+	protected function handleExtension(InputInterface $input, OutputInterface $output): string
 	{
 		$source = $input->getArgument('extension');
 
@@ -128,11 +127,11 @@ class InstallCommand extends Command
 	/**
 	 * Get information about the installed extension
 	 *
-	 * @param   \JInstaller $installer
+	 * @param JInstaller $installer
 	 *
 	 * @return  array  A message array suitable for OutputInterface::write[ln]
 	 */
-	private function getExtensionInfo($installer)
+	private function getExtensionInfo($installer): array
 	{
 		$manifest = $installer->getManifest();
 		$data     = $this->joomla->getExtensionInfo($manifest);
@@ -150,33 +149,36 @@ class InstallCommand extends Command
 	/**
 	 * Prepare the installation for an extension specified by a URL
 	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
+	 * @param OutputInterface $output An OutputInterface instance
+	 * @param string          $source The extension source
 	 *
 	 * @return  string  The location of the prepared extension
 	 */
-	private function handleDownload(OutputInterface $output, $source)
+	private function handleDownload(OutputInterface $output, $source): string
 	{
 		$this->writeln($output, "Downloading $source", OutputInterface::VERBOSITY_VERBOSE);
 
-		return $this->unpack(\JInstallerHelper::downloadPackage($source));
+		return $this->unpack(JInstallerHelper::downloadPackage($source));
 	}
 
 	/**
 	 * Prepare the installation for an extension specified by a directory
 	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
+	 * @param OutputInterface $output An OutputInterface instance
+	 * @param string          $source The extension source
 	 *
 	 * @return  string  The location of the prepared extension
 	 */
-	private function handleDirectory(OutputInterface $output, $source)
+	private function handleDirectory(OutputInterface $output, $source): string
 	{
 		$tmpDir  = $this->joomla->getCfg('tmp_path');
-		$tmpPath = $tmpDir . '/' . uniqid('install_');
+		$tmpPath = $tmpDir . '/' . uniqid('install_', true);
 		$this->writeln($output, "Copying $source", OutputInterface::VERBOSITY_VERBOSE);
 
-		mkdir($tmpPath);
+		if (!mkdir($tmpPath) && !is_dir($tmpPath))
+		{
+			throw new RuntimeException(sprintf('Directory "%s" was not created', $tmpPath));
+		}
 		copy($source, $tmpPath);
 
 		return $tmpPath;
@@ -185,12 +187,12 @@ class InstallCommand extends Command
 	/**
 	 * Prepare the installation for an extension in an archive
 	 *
-	 * @param   OutputInterface $output An OutputInterface instance
-	 * @param   string          $source The extension source
+	 * @param OutputInterface $output An OutputInterface instance
+	 * @param string          $source The extension source
 	 *
 	 * @return  string  The location of the prepared extension
 	 */
-	private function handleArchive(OutputInterface $output, $source)
+	private function handleArchive(OutputInterface $output, $source): string
 	{
 		$tmpDir  = $this->joomla->getCfg('tmp_path');
 		$tmpPath = $tmpDir . '/' . basename($source);
@@ -204,13 +206,13 @@ class InstallCommand extends Command
 	/**
 	 * Unpack an extension archive
 	 *
-	 * @param   string $tmpPath The location of the archive
+	 * @param string $tmpPath The location of the archive
 	 *
 	 * @return  string  The location of the unpacked extension
 	 */
-	private function unpack($tmpPath)
+	private function unpack($tmpPath): string
 	{
-		$result  = \JInstallerHelper::unpack($tmpPath);
+		$result  = JInstallerHelper::unpack($tmpPath);
 		$tmpPath = $result['extractdir'];
 
 		return $tmpPath;

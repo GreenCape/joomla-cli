@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -20,16 +20,19 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @author      Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
- * @license     http://opensource.org/licenses/MIT The MIT license (MIT)
- * @link        http://greencape.github.io
- * @since       File available since Release 0.1.0
+ * @package         GreenCape\JoomlaCLI
+ * @subpackage      Driver
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           File available since Release 0.1.0
  */
 
 namespace GreenCape\JoomlaCLI;
+
+use JVersion;
+use RuntimeException;
 
 /**
  * The driver factory instantiates the proper driver for the addressed Joomla! version.
@@ -43,18 +46,18 @@ class DriverFactory
 	/**
 	 * Create a version specific driver to Joomla
 	 *
-	 * @param   string  $basePath  The Joomla base path (same as JPATH_BASE within Joomla)
+	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
 	 *
 	 * @return  JoomlaDriver
 	 *
-	 * @throws  \RuntimeException
+	 * @throws  RuntimeException
 	 */
-	public function create($basePath)
+	public function create($basePath): JoomlaDriver
 	{
 		$parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
 		while (!empty($parts))
 		{
-			$version = implode('Dot', $parts);
+			$version   = implode('Dot', $parts);
 			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
 			if (class_exists($classname))
 			{
@@ -62,19 +65,19 @@ class DriverFactory
 			}
 			array_pop($parts);
 		}
-		throw new \RuntimeException('No driver found');
+		throw new RuntimeException('No driver found');
 	}
 
 	/**
 	 * Load the Joomla version
 	 *
-	 * @param   string $basePath  The Joomla base path (same as JPATH_BASE within Joomla)
+	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
 	 *
-	 * @return  \JVersion
+	 * @return  JVersion
 	 *
-	 * @throws  \RuntimeException
+	 * @throws  RuntimeException
 	 */
-	private function loadVersion($basePath)
+	private function loadVersion($basePath): JVersion
 	{
 		static $locations = array(
 			'/libraries/cms/version/version.php',
@@ -91,9 +94,9 @@ class DriverFactory
 				$code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
 				eval('?>' . $code);
 
-				return new \JVersion;
+				return new JVersion;
 			}
 		}
-		throw new \RuntimeException('Unable to locate version information');
+		throw new RuntimeException('Unable to locate version information');
 	}
 }
