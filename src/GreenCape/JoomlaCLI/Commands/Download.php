@@ -38,7 +38,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
 /**
- * The Dowmload command allows the installation of Joomla! from the command line.
+ * The Download command allows the installation of Joomla! from the command line.
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Command
