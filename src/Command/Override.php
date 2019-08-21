@@ -71,7 +71,7 @@ class OverrideCommand extends Command
 			->addArgument(
 				'template',
 				InputArgument::REQUIRED,
-				'The path to the template, relative to the base path.'
+				'The system name of the template, e.g., `rhuk_milkyway`.'
 			);
 	}
 
@@ -89,7 +89,7 @@ class OverrideCommand extends Command
 		$template = $input->getArgument('template');
 		$force    = $input->getOption('force');
 
-		$templateDir = $this->prepareTemplateDirectory($basePath . '/' . $template, $output);
+		$templateDir = $this->prepareTemplateDirectory($basePath . '/templates/' . $template, $output);
 
 		$this->handleComponents($basePath, $templateDir, $force, $output);
 		$this->handleModules($basePath, $templateDir, $force, $output);
@@ -224,7 +224,7 @@ class OverrideCommand extends Command
 
 			if (!mkdir($dir, 0775, true) && !is_dir($dir))
 			{
-				throw new RuntimeException(sprintf('Directory "%s" was not created', $dir));
+				throw new RuntimeException(sprintf('Directory "%s" was not created', $dir)); // @codeCoverageIgnore
 			}
 
 			touch($dir . '/index.html');
