@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -23,7 +23,7 @@
  * @package         GreenCape\JoomlaCLI
  * @subpackage      Unittests
  * @author          Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
  * @since           File available since Release 0.1.0
@@ -37,7 +37,6 @@ use GreenCapeTest\JoomlaPackagesTrait;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -58,12 +57,7 @@ class DownloadTest extends TestCase
 		self::$filesystem = new Filesystem(new Local('tests'));
 	}
 
-	protected function tearDown(): void
-	{
-		self::$filesystem->deleteDir('tmp');
-	}
-
-	/** @noinspection PhpUnusedParameterInspection
+	/**
 	 * @param string $path
 	 * @param string $release
 	 * @param string $short
@@ -114,5 +108,10 @@ class DownloadTest extends TestCase
 		$command->run(new StringInput('-b tests/tmp/nx nx'), $output);
 
 		$this->assertEquals('nx: Version is unknown', trim($output->fetch()));
+	}
+
+	protected function tearDown(): void
+	{
+		self::$filesystem->deleteDir('tmp');
 	}
 }

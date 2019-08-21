@@ -85,8 +85,6 @@ class OverrideCommand extends Command
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
-		$this->setupEnvironment('site', $input, $output);
-
 		$basePath = $input->getOption('basepath');
 		$template = $input->getArgument('template');
 		$force    = $input->getOption('force');
