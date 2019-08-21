@@ -1,10 +1,11 @@
+Core
 # Version
 
 The version command reports the version of the Joomla! installation at the base path.
 
 **Synopsis:**
 ```bash
-  version [options]
+$ joomla core:version [options]
 ```
 
 **Options:**

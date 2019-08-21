@@ -1,10 +1,11 @@
+Core
 # Download
 
 Download a Joomla! version and unpack it to the base path.
 
 **Synopsis:**
 ```bash
-$ joomla download [options] [--] [<version>]
+$ joomla core:download [options] [--] [<version>]
 ```
 
 **Arguments:**

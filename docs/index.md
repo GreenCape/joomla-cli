@@ -1,14 +1,19 @@
 # Joomla Command Line Interface
 
-`joomla-cli` is a tool for managing Joomla! from the command line.
-It works for all Joomla! versions since 1.5.0, although it needs a current PHP installation.
+Joomla CLI (`joomla-cli`) is a tool for managing Joomla! from the command line.
+It works for all Joomla! versions since 1.0.0, although it needs a current PHP installation.
 
 Available commands are
 
-- [download](download.md) - download a specific Joomla! version
-- [install](install.md) - install an extension
-- [override](override.md) - create template overrides
-- [version](version.md) - get version information for a Joomla! installation
+**Core**
+- [download](core/download.md) - download a specific Joomla! version
+- [version](core/version.md) - get version information for a Joomla! installation
+
+**Extension**
+- [install](extension/install.md) - install an extension
+
+**Template**
+- [override](template/override.md) - create template overrides
 
 ## Common Options
 

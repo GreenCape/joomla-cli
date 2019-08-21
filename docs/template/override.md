@@ -1,3 +1,4 @@
+Template
 # Override
 
 The override command creates a set of template and layout overrides for a Joomla! installation.
@@ -6,7 +7,7 @@ and extended it in [version 2.5](http://docs.joomla.org/Layout_Overrides_in_Joom
 
 **Synopsis:**
 ```bash
-$ joomla override [options] [--] <template>
+$ joomla template:override [options] [--] <template>
 ```
 
 **Arguments:**

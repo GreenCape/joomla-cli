@@ -1,10 +1,11 @@
+Extension
 # Install
 
 Install a Joomla! extension.
 
 **Synopsis:**
 ```bash
-$ joomla install [options] [--] <extension>
+$ joomla extension:install [options] [--] <extension>
 ```
 
 **Arguments:**
