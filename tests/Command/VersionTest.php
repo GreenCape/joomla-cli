@@ -32,7 +32,7 @@
 namespace GreenCapeTest\Command;
 
 use Exception;
-use GreenCape\JoomlaCLI\Command\VersionCommand;
+use GreenCape\JoomlaCLI\Command\Core\VersionCommand;
 use GreenCapeTest\JoomlaPackagesTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
@@ -50,12 +50,12 @@ class VersionTest extends TestCase
 	 *
 	 * @throws Exception
 	 * @dataProvider joomlaPackages
-	 * @testdox Command `version` detects the correct version
+	 * @testdox      Command `version` detects the correct version
 	 */
 	public function testVersion($path, $release, $short, $long): void
 	{
 		$command = new VersionCommand();
-		$output = new BufferedOutput();
+		$output  = new BufferedOutput();
 
 		$command->run(new StringInput('-b tests/fixtures/' . $path), $output);
 		$this->assertEquals($long, trim($output->fetch()), '`version` with no option should return ' . $long);

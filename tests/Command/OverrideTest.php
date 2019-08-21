@@ -32,8 +32,8 @@
 namespace GreenCapeTest\Command;
 
 use Exception;
-use GreenCape\JoomlaCLI\Command\DownloadCommand;
-use GreenCape\JoomlaCLI\Command\OverrideCommand;
+use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
+use GreenCape\JoomlaCLI\Command\Template\OverrideCommand;
 use GreenCapeTest\JoomlaPackagesTrait;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;

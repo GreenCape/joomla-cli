@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI\Command;
+namespace GreenCape\JoomlaCLI\Command\Core;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command;
@@ -55,7 +55,7 @@ class VersionCommand extends Command
 	protected function configure(): void
 	{
 		$this
-			->setName('version')
+			->setName('core:version')
 			->setDescription('Shows the Joomla! version')
 			->addOption(
 				'long',

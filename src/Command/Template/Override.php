@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI\Command;
+namespace GreenCape\JoomlaCLI\Command\Template;
 
 use GreenCape\JoomlaCLI\Command;
 use RuntimeException;
@@ -60,8 +60,8 @@ class OverrideCommand extends Command
 	protected function configure(): void
 	{
 		$this
-			->setName('override')
-			->setDescription('Creates template and layout overrides')
+			->setName('template:override')
+			->setDescription('Creates template and layout overrides (Joomla! 1.5+)')
 			->addOption(
 				'force',
 				'f',

@@ -44,12 +44,12 @@ class ApplicationTest extends TestCase
 	 */
 	public function commandNameProvider(): array
 	{
-		return array(
-			'install'  => array('install'),
-			'version'  => array('version'),
-			'override' => array('override'),
-			'download' => array('download'),
-		);
+		return [
+			'version'  => ['core:version'],
+			'download' => ['core:download'],
+			'install'  => ['extension:install'],
+			'override' => ['template:override'],
+		];
 	}
 
 	/**

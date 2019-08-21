@@ -101,9 +101,11 @@ class Application extends BaseApplication
 	 */
 	private function addPlugins($path): void
 	{
-		foreach (glob($path . '/*.php') as $filename)
+		foreach (glob($path . '/**/*.php') as $filename)
 		{
-			$commandClass = __NAMESPACE__ . '\\Command\\' . basename($filename, '.php') . 'Command';
+			$filename     = str_replace($path, '', $filename);
+			$namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
+			$commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php') . 'Command';
 			$command      = new $commandClass;
 			$this->add($command);
 		}

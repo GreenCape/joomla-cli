@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.1
  */
 
-namespace GreenCape\JoomlaCLI\Command;
+namespace GreenCape\JoomlaCLI\Command\Core;
 
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Repository\VersionList;
@@ -80,7 +80,7 @@ class DownloadCommand extends Command
 	protected function configure(): void
 	{
 		$this
-			->setName('download')
+			->setName('core:download')
 			->setDescription('Downloads a Joomla! version and unpacks it to the base path')
 			->addArgument(
 				'version',

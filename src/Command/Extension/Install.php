@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI\Command;
+namespace GreenCape\JoomlaCLI\Command\Extension;
 
 use GreenCape\JoomlaCLI\Command;
 use JInstaller;
@@ -56,7 +56,7 @@ class InstallCommand extends Command
 	protected function configure(): void
 	{
 		$this
-			->setName('install')
+			->setName('extension:install')
 			->setDescription('Installs a Joomla! extension')
 			->addArgument(
 				'extension',
