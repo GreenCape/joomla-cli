@@ -17,14 +17,16 @@
     "php": ">=7.2",
     "sebastian/finder-facade": "*",
     "sebastian/git": "*",
-    "symfony/console": "~2.2",
-    "ext-json": "*"
+    "symfony/console": "~2",
+    "ext-json": "*",
+    "league/flysystem": "^1.0",
+    "league/flysystem-ziparchive": "^1.0"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master"
-    ,
-    "phpunit/phpunit": "~4",
-    "codeclimate/php-test-reporter": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "phpunit/phpunit": "*",
+    "codeclimate/php-test-reporter": "dev-master",
+    "league/flysystem-memory": "^1.0"
   },
   "autoload": {
     "classmap": [

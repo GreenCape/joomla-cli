@@ -21,66 +21,61 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
+ * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
- * @since           File available since Release 0.1.0
+ * @since           File available since Release 0.1.1
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCapeTest;
 
-use JFactory;
-
-/**
- * Version specific methods
- *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.0
- */
-class Joomla2Driver extends JoomlaDriver
+trait JoomlaPackagesTrait
 {
 	/**
-	 * Setup the environment
-	 *
-	 * @param string $basePath    The root of the Joomla! application
-	 * @param string $application The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
+	 * @return string[][]
 	 */
-	public function setupEnvironment($basePath, $application = 'site'): void
+	public function joomlaPackages(): array
 	{
-		define('DS', DIRECTORY_SEPARATOR);
-
-		parent::setupEnvironment($basePath, $application);
-
-		jimport('joomla.application.component.helper');
+		return [
+			'1.0' => [
+				'j10',
+				'1.0',
+				'1.0.0',
+				'Joomla! 1.0.0 Stable [ Sunrise ] 17-Sep-2005 00:30 GMT'
+			],
+			'1.5' => [
+				'j15',
+				'1.5',
+				'1.5.26',
+				'Joomla! 1.5.26 Stable [ senu takaa ama busani ] 27-March-2012 18:00 GMT'
+			],
+			'1.7' => [
+				'j17',
+				'1.7',
+				'1.7.3',
+				'Joomla! 1.7.3 Stable [ Ember ] 14-Nov-2011 14:00 GMT'
+			],
+			'2.5' => [
+				'j25',
+				'2.5',
+				'2.5.0',
+				'Joomla! 2.5.0 Stable [ Ember ] 24-Jan-2012 14:00 GMT'
+			],
+			'3.5' => [
+				'j35',
+				'3.5',
+				'3.5.0',
+				'Joomla! 3.5.0 Stable [ Unicorn ] 21-March-2016 22:00 GMT'
+			],
+			'3.9' => [
+				'j39',
+				'3.9',
+				'3.9.11',
+				'Joomla! 3.9.11 Stable [ Amani ] 13-August-2019 15:00 GMT'
+			],
+		];
 	}
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return JFactory::getConfig()->set($key, $value);
-	}
-
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return JFactory::getConfig()->get($key);
-	}
 }

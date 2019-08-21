@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
 /**
  * GreenCape Joomla Command Line Interface
  *
@@ -31,64 +32,29 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use JFactory;
+use Exception;
+use joomlaVersion;
 use JText;
 
 /**
- * The abstract version driver provides common methods for most Joomla! versions.
+ * Version specific methods
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
  * @since       Class available since Release 0.1.0
  */
-abstract class JoomlaDriver
+class Joomla1Dot0Driver extends JoomlaDriver
 {
 	/**
 	 * Setup the environment
 	 *
-	 * @param string $basePath    The root of the Joomla! application
 	 * @param string $application The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
+	 * @throws Exception
 	 */
-	public function setupEnvironment($basePath, $application = 'site'): void
+	public function setupEnvironment($application = 'site'): void
 	{
-		if ($application !== 'site')
-		{
-			$basePath .= '/' . $application;
-		}
-
-		$server  = array(
-			'HTTP_HOST'       => 'undefined',
-			'HTTP_USER_AGENT' => 'undefined',
-			'REQUEST_METHOD'  => 'GET',
-		);
-		$_SERVER = array_merge($_SERVER, $server);
-
-		if (file_exists($basePath . '/defines.php'))
-		{
-			include_once $basePath . '/defines.php';
-		}
-
-		if (!defined('_JDEFINES'))
-		{
-			define('JPATH_BASE', $basePath);
-			require_once JPATH_BASE . '/includes/defines.php';
-		}
-
-		require_once JPATH_BASE . '/includes/framework.php';
-
-		if ($application === 'administrator')
-		{
-			require_once JPATH_BASE . '/includes/helper.php';
-			require_once JPATH_BASE . '/includes/toolbar.php';
-
-			// JUri uses $_SERVER['HTTP_HOST'] without check
-			$_SERVER['HTTP_HOST'] = 'CLI';
-		}
-
-		$app = JFactory::getApplication($application);
-		$app->initialise();
 	}
 
 	/**
@@ -99,7 +65,10 @@ abstract class JoomlaDriver
 	 *
 	 * @return  mixed  The value
 	 */
-	abstract public function setCfg($key, $value);
+	public function setCfg($key, $value)
+	{
+		return $GLOBALS['mosConfig_' . $key] = $value;
+	}
 
 	/**
 	 * Gets a configuration value.
@@ -108,21 +77,26 @@ abstract class JoomlaDriver
 	 *
 	 * @return  mixed  The value
 	 */
-	abstract public function getCfg($key);
+	public function getCfg($key)
+	{
+		return $GLOBALS['mosConfig_' . $key];
+	}
 
 	/**
-	 * @param $manifest
+	 *
+	 * @param object $manifest
 	 *
 	 * @return array
 	 */
 	public function getExtensionInfo($manifest): array
 	{
 		$data                = array();
-		$data['type']        = (string) $manifest['type'];
-		$data['extension']   = (string) $manifest->name;
-		$data['name']        = JText::_($manifest->name);
-		$data['version']     = (string) $manifest->version;
-		$data['description'] = JText::_($manifest->description);
+		$manifest            = $manifest->document;
+		$data['type']        = (string) $manifest->attributes('type');
+		$data['extension']   = (string) $manifest->name[0]->data();
+		$data['name']        = JText::_($manifest->name[0]->data());
+		$data['version']     = (string) $manifest->version[0]->data();
+		$data['description'] = JText::_($manifest->description[0]->data());
 
 		return $data;
 	}

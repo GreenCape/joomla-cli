@@ -29,8 +29,14 @@
  * @since           File available since Release 0.1.1
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Command;
 
+use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Repository\VersionList;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
 use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -117,14 +123,13 @@ class DownloadCommand extends Command
 		{
 			$basePath = $input->getOption('basepath');
 
-			$this->getAvailableVersions();
+			$versionList = $this->getAvailableVersions();
 			$this->createPath($this->cachePath);
 
-			$tarball = $this->getTarball();
+			$tarball = $this->getTarball($versionList);
 			$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-			$this->createPath($basePath);
-			shell_exec("tar -zxvf {$tarball} -C {$basePath} --exclude-vcs");
+			$this->unpack($basePath, $tarball);
 
 			$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
@@ -139,130 +144,124 @@ class DownloadCommand extends Command
 	}
 
 	/**
+	 * @param VersionList $versions
+	 *
 	 * @return string
 	 */
-	private function getTarball(): string
+	private function getTarball(VersionList $versions): string
 	{
-		$versionFile = $this->versionFile;
-		$version     = $this->version;
-		$cachePath   = $this->cachePath;
+		$version   = $this->version;
+		$cachePath = $this->cachePath;
 
-		$versions  = json_decode(file_get_contents($versionFile), true);
 		$requested = $version;
+		$version   = $versions->resolve($version);
+		$tarball   = $cachePath . '/' . $version . '.tar.gz';
 
-		// Resolve alias
-		if (isset($versions['alias'][$version]))
-		{
-			$version = $versions['alias'][$version];
-		}
-
-		$tarball = $cachePath . '/' . $version . '.tar.gz';
-
-		if (!isset($versions['heads'][$version]) && file_exists($tarball))
+		if (!$versions->isBranch($version) && file_exists($tarball))
 		{
 			$this->output->writeln("$requested: Joomla $version is already in cache", OutputInterface::VERBOSITY_VERBOSE);
 
 			return $tarball;
 		}
 
-		if (isset($versions['heads'][$version]))
+		if ($versions->isBranch($version))
 		{
-			// It's a branch, so get it from the original repo
+			$this->output->writeln("$requested: Downloading Joomla $version branch", OutputInterface::VERBOSITY_VERBOSE);
 			$url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
+
+			return $this->download($tarball, $url);
 		}
-		elseif (isset($versions['tags'][$version]))
+
+		if ($versions->isTag($version))
 		{
-			if (version_compare($version, '2.0', '>'))
+			$this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
+
+			try // to get the official release for that version
 			{
+				$this->output->writeln('Trying release channel', OutputInterface::VERBOSITY_VERY_VERBOSE);
 				$url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
+
+				return $this->download($tarball, $url);
 			}
-			else
+			catch (Throwable $exception) // else get it from the archive
 			{
-				$url = 'https://github.com/' . $versions['tags'][$version] . '/archive/' . $version . '.tar.gz';
+				$repository = $versions->getRepository($version);
+				$this->output->writeln("Trying {$repository} archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
+				$url = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
+
+				return $this->download($tarball, $url);
 			}
 		}
-		else
-		{
-			throw new RuntimeException("$requested: Version is unknown");
-		}
-
-		$this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
-		$bytes = file_put_contents($tarball, fopen($url, 'rb'));
-
-		if ($bytes === false || $bytes === 0)
-		{
-			throw new RuntimeException("$requested: Failed to download $url");
-		}
-
-		return $tarball;
-	}
-
-	private function getAvailableVersions(): void
-	{
-		// GreenCape first, so entries get overwritten if provided by Joomla
-		$repos = array(
-			'greencape/joomla-legacy',
-			'joomla/joomla-cms',
-		);
-
-		if (file_exists($this->versionFile) && time() - filemtime($this->versionFile) < 86400)
-		{
-			return;
-		}
-
-		$versions = array();
-		foreach ($repos as $repo)
-		{
-			$command = "git ls-remote https://github.com/{$repo}.git | grep -E 'refs/(tags|heads)' | grep -v '{}'";
-			$result  = shell_exec($command);
-			$refs    = explode(PHP_EOL, $result);
-			$pattern = '/^[0-9a-f]+\s+refs\/(heads|tags)\/([a-z0-9\.\-_]+)$/im';
-			foreach ($refs as $ref)
-			{
-				if (preg_match($pattern, $ref, $match))
-				{
-					if ($match[1] === 'tags')
-					{
-						if (!preg_match('/^\d+\.\d+\.\d+$/m', $match[2]))
-						{
-							continue;
-						}
-						$parts = explode('.', $match[2]);
-						$this->checkAlias($versions, $parts[0], $match[2]);
-						$this->checkAlias($versions, $parts[0] . '.' . $parts[1], $match[2]);
-						$this->checkAlias($versions, 'latest', $match[2]);
-					}
-					$versions[$match[1]][$match[2]] = $repo;
-				}
-			}
-		}
-
-		// Special case: 1.6 and 1.7 belong to 2.x
-		$versions['alias']['1'] = $versions['alias']['1.5'];
-
-		file_put_contents($this->versionFile, json_encode($versions, JSON_PRETTY_PRINT));
+		throw new RuntimeException("$requested: Version is unknown");
 	}
 
 	/**
-	 * @param $versions
-	 * @param $alias
-	 * @param $version
-	 *
-	 * @return void
+	 * @return VersionList
+	 * @throws FileNotFoundException
+	 * @throws FileExistsException
 	 */
-	private function checkAlias(&$versions, $alias, $version): void
+	private function getAvailableVersions(): VersionList
 	{
-		if (!isset($versions['alias'][$alias]) || version_compare($versions['alias'][$alias], $version, '<'))
-		{
-			$versions['alias'][$alias] = $version;
-		}
+		$filesystem = new Filesystem(new Local(dirname($this->versionFile)));
+		$cacheFile  = basename($this->versionFile);
+
+		return new VersionList($filesystem, $cacheFile);
 	}
 
 	private function createPath(string $path): void
 	{
 		if (!@mkdir($path, 0777, true) && !is_dir($path))
 		{
-			throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));
+			throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
+		}
+	}
+
+	/**
+	 * @param string $filename
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	private function download(string $filename, string $url): string
+	{
+		$bytes = file_put_contents($filename, @fopen($url, 'rb'));
+
+		if ($bytes === false || $bytes === 0)
+		{
+			throw new RuntimeException("Failed to download $url");
+		}
+
+		return $filename;
+	}
+
+	/**
+	 * @param        $basePath
+	 * @param string $tarball
+	 */
+	private function unpack($basePath, string $tarball): void
+	{
+		$this->createPath($basePath);
+		shell_exec("tar -zxvf {$tarball} -C {$basePath} --exclude-vcs");
+
+		// If $basePath contains only a single directory, we need to lift everything up one level.
+		$dirList = glob("{$basePath}/*", GLOB_ONLYDIR);
+
+		if (count($dirList) === 1)
+		{
+			$subDir  = $dirList[0];
+			$dirList = array_filter(
+				glob("{$subDir}/{*,.*}", GLOB_NOSORT | GLOB_BRACE),
+				static function ($filename) {
+					$basename = basename($filename);
+
+					return ($basename !== '.' && $basename !== '..');
+				}
+			);
+			foreach ($dirList as $item)
+			{
+				shell_exec("mv {$item} {$basePath}");
+			}
+			shell_exec("rm -d {$subDir}");
 		}
 	}
 }

@@ -29,8 +29,9 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Command;
 
+use GreenCape\JoomlaCLI\Command;
 use JInstaller;
 use JInstallerHelper;
 use RuntimeException;

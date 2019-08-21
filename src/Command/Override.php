@@ -29,8 +29,9 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Command;
 
+use GreenCape\JoomlaCLI\Command;
 use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +39,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * The overrides command creates a set of template and layout overrides for a Joomla! installation.
+ * The override command creates a set of template and layout overrides for a Joomla! installation.
  * Joomla introduced template / layout overrides in version 1.5 (components and modules),
  * and extended it in version 2.5 (plugins) and in version 3 (layouts).
  *
@@ -49,7 +50,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see         http://docs.joomla.org/Layout_Overrides_in_Joomla for version 2.5+
  * @see         http://docs.joomla.org/J3.x:Sharing_layouts_across_views_or_extensions_with_JLayout for version 3+
  */
-class OverridesCommand extends Command
+class OverrideCommand extends Command
 {
 	/**
 	 * Configure the options for the overrides command

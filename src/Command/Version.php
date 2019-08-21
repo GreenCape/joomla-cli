@@ -29,84 +29,82 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Command;
 
-use Symfony\Component\Console\Command\Command as BaseCommand;
+use Exception;
+use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Driver\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * The abstract command provides common methods for most JoomlaCLI commands.
+ * The version command reports the version of a Joomla! installation.
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Command
  * @since       Class available since Release 0.1.0
  */
-abstract class Command extends BaseCommand
+class VersionCommand extends Command
 {
-	/** @var JoomlaDriver */
-	protected $joomla;
-
 	/**
-	 * Constructor.
-	 *
-	 * @param string $name The name of the command
-	 */
-	public function __construct($name = null)
-	{
-		parent::__construct($name);
-		$this->addGlobalOptions();
-	}
-
-	/**
-	 * Add options common to all commands
+	 * Configure the options for the version command
 	 *
 	 * @return  void
 	 */
-	protected function addGlobalOptions(): void
+	protected function configure(): void
 	{
 		$this
+			->setName('version')
+			->setDescription('Shows the Joomla! version')
 			->addOption(
-				'basepath',
-				'b',
-				InputOption::VALUE_REQUIRED,
-				'The root of the Joomla! installation. Defaults to the current working directory.',
-				'.'
+				'long',
+				'l',
+				InputOption::VALUE_NONE,
+				'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
+			)
+			->addOption(
+				'short',
+				's',
+				InputOption::VALUE_NONE,
+				'The short version info, eg. x.y.z'
+			)
+			->addOption(
+				'release',
+				'r',
+				InputOption::VALUE_NONE,
+				'The release info, eg. x.y'
 			);
 	}
 
 	/**
-	 * Setup the environment
-	 *
-	 * @param string          $application The application, eg., 'site' or 'administration'
-	 * @param InputInterface  $input       An InputInterface instance
-	 * @param OutputInterface $output      An OutputInterface instance
-	 *
-	 * @return  void
-	 */
-	protected function setupEnvironment($application, InputInterface $input, OutputInterface $output): void
-	{
-		$basePath      = $this->handleBasePath($input, $output);
-		$driverFactory = new DriverFactory;
-		$this->joomla  = $driverFactory->create($basePath);
-
-		$this->joomla->setupEnvironment($basePath, $application);
-	}
-
-	/**
-	 * Read the base path from the options
+	 * Execute the version command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 *
-	 * @return  string  The base path
+	 * @return  void
+	 * @throws Exception
 	 */
-	protected function handleBasePath(InputInterface $input, OutputInterface $output): string
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
-		$path = realpath($input->getOption('basepath'));
-		$output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
+		$this->handleBasePath($input, $output);
+		$version = new Version($this->joomlaFilesystem);
 
-		return $path;
+		if ($input->getOption('short'))
+		{
+			/** @noinspection PhpUndefinedMethodInspection */
+			$result = $version->getShortVersion();
+		}
+		elseif ($input->getOption('release'))
+		{
+			$result = $version->getRelease();
+		}
+		else
+		{
+			/** @noinspection PhpUndefinedMethodInspection */
+			$result = $version->getLongVersion();
+		}
+		$output->writeln($result);
 	}
 }

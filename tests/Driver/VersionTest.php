@@ -29,60 +29,51 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest;
+namespace GreenCapeTest\Driver;
 
-use Exception;
-use GreenCape\JoomlaCLI\SetupCommand;
-use PHPUnit_Framework_TestCase;
-use RuntimeException;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\NullOutput;
+use GreenCape\JoomlaCLI\Driver\Version;
+use GreenCapeTest\JoomlaPackagesTrait;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
+use PHPUnit\Framework\TestCase;
 
-class SetupTest extends PHPUnit_Framework_TestCase
+class VersionTest extends TestCase
 {
-	private $cacheDir = 'tests/tmp';
+	use JoomlaPackagesTrait;
 
-	public function testSetupCreatesAVersionCacheAtTheProvidedLocation(): void
+	/**
+	 * @param string $path
+	 * @param string $release
+	 * @param string $short
+	 * @param string $long
+	 *
+	 * @throws FileNotFoundException
+	 * @dataProvider joomlaPackages
+	 * @testdox Version driver detects the correct version
+	 */
+	public function testVersion($path, $release, $short, $long): void
 	{
-		$command = new SetupCommand();
-		$input   = new StringInput("--file={$this->cacheDir}/versions.json");
-		$output  = new NullOutput();
+		$adapter    = new Local('tests/fixtures/' . $path);
+		$filesystem = new Filesystem($adapter);
 
-		try
-		{
-			$command->run($input, $output);
+		$joomlaVersion = new Version($filesystem);
 
-			$this->assertFileExists($this->cacheDir . '/versions.json');
-
-			unlink($this->cacheDir . '/versions.json');
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
+		$this->assertEquals($release, $joomlaVersion->getRelease());
+		$this->assertEquals($short, $joomlaVersion->getShortVersion());
+		$this->assertEquals($long, $joomlaVersion->getLongVersion());
 	}
 
 	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
+	 * @throws FileNotFoundException
+	 * @testdox Version driver throws FileNotFoundException if version file is not found
 	 */
-	protected function setUp()
+	public function testException(): void
 	{
-		if (!@mkdir($this->cacheDir, 0777, true) && !is_dir($this->cacheDir))
-		{
-			throw new RuntimeException(sprintf('Directory "%s" could not be created', $this->cacheDir));
-		}
-	}
+		$adapter    = new Local('tests/fixtures/nx');
+		$filesystem = new Filesystem($adapter);
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-		if (!rmdir($this->cacheDir))
-		{
-			throw new RuntimeException(sprintf('Directory "%s" could not be removed', $this->cacheDir));
-		}
+		$this->expectException(FileNotFoundException::class);
+		new Version($filesystem);
 	}
 }

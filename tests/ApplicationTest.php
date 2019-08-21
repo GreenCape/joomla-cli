@@ -32,9 +32,9 @@
 namespace GreenCapeTest;
 
 use GreenCape\JoomlaCLI\Application;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ApplicationTest extends PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
 	/** @var  Application */
 	private $console;
@@ -48,6 +48,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 			'install'  => array('install'),
 			'version'  => array('version'),
 			'override' => array('override'),
+			'download' => array('download'),
 		);
 	}
 
@@ -56,7 +57,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 *
 	 * @param string $command
 	 */
-	public function testCommandsArePresent($command): void
+	public function testCommandIsDefined($command): void
 	{
 		$this->assertTrue($this->console->has($command));
 	}
@@ -65,7 +66,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp()
+	protected function setUp(): void
 	{
 		$this->console = new Application();
 	}
@@ -74,7 +75,7 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 	 * Tears down the fixture, for example, closes a network connection.
 	 * This method is called after a test is executed.
 	 */
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 	}
 }

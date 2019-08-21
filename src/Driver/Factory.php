@@ -31,7 +31,10 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use JVersion;
+use GreenCape\JoomlaCLI\Driver\Version;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
 use RuntimeException;
 
 /**
@@ -46,22 +49,21 @@ class DriverFactory
 	/**
 	 * Create a version specific driver to Joomla
 	 *
-	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
+	 * @param Filesystem $filesystem The Joomla file system
 	 *
 	 * @return  JoomlaDriver
-	 *
-	 * @throws  RuntimeException
+	 * @throws FileNotFoundException
 	 */
-	public function create($basePath): JoomlaDriver
+	public function create(Filesystem $filesystem): JoomlaDriver
 	{
-		$parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
+		$parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
 		while (!empty($parts))
 		{
 			$version   = implode('Dot', $parts);
 			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
 			if (class_exists($classname))
 			{
-				return new $classname;
+				return new $classname($filesystem);
 			}
 			array_pop($parts);
 		}
@@ -71,32 +73,15 @@ class DriverFactory
 	/**
 	 * Load the Joomla version
 	 *
-	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
+	 * @param Filesystem $filesystem
 	 *
-	 * @return  JVersion
+	 * @return  mixed
 	 *
-	 * @throws  RuntimeException
+	 * @throws RuntimeException
+	 * @throws FileNotFoundException
 	 */
-	private function loadVersion($basePath): JVersion
+	private function loadVersion(Filesystem $filesystem)
 	{
-		static $locations = array(
-			'/libraries/cms/version/version.php',
-			'/libraries/joomla/version.php',
-		);
-
-		define('_JEXEC', 1);
-
-		foreach ($locations as $location)
-		{
-			if (file_exists($basePath . $location))
-			{
-				$code = file_get_contents($basePath . $location);
-				$code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
-				eval('?>' . $code);
-
-				return new JVersion;
-			}
-		}
-		throw new RuntimeException('Unable to locate version information');
+		return new Version($filesystem);
 	}
 }

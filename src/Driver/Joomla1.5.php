@@ -48,17 +48,16 @@ class Joomla1Dot5Driver extends JoomlaDriver
 	/**
 	 * Setup the environment
 	 *
-	 * @param string $basePath    The root of the Joomla! application
 	 * @param string $application The application, eg., 'site' or 'administration'
 	 *
 	 * @return  void
 	 * @throws Exception
 	 */
-	public function setupEnvironment($basePath, $application = 'site'): void
+	public function setupEnvironment($application = 'site'): void
 	{
 		if ($application !== 'site')
 		{
-			$basePath .= '/' . $application;
+			$this->basePath .= '/' . $application;
 		}
 
 		$server  = array(
@@ -68,7 +67,7 @@ class Joomla1Dot5Driver extends JoomlaDriver
 		);
 		$_SERVER = array_merge($_SERVER, $server);
 
-		define('JPATH_BASE', $basePath);
+		define('JPATH_BASE', $this->basePath);
 		define('DS', DIRECTORY_SEPARATOR);
 
 		require_once JPATH_BASE . '/includes/defines.php';
