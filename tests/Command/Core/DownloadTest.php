@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Command;
+namespace GreenCapeTest\Command\Core;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;

@@ -1,3 +1,4 @@
+Joomla CLI
 # Joomla Command Line Interface
 
 Joomla CLI (`joomla-cli`) is a tool for managing Joomla! from the command line.
@@ -7,6 +8,7 @@ Available commands are
 
 **Core**
 - [download](core/download.md) - download a specific Joomla! version
+- [install](core/install.md) - install Joomla!
 - [version](core/version.md) - get version information for a Joomla! installation
 
 **Extension**
@@ -17,7 +19,7 @@ Available commands are
 
 ## Common Options
 
-All sub-commands have these options in common:
+All commands have these options in common:
 
 Options:
 ```

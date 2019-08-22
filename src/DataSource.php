@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Unittests
+ * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -29,68 +29,95 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Command\Template;
+namespace GreenCape\JoomlaCLI;
 
-use Exception;
-use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use GreenCape\JoomlaCLI\Command\Template\OverrideCommand;
-use GreenCapeTest\JoomlaPackagesTrait;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\NullOutput;
-
-class OverrideTest extends TestCase
+/**
+ * The abstract command provides common methods for most JoomlaCLI commands.
+ *
+ * @package     GreenCape\JoomlaCLI
+ * @since       Class available since Release 0.2.0
+ */
+class DataSource
 {
-	/**
-	 * @var Filesystem
-	 */
-	private static $filesystem;
+	const DSN_PATTERN = '~(?:(\w+)(?::(\w+))?@)?((?:\w+://)?[\w.]+)(?::(\d+))?(?:/(\w+))?~';
 
-	use JoomlaPackagesTrait;
+	private $user;
+	private $pass;
+	private $host;
+	private $port;
+	private $base;
 
-	/**
-	 */
-	public static function setUpBeforeClass(): void
+	public function __construct($dsn, $default = null)
 	{
-		self::$filesystem = new Filesystem(new Local('tests'));
+		[$this->user, $this->pass, $this->host, $this->port, $this->base] = $this->extract($dsn, $default);
 	}
 
 	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
+	 * @return mixed
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPass()
+	{
+		return $this->pass;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getHost()
+	{
+		return $this->host;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPort()
+	{
+		return $this->port;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getBase()
+	{
+		return $this->base;
+	}
+
+	/**
+	 * @param      $dsn
+	 * @param null $default
 	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
+	 * @return array
 	 */
-	public function testOverride($path, $release, $short, $long): void
+	private function extract($dsn, $default = null): array
 	{
-		$command = new DownloadCommand();
-		$output  = new NullOutput();
+		if ($default === null)
+		{
+			$default = ['sqladmin', 'sqladmin', 'localhost', '3306', 'database'];
+		}
+		else
+		{
+			$default = $this->extract($default);
+		}
 
-		$command->run(new StringInput("-b tests/tmp/$path $short"), $output);
+		preg_match(self::DSN_PATTERN, $dsn, $matches, PREG_UNMATCHED_AS_NULL);
+		array_shift($matches);
 
-		$command = new OverrideCommand();
-		$output  = new NullOutput();
-
-		$command->run(new StringInput("-b tests/tmp/$path system"), $output);
-
-		$contents = array_reduce(
-			self::$filesystem->listContents("tmp/$path/templates/system/html"),
-			static function ($carry, $item) {
-				$carry[] = $item['basename'];
-				return $carry;
-			},
-			[]
-		);
-		$this->assertTrue($release === '1.0' || count($contents) > 2);
-	}
-
-	protected function tearDown(): void
-	{
-		self::$filesystem->deleteDir('tmp');
+		return [
+			$matches[0] ?? $default[0],
+			$matches[1] ?? $default[1],
+			$matches[2] ?? $default[2],
+			$matches[3] ?? $default[3],
+			$matches[4] ?? $default[4],
+		];
 	}
 }

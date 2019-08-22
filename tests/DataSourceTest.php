@@ -26,71 +26,61 @@
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
- * @since           File available since Release 0.1.0
+ * @since           File available since Release 0.2.0
  */
 
-namespace GreenCapeTest\Command\Template;
+namespace GreenCapeTest;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use GreenCape\JoomlaCLI\Command\Template\OverrideCommand;
+use GreenCape\JoomlaCLI\Command\Core\InstallCommand;
+use GreenCape\JoomlaCLI\DataSource;
 use GreenCapeTest\JoomlaPackagesTrait;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use mysqli as MySQLi;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
-class OverrideTest extends TestCase
+class DataSourceTest extends TestCase
 {
 	/**
-	 * @var Filesystem
+	 * @return array
 	 */
-	private static $filesystem;
-
-	use JoomlaPackagesTrait;
-
-	/**
-	 */
-	public static function setUpBeforeClass(): void
+	public function dsnSamples(): array
 	{
-		self::$filesystem = new Filesystem(new Local('tests'));
+		return [
+			['user:pass@host:3306/base'],
+			['user:pass@host:3306'],
+			['user:pass@host/base'],
+			['user:pass@host'],
+			['host:3306/base'],
+			['user@host:3306/base'],
+		];
 	}
 
 	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
+	 * @dataProvider dsnSamples
+	 * @testdox DSN strings are parsed correctly
 	 */
-	public function testOverride($path, $release, $short, $long): void
+	public function testPattern($sample): void
 	{
-		$command = new DownloadCommand();
-		$output  = new NullOutput();
+		$dsn = new DataSource($sample, 'user:pass@host:3306/base');
 
-		$command->run(new StringInput("-b tests/tmp/$path $short"), $output);
-
-		$command = new OverrideCommand();
-		$output  = new NullOutput();
-
-		$command->run(new StringInput("-b tests/tmp/$path system"), $output);
-
-		$contents = array_reduce(
-			self::$filesystem->listContents("tmp/$path/templates/system/html"),
-			static function ($carry, $item) {
-				$carry[] = $item['basename'];
-				return $carry;
-			},
-			[]
-		);
-		$this->assertTrue($release === '1.0' || count($contents) > 2);
+		$this->assertEquals('user', $dsn->getUser());
+		$this->assertEquals('pass', $dsn->getPass());
+		$this->assertEquals('host', $dsn->getHost());
+		$this->assertEquals('3306', $dsn->getPort());
+		$this->assertEquals('base', $dsn->getBase());
 	}
 
-	protected function tearDown(): void
+	/**
+	 * @testdox IP addresses are recognised as host as well
+	 */
+	public function testIP(): void
 	{
-		self::$filesystem->deleteDir('tmp');
+		$dsn = new DataSource('http://127.0.0.1:3307', 'user:pass@host:3306/base');
+
+		$this->assertEquals('http://127.0.0.1', $dsn->getHost());
+		$this->assertEquals('3307', $dsn->getPort());
 	}
 }
