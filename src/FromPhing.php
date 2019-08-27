@@ -10,7 +10,6 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
 
 class FromPhing
 {
@@ -1343,16 +1342,18 @@ ECHO
 	 */
 	private function init($dir, $name = null): void
 	{
+		$this->project['name']    = $name;
 		$this->project['basedir'] = $dir ?? getcwd();
 
-		$settings = Yaml::parse(file_get_contents($this->project['basedir'] . '/project.yml'));
+		if (!file_exists($this->project['basedir'] . '/project.json'))
+		{
+			throw new RuntimeException('No project.json file found in ' . $this->project['basedir']);
+		}
 
-		$this->project['name']     = $settings->project->name ?? $name;
-		$this->project['version']  = $settings->project->version ?? null;
-		$this->package['name']     = $settings->package->component->name ?? $this->project['name'];
-		$this->package['version']  = $settings->package->component->version ?? $this->project['version'];
-		$this->package['manifest'] = $settings->package->component->manifest ?? 'manifest.xml';
-		$this->project['version']  = $this->project['version'] ?? $this->package['version'];
+		$settings = json_decode(file_get_contents($this->project['basedir'] . '/project.json'), true);
+
+		$this->project = array_merge($this->project, $settings->project);
+		$this->package = array_merge($this->package, $settings->package);
 
 		$this->build            = realpath($this->project['basedir'] . '/build');
 		$this->source           = realpath($this->project['basedir'] . '/source');
