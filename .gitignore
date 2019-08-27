@@ -13,3 +13,4 @@ gource.mp4
 data/*
 .cache
 .phpunit.result.cache
+tests/tmp/
