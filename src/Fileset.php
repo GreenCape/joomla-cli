@@ -144,7 +144,13 @@ class Fileset
 	 */
 	private function collectFiles(string $dir, string $pattern, int $flags = 0): array
 	{
-		$files    = [];
+		$files = [];
+
+		if (!is_dir($dir))
+		{
+			return $files;
+		}
+
 		$iterator = ($flags & self::NO_RECURSE) === self::NO_RECURSE
 			? new DirectoryIterator($dir)
 			: new RecursiveIteratorIterator(
