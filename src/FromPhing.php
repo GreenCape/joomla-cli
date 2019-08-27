@@ -10,6 +10,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
 
 class FromPhing
 {
@@ -126,10 +127,8 @@ class FromPhing
 	 */
 	public function __construct($basedir, $projectName = null)
 	{
-		$this->project['name']    = $projectName;
-		$this->project['basedir'] = $basedir;
 
-		$this->init();
+		$this->init($basedir, $projectName);
 	}
 
 	/**
@@ -1339,10 +1338,22 @@ ECHO
 	/**
 	 * Initialise.
 	 *
-	 * @todo Get the values from a configuration file
+	 * @param             $dir
+	 * @param string|null $name
 	 */
-	private function init(): void
+	private function init($dir, $name = null): void
 	{
+		$this->project['basedir'] = $dir ?? getcwd();
+
+		$settings = Yaml::parse(file_get_contents($this->project['basedir'] . '/project.yml'));
+
+		$this->project['name']     = $settings->project->name ?? $name;
+		$this->project['version']  = $settings->project->version ?? null;
+		$this->package['name']     = $settings->package->component->name ?? $this->project['name'];
+		$this->package['version']  = $settings->package->component->version ?? $this->project['version'];
+		$this->package['manifest'] = $settings->package->component->manifest ?? 'manifest.xml';
+		$this->project['version']  = $this->project['version'] ?? $this->package['version'];
+
 		$this->build            = realpath($this->project['basedir'] . '/build');
 		$this->source           = realpath($this->project['basedir'] . '/source');
 		$this->tests            = realpath($this->project['basedir'] . '/tests');
@@ -1355,12 +1366,6 @@ ECHO
 		$this->serverDockyard   = realpath($this->build . '/servers');
 		$this->versionCache     = realpath($this->build . '/versions.json');
 		$this->downloadCache    = realpath($this->build . '/cache');
-		$this->package          = [
-			'type'     => 'com_',
-			'name'     => 'untitled',
-			'version'  => '0.0.0',
-			'manifest' => realpath(file_exists("{$this->source}/manifest.xml") ? 'manifest.xml' : 'installation/manifest.xml')
-		];
 		$this->php              = [
 			'host' => 'php',
 			'port' => 9000

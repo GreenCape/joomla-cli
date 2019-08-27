@@ -23,7 +23,8 @@
     "league/flysystem-ziparchive": "^1.0",
     "ext-dom": "*",
     "theseer/autoload": "^1.25",
-    "phpunit/phpunit": "^8.3"
+    "phpunit/phpunit": "^8.3",
+    "symfony/yaml": "~3"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
