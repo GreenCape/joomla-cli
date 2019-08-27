@@ -1343,23 +1343,23 @@ ECHO
 	 */
 	private function init(): void
 	{
-		$this->build            = $this->project['basedir'] . '/build';
-		$this->source           = $this->project['basedir'] . '/source';
-		$this->tests            = $this->project['basedir'] . '/tests';
-		$this->bin              = $this->project['basedir'] . '/vendor/bin';
-		$this->unitTests        = $this->tests . '/unit';
-		$this->integrationTests = $this->tests . '/integration';
-		$this->systemTests      = $this->tests . '/system';
-		$this->testEnvironments = $this->tests . '/servers';
-		$this->buildTemplates   = $this->build . '/template';
-		$this->serverDockyard   = $this->build . '/servers';
-		$this->versionCache     = $this->build . '/versions.json';
-		$this->downloadCache    = $this->build . '/cache';
+		$this->build            = realpath($this->project['basedir'] . '/build');
+		$this->source           = realpath($this->project['basedir'] . '/source');
+		$this->tests            = realpath($this->project['basedir'] . '/tests');
+		$this->bin              = realpath($this->project['basedir'] . '/vendor/bin');
+		$this->unitTests        = realpath($this->tests . '/unit');
+		$this->integrationTests = realpath($this->tests . '/integration');
+		$this->systemTests      = realpath($this->tests . '/system');
+		$this->testEnvironments = realpath($this->tests . '/servers');
+		$this->buildTemplates   = realpath($this->build . '/template');
+		$this->serverDockyard   = realpath($this->build . '/servers');
+		$this->versionCache     = realpath($this->build . '/versions.json');
+		$this->downloadCache    = realpath($this->build . '/cache');
 		$this->package          = [
 			'type'     => 'com_',
 			'name'     => 'untitled',
 			'version'  => '0.0.0',
-			'manifest' => file_exists("{$this->source}/manifest.xml") ? 'manifest.xml' : 'installation/manifest.xml'
+			'manifest' => realpath(file_exists("{$this->source}/manifest.xml") ? 'manifest.xml' : 'installation/manifest.xml')
 		];
 		$this->php              = [
 			'host' => 'php',
