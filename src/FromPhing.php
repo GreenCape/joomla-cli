@@ -1346,13 +1346,13 @@ ECHO
 		$this->build            = $this->project['basedir'] . '/build';
 		$this->source           = $this->project['basedir'] . '/source';
 		$this->tests            = $this->project['basedir'] . '/tests';
+		$this->bin              = $this->project['basedir'] . '/vendor/bin';
 		$this->unitTests        = $this->tests . '/unit';
 		$this->integrationTests = $this->tests . '/integration';
 		$this->systemTests      = $this->tests . '/system';
 		$this->testEnvironments = $this->tests . '/servers';
 		$this->buildTemplates   = $this->build . '/template';
 		$this->serverDockyard   = $this->build . '/servers';
-		$this->bin              = $this->build . '/vendor/bin';
 		$this->versionCache     = $this->build . '/versions.json';
 		$this->downloadCache    = $this->build . '/cache';
 		$this->package          = [
