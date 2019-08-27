@@ -1578,21 +1578,28 @@ ECHO
 			$xmlContent = $prolog . "\n" . $xmlContent;
 		}
 
-		$xml = new DOMDocument();
-		$xml->loadXML($xmlContent);
-
-		$node = $xml->firstChild;
-
-		$array = $this->nodeToArray($node, $collapseAttributes);
-
-		if ($keepRoot)
+		try
 		{
-			$array = [
-				$node->nodeName => $array
-			];
-		}
+			$xml = new DOMDocument();
+			$xml->loadXML($xmlContent);
 
-		return $array;
+			$node = $xml->firstChild;
+
+			$array = $this->nodeToArray($node, $collapseAttributes);
+
+			if ($keepRoot)
+			{
+				$array = [
+					$node->nodeName => $array
+				];
+			}
+
+			return $array;
+		}
+		catch (Throwable $exception)
+		{
+			throw new RuntimeException("Unable to parse content of {$xmlFile}\n" . $exception->getMessage());
+		}
 	}
 
 	/**
