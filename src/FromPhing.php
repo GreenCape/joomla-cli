@@ -84,7 +84,7 @@ class FromPhing
 	/**
 	 * @var array
 	 */
-	private $package;
+	private $package = [];
 	/**
 	 * @var string
 	 */
@@ -1343,7 +1343,7 @@ ECHO
 	private function init($dir, $name = null): void
 	{
 		$this->project['name']    = $name;
-		$this->project['basedir'] = $dir ?? getcwd();
+		$this->project['basedir'] = realpath($dir) ?? getcwd();
 
 		if (!file_exists($this->project['basedir'] . '/project.json'))
 		{
@@ -1352,21 +1352,23 @@ ECHO
 
 		$settings = json_decode(file_get_contents($this->project['basedir'] . '/project.json'), true);
 
-		$this->project = array_merge($this->project, $settings->project);
-		$this->package = array_merge($this->package, $settings->package);
+		$this->project = array_merge($this->project, $settings['project']);
+		$this->package = array_merge($this->package, $settings['package']);
 
-		$this->build            = realpath($this->project['basedir'] . '/build');
-		$this->source           = realpath($this->project['basedir'] . '/source');
-		$this->tests            = realpath($this->project['basedir'] . '/tests');
-		$this->bin              = realpath($this->project['basedir'] . '/vendor/bin');
-		$this->unitTests        = realpath($this->tests . '/unit');
-		$this->integrationTests = realpath($this->tests . '/integration');
-		$this->systemTests      = realpath($this->tests . '/system');
-		$this->testEnvironments = realpath($this->tests . '/servers');
-		$this->buildTemplates   = realpath($this->build . '/template');
-		$this->serverDockyard   = realpath($this->build . '/servers');
-		$this->versionCache     = realpath($this->build . '/versions.json');
-		$this->downloadCache    = realpath($this->build . '/cache');
+		$this->package['manifest'] = $this->package['component']['manifest'];
+
+		$this->build            = $this->project['basedir'] . '/build';
+		$this->source           = $this->project['basedir'] . '/source';
+		$this->tests            = $this->project['basedir'] . '/tests';
+		$this->bin              = $this->project['basedir'] . '/vendor/bin';
+		$this->unitTests        = $this->tests . '/unit';
+		$this->integrationTests = $this->tests . '/integration';
+		$this->systemTests      = $this->tests . '/system';
+		$this->testEnvironments = $this->tests . '/servers';
+		$this->buildTemplates   = $this->build . '/template';
+		$this->serverDockyard   = $this->build . '/servers';
+		$this->versionCache     = $this->build . '/versions.json';
+		$this->downloadCache    = $this->build . '/cache';
 		$this->php              = [
 			'host' => 'php',
 			'port' => 9000
@@ -1480,7 +1482,7 @@ ECHO
 	 */
 	private function echo(string $message, string $level): void
 	{
-		echo strtoupper($level) . ': ' . $message;
+		echo strtoupper($level) . ': ' . $message . "\n";
 	}
 
 	/**
