@@ -977,6 +977,8 @@ ECHO
 	 */
 	public function testUnit(): void
 	{
+		$this->echo("Running unit tests from {$this->unitTests}", 'debug');
+
 		$this->phpAb();
 		$this->mkdir("{$this->build}/logs/coverage");
 		$this->exec("{$this->bin}/phpunit .", $this->unitTests);
@@ -1479,7 +1481,7 @@ ECHO
 	 *
 	 * @return string|null
 	 */
-	private function exec(string $command, string $dir = '.', bool $passthru = false): ?string
+	private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
 	{
 		if ($dir !== '.')
 		{
