@@ -726,7 +726,7 @@ ECHO
 		$this->documentUml();
 		$this->documentChangelog();
 		$apidocMethod = 'document' . ucfirst(strtolower($apidocGenerator));
-		$this->{$apidocMethod}("{$this->project['name']} {$this->package['version']} API Documentation");
+		$this->{$apidocMethod}("{$this->project['name']} {$this->project['version']} API Documentation");
 	}
 
 	/**
@@ -926,7 +926,7 @@ ECHO
 	 */
 	public function patchCreate(): void
 	{
-		$patchsetLocation = "dist/{$this->package['name']}-{$this->package['version']}-full";
+		$patchsetLocation = "dist/{$this->package['name']}-{$this->project['version']}-full";
 		$uptodate         = $this->isUptodate(
 			new Fileset($patchsetLocation),
 			new Fileset($this->source)
@@ -1293,7 +1293,7 @@ ECHO
 		$this->build();
 		$this->distPrepare();
 
-		$packageName = "{$this->package['name']}-{$this->package['version']}";
+		$packageName = "{$this->package['name']}-{$this->project['version']}";
 		$this->exec("zip -r ../packages/{$packageName}.zip * > /dev/null", $this->dist['basedir']);
 		$this->exec("tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null", $this->dist['basedir']);
 		$this->exec("tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null", $this->dist['basedir']);
@@ -1442,7 +1442,7 @@ ECHO
 			$this->project['name'] = $this->package['name'];
 		}
 
-		$this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['name']}-{$this->package['version']}";
+		$this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['name']}-{$this->project['version']}";
 
 		$this->mkdir($this->downloadCache);
 
