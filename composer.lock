@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bf07c2ae3792b06573e9eb6ad80322c",
+    "content-hash": "08209d4c89b6fb745f3204482b3e9c32",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -61,6 +61,95 @@
                 "instantiate"
             ],
             "time": "2019-03-17T17:37:11+00:00"
+        },
+        {
+            "name": "greencape/joomla-manifest",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "/home/nibra/Development/GreenCape/joomla-manifest",
+                "reference": "4b3f8bb48e9acf9fb71ec0ef00261aa0f9cb7732"
+            },
+            "require": {
+                "ext-json": "*",
+                "greencape/xml-converter": ">=1.1",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "autoload-dev": {
+                "classmap": [
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Braczek",
+                    "email": "nbraczek@bsds.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "A class library for handling Joomla! extension manifest files.",
+            "homepage": "https://github.com/GreenCape/joomla-manifest",
+            "support": {
+                "issues": "https://github.com/GreenCape/joomla-manifest/issues"
+            },
+            "time": "2019-08-28T10:08:07+00:00"
+        },
+        {
+            "name": "greencape/xml-converter",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GreenCape/xml-converter.git",
+                "reference": "5094f1db585050a2260bca235304a69f26f1d483"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GreenCape/xml-converter/zipball/5094f1db585050a2260bca235304a69f26f1d483",
+                "reference": "5094f1db585050a2260bca235304a69f26f1d483",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL 2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Braczek",
+                    "role": "lead",
+                    "email": "nbraczek@bsds.de"
+                },
+                {
+                    "name": "Marat A. Denenberg"
+                }
+            ],
+            "description": "A PHP XML parser and compiler that provides an easy way to convert XML into native PHP arrays and back again. No dependencies on external libraries or extensions.",
+            "homepage": "https://github.com/greencape/xml-converter",
+            "time": "2014-08-06T01:42:10+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3323,6 +3412,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "greencape/joomla-manifest": 20,
         "roave/security-advisories": 20,
         "codeclimate/php-test-reporter": 20
     },

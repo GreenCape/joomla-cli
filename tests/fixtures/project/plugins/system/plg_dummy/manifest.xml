@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Aelterwerden Install Package Description
+ *
+ * PHP version 5.3
+ *
+ * @version    2.2.0 (Joomla 2.5) [AB0179] Commit-Id: $Id$
+ * @package    Aelterwerden
+ * @author     Niels Braczek <nbraczek@bsds.de>
+ * @copyright  Copyright (C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ */
+-->
+<extension type="plugin" group="system" version="2.5.0" method="upgrade">
+	<name>Aelterwerden</name>
+	<author>Niels Braczek</author>
+	<creationDate>2013-01-03</creationDate>
+	<copyright>(C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>nbraczek@bsds.de</authorEmail>
+	<authorUrl>www.bsds.de</authorUrl>
+	<version>2.2.0</version>
+	<description>COM_AELTERWERDEN_XML_DESCRIPTION</description>
+</extension>

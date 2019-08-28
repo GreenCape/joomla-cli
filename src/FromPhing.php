@@ -5,6 +5,7 @@ use GreenCape\JoomlaCLI\Fileset;
 use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\JoomlaCLI\UMLGenerator;
+use GreenCape\Manifest\Manifest;
 use GreenCape\PhingTasks\CoverageMerger;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
@@ -14,9 +15,57 @@ use League\Flysystem\Filesystem;
 class FromPhing
 {
 	/**
+	 * The absolute path to the project root
+	 *
+	 * @var string
+	 */
+	private $basedir;
+
+	/**
+	 * Project settings
+	 *
+	 * The settings are read from project.json
+	 *
+	 * [name]    => The project name
+	 * [version] => The project version
+	 * [paths]   => Array of paths
+	 *     [source] => Relative path to source files, defaults to `source`
+	 *
 	 * @var array
 	 */
 	private $project;
+
+	/**
+	 * Package settings
+	 *
+	 * The settings are read from project.json and combined with data from the manifest file
+	 *
+	 * [name]       => The name of the extension, e.g., pkg_example
+	 * [manifest]   => The path to the manifest file relative to <source>
+	 * [extensions] => Optional list of extensions for packages, indexed by name (inclo. type prefix)
+	 *     [<name>] => Array (
+	 *         [name]     => The name of the extension, e.g., com_example
+	 *         [type]     => Type of extension, e.g., component
+	 *         [group]    => Plugins only: the plugin group
+	 *         [manifest] => The path to the manifest file relative to <source>
+	 *         [archive]  => The path to the extension archive relative to <source>
+	 *     )
+	 *
+	 * @var array
+	 */
+	private $package = [];
+
+	/**
+	 * Absolute path to source files, defaults to `<basedir>/source`
+	 *
+	 * @var string
+	 */
+	private $source;
+
+	/**
+	 * @var string
+	 */
+	private $tests;
 	/**
 	 * @var string
 	 */
@@ -25,14 +74,6 @@ class FromPhing
 	 * @var array
 	 */
 	private $dist;
-	/**
-	 * @var string
-	 */
-	private $source;
-	/**
-	 * @var string
-	 */
-	private $tests;
 	/**
 	 * @var string
 	 */
@@ -82,10 +123,6 @@ class FromPhing
 	 */
 	private $filterExpand;
 	/**
-	 * @var array
-	 */
-	private $package = [];
-	/**
 	 * @var string
 	 */
 	private $apidocGenerator;
@@ -122,12 +159,11 @@ class FromPhing
 	 * FromPhing constructor.
 	 *
 	 * @param $basedir
-	 * @param $projectName
+	 * @param $projectFile
 	 */
-	public function __construct($basedir, $projectName = null)
+	public function __construct($basedir = '.', $projectFile = 'project.json')
 	{
-
-		$this->init($basedir, $projectName);
+		$this->init(realpath($basedir), $projectFile);
 	}
 
 	/**
@@ -715,9 +751,9 @@ ECHO
 	 */
 	public function documentChangelog(): void
 	{
-		$this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > {$this->project['basedir']}/CHANGELOG.md");
+		$this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > {$this->basedir}/CHANGELOG.md");
 		$this->reflexive(
-			(new Fileset($this->project['basedir']))
+			(new Fileset($this->basedir))
 				->include('CHANGELOG.md'),
 			static function ($content) {
 				$content = preg_replace("~(\n)\s*\(([^)]+)\)~", "\1\1 Version \2\1------\1\1", $content);
@@ -760,7 +796,7 @@ ECHO
 	{
 		$this->exec(
 			"{$this->bin}/phpdoc --target={$this->build}/report/api --directory={$this->source} --title=\"{$this->apidocTitle}\" --template=responsive",
-			$this->project['basedir']
+			$this->basedir
 		);
 		$this->copy(
 			(new Fileset("{$this->build}/plantuml"))
@@ -791,7 +827,7 @@ ECHO
 	{
 		$this->exec(
 			"{$this->bin}/apigen generate --template-config={$this->build}/vendor/apigen/apigen/templates/bootstrap/config.neon --destination={$this->build}/report/api --source={$this->source} --title=\"{$this->apidocTitle}\" --deprecated --todo --tree",
-			$this->project['basedir']
+			$this->basedir
 		);
 		$this->copy(
 			(new Fileset("{$this->build}/plantuml"))
@@ -848,7 +884,7 @@ ECHO
 
 		$this->exec(
 			"{$this->bin}/phpcb --log={$this->build}/logs --output={$this->build}/report/code-browser --crapThreshold=10",
-			$this->project['basedir']
+			$this->basedir
 		);
 	}
 
@@ -1292,7 +1328,7 @@ ECHO
 			$this->dist['basedir']
 		);
 		$this->copy(
-			(new Fileset($this->project['basedir']))
+			(new Fileset($this->basedir))
 				->include('*.md'),
 			$this->dist['basedir']
 		);
@@ -1337,30 +1373,54 @@ ECHO
 	/**
 	 * Initialise.
 	 *
-	 * @param             $dir
-	 * @param string|null $name
+	 * @param string $dir         The absolute path to the project root
+	 * @param string $projectFile The path to the project file, relative to $dir
 	 */
-	private function init($dir, $name = null): void
+	private function init($dir, $projectFile): void
 	{
-		$this->project['name']    = $name;
-		$this->project['basedir'] = realpath($dir) ?? getcwd();
+		$this->basedir = $dir;
 
-		if (!file_exists($this->project['basedir'] . '/project.json'))
+		if (!file_exists($this->basedir . '/' . $projectFile))
 		{
-			throw new RuntimeException('No project.json file found in ' . $this->project['basedir']);
+			throw new RuntimeException(
+				sprintf(
+					'Project file %s/%s not found',
+					$this->basedir,
+					$projectFile
+				)
+			);
 		}
 
-		$settings = json_decode(file_get_contents($this->project['basedir'] . '/project.json'), true);
+		$settings = json_decode(file_get_contents($this->basedir . '/' . $projectFile), true);
 
-		$this->project = array_merge($this->project, $settings['project']);
-		$this->package = array_merge($this->package, $settings['package']);
+		$this->project = $settings['project'];
+		$this->source  = rtrim($this->basedir . '/' . $this->project['paths']['source'] ?? 'source', '/');
 
-		$this->package['manifest'] = $this->package['component']['manifest'];
+		$this->package['name']     = $settings['package']['name'];
+		$this->package['manifest'] = $settings['package']['manifest'];
 
-		$this->build            = $this->project['basedir'] . '/build';
-		$this->source           = $this->project['basedir'] . '/source';
-		$this->tests            = $this->project['basedir'] . '/tests';
-		$this->bin              = $this->project['basedir'] . '/vendor/bin';
+		if (isset($settings['package']['extensions']))
+		{
+			foreach ($settings['package']['extensions'] as $extension)
+			{
+				$this->package['extensions'][$extension['name']] = $extension;
+			}
+		}
+
+		$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+
+		if ($manifest->getType() === 'package')
+		{
+			foreach ($manifest->getSection('files')->getStructure() as $extension)
+			{
+				$this->package['extensions'][$extension['@id']]['archive'] = ltrim(($extension['@base'] ?? '') . '/' . $extension['file'], '/');
+				$this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
+			}
+		}
+
+		$this->build            = $this->basedir . '/build';
+		$this->tests            = $this->basedir . '/tests';
+		$this->bin              = $this->basedir . '/vendor/bin';
 		$this->unitTests        = $this->tests . '/unit';
 		$this->integrationTests = $this->tests . '/integration';
 		$this->systemTests      = $this->tests . '/system';
@@ -1394,7 +1454,7 @@ ECHO
 		$this->apidocGenerator = 'apigen'; // Supported generators: phpdoc, apigen
 		$this->apidocTitle     = "{$this->project['name']} {$this->package['version']} API Documentation";
 
-		$this->dist['basedir'] = "{$this->project['basedir']}/dist/{$this->package['type']}{$this->package['name']}-{$this->package['version']}";
+		$this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['type']}{$this->package['name']}-{$this->package['version']}";
 
 		$this->mkdir($this->downloadCache);
 
@@ -1439,7 +1499,7 @@ ECHO
 	 */
 	private function mkdir(string $dir): void
 	{
-		$this->exec("mkdir --mode=0644 --parents $dir", $this->project['basedir']);
+		$this->exec("mkdir --mode=0644 --parents $dir", $this->basedir);
 	}
 
 	/**
