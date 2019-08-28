@@ -1393,15 +1393,16 @@ ECHO
 
 		$this->project = $settings['project'];
 
-		$this->package['name']     = $settings['package']['name'];
-		$this->package['manifest'] = $settings['package']['manifest'];
+		$this->package['name']     = $settings['package']['name'] ?? 'com_' . strtolower(preg_replace('~\W+~', '_', $this->project['name']));
+		$this->package['type']     = $settings['package']['type'] ?? 'component';
+		$this->package['manifest'] = $settings['package']['manifest'] ?? 'manifest.xml';
 		$this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
 
 		if (isset($settings['package']['extensions']))
 		{
 			foreach ($settings['package']['extensions'] as $extension)
 			{
-				$extension['version']                            = $extension['version'] ?? $this->project['version'];
+				$extension['version']                            = $extension['version'] ?? $this->package['version'];
 				$this->package['extensions'][$extension['name']] = $extension;
 			}
 		}
@@ -1415,6 +1416,9 @@ ECHO
 			$this->echo("Reading manifest file {$settings['package']['manifest']}", 'debug');
 
 			$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+
+			$this->package['name'] = $manifest->getName();
+			$this->package['type'] = $manifest->getType();
 
 			if ($manifest->getType() === 'package')
 			{
