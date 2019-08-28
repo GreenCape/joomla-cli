@@ -123,14 +123,6 @@ class FromPhing
 	 */
 	private $filterExpand;
 	/**
-	 * @var string
-	 */
-	private $apidocGenerator;
-	/**
-	 * @var string
-	 */
-	private $apidocTitle;
-	/**
 	 * @var Fileset
 	 */
 	private $sourceFiles;
@@ -729,12 +721,12 @@ ECHO
 	 */
 	public function document($apidocGenerator = null): void
 	{
-		$apidocGenerator = $apidocGenerator ?? $this->apidocGenerator;
+		$apidocGenerator = $apidocGenerator ?? 'apigen'; // Supported generators: phpdoc, apigen;
 		$this->documentClean();
 		$this->documentUml();
 		$this->documentChangelog();
 		$apidocMethod = 'document' . ucfirst(strtolower($apidocGenerator));
-		$this->{$apidocMethod}();
+		$this->{$apidocMethod}("{$this->project['name']} {$this->project['version']} API Documentation");
 	}
 
 	/**
@@ -791,11 +783,13 @@ ECHO
 	/** @noinspection PhpUnusedPrivateMethodInspection */
 	/**
 	 * Generate API documentation using PHPDocumentor2
+	 *
+	 * @param $apidocTitle
 	 */
-	private function documentPhpdoc(): void
+	private function documentPhpdoc($apidocTitle): void
 	{
 		$this->exec(
-			"{$this->bin}/phpdoc --target={$this->build}/report/api --directory={$this->source} --title=\"{$this->apidocTitle}\" --template=responsive",
+			"{$this->bin}/phpdoc --target={$this->build}/report/api --directory={$this->source} --title=\"{$apidocTitle}\" --template=responsive",
 			$this->basedir
 		);
 		$this->copy(
@@ -822,11 +816,13 @@ ECHO
 	/** @noinspection PhpUnusedPrivateMethodInspection */
 	/**
 	 * Generate API documentation using ApiGen
+	 *
+	 * @param $apidocTitle
 	 */
-	private function documentApigen(): void
+	private function documentApigen($apidocTitle): void
 	{
 		$this->exec(
-			"{$this->bin}/apigen generate --template-config={$this->build}/vendor/apigen/apigen/templates/bootstrap/config.neon --destination={$this->build}/report/api --source={$this->source} --title=\"{$this->apidocTitle}\" --deprecated --todo --tree",
+			"{$this->bin}/apigen generate --template-config={$this->build}/vendor/apigen/apigen/templates/bootstrap/config.neon --destination={$this->build}/report/api --source={$this->source} --title=\"{$apidocTitle}\" --deprecated --todo --tree",
 			$this->basedir
 		);
 		$this->copy(
@@ -930,7 +926,7 @@ ECHO
 	 */
 	public function patchCreate(): void
 	{
-		$patchsetLocation = "dist/{$this->package['type']}{$this->package['name']}-{$this->package['version']}-full";
+		$patchsetLocation = "dist/{$this->package['type']}{$this->package['name']}-{$this->project['version']}-full";
 		$uptodate         = $this->isUptodate(
 			new Fileset($patchsetLocation),
 			new Fileset($this->source)
@@ -1297,7 +1293,7 @@ ECHO
 		$this->build();
 		$this->distPrepare();
 
-		$packageName = "{$this->package['type']}{$this->package['name']}-{$this->package['version']}";
+		$packageName = "{$this->package['type']}{$this->package['name']}-{$this->project['version']}";
 		$this->exec("zip -r ../packages/{$packageName}.zip * > /dev/null", $this->dist['basedir']);
 		$this->exec("tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null", $this->dist['basedir']);
 		$this->exec("tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null", $this->dist['basedir']);
@@ -1446,10 +1442,7 @@ ECHO
 			$this->project['name'] = $this->package['name'];
 		}
 
-		$this->apidocGenerator = 'apigen'; // Supported generators: phpdoc, apigen
-		$this->apidocTitle     = "{$this->project['name']} {$this->package['version']} API Documentation";
-
-		$this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['type']}{$this->package['name']}-{$this->package['version']}";
+		$this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['type']}{$this->package['name']}-{$this->project['version']}";
 
 		$this->mkdir($this->downloadCache);
 
