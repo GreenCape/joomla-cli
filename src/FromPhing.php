@@ -1387,24 +1387,33 @@ ECHO
 			);
 		}
 
+		$this->echo("Reading project file {$projectFile}", 'debug');
+
 		$settings = json_decode(file_get_contents($this->basedir . '/' . $projectFile), true);
 
 		$this->project = $settings['project'];
-		$this->source  = rtrim($this->basedir . '/' . $this->project['paths']['source'] ?? 'source', '/');
 
 		$this->package['name']     = $settings['package']['name'];
 		$this->package['manifest'] = $settings['package']['manifest'];
+		$this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
 
 		if (isset($settings['package']['extensions']))
 		{
 			foreach ($settings['package']['extensions'] as $extension)
 			{
+				$extension['version']                            = $extension['version'] ?? $this->project['version'];
 				$this->package['extensions'][$extension['name']] = $extension;
 			}
 		}
 
+		$this->echo("Project: {$this->project['name']} {$this->project['version']}", 'verbose');
+
+		$this->source = rtrim($this->basedir . '/' . $this->project['paths']['source'] ?? 'source', '/');
+
 		if (file_exists($this->source . '/' . $settings['package']['manifest']))
 		{
+			$this->echo("Reading manifest file {$settings['package']['manifest']}", 'debug');
+
 			$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
 
 			if ($manifest->getType() === 'package')
@@ -1420,6 +1429,8 @@ ECHO
 		{
 			$this->echo("Manifest file '{$settings['package']['manifest']}' not found.", 'warning');
 		}
+
+		$this->echo(ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}", 'verbose');
 
 		$this->build            = $this->basedir . '/build';
 		$this->tests            = $this->basedir . '/tests';
