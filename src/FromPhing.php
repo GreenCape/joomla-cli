@@ -1489,11 +1489,15 @@ ECHO
 			$command = 'cd ' . $dir . ' && ' . $command . ' && cd ' . $current;
 		}
 
-		$result = shell_exec($command . ' 2>&1');
+		$result = '';
 
 		if ($passthru)
 		{
-			echo $result;
+			passthru($command . ' 2>&1', $result);
+		}
+		else
+		{
+			$result = shell_exec($command . ' 2>&1');
 		}
 
 		return $result;
