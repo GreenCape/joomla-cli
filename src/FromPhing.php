@@ -153,9 +153,9 @@ class FromPhing
 	 * @param $basedir
 	 * @param $projectFile
 	 */
-	public function __construct($basedir = '.', $projectFile = 'project.json')
+	public function __construct($basedir = null, $projectFile = null)
 	{
-		$this->init(realpath($basedir), $projectFile);
+		$this->init(realpath($basedir ?? '.'), $projectFile ?? 'project.json');
 	}
 
 	/**
