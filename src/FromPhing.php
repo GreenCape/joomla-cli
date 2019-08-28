@@ -1407,15 +1407,22 @@ ECHO
 			}
 		}
 
-		$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
-
-		if ($manifest->getType() === 'package')
+		if (file_exists($this->source . '/' . $settings['package']['manifest']))
 		{
-			foreach ($manifest->getSection('files')->getStructure() as $extension)
+			$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+
+			if ($manifest->getType() === 'package')
 			{
-				$this->package['extensions'][$extension['@id']]['archive'] = ltrim(($extension['@base'] ?? '') . '/' . $extension['file'], '/');
-				$this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
+				foreach ($manifest->getSection('files')->getStructure() as $extension)
+				{
+					$this->package['extensions'][$extension['@id']]['archive'] = ltrim(($extension['@base'] ?? '') . '/' . $extension['file'], '/');
+					$this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
+				}
 			}
+		}
+		else
+		{
+			$this->echo("Manifest file '{$settings['package']['manifest']}' not found.", 'warning');
 		}
 
 		$this->build            = $this->basedir . '/build';
@@ -1433,18 +1440,6 @@ ECHO
 			'host' => 'php',
 			'port' => 9000
 		];
-
-		if (file_exists("{$this->source}/{$this->package['manifest']}"))
-		{
-			$this->merge(
-				$this->package,
-				$this->xmlProperty("{$this->source}/{$this->package['manifest']}", false, true)
-			);
-		}
-		else
-		{
-			$this->echo("Manifest file '{$this->package['manifest']}' not found.", 'warning');
-		}
 
 		if (empty($this->project['name']))
 		{
