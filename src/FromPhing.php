@@ -1728,7 +1728,7 @@ ECHO
 
 		foreach ($fileset->getFiles() as $file)
 		{
-			$this->copyFile($file, $toDir . '/' . $file, $filter);
+			$this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
 		}
 	}
 
@@ -1744,7 +1744,7 @@ ECHO
 			return;
 		}
 
-		$this->echo("Copying $file" . ($filter === null ? ' with filter' : ''), 'debug');
+		$this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
 
 		$content = file_get_contents($file);
 
