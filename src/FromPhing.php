@@ -246,12 +246,6 @@ class FromPhing
 	{
 		if (!file_exists($this->serverDockyard . '/docker-compose.yml'))
 		{
-			$this->copy(
-				(new Fileset($this->buildTemplates))
-					->include('docker-compose.yml'),
-				$this->serverDockyard,
-				$this->filterExpand
-			);
 			$uptodate = false;
 		}
 		else
@@ -311,6 +305,13 @@ class FromPhing
 		$this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
 			? ''
 			: "-p'{$this->database['mysql']['rootPassword']}'";
+
+		$this->copy(
+			(new Fileset($this->buildTemplates))
+				->include('docker-compose.yml'),
+			$this->serverDockyard,
+			$this->filterExpand
+		);
 
 		// Handle each test environment
 		foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition)
@@ -1775,6 +1776,8 @@ ECHO
 				{
 					$var = $var[$index];
 				}
+
+				return $var;
 			},
 			$content
 		);
