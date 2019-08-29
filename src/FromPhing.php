@@ -229,7 +229,7 @@ class FromPhing
 	public function selfUpdate(): void
 	{
 		$this->clean();
-		$this->exec('git pull origin && composer update', $this->build, true);
+		$this->exec('git pull origin && composer update', $this->build);
 	}
 
 	/************************
@@ -238,16 +238,32 @@ class FromPhing
 
 	/**
 	 * Generates the contents and prepares the test containers.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function dockerBuild(): void
 	{
-		$uptodate = $this->isUptodate(
-			$this->serverDockyard . '/docker-compose.yml',
-			(new Fileset('.'))
-				->include($this->source . '/**')
-				->include($this->integrationTests . '/**')
-				->include($this->testEnvironments . '/**')
-		);
+		if (!file_exists($this->serverDockyard . '/docker-compose.yml'))
+		{
+			$this->copy(
+				(new Fileset($this->buildTemplates))
+					->include('docker-compose.yml'),
+				$this->serverDockyard,
+				$this->filterExpand
+			);
+			$uptodate = false;
+		}
+		else
+		{
+			$uptodate = $this->isUptodate(
+				$this->serverDockyard . '/docker-compose.yml',
+				(new Fileset('.'))
+					->include($this->source . '/**')
+					->include($this->integrationTests . '/**')
+					->include($this->testEnvironments . '/**')
+			);
+		}
 
 		if ($uptodate)
 		{
@@ -256,74 +272,63 @@ class FromPhing
 			return;
 		}
 
-		try
+		// Recreate directories for container contents
+		$this->delete($this->serverDockyard);
+		$this->mkdir($this->serverDockyard . '/nginx.conf');
+		$this->mkdir($this->serverDockyard . '/nginx.html');
+		$this->mkdir($this->serverDockyard . '/apache.conf');
+		$this->mkdir($this->serverDockyard . '/apache.html');
+		$this->mkdir($this->serverDockyard . '/proxy.conf');
+		$this->mkdir($this->serverDockyard . '/mysql');
+		$this->mkdir($this->serverDockyard . '/postgresql');
+
+		// Get available Joomla! versions
+		$this->joomlaVersions($this->versionCache);
+
+		// Set default values for keys not defined in database.xml
+		$this->database = [
+			'mysql'      => [
+				'version'      => 'latest',
+				'name'         => 'joomla_test',
+				'user'         => 'db_user',
+				'password'     => 'db_pass',
+				'rootPassword' => '',
+			],
+			'postgresql' => [
+				'version'  => 'latest',
+				'name'     => 'joomla_test',
+				'user'     => 'db_user',
+				'password' => 'db_pass',
+			]
+		];
+
+		// Load database environment, if provided
+		if (file_exists($this->testEnvironments . '/database.xml'))
 		{
-			// Recreate directories for container contents
-			$this->delete($this->serverDockyard);
-			$this->mkdir($this->serverDockyard . '/nginx.conf');
-			$this->mkdir($this->serverDockyard . '/nginx.html');
-			$this->mkdir($this->serverDockyard . '/apache.conf');
-			$this->mkdir($this->serverDockyard . '/apache.html');
-			$this->mkdir($this->serverDockyard . '/proxy.conf');
-			$this->mkdir($this->serverDockyard . '/mysql');
-			$this->mkdir($this->serverDockyard . '/postgresql');
-
-			// Get available Joomla! versions
-			$this->joomlaVersions($this->versionCache);
-
-			// Set default values for keys not defined in database.xml
-			$this->database = [
-				'mysql'      => [
-					'version'      => 'latest',
-					'name'         => 'joomla_test',
-					'user'         => 'db_user',
-					'password'     => 'db_pass',
-					'rootPassword' => '',
-				],
-				'postgresql' => [
-					'version'  => 'latest',
-					'name'     => 'joomla_test',
-					'user'     => 'db_user',
-					'password' => 'db_pass',
-				]
-			];
-
-			// Load database environment, if provided
-			if (file_exists($this->testEnvironments . '/database.xml'))
-			{
-				$this->database = $this->merge($this->database, $this->xmlProperty($this->testEnvironments . '/database.xml', false, true));
-			}
-
-			$this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
-				? ''
-				: "-p'{$this->database['mysql']['rootPassword']}'";
-
-			// Handle each test environment
-			foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition)
-			{
-				if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml']))
-				{
-					continue;
-				}
-
-				$this->dockerBuildSystem($environmentDefinition);
-			}
-
-			$this->copy(
-				(new Fileset($this->buildTemplates))
-					->include('docker-compose.yml'),
-				$this->serverDockyard,
-				$this->filterExpand
-			);
+			$this->database = $this->merge($this->database, $this->xmlProperty($this->testEnvironments . '/database.xml', false, true));
 		}
-		catch (Throwable $exception)
+
+		$this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
+			? ''
+			: "-p'{$this->database['mysql']['rootPassword']}'";
+
+		// Handle each test environment
+		foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition)
 		{
-			$this->echo('Failed. ' . $exception->getMessage(), 'error');
+			if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml']))
+			{
+				continue;
+			}
+
+			$this->dockerBuildSystem($environmentDefinition);
 		}
 	}
 
 	/**
 	 * Starts the test containers, building them only if not existing.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function dockerStart(): void
 	{
@@ -1449,7 +1454,6 @@ ECHO
 		$this->integrationTests = $this->tests . '/integration';
 		$this->systemTests      = $this->tests . '/system';
 		$this->testEnvironments = $this->tests . '/servers';
-		$this->buildTemplates   = $this->build . '/template';
 		$this->serverDockyard   = $this->build . '/servers';
 		$this->versionCache     = $this->build . '/versions.json';
 		$this->downloadCache    = $this->build . '/cache';
@@ -1476,6 +1480,8 @@ ECHO
 		$this->xmlFiles             = (new Fileset($this->source))->include('**.*.xml');
 		$this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
+
+		$this->buildTemplates = dirname(__DIR__) . 'build/template';
 	}
 
 	/**
