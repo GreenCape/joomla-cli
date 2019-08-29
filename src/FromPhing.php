@@ -146,6 +146,10 @@ class FromPhing
 	 * @var array
 	 */
 	private $php;
+	/**
+	 * @var string
+	 */
+	private $dockerTemplates;
 
 	/**
 	 * FromPhing constructor.
@@ -307,7 +311,7 @@ class FromPhing
 			: "-p'{$this->database['mysql']['rootPassword']}'";
 
 		$this->copy(
-			(new Fileset($this->buildTemplates))
+			(new Fileset($this->dockerTemplates))
 				->include('docker-compose.yml'),
 			$this->serverDockyard,
 			$this->filterExpand
@@ -1483,6 +1487,7 @@ ECHO
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
 
 		$this->buildTemplates = dirname(__DIR__) . '/build/template';
+		$this->dockerTemplates = dirname(__DIR__) . '/build/docker';
 	}
 
 	/**
