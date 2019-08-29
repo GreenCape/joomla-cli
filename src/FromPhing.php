@@ -911,7 +911,14 @@ ECHO
 	 */
 	public function qualityMessDetect(): void
 	{
-		$this->exec("{$this->bin}/phpmd {$this->source} xml {$this->buildTemplates}/config/phpmd.xml --suffixes=php --reportfile={$this->build}/logs/pmd.xml");
+		$command = "{$this->bin}/phpmd"
+		           . " {$this->source}"
+		           . ' xml'
+		           . " {$this->buildTemplates}/config/phpmd.xml"
+		           . ' --suffixes php'
+		           . " --reportfile {$this->build}/logs/pmd.xml";
+
+		$this->exec($command);
 	}
 
 	/**
@@ -1489,7 +1496,7 @@ ECHO
 		$this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
 
-		$this->buildTemplates  = dirname(__DIR__) . '/build';
+		$this->buildTemplates = dirname(__DIR__) . '/build';
 	}
 
 	/**
@@ -1572,11 +1579,11 @@ ECHO
 	private function echo(string $message, string $level): void
 	{
 		$verbosity = [
-			'info' => OutputInterface::VERBOSITY_NORMAL,
+			'info'    => OutputInterface::VERBOSITY_NORMAL,
 			'warning' => OutputInterface::VERBOSITY_NORMAL,
-			'error' => OutputInterface::VERBOSITY_NORMAL,
+			'error'   => OutputInterface::VERBOSITY_NORMAL,
 			'verbose' => OutputInterface::VERBOSITY_VERBOSE,
-			'debug' => OutputInterface::VERBOSITY_DEBUG
+			'debug'   => OutputInterface::VERBOSITY_DEBUG
 		];
 
 		$this->output->writeln(strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message), $verbosity[$level]);
