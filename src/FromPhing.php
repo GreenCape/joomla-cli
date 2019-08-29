@@ -1589,6 +1589,11 @@ ECHO
 	 */
 	private function deleteFile($file): void
 	{
+		if (!file_exists($file))
+		{
+			return;
+		}
+
 		$this->exec(is_dir($file) ? "rm -rf $file" : "rm $file");
 	}
 
