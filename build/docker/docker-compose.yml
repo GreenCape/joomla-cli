@@ -1,5 +1,5 @@
 apache:
-  build: "${docker-templates}/docker/apache"
+  build: "${build-templates}/docker/apache"
   volumes:
     - "${server-dockyard}/apache/conf:/etc/apache2/sites-enabled"
     - "${server-dockyard}/apache/html:/var/www/html"
@@ -34,7 +34,7 @@ proxy:
     - "nginx:web_nginx"
 
 php:
-  build: "${docker-templates}/docker/php-fpm"
+  build: "${build-templates}/docker/php-fpm"
   volumes:
     - "${server-dockyard}/nginx/html:/var/www/html"
     - "${basedir}/vendor:/usr/local/lib/php/vendor"
@@ -63,7 +63,7 @@ pgsql:
     POSTGRES_PASSWORD: "${database.postgresql.password}"
 
 mail:
-  build: "${docker-templates}/docker/mailcatcher"
+  build: "${build-templates}/docker/mailcatcher"
   ports:
     - "1080:1080"
     - "1025:1025"
