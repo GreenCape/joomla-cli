@@ -778,9 +778,9 @@ ECHO
 	{
 		$this->delete("{$this->build}/report/api/uml");
 		$this->mkdir("{$this->build}/report/api/uml");
-		$this->copy("{$this->build}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/api/uml/skin.puml");
+		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/api/uml/skin.puml");
 
-		$uml = new UMLGenerator("{$this->build}/plantuml/plantuml.jar");
+		$uml = new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar");
 		$uml->generate(
 			(new Fileset($this->source))
 				->include('**/*')

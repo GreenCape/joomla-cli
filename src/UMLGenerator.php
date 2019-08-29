@@ -119,7 +119,7 @@ class UMLGenerator
 
 			foreach ($this->generateDiagramSource($code) as $group => $fragments)
 			{
-				$aggregate[$group] = array_merge((array) $aggregate[$group], $fragments);
+				$aggregate[$group] = array_merge($aggregate[$group] ?? [], $fragments);
 			}
 		}
 
@@ -288,9 +288,9 @@ class UMLGenerator
 	 */
 	private function render(): void
 	{
-		$this->log("Rendering ...");
-		shell_exec("java -jar '{\$this->jar}' -tsvg '{\$this->dir}/*.puml'");
-		$this->log("... done.");
+		$this->log('Rendering ...');
+		shell_exec("java -jar '{$this->jar}' -tsvg '{$this->dir}/*.puml'");
+		$this->log('... done.');
 	}
 
 	/**
@@ -300,13 +300,20 @@ class UMLGenerator
 	 */
 	private function prepareGroups($namespace): array
 	{
-		$aggregate = ['global' => ''];
+		$aggregate = ['global' => []];
+
+		if ($namespace === '')
+		{
+			return $aggregate;
+		}
+
 		$currLevel = '';
 		$parts     = explode('.', $namespace);
+
 		while (!empty($parts))
 		{
 			$currLevel             = trim($currLevel . '.' . array_shift($parts), '.');
-			$aggregate[$currLevel] = '';
+			$aggregate[$currLevel] = [];
 		}
 
 		return $aggregate;
@@ -317,6 +324,6 @@ class UMLGenerator
 	 */
 	private function log(string $string): void
 	{
-		echo $string;
+		echo "UML: {$string}\n";
 	}
 }
