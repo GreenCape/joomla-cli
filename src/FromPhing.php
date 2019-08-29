@@ -148,10 +148,6 @@ class FromPhing
 	 */
 	private $php;
 	/**
-	 * @var string
-	 */
-	private $dockerTemplates;
-	/**
 	 * @var OutputInterface
 	 */
 	private $output;
@@ -318,7 +314,7 @@ class FromPhing
 			: "-p'{$this->database['mysql']['rootPassword']}'";
 
 		$this->copy(
-			(new Fileset($this->dockerTemplates))
+			(new Fileset($this->buildTemplates . '/docker'))
 				->include('docker-compose.yml'),
 			$this->serverDockyard,
 			$this->filterExpand
@@ -515,13 +511,13 @@ class FromPhing
 			$this->filterExpand
 		);
 		$this->copy(
-			(new Fileset($this->buildTemplates . '/selenium'))
+			(new Fileset($this->buildTemplates . '/template/selenium'))
 				->exclude('server_files/**/*'),
 			$cmsRoot . '/tests/system'
 		);
 
 		$this->exec(
-			"phpab --tolerant --basedir '.' --exclude '*Test.php' --template '{$this->buildTemplates}/tests/system/autoload.php.in' --output '{$cmsRoot}/tests/system/autoload.php' .",
+			"phpab --tolerant --basedir '.' --exclude '*Test.php' --template '{$this->buildTemplates}/template/tests/system/autoload.php.in' --output '{$cmsRoot}/tests/system/autoload.php' .",
 			"{$cmsRoot}/tests/system"
 		);
 
@@ -549,7 +545,7 @@ class FromPhing
 
 		$testData = $this->versionMatch(
 			'joomla-(.*).sql',
-			"{$this->buildTemplates}/{$this->environment['database']['engine']}",
+			"{$this->buildTemplates}/template/{$this->environment['database']['engine']}",
 			$version
 		);
 
@@ -584,7 +580,7 @@ ECHO
 		else
 		{
 			$this->copy(
-				"{$this->buildTemplates}/{$this->environment['database']['engine']}/createdb.sql",
+				"{$this->buildTemplates}/template/{$this->environment['database']['engine']}/createdb.sql",
 				$importSql,
 				$this->filterExpand
 			);
@@ -614,12 +610,12 @@ ECHO
 
 		// Setup web server
 		$this->copy(
-			"{$this->buildTemplates}/{$this->environment['server']['type']}/vhost.conf",
+			"{$this->buildTemplates}/template/{$this->environment['server']['type']}/vhost.conf",
 			"{$this->serverDockyard}/{$this->environment['server']['type']}/conf/{$domain}.conf",
 			$this->filterExpand
 		);
 		$this->copy(
-			"{$this->buildTemplates}/{$this->environment['server']['type']}/proxy.conf",
+			"{$this->buildTemplates}/template/{$this->environment['server']['type']}/proxy.conf",
 			"{$this->serverDockyard}/proxy/conf/{$domain}.conf",
 			$this->filterExpand
 		);
@@ -915,7 +911,7 @@ ECHO
 	 */
 	public function qualityMessDetect(): void
 	{
-		$this->exec("{$this->bin}/phpmd {$this->source} xml {$this->build}/config/phpmd.xml --suffixes=php --reportfile={$this->build}/logs/pmd.xml");
+		$this->exec("{$this->bin}/phpmd {$this->source} xml {$this->buildTemplates}/config/phpmd.xml --suffixes=php --reportfile={$this->build}/logs/pmd.xml");
 	}
 
 	/**
@@ -931,7 +927,7 @@ ECHO
 	 */
 	public function qualityCheckStyle(): void
 	{
-		$this->exec("phpcs -s--report=checkstyle --report-file={$this->build}/logs/checkstyle.xml --standard={$this->build}/vendor/greencape/coding-standards/src/Joomla {$this->source}");
+		$this->exec("phpcs -s --report=checkstyle --report-file={$this->build}/logs/checkstyle.xml --standard={$this->build}/vendor/greencape/coding-standards/src/Joomla {$this->source}");
 	}
 
 	/***************************
@@ -1134,7 +1130,7 @@ ECHO
 		// Find bootstrap file
 		$bootstrap = $this->versionMatch(
 			'bootstrap-(.*).php',
-			"{$this->buildTemplates}/tests/integration",
+			"{$this->buildTemplates}/template/tests/integration",
 			$this->environment['joomla']['version']
 		);
 
@@ -1152,7 +1148,7 @@ ECHO
 
 		// Configure phpunit
 		$this->copy(
-			"{$this->buildTemplates}/tests/integration/phpunit.xml",
+			"{$this->buildTemplates}/template/tests/integration/phpunit.xml",
 			"{$cmsRoot}/tests/integration/{$application}/phpunit.xml",
 			$integrationTestFilter
 		);
@@ -1232,7 +1228,7 @@ ECHO
 		// Find bootstrap file
 		$bootstrap = $this->versionMatch(
 			'bootstrap-(.*).php',
-			"{$this->buildTemplates}/tests/system",
+			"{$this->buildTemplates}/template/tests/system",
 			$this->environment['joomla']['version']
 		);
 
@@ -1250,7 +1246,7 @@ ECHO
 
 		// Configure phpunit
 		$this->copy(
-			"{$this->buildTemplates}/tests/system/phpunit.xml",
+			"{$this->buildTemplates}/template/tests/system/phpunit.xml",
 			"{$cmsRoot}/tests/system/phpunit.xml",
 			$systemTestFilter
 		);
@@ -1493,8 +1489,7 @@ ECHO
 		$this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
 
-		$this->buildTemplates  = dirname(__DIR__) . '/build/template';
-		$this->dockerTemplates = dirname(__DIR__) . '/build/docker';
+		$this->buildTemplates  = dirname(__DIR__) . '/build';
 	}
 
 	/**
