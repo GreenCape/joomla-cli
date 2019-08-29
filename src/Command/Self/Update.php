@@ -67,6 +67,6 @@ class UpdateCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->build();
+		(new FromPhing($output, $basePath, $project))->build();
 	}
 }

@@ -67,6 +67,6 @@ class QualityCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->quality();
+		(new FromPhing($output, $basePath, $project))->quality();
 	}
 }

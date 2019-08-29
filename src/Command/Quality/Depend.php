@@ -67,6 +67,6 @@ class DependCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->qualityDepend();
+		(new FromPhing($output, $basePath, $project))->qualityDepend();
 	}
 }

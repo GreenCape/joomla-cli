@@ -68,6 +68,6 @@ class CheckStyleCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->qualityCheckStyle();
+		(new FromPhing($output, $basePath, $project))->qualityCheckStyle();
 	}
 }

@@ -67,6 +67,6 @@ class TestCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->test();
+		(new FromPhing($output, $basePath, $project))->test();
 	}
 }

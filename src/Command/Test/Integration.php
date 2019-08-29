@@ -67,6 +67,6 @@ class IntegrationCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->testIntegration();
+		(new FromPhing($output, $basePath, $project))->testIntegration();
 	}
 }

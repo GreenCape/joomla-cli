@@ -67,6 +67,6 @@ class UmlCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->documentUml();
+		(new FromPhing($output, $basePath, $project))->documentUml();
 	}
 }

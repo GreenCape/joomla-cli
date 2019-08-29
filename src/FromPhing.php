@@ -11,6 +11,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class FromPhing
 {
@@ -150,15 +151,21 @@ class FromPhing
 	 * @var string
 	 */
 	private $dockerTemplates;
+	/**
+	 * @var OutputInterface
+	 */
+	private $output;
 
 	/**
 	 * FromPhing constructor.
 	 *
-	 * @param $basedir
-	 * @param $projectFile
+	 * @param OutputInterface $output
+	 * @param                 $basedir
+	 * @param                 $projectFile
 	 */
-	public function __construct($basedir = null, $projectFile = null)
+	public function __construct(OutputInterface $output, $basedir = null, $projectFile = null)
 	{
+		$this->output = $output;
 		$this->init(realpath($basedir ?? '.'), $projectFile ?? 'project.json');
 	}
 
@@ -1486,7 +1493,7 @@ ECHO
 		$this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
 
-		$this->buildTemplates = dirname(__DIR__) . '/build/template';
+		$this->buildTemplates  = dirname(__DIR__) . '/build/template';
 		$this->dockerTemplates = dirname(__DIR__) . '/build/docker';
 	}
 
@@ -1569,7 +1576,14 @@ ECHO
 	 */
 	private function echo(string $message, string $level): void
 	{
-		echo strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message) . "\n";
+		$verbosity = [
+			'info' => OutputInterface::VERBOSITY_NORMAL,
+			'warning' => OutputInterface::VERBOSITY_NORMAL,
+			'error' => OutputInterface::VERBOSITY_NORMAL,
+			'debug' => OutputInterface::VERBOSITY_DEBUG
+		];
+
+		$this->output->writeln(strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message), $verbosity[$level]);
 	}
 
 	/**

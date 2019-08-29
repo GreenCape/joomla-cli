@@ -67,6 +67,6 @@ class CleanCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->distClean();
+		(new FromPhing($output, $basePath, $project))->distClean();
 	}
 }

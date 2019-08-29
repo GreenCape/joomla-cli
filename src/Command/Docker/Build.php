@@ -67,6 +67,6 @@ class BuildCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->dockerBuild();
+		(new FromPhing($output, $basePath, $project))->dockerBuild();
 	}
 }

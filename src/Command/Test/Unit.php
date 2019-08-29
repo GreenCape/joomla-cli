@@ -67,6 +67,6 @@ class UnitCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->testUnit();
+		(new FromPhing($output, $basePath, $project))->testUnit();
 	}
 }

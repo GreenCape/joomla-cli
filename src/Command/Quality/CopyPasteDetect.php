@@ -68,6 +68,6 @@ class CopyPasteDetectCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->qualityCopyPasteDetect();
+		(new FromPhing($output, $basePath, $project))->qualityCopyPasteDetect();
 	}
 }

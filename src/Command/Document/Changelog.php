@@ -67,6 +67,6 @@ class ChangelogCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->documentChangelog();
+		(new FromPhing($output, $basePath, $project))->documentChangelog();
 	}
 }

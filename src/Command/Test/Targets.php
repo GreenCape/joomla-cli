@@ -67,6 +67,6 @@ class TargetsCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($basePath, $project))->testTargets();
+		(new FromPhing($output, $basePath, $project))->testTargets();
 	}
 }
