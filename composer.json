@@ -32,7 +32,8 @@
     "phpunit/phpunit": "^8.3",
     "greencape/joomla-manifest": "@dev",
     "pdepend/pdepend": "^2.5",
-    "phpmd/phpmd": "^2.7"
+    "phpmd/phpmd": "^2.7",
+    "sebastian/phpcpd": "^4.1"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
