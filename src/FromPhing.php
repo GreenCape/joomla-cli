@@ -1481,7 +1481,7 @@ ECHO
 		$this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
 		$this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
 
-		$this->buildTemplates = dirname(__DIR__) . 'build/template';
+		$this->buildTemplates = dirname(__DIR__) . '/build/template';
 	}
 
 	/**
@@ -1744,6 +1744,8 @@ ECHO
 			return;
 		}
 
+		$this->echo("Copying $file" . ($filter === null ? ' with filter' : ''), 'debug');
+
 		$content = file_get_contents($file);
 
 		if (is_callable($filter))
@@ -1764,9 +1766,15 @@ ECHO
 		return preg_replace_callback(
 			'~\${(.*?)}~',
 			function ($match) {
-				$var = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $match[1]))));
+				$var   = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $match[1]))));
+				$parts = explode('.', $var);
+				$var   = array_shift($parts);
+				$var   = $this->{$var};
 
-				return $this->$var;
+				for ($index = array_shift($parts); $index !== null; $index = array_shift($parts))
+				{
+					$var = $var[$index];
+				}
 			},
 			$content
 		);
