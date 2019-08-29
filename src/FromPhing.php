@@ -891,10 +891,12 @@ ECHO
 			}
 		);
 
-		$this->exec(
-			"{$this->bin}/phpcb --log={$this->build}/logs --output={$this->build}/report/code-browser --crapThreshold=10",
-			$this->basedir
-		);
+		$command = "{$this->bin}/phpcb"
+		           . " --log={$this->build}/logs"
+		           . " --output={$this->build}/report/code-browser"
+		           . ' --crapThreshold=10';
+
+		$this->exec($command, $this->basedir);
 	}
 
 	/**
@@ -903,7 +905,15 @@ ECHO
 	public function qualityDepend(): void
 	{
 		$this->mkdir("{$this->build}/logs/charts");
-		$this->exec("{$this->bin}/pdepend --suffix=php --jdepend-chart={$this->build}/logs/charts/dependencies.svg --jdepend-xml={$this->build}/logs/depend.xml --overview-pyramid={$this->build}/logs/charts/overview-pyramid.svg --summary-xml={$this->build}/logs/summary.xml {$this->source}");
+		$command = "{$this->bin}/pdepend"
+		           . ' --suffix=php'
+		           . " --jdepend-chart={$this->build}/logs/charts/dependencies.svg"
+		           . " --jdepend-xml={$this->build}/logs/depend.xml"
+		           . " --overview-pyramid={$this->build}/logs/charts/overview-pyramid.svg"
+		           . " --summary-xml={$this->build}/logs/summary.xml"
+		           . " {$this->source}";
+
+		$this->exec($command);
 	}
 
 	/**
@@ -926,7 +936,12 @@ ECHO
 	 */
 	public function qualityCopyPasteDetect(): void
 	{
-		$this->exec("phpcpd --log-pmd={$this->build}/logs/pmd-cpd.xml --fuzzy {$this->source}");
+		$command = 'phpcpd'
+		           . " --log-pmd={$this->build}/logs/pmd-cpd.xml"
+		           . ' --fuzzy'
+		           . " {$this->source}";
+
+		$this->exec($command);
 	}
 
 	/**
@@ -934,7 +949,14 @@ ECHO
 	 */
 	public function qualityCheckStyle(): void
 	{
-		$this->exec("phpcs -s --report=checkstyle --report-file={$this->build}/logs/checkstyle.xml --standard={$this->build}/vendor/greencape/coding-standards/src/Joomla {$this->source}");
+		$command = 'phpcs'
+		           . ' -s'
+		           . ' --report=checkstyle'
+		           . " --report-file={$this->build}/logs/checkstyle.xml"
+		           . " --standard={$this->basedir}/vendor/greencape/coding-standards/src/Joomla"
+		           . " {$this->source}";
+
+		$this->exec($command);
 	}
 
 	/***************************
