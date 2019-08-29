@@ -116,20 +116,25 @@ class Fileset
 			$this->include('**');
 		}
 
-		return array_values(
-			array_filter(
-				$this->files,
-				function ($file) {
-					foreach ($this->excludes as $pattern)
-					{
-						if (preg_match($pattern, $file))
+		return array_map(
+			function ($file) {
+				return "{$this->dir}/$file";
+			},
+			array_values(
+				array_filter(
+					$this->files,
+					function ($file) {
+						foreach ($this->excludes as $pattern)
 						{
-							return false;
+							if (preg_match($pattern, $file))
+							{
+								return false;
+							}
 						}
-					}
 
-					return true;
-				}
+						return true;
+					}
+				)
 			)
 		);
 	}
