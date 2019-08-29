@@ -1270,7 +1270,7 @@ ECHO
 			->merge();
 
 		$this->reflexive(
-			"{$this->build}/report/coverage",
+			new Fileset("{$this->build}/report/coverage"),
 			function ($content) {
 				return str_replace($this->source, $this->project['name'], $content);
 			}
@@ -1728,11 +1728,18 @@ ECHO
 	 */
 	private function copyFile(string $file, string $toFile, callable $filter = null): void
 	{
+		if (is_dir($file))
+		{
+			return;
+		}
+
 		$content = file_get_contents($file);
+
 		if (is_callable($filter))
 		{
 			$content = $filter($content);
 		}
+
 		file_put_contents($toFile, $content);
 	}
 
