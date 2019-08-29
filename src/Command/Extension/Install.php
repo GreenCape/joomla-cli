@@ -31,6 +31,7 @@
 
 namespace GreenCape\JoomlaCLI\Command\Extension;
 
+use Exception;
 use GreenCape\JoomlaCLI\Command;
 use JInstaller;
 use JInstallerHelper;
@@ -71,9 +72,9 @@ class InstallCommand extends Command
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 *
-	 * @return  integer  0 if everything went fine, 1 on error
+	 * @throws Exception
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output): int
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
 		$this->setupEnvironment('administrator', $input, $output);
 
@@ -86,12 +87,10 @@ class InstallCommand extends Command
 		{
 			$output->writeln($this->getExtensionInfo($installer));
 
-			return 0;
+			return;
 		}
 
 		$output->writeln('Installation failed due to unknown reason.');
-
-		return 1;
 	}
 
 	/**

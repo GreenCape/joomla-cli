@@ -85,6 +85,7 @@ class Application extends BaseApplication
 				''
 			);
 			$output->writeln($message);
+			$output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
 
 			return 1;
 		}

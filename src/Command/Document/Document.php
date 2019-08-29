@@ -70,25 +70,12 @@ class DocumentCommand extends Command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, 1 on error
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output): int
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		try
-		{
-			(new FromPhing($basePath, $project))->document($input->getOption('generator'));
-
-			return 0;
-		}
-		catch (Throwable $e)
-		{
-			$output->writeln($e->getMessage());
-
-			return 1;
-		}
+		(new FromPhing($basePath, $project))->document($input->getOption('generator'));
 	}
 }

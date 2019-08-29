@@ -110,37 +110,27 @@ class DownloadCommand extends Command
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 *
-	 * @return  integer  0 if everything went fine, 1 on error
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output): int
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
 		$this->output      = $output;
 		$this->version     = $input->getArgument('version');
 		$this->versionFile = $input->getOption('file');
 		$this->cachePath   = $input->getOption('cache');
 
-		try
-		{
-			$basePath = $input->getOption('basepath');
+		$basePath = $input->getOption('basepath');
 
-			$versionList = $this->getAvailableVersions();
-			$this->createPath($this->cachePath);
+		$versionList = $this->getAvailableVersions();
+		$this->createPath($this->cachePath);
 
-			$tarball = $this->getTarball($versionList);
-			$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+		$tarball = $this->getTarball($versionList);
+		$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-			$this->unpack($basePath, $tarball);
+		$this->unpack($basePath, $tarball);
 
-			$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-			return 0;
-		}
-		catch (Throwable $e)
-		{
-			$this->output->writeln($e->getMessage());
-
-			return 1;
-		}
+		$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 	}
 
 	/**
