@@ -1580,6 +1580,7 @@ ECHO
 			'info' => OutputInterface::VERBOSITY_NORMAL,
 			'warning' => OutputInterface::VERBOSITY_NORMAL,
 			'error' => OutputInterface::VERBOSITY_NORMAL,
+			'verbose' => OutputInterface::VERBOSITY_VERBOSE,
 			'debug' => OutputInterface::VERBOSITY_DEBUG
 		];
 
