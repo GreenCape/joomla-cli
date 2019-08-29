@@ -1531,7 +1531,7 @@ ECHO
 
 		$targetTime = array_reduce(
 			$targetFiles,
-			static function (int $carry, $file) {
+			static function ($carry, $file) {
 				return min($carry, filemtime($file));
 			}
 		);
