@@ -1494,7 +1494,7 @@ ECHO
 	 */
 	private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
 	{
-		$this->echo(str_replace($this->basedir, '.', "Running `{$command}` in `{$dir}`"), 'debug');
+		$this->echo("Running `{$command}` in `{$dir}`", 'debug');
 
 		if ($dir !== '.')
 		{
@@ -1564,7 +1564,7 @@ ECHO
 	 */
 	private function echo(string $message, string $level): void
 	{
-		echo strtoupper($level) . ': ' . $message . "\n";
+		echo strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message) . "\n";
 	}
 
 	/**
