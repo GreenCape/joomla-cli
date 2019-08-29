@@ -23,8 +23,9 @@ nginx:
     - "php"
 
 proxy:
-  build: "${docker-templates}/nginx-proxy"
+  image: "jwilder/nginx-proxy"
   volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock:ro"
     - "${server-dockyard}/proxy/conf:/etc/nginx/conf.d"
   ports:
     - "80:80"
