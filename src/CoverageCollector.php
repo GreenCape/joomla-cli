@@ -1,6 +1,6 @@
 <?php
 
-namespace GreenCape\PhingTasks;
+namespace GreenCape\JoomlaCLI;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 

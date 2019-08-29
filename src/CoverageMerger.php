@@ -1,8 +1,7 @@
 <?php
 
-namespace GreenCape\PhingTasks;
+namespace GreenCape\JoomlaCLI;
 
-use GreenCape\JoomlaCLI\Fileset;
 use RuntimeException;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Clover;
@@ -10,7 +9,7 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
-use SplFileInfo;
+use GreenCape\JoomlaCLI\CoverageCollector;
 
 class CoverageMerger
 {
@@ -141,7 +140,7 @@ class CoverageMerger
 			$this->log("Merging $file");
 			$coverage = null;
 			$code     = file_get_contents($file);
-			$code     = str_replace('PHP_CodeCoverage', 'CoverageCollector', $code);
+			$code     = str_replace(CodeCoverage::class, CoverageCollector::class, $code);
 			if (!empty($this->pattern))
 			{
 				$code = preg_replace($this->pattern, $this->replace, $code);
@@ -163,13 +162,8 @@ class CoverageMerger
 
 		foreach ($this->filesets as $fileset)
 		{
-			$files = $fileset->getFiles();
-
-			/** @var SplFileInfo $file */
-			foreach ($files as $file)
-			{
-				$filenames[] = $file->getPathname();
-			}
+			/** @noinspection SlowArrayOperationsInLoopInspection */
+			$filenames = array_merge($filenames, $fileset->getFiles());
 		}
 
 		return $filenames;
@@ -256,6 +250,6 @@ class CoverageMerger
 	 */
 	private function log(string $message, string $level = 'debug'): void
 	{
-		echo $message;
+		echo $message . "\n";
 	}
 }

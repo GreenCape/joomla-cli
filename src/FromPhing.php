@@ -1,12 +1,12 @@
 <?php
 
 use GreenCape\JoomlaCLI\Command\Docker;
+use GreenCape\JoomlaCLI\CoverageMerger;
 use GreenCape\JoomlaCLI\Fileset;
 use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\JoomlaCLI\UMLGenerator;
 use GreenCape\Manifest\Manifest;
-use GreenCape\PhingTasks\CoverageMerger;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
@@ -977,11 +977,15 @@ ECHO
 	 */
 	public function testUnit(): void
 	{
-		$this->echo("Running unit tests from {$this->unitTests}", 'debug');
-
 		$this->phpAb();
 		$this->mkdir("{$this->build}/logs/coverage");
-		$this->exec("{$this->bin}/phpunit .", $this->unitTests);
+		$command = "{$this->bin}/phpunit"
+		           . " --bootstrap {$this->tests}/bootstrap.php"
+		           . " --coverage-php {$this->build}/logs/coverage/unit.cov"
+		           . " --whitelist {$this->source}"
+		           . ' --colors=always'
+		           . " {$this->unitTests}";
+		$this->exec($command, $this->basedir);
 		$this->reflexive(
 			new Fileset("{$this->build}/logs/coverage"),
 			static function ($content) {
@@ -1483,6 +1487,8 @@ ECHO
 	 */
 	private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
 	{
+		$this->echo(str_replace($this->basedir, '.', "Running `{$command}` in `{$dir}`"), 'debug');
+
 		if ($dir !== '.')
 		{
 			$current = getcwd();
@@ -1508,7 +1514,7 @@ ECHO
 	 */
 	private function mkdir(string $dir): void
 	{
-		$this->exec("mkdir --mode=0644 --parents $dir", $this->basedir);
+		$this->exec("mkdir --mode=0775 --parents $dir", $this->basedir);
 	}
 
 	/**
