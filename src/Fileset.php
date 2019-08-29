@@ -107,6 +107,14 @@ class Fileset
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getDir(): string
+	{
+		return $this->dir;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getFiles(): array
