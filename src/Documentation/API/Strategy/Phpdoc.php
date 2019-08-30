@@ -69,10 +69,11 @@ class Phpdoc implements APIGeneratorInterface
 		           . " --volume={$target}:/app/io/target"
 		           . " phpdoc/phpdoc"
 
-		           . " --directory=/app/io/source"
-		           . " --target=/app/io/target"
-		           . " --title=\"{$title}\""
-		           . " --template=responsive";
+		           . " --directory /app/io/source"
+		           . " --target /app/io/target"
+		           . " --title \"{$title}\""
+		           . " --cache-folder /app/io/target/cache"
+		           . " --template clean";
 
 		passthru($command . ' 2>&1');
 	}
@@ -90,9 +91,12 @@ class Phpdoc implements APIGeneratorInterface
 			(new Fileset($this->target . '/classes'))
 				->include('**.html'),
 			function ($content) use ($umlPath) {
-				if (preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match))
+				if (preg_match('~<h1><small>(.*?)</small>(.*?)</h1>~', $content, $match))
 				{
-					$content = $this->replaceClassUML($content, lcfirst($match[1]), $match[2], $umlPath);
+					$namespace = $match[1];
+					$classname = $match[2];
+
+					$content = $this->replaceClassUML($content, 'class', $match[2], $umlPath);
 					$content = $this->replaceMethodUML($content, $match[2], $umlPath);
 				}
 
@@ -114,8 +118,8 @@ class Phpdoc implements APIGeneratorInterface
 		if (file_exists("{$this->target}/{$umlPath}/{$type}-{$name}.svg"))
 		{
 			$content = preg_replace(
-				'~<dl class="tree well">.*?</dl>~sm',
-				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'></dd></dl>",
+				'~<h1><small>(.*?)</small>(.*?)</h1>\s+<p><em>.*?</em></p>~sm',
+				"\$0<img src=\"../{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'>",
 				$content
 			);
 		}
@@ -132,22 +136,23 @@ class Phpdoc implements APIGeneratorInterface
 	 */
 	private function replaceMethodUML($content, string $name, string $umlPath): string
 	{
+		$content = preg_replace('~(Warning: count.*?on line \d+)~', '', $content);
+
 		$content = preg_replace_callback(
-			"~<tr data-order=\"(.+?)\"(.*?)(?:</tr>|<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>)~sm",
+			"~<article class=\"method\">\s*<h3[^>]*>(.*?)\(.*?</h3>.*?</article>\s*</div>\s*<aside[^>]*>(.*?)</aside>~sm",
 			static function ($match) use ($name, $umlPath) {
-				if (!isset($match[3]))
+				echo 'class-' . $name . '.' . $match[1] . "\n";
+				// 1: method
+				// 2: aside
+				if (!preg_match('~<tr>\s*<th>\s*startuml\s*</th>\s*<td>.*?</td>\s*</tr>\s*<tr>\s*<th>\s*enduml\s*</th>\s*<td>\s*</td>\s*</tr>~sm', $match[2], $m))
 				{
 					return $match[0];
 				}
 
-				return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\">";
-			},
-			$content
-		);
+				$replace = str_replace($m[0], '<tr><th>UML</th><td>see left</td></tr>', $match[0]);
 
-		$content = preg_replace(
-			"~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m",
-			'',
+				return str_replace('</article>', "<h4>UML</h4><img src=\"../{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\"></article>", $replace);
+			},
 			$content
 		);
 
