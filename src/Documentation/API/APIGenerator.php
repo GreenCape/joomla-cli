@@ -52,7 +52,7 @@ class APIGenerator
 	 */
 	public function __construct(string $generator)
 	{
-		$classname       = 'Strategy\\' . ucfirst($generator);
+		$classname       = 'GreenCape\\JoomlaCLI\\Documentation\\API\\Strategy\\' . ucfirst($generator);
 		$this->generator = new $classname;
 	}
 
@@ -66,7 +66,7 @@ class APIGenerator
 	 */
 	public function run(string $title, string $source, string $umlPath, string $target): void
 	{
-		$this->generator->generate($title, $source, $title);
+		$this->generator->generate($title, $source, $target);
 		$this->generator->embedUml($umlPath);
 	}
 }

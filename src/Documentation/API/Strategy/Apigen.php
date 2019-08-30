@@ -114,7 +114,7 @@ class Apigen implements APIGeneratorInterface
 	 */
 	private function replaceClassUML($content, string $type, string $name, string $umlPath): string
 	{
-		if (file_exists("{$umlPath}/{$type}-{$name}.svg"))
+		if (file_exists("{$this->target}/{$umlPath}/{$type}-{$name}.svg"))
 		{
 			$content = preg_replace(
 				'~<dl class="tree well">.*?</dl>~sm',
