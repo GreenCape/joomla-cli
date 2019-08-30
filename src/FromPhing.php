@@ -739,8 +739,9 @@ ECHO
 		$this->documentClean();
 		$this->documentUml();
 		$this->documentChangelog();
-		$apidocMethod = 'document' . ucfirst(strtolower($apidocGenerator));
-		$this->{$apidocMethod}("{$this->project['name']} {$this->project['version']} API Documentation");
+
+		$generator = new APIGenerator($apidocGenerator ?? 'apigen');
+		$generator->run("{$this->project['name']} {$this->project['version']} API Documentation", $this->source, $this->build . '/report/api', '../uml');
 	}
 
 	/**
@@ -825,18 +826,6 @@ ECHO
 				return $content;
 			}
 		);
-	}
-
-	/** @noinspection PhpUnusedPrivateMethodInspection */
-	/**
-	 * Generate API documentation using ApiGen
-	 *
-	 * @param $apidocTitle
-	 */
-	private function documentApigen($apidocTitle): void
-	{
-		$generator = new APIGenerator('apigen');
-		$generator->run($apidocTitle, $this->source, $this->build . '/report/api', '../uml');
 	}
 
 	/*********************************
