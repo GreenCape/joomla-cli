@@ -61,10 +61,10 @@ class APIGenerator
 	 *
 	 * @param string $title   The title for the documentation
 	 * @param string $source  The directory containing the source files
-	 * @param string $umlPath The path to the UML diagrams
 	 * @param string $target  The target directory for the documentation
+	 * @param string $umlPath The path to the UML diagrams relative to `$target`
 	 */
-	public function run(string $title, string $source, string $umlPath, string $target): void
+	public function run(string $title, string $source, string $target, string $umlPath): void
 	{
 		$this->generator->generate($title, $source, $target);
 		$this->generator->embedUml($umlPath);

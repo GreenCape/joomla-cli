@@ -836,7 +836,7 @@ ECHO
 	private function documentApigen($apidocTitle): void
 	{
 		$generator = new APIGenerator('apigen');
-		$generator->run($apidocTitle, $this->source, $this->build . '/report/uml', $this->build . '/report/api');
+		$generator->run($apidocTitle, $this->source, $this->build . '/report/api', '../uml');
 	}
 
 	/*********************************
