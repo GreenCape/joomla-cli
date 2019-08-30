@@ -776,19 +776,19 @@ ECHO
 	 */
 	public function documentUml(): void
 	{
-		$this->delete("{$this->build}/report/api/uml");
-		$this->mkdir("{$this->build}/report/api/uml");
-		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/api/uml/skin.puml");
+		$this->delete("{$this->build}/report/uml");
+		$this->mkdir("{$this->build}/report/uml");
+		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/uml/skin.puml");
 
 		$uml = new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar");
 		$uml->generate(
 			(new Fileset($this->source))
 				->include('**/*')
 				->getFiles(),
-			"{$this->build}/report/api/uml"
+			"{$this->build}/report/uml"
 		);
 		$this->delete(
-			(new Fileset("{$this->build}/report/api/uml"))
+			(new Fileset("{$this->build}/report/uml"))
 				->include('*.puml')
 		);
 	}
@@ -834,12 +834,21 @@ ECHO
 	 */
 	private function documentApigen($apidocTitle): void
 	{
-		$this->exec(
-			"{$this->bin}/apigen generate --template-config={$this->build}/vendor/apigen/apigen/templates/bootstrap/config.neon --destination={$this->build}/report/api --source={$this->source} --title=\"{$apidocTitle}\" --deprecated --todo --tree",
-			$this->basedir
-		);
+		$user    = getmyuid() . ':' . getmygid();
+		$command = "docker run --user={$user} --volume={$this->basedir}:/app/io uniplug/apigen"
+		           . ' apigen generate'
+		           . sprintf(' --source=%s', str_replace($this->basedir, '/app/io', $this->source))
+		           . sprintf(' --destination=%s/report/api', str_replace($this->basedir, '/app/io', $this->build))
+		           . " --title=\"{$apidocTitle}\""
+		           . ' --template-theme=bootstrap'
+		           . ' --annotation-groups=todo,deprecated'
+		           . ' --debug'
+		           . ' --tree';
+
+		$this->exec($command, $this->basedir);
+
 		$this->copy(
-			(new Fileset("{$this->build}/plantuml"))
+			(new Fileset("{$this->buildTemplates}/plantuml"))
 				->include('*.js'),
 			"{$this->build}/report/api/resources",
 			static function ($content) {
@@ -848,11 +857,37 @@ ECHO
 		);
 		$this->reflexive(
 			(new Fileset("{$this->build}/report/api"))
-				->include('*.html'),
-			static function ($content) {
-				$content = str_replace('</head>', '<script type="text/javascript" src="resources/jquery.js"></script><script type="text/javascript" src="resources/jquery_plantuml.js"></script></head>', $content);
-				$content = preg_replace("~<h4>Startuml</h4>\s*(\n)\s*<div class=\"list\">\s*(.+?)\s*</div>~sm", "<h4>UML</h4><div class=\"list\"><img uml=\"\1!include {$this->build}/report/api/uml/skin.puml\1\2\1\" alt=''/>", $content);
-				$content = preg_replace("~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m", '', $content);
+				->include('**.html'),
+			function ($content) {
+				$content = str_replace(
+					'</head>',
+					'<script type="text/javascript" src="resources/jquery.js"></script><script type="text/javascript" src="resources/jquery_plantuml.js"></script></head>',
+					$content
+				);
+
+				preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match);
+				$type = lcfirst($match[1]);
+				$name = $match[2];
+
+				$content = preg_replace( // 1=method
+					"~<tr data-order=\"(.+?)\".*?<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>~sm",
+					"<h4>UML</h4><div class=\"list\"><img src=\"../uml/seq-{$name}.\$1.svg\" alt='Class Diagram'>",
+					$content
+				);
+				$content = preg_replace(
+					"~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m",
+					'',
+					$content
+				);
+
+				if (file_exists("{$this->build}/report/uml/{$type}-{$name}.svg"))
+				{
+					$content = preg_replace(
+						'~<dl class="tree well">.*?</dl>~sm',
+						"<dl class=\"tree well\"><dd><img src=\"../uml/{$type}-{$name}.svg\" alt='Class Diagram'></dd></dl>",
+						$content
+					);
+				}
 
 				return $content;
 			}
