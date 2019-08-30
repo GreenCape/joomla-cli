@@ -2,6 +2,7 @@
 
 use GreenCape\JoomlaCLI\Command\Docker;
 use GreenCape\JoomlaCLI\CoverageMerger;
+use GreenCape\JoomlaCLI\Documentation\API\APIGenerator;
 use GreenCape\JoomlaCLI\Fileset;
 use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Repository\VersionList;
@@ -834,57 +835,8 @@ ECHO
 	 */
 	private function documentApigen($apidocTitle): void
 	{
-		$user    = getmyuid() . ':' . getmygid();
-		$command = "docker run --user={$user} --volume={$this->basedir}:/app/io uniplug/apigen"
-		           . ' apigen generate'
-		           . sprintf(' --source=%s', str_replace($this->basedir, '/app/io', $this->source))
-		           . sprintf(' --destination=%s/report/api', str_replace($this->basedir, '/app/io', $this->build))
-		           . " --title=\"{$apidocTitle}\""
-		           . ' --template-theme=bootstrap'
-		           . ' --annotation-groups=todo,deprecated'
-		           . ' --debug'
-		           . ' --tree';
-
-		$this->exec($command, $this->basedir);
-
-		$this->reflexive(
-			(new Fileset("{$this->build}/report/api"))
-				->include('**.html'),
-			function ($content) {
-				preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match);
-				$type = lcfirst($match[1] ?? 'undefined');
-				$name = $match[2] ?? 'undefined';
-
-				$content = preg_replace_callback(
-					"~<tr data-order=\"(.+?)\"(.*?)(?:</tr>|<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>)~sm",
-					function ($match) use ($name) {
-						if (!isset($match[3]))
-						{
-							return $match[0];
-						}
-
-						return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"../uml/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\">";
-					},
-					$content
-				);
-				$content = preg_replace(
-					"~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m",
-					'',
-					$content
-				);
-
-				if (file_exists("{$this->build}/report/uml/{$type}-{$name}.svg"))
-				{
-					$content = preg_replace(
-						'~<dl class="tree well">.*?</dl>~sm',
-						"<dl class=\"tree well\"><dd><img src=\"../uml/{$type}-{$name}.svg\" alt='Class Diagram'></dd></dl>",
-						$content
-					);
-				}
-
-				return $content;
-			}
-		);
+		$generator = new APIGenerator('apigen');
+		$generator->run($apidocTitle, $this->source, $this->build . '/report/uml', $this->build . '/report/api');
 	}
 
 	/*********************************
