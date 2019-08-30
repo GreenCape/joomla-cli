@@ -141,17 +141,21 @@ class Phpdoc implements APIGeneratorInterface
 		$content = preg_replace_callback(
 			"~<article class=\"method\">\s*<h3[^>]*>(.*?)\(.*?</h3>.*?</article>\s*</div>\s*<aside[^>]*>(.*?)</aside>~sm",
 			static function ($match) use ($name, $umlPath) {
-				echo 'class-' . $name . '.' . $match[1] . "\n";
-				// 1: method
-				// 2: aside
 				if (!preg_match('~<tr>\s*<th>\s*startuml\s*</th>\s*<td>.*?</td>\s*</tr>\s*<tr>\s*<th>\s*enduml\s*</th>\s*<td>\s*</td>\s*</tr>~sm', $match[2], $m))
 				{
 					return $match[0];
 				}
 
-				$replace = str_replace($m[0], '<tr><th>UML</th><td>see left</td></tr>', $match[0]);
-
-				return str_replace('</article>', "<h4>UML</h4><img src=\"../{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\"></article>", $replace);
+				return str_replace(
+					[
+						$m[0],
+						'</article>'
+					],
+					[
+						'<tr><th>startuml/enduml</th><td>see left</td></tr>',
+						"<h4>UML</h4><img src=\"../{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\"></article>"
+					],
+					$match[0]);
 			},
 			$content
 		);
