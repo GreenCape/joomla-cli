@@ -866,12 +866,19 @@ ECHO
 				);
 
 				preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match);
-				$type = lcfirst($match[1]);
-				$name = $match[2];
+				$type = lcfirst($match[1] ?? 'undefined');
+				$name = $match[2] ?? 'undefined';
 
-				$content = preg_replace( // 1=method
-					"~<tr data-order=\"(.+?)\".*?<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>~sm",
-					"<h4>UML</h4><div class=\"list\"><img src=\"../uml/seq-{$name}.\$1.svg\" alt='Class Diagram'>",
+				$content = preg_replace_callback(
+					"~<tr data-order=\"(.+?)\"(.*?)(?:</tr>|<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>)~sm",
+					function ($match) use ($name) {
+						if (!isset($match[3]))
+						{
+							return $match[0];
+						}
+
+						return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"../uml/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\">";
+					},
 					$content
 				);
 				$content = preg_replace(
