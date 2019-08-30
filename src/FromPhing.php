@@ -847,24 +847,10 @@ ECHO
 
 		$this->exec($command, $this->basedir);
 
-		$this->copy(
-			(new Fileset("{$this->buildTemplates}/plantuml"))
-				->include('*.js'),
-			"{$this->build}/report/api/resources",
-			static function ($content) {
-				return str_replace("'rawdeflate.js'", "'resources/rawdeflate.js'", $content);
-			}
-		);
 		$this->reflexive(
 			(new Fileset("{$this->build}/report/api"))
 				->include('**.html'),
 			function ($content) {
-				$content = str_replace(
-					'</head>',
-					'<script type="text/javascript" src="resources/jquery.js"></script><script type="text/javascript" src="resources/jquery_plantuml.js"></script></head>',
-					$content
-				);
-
 				preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match);
 				$type = lcfirst($match[1] ?? 'undefined');
 				$name = $match[2] ?? 'undefined';
