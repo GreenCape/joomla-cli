@@ -182,13 +182,8 @@ class FromPhing
 	 */
 	private function clean(): void
 	{
-		$this->delete("{$this->build}/api");
-		$this->delete("{$this->build}/code-browser");
-		$this->delete("{$this->build}/coverage");
 		$this->delete("{$this->build}/logs");
-		$this->delete("{$this->build}/charts");
 		$this->delete("{$this->build}/servers");
-		$this->delete("{$this->build}/versions.json");
 	}
 
 	/**
@@ -196,11 +191,7 @@ class FromPhing
 	 */
 	private function prepare(): void
 	{
-		$this->mkdir("{$this->build}/api");
-		$this->mkdir("{$this->build}/code-browser");
-		$this->mkdir("{$this->build}/coverage");
 		$this->mkdir("{$this->build}/logs");
-		$this->mkdir("{$this->build}/charts");
 	}
 
 	/**
