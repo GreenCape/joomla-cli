@@ -773,9 +773,9 @@ ECHO
 	}
 
 	/**
-	 *
+	 * @param bool $keepSources
 	 */
-	public function documentUml(): void
+	public function documentUml(bool $keepSources): void
 	{
 		$this->delete("{$this->build}/report/uml");
 		$this->mkdir("{$this->build}/report/uml");
@@ -788,10 +788,14 @@ ECHO
 				->getFiles(),
 			"{$this->build}/report/uml"
 		);
-		$this->delete(
-			(new Fileset("{$this->build}/report/uml"))
-				->include('*.puml')
-		);
+
+		if (!$keepSources)
+		{
+			$this->delete(
+				(new Fileset("{$this->build}/report/uml"))
+					->include('*.puml')
+			);
+		}
 	}
 
 	/** @noinspection PhpUnusedPrivateMethodInspection */
@@ -1432,7 +1436,7 @@ ECHO
 	private function init($dir, $projectFile): void
 	{
 		$this->basedir = $dir;
-		$this->user = getmyuid() . ':' . getmygid();
+		$this->user    = getmyuid() . ':' . getmygid();
 
 		if (!file_exists($this->basedir . '/' . $projectFile))
 		{
