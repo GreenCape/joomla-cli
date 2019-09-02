@@ -58,8 +58,7 @@ class UmlCommand extends Command
 				'keep-sources',
 				'k',
 				InputOption::VALUE_NONE,
-				"Keep the PlantUML sources",
-				false
+				"Keep the PlantUML sources"
 			);
 	}
 
