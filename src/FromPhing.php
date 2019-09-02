@@ -168,6 +168,9 @@ class FromPhing
 
 	/**
 	 * Performs all tests and generates documentation and the quality report.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function build(): void
 	{
@@ -222,6 +225,7 @@ class FromPhing
 		$this->exec("{$this->bin}/phpab --tolerant --basedir . --output autoload.php --template autoload.php.in .", "{$this->source}/{$target}/{$this->package['name']}");
 	}
 
+	/** @noinspection PhpUnused */
 	/**
 	 * Updates the build environment
 	 */
@@ -965,6 +969,9 @@ ECHO
 
 	/**
 	 * Runs all tests locally and in the test containers.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function test(): void
 	{
@@ -979,10 +986,28 @@ ECHO
 	 */
 	public function testUnit(): void
 	{
+		if (!file_exists("{$this->tests}/tests/unit/bootstrap.php"))
+		{
+			// Find bootstrap file
+			$bootstrap = $this->versionMatch(
+				'bootstrap-(.*).php',
+				"{$this->buildTemplates}/template/tests/unit",
+				$this->environment['joomla']['version']
+			);
+
+			if (empty($bootstrap))
+			{
+				throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
+			}
+
+			$this->copy($bootstrap,"{$this->tests}/tests/unit/bootstrap.php");
+			$this->copy("{$this->buildTemplates}/template/tests/unit","{$this->tests}/tests/unit/autoload.php");
+		}
+
 		$this->phpAb();
 		$this->mkdir("{$this->build}/logs/coverage");
 		$command = "{$this->bin}/phpunit"
-		           . " --bootstrap {$this->tests}/bootstrap.php"
+		           . " --bootstrap {$this->tests}/unit/bootstrap.php"
 		           . " --coverage-php {$this->build}/logs/coverage/unit.cov"
 		           . " --whitelist {$this->source}"
 		           . ' --colors=always'
@@ -998,6 +1023,9 @@ ECHO
 
 	/**
 	 * Runs integration tests on all test installations.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function testIntegration(): void
 	{
@@ -1295,6 +1323,9 @@ ECHO
 
 	/**
 	 * Generate the distribution
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function dist(): void
 	{
