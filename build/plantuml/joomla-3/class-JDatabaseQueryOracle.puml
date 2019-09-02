@@ -1,0 +1,7 @@
+@startuml
+class JDatabaseQueryOracle
+JDatabaseQueryPdo <|-- JDatabaseQueryOracle
+!include class-JDatabaseQueryPdo.puml
+JDatabaseQueryPreparable <|.. JDatabaseQueryOracle
+!include class-JDatabaseQueryPreparable.puml
+@enduml

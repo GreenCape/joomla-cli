@@ -1,0 +1,5 @@
+@startuml
+abstract class JTable
+JObject <|-- JTable
+!include class-JObject.puml
+@enduml

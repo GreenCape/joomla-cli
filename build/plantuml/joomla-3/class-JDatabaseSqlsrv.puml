@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseSqlsrv
+JDatabaseDriverSqlsrv <|-- JDatabaseSqlsrv
+!include class-JDatabaseDriverSqlsrv.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JDocumentJSON
+JDocument <|-- JDocumentJSON
+!include class-JDocument.puml
+@enduml

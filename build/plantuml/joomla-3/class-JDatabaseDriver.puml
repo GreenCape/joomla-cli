@@ -1,0 +1,7 @@
+@startuml
+abstract class JDatabaseDriver
+JDatabase <|-- JDatabaseDriver
+!include class-JDatabase.puml
+JDatabaseInterface <|.. JDatabaseDriver
+!include class-JDatabaseInterface.puml
+@enduml

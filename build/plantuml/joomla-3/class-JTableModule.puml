@@ -1,0 +1,5 @@
+@startuml
+class JTableModule
+JTable <|-- JTableModule
+!include class-JTable.puml
+@enduml

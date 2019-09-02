@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerReset
+UsersController <|-- UsersControllerReset
+!include class-UsersController.puml
+@enduml

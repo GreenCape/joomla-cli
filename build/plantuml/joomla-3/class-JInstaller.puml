@@ -1,0 +1,5 @@
+@startuml
+class JInstaller
+JAdapter <|-- JInstaller
+!include class-JAdapter.puml
+@enduml

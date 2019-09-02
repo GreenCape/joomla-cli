@@ -1,0 +1,5 @@
+@startuml
+class JMediawikiPages
+JMediawikiObject <|-- JMediawikiPages
+!include class-JMediawikiObject.puml
+@enduml

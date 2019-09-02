@@ -1,0 +1,5 @@
+@startuml
+class LanguagesViewMultilangstatus
+JViewLegacy <|-- LanguagesViewMultilangstatus
+!include class-JViewLegacy.puml
+@enduml

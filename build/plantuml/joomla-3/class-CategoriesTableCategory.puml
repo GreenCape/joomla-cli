@@ -1,0 +1,5 @@
+@startuml
+class CategoriesTableCategory
+JTableCategory <|-- CategoriesTableCategory
+!include class-JTableCategory.puml
+@enduml

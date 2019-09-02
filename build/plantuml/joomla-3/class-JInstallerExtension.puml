@@ -1,0 +1,5 @@
+@startuml
+class JInstallerExtension
+JObject <|-- JInstallerExtension
+!include class-JObject.puml
+@enduml

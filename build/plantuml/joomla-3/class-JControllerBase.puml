@@ -1,0 +1,5 @@
+@startuml
+abstract class JControllerBase
+JController <|.. JControllerBase
+!include class-JController.puml
+@enduml

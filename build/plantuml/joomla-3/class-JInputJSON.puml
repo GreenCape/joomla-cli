@@ -1,0 +1,5 @@
+@startuml
+class JInputJSON
+JInput <|-- JInputJSON
+!include class-JInput.puml
+@enduml

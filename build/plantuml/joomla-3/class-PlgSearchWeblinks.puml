@@ -1,0 +1,5 @@
+@startuml
+class PlgSearchWeblinks
+JPlugin <|-- PlgSearchWeblinks
+!include class-JPlugin.puml
+@enduml

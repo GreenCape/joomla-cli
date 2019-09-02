@@ -1,0 +1,5 @@
+@startuml
+class JSchemaChangeitemSqlsrv
+JSchemaChangeitem <|-- JSchemaChangeitemSqlsrv
+!include class-JSchemaChangeitem.puml
+@enduml

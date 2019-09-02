@@ -1,0 +1,5 @@
+@startuml
+class InstallerControllerLanguages
+JControllerLegacy <|-- InstallerControllerLanguages
+!include class-JControllerLegacy.puml
+@enduml

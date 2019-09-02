@@ -1,0 +1,5 @@
+@startuml
+class RestorationObserver
+AKAbstractPartObserver <|-- RestorationObserver
+!include class-AKAbstractPartObserver.puml
+@enduml

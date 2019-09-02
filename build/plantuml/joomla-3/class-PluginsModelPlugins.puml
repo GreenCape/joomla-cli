@@ -1,0 +1,5 @@
+@startuml
+class PluginsModelPlugins
+JModelList <|-- PluginsModelPlugins
+!include class-JModelList.puml
+@enduml

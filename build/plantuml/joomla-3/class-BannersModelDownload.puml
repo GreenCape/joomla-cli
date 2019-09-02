@@ -1,0 +1,5 @@
+@startuml
+class BannersModelDownload
+JModelForm <|-- BannersModelDownload
+!include class-JModelForm.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+abstract class WeblinksHelperAssociation
+CategoryHelperAssociation <|-- WeblinksHelperAssociation
+!include class-CategoryHelperAssociation.puml
+@enduml

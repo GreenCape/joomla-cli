@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerRemind
+UsersController <|-- UsersControllerRemind
+!include class-UsersController.puml
+@enduml

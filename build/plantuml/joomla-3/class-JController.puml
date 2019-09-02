@@ -1,0 +1,5 @@
+@startuml
+interface JController
+Serializable <|-- JController
+!include class-Serializable.puml
+@enduml

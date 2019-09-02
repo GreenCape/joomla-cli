@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerDriverPostgresql
+FinderIndexer <|-- FinderIndexerDriverPostgresql
+!include class-FinderIndexer.puml
+@enduml

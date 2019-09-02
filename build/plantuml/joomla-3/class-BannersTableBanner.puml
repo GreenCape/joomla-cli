@@ -1,0 +1,5 @@
+@startuml
+class BannersTableBanner
+JTable <|-- BannersTableBanner
+!include class-JTable.puml
+@enduml

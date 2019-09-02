@@ -1,0 +1,5 @@
+@startuml
+class ContentViewForm
+JViewLegacy <|-- ContentViewForm
+!include class-JViewLegacy.puml
+@enduml

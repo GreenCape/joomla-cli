@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerGroups
+JControllerAdmin <|-- UsersControllerGroups
+!include class-JControllerAdmin.puml
+@enduml

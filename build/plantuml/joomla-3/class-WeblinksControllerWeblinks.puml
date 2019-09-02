@@ -1,0 +1,5 @@
+@startuml
+class WeblinksControllerWeblinks
+JControllerAdmin <|-- WeblinksControllerWeblinks
+!include class-JControllerAdmin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JUser
+JObject <|-- JUser
+!include class-JObject.puml
+@enduml

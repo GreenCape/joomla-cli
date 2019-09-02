@@ -1,0 +1,5 @@
+@startuml
+class JDocumentOpensearch
+JDocument <|-- JDocumentOpensearch
+!include class-JDocument.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class PlgContentVote
+JPlugin <|-- PlgContentVote
+!include class-JPlugin.puml
+@enduml

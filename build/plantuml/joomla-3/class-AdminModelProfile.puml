@@ -1,0 +1,5 @@
+@startuml
+class AdminModelProfile
+UsersModelUser <|-- AdminModelProfile
+!include class-UsersModelUser.puml
+@enduml

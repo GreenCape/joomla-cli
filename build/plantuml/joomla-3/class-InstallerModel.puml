@@ -1,0 +1,5 @@
+@startuml
+class InstallerModel
+JModelList <|-- InstallerModel
+!include class-JModelList.puml
+@enduml

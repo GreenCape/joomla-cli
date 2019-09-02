@@ -1,0 +1,5 @@
+@startuml
+class JCacheStorageApc
+JCacheStorage <|-- JCacheStorageApc
+!include class-JCacheStorage.puml
+@enduml

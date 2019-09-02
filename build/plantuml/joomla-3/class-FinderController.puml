@@ -1,0 +1,5 @@
+@startuml
+class FinderController
+JControllerLegacy <|-- FinderController
+!include class-JControllerLegacy.puml
+@enduml

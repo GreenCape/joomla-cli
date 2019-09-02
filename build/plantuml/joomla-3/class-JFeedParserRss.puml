@@ -1,0 +1,5 @@
+@startuml
+class JFeedParserRss
+JFeedParser <|-- JFeedParserRss
+!include class-JFeedParser.puml
+@enduml

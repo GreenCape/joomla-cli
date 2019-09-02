@@ -1,0 +1,7 @@
+@startuml
+class JDatabaseQuerySqlite
+JDatabaseQueryPdo <|-- JDatabaseQuerySqlite
+!include class-JDatabaseQueryPdo.puml
+JDatabaseQueryPreparable <|.. JDatabaseQuerySqlite
+!include class-JDatabaseQueryPreparable.puml
+@enduml

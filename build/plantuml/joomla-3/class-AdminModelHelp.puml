@@ -1,0 +1,5 @@
+@startuml
+class AdminModelHelp
+JModelLegacy <|-- AdminModelHelp
+!include class-JModelLegacy.puml
+@enduml

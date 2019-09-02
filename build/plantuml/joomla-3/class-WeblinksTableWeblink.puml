@@ -1,0 +1,5 @@
+@startuml
+class WeblinksTableWeblink
+JTable <|-- WeblinksTableWeblink
+!include class-JTable.puml
+@enduml

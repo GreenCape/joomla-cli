@@ -1,0 +1,5 @@
+@startuml
+class FinderControllerMaps
+JControllerAdmin <|-- FinderControllerMaps
+!include class-JControllerAdmin.puml
+@enduml

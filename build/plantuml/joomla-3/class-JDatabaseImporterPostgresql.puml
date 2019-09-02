@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseImporterPostgresql
+JDatabaseImporter <|-- JDatabaseImporterPostgresql
+!include class-JDatabaseImporter.puml
+@enduml

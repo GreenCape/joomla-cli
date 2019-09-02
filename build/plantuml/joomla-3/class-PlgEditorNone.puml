@@ -1,0 +1,5 @@
+@startuml
+class PlgEditorNone
+JPlugin <|-- PlgEditorNone
+!include class-JPlugin.puml
+@enduml

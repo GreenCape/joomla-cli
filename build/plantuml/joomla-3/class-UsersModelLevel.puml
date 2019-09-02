@@ -1,0 +1,5 @@
+@startuml
+class UsersModelLevel
+JModelAdmin <|-- UsersModelLevel
+!include class-JModelAdmin.puml
+@enduml

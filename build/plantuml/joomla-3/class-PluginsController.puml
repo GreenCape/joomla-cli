@@ -1,0 +1,5 @@
+@startuml
+class PluginsController
+JControllerLegacy <|-- PluginsController
+!include class-JControllerLegacy.puml
+@enduml

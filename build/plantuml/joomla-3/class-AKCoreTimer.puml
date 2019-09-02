@@ -1,0 +1,5 @@
+@startuml
+class AKCoreTimer
+AKAbstractObject <|-- AKCoreTimer
+!include class-AKAbstractObject.puml
+@enduml

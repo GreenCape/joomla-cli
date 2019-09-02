@@ -1,0 +1,5 @@
+@startuml
+class JCaptcha
+JObject <|-- JCaptcha
+!include class-JObject.puml
+@enduml

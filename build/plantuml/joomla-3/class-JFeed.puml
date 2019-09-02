@@ -1,0 +1,5 @@
+@startuml
+class JFeed
+ArrayAccess <|.. JFeed
+!include class-ArrayAccess.puml
+@enduml

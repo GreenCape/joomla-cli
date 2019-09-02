@@ -1,0 +1,5 @@
+@startuml
+class LanguagesControllerOverride
+JControllerForm <|-- LanguagesControllerOverride
+!include class-JControllerForm.puml
+@enduml

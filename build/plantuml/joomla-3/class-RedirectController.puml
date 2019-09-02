@@ -1,0 +1,5 @@
+@startuml
+class RedirectController
+JControllerLegacy <|-- RedirectController
+!include class-JControllerLegacy.puml
+@enduml

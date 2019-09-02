@@ -1,0 +1,5 @@
+@startuml
+class JInputCookie
+JInput <|-- JInputCookie
+!include class-JInput.puml
+@enduml

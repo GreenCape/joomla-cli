@@ -1,0 +1,5 @@
+@startuml
+class PluginsViewPlugins
+JViewLegacy <|-- PluginsViewPlugins
+!include class-JViewLegacy.puml
+@enduml

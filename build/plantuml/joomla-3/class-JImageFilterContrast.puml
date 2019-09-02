@@ -1,0 +1,5 @@
+@startuml
+class JImageFilterContrast
+JImageFilter <|-- JImageFilterContrast
+!include class-JImageFilter.puml
+@enduml

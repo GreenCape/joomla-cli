@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldModulePosition
+JFormFieldText <|-- JFormFieldModulePosition
+!include class-JFormFieldText.puml
+@enduml

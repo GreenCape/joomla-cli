@@ -1,0 +1,5 @@
+@startuml
+abstract class JViewBase
+JView <|.. JViewBase
+!include class-JView.puml
+@enduml

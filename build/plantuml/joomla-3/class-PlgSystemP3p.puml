@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemP3p
+JPlugin <|-- PlgSystemP3p
+!include class-JPlugin.puml
+@enduml

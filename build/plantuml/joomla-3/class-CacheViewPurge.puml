@@ -1,0 +1,5 @@
+@startuml
+class CacheViewPurge
+JViewLegacy <|-- CacheViewPurge
+!include class-JViewLegacy.puml
+@enduml

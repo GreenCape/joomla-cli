@@ -1,0 +1,5 @@
+@startuml
+class PlgFinderWeblinks
+FinderIndexerAdapter <|-- PlgFinderWeblinks
+!include class-FinderIndexerAdapter.puml
+@enduml

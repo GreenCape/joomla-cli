@@ -1,0 +1,5 @@
+@startuml
+class UsersViewGroup
+JViewLegacy <|-- UsersViewGroup
+!include class-JViewLegacy.puml
+@enduml

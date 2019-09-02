@@ -1,0 +1,5 @@
+@startuml
+class PlgAuthenticationLdap
+JPlugin <|-- PlgAuthenticationLdap
+!include class-JPlugin.puml
+@enduml

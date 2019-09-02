@@ -1,0 +1,5 @@
+@startuml
+class WeblinksController
+JControllerLegacy <|-- WeblinksController
+!include class-JControllerLegacy.puml
+@enduml

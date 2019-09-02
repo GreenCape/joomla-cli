@@ -1,0 +1,5 @@
+@startuml
+class CategoriesModelCategory
+JModelAdmin <|-- CategoriesModelCategory
+!include class-JModelAdmin.puml
+@enduml

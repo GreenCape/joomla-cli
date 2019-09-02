@@ -1,0 +1,5 @@
+@startuml
+class TagsTableTag
+JTableNested <|-- TagsTableTag
+!include class-JTableNested.puml
+@enduml

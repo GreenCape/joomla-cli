@@ -1,0 +1,5 @@
+@startuml
+class FinderControllerSuggestions
+JControllerLegacy <|-- FinderControllerSuggestions
+!include class-JControllerLegacy.puml
+@enduml

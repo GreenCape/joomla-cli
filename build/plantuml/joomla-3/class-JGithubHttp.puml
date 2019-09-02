@@ -1,0 +1,5 @@
+@startuml
+class JGithubHttp
+JHttp <|-- JGithubHttp
+!include class-JHttp.puml
+@enduml

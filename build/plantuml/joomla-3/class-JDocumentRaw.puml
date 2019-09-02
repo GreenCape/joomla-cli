@@ -1,0 +1,5 @@
+@startuml
+class JDocumentRaw
+JDocument <|-- JDocumentRaw
+!include class-JDocument.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerNote
+JControllerForm <|-- UsersControllerNote
+!include class-JControllerForm.puml
+@enduml

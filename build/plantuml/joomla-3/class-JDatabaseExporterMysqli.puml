@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseExporterMysqli
+JDatabaseExporter <|-- JDatabaseExporterMysqli
+!include class-JDatabaseExporter.puml
+@enduml

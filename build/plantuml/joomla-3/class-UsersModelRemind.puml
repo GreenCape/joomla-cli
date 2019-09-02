@@ -1,0 +1,5 @@
+@startuml
+class UsersModelRemind
+JModelForm <|-- UsersModelRemind
+!include class-JModelForm.puml
+@enduml

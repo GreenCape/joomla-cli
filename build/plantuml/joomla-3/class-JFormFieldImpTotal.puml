@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldImpTotal
+JFormField <|-- JFormFieldImpTotal
+!include class-JFormField.puml
+@enduml

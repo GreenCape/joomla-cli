@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseIteratorSqlsrv
+JDatabaseIterator <|-- JDatabaseIteratorSqlsrv
+!include class-JDatabaseIterator.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JTableContenttype
+JTable <|-- JTableContenttype
+!include class-JTable.puml
+@enduml

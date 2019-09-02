@@ -1,0 +1,5 @@
+@startuml
+class JHttpTransportSocket
+JHttpTransport <|.. JHttpTransportSocket
+!include class-JHttpTransport.puml
+@enduml

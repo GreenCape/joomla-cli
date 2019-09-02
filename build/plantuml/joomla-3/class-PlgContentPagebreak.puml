@@ -1,0 +1,5 @@
+@startuml
+class PlgContentPagebreak
+JPlugin <|-- PlgContentPagebreak
+!include class-JPlugin.puml
+@enduml

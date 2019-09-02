@@ -1,0 +1,5 @@
+@startuml
+abstract class JObserver
+JObject <|-- JObserver
+!include class-JObject.puml
+@enduml

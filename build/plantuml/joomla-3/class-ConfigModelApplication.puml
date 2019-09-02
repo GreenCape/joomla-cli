@@ -1,0 +1,5 @@
+@startuml
+class ConfigModelApplication
+JModelForm <|-- ConfigModelApplication
+!include class-JModelForm.puml
+@enduml

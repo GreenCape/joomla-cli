@@ -1,0 +1,5 @@
+@startuml
+class JLogLoggerFormattedtext
+JLogLogger <|-- JLogLoggerFormattedtext
+!include class-JLogLogger.puml
+@enduml

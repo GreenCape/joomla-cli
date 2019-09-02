@@ -1,0 +1,5 @@
+@startuml
+class JUpdaterExtension
+JUpdateAdapter <|-- JUpdaterExtension
+!include class-JUpdateAdapter.puml
+@enduml

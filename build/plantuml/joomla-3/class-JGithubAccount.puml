@@ -1,0 +1,5 @@
+@startuml
+class JGithubAccount
+JGithubObject <|-- JGithubAccount
+!include class-JGithubObject.puml
+@enduml

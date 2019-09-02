@@ -1,0 +1,5 @@
+@startuml
+class TagsViewTags
+JViewLegacy <|-- TagsViewTags
+!include class-JViewLegacy.puml
+@enduml

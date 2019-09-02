@@ -1,0 +1,5 @@
+@startuml
+class JDocumentImage
+JDocument <|-- JDocumentImage
+!include class-JDocument.puml
+@enduml

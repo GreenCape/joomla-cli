@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldModal_Contacts
+JFormField <|-- JFormFieldModal_Contacts
+!include class-JFormField.puml
+@enduml

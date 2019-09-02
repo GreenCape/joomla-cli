@@ -1,0 +1,5 @@
+@startuml
+class PlgEditorTinymce
+JPlugin <|-- PlgEditorTinymce
+!include class-JPlugin.puml
+@enduml

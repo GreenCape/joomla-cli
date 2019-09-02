@@ -1,0 +1,5 @@
+@startuml
+class JTableMenu
+JTableNested <|-- JTableMenu
+!include class-JTableNested.puml
+@enduml

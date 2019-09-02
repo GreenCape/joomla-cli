@@ -1,0 +1,5 @@
+@startuml
+class ContentModelArticle
+JModelAdmin <|-- ContentModelArticle
+!include class-JModelAdmin.puml
+@enduml

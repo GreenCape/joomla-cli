@@ -1,0 +1,5 @@
+@startuml
+class JRegistryFormatINI
+JRegistryFormat <|-- JRegistryFormatINI
+!include class-JRegistryFormat.puml
+@enduml

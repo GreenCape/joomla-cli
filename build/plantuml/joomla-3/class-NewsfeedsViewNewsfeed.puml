@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsViewNewsfeed
+JViewLegacy <|-- NewsfeedsViewNewsfeed
+!include class-JViewLegacy.puml
+@enduml

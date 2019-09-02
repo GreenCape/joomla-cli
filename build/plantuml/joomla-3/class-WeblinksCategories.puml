@@ -1,0 +1,5 @@
+@startuml
+class WeblinksCategories
+JCategories <|-- WeblinksCategories
+!include class-JCategories.puml
+@enduml

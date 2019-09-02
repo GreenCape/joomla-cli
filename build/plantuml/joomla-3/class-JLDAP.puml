@@ -1,0 +1,5 @@
+@startuml
+class JLDAP
+JClientLdap <|-- JLDAP
+!include class-JClientLdap.puml
+@enduml

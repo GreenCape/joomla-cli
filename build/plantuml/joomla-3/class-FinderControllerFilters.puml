@@ -1,0 +1,5 @@
+@startuml
+class FinderControllerFilters
+JControllerAdmin <|-- FinderControllerFilters
+!include class-JControllerAdmin.puml
+@enduml

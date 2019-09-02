@@ -1,0 +1,5 @@
+@startuml
+class ModulesControllerModule
+JControllerForm <|-- ModulesControllerModule
+!include class-JControllerForm.puml
+@enduml

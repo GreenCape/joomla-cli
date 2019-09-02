@@ -1,0 +1,5 @@
+@startuml
+class PlgContentPagenavigation
+JPlugin <|-- PlgContentPagenavigation
+!include class-JPlugin.puml
+@enduml

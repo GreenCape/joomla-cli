@@ -1,0 +1,5 @@
+@startuml
+class MessagesControllerMessages
+JControllerAdmin <|-- MessagesControllerMessages
+!include class-JControllerAdmin.puml
+@enduml

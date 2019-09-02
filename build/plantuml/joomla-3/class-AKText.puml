@@ -1,0 +1,5 @@
+@startuml
+class AKText
+AKAbstractObject <|-- AKText
+!include class-AKAbstractObject.puml
+@enduml

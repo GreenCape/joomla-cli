@@ -1,0 +1,5 @@
+@startuml
+class LanguagesViewOverrides
+JViewLegacy <|-- LanguagesViewOverrides
+!include class-JViewLegacy.puml
+@enduml

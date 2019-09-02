@@ -1,0 +1,5 @@
+@startuml
+class CacheModelCache
+JModelList <|-- CacheModelCache
+!include class-JModelList.puml
+@enduml

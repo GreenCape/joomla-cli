@@ -1,0 +1,5 @@
+@startuml
+class ConfigViewApplication
+JViewLegacy <|-- ConfigViewApplication
+!include class-JViewLegacy.puml
+@enduml

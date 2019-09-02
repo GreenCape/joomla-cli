@@ -1,0 +1,5 @@
+@startuml
+class JEditor
+JObject <|-- JEditor
+!include class-JObject.puml
+@enduml

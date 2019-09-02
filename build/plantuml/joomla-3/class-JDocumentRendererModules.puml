@@ -1,0 +1,5 @@
+@startuml
+class JDocumentRendererModules
+JDocumentRenderer <|-- JDocumentRendererModules
+!include class-JDocumentRenderer.puml
+@enduml

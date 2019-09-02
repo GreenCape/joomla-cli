@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldCategoryParent
+JFormFieldList <|-- JFormFieldCategoryParent
+!include class-JFormFieldList.puml
+@enduml

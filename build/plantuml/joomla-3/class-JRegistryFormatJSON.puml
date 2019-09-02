@@ -1,0 +1,5 @@
+@startuml
+class JRegistryFormatJSON
+JRegistryFormat <|-- JRegistryFormatJSON
+!include class-JRegistryFormat.puml
+@enduml

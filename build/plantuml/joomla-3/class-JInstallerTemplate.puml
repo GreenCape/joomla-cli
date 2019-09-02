@@ -1,0 +1,5 @@
+@startuml
+class JInstallerTemplate
+JInstallerAdapterTemplate <|-- JInstallerTemplate
+!include class-JInstallerAdapterTemplate.puml
+@enduml

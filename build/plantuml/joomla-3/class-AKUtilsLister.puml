@@ -1,0 +1,5 @@
+@startuml
+class AKUtilsLister
+AKAbstractObject <|-- AKUtilsLister
+!include class-AKAbstractObject.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldCheckboxes
+JFormField <|-- JFormFieldCheckboxes
+!include class-JFormField.puml
+@enduml

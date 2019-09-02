@@ -1,0 +1,5 @@
+@startuml
+class WeblinksViewForm
+JViewLegacy <|-- WeblinksViewForm
+!include class-JViewLegacy.puml
+@enduml

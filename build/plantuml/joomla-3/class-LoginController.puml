@@ -1,0 +1,5 @@
+@startuml
+class LoginController
+JControllerLegacy <|-- LoginController
+!include class-JControllerLegacy.puml
+@enduml

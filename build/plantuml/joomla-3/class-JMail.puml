@@ -1,0 +1,5 @@
+@startuml
+class JMail
+PHPMailer <|-- JMail
+!include class-PHPMailer.puml
+@enduml

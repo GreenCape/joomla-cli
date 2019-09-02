@@ -1,0 +1,5 @@
+@startuml
+class JCacheControllerCallback
+JCacheController <|-- JCacheControllerCallback
+!include class-JCacheController.puml
+@enduml

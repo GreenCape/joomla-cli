@@ -1,0 +1,5 @@
+@startuml
+class MenusModelMenutypes
+JModelLegacy <|-- MenusModelMenutypes
+!include class-JModelLegacy.puml
+@enduml

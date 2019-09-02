@@ -1,0 +1,5 @@
+@startuml
+class JFormRuleColor
+JFormRule <|-- JFormRuleColor
+!include class-JFormRule.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JStream
+JObject <|-- JStream
+!include class-JObject.puml
+@enduml

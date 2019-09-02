@@ -1,0 +1,5 @@
+@startuml
+abstract class FinderIndexerAdapter
+JPlugin <|-- FinderIndexerAdapter
+!include class-JPlugin.puml
+@enduml

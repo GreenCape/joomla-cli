@@ -1,0 +1,5 @@
+@startuml
+class JInstallerLanguage
+JInstallerAdapterLanguage <|-- JInstallerLanguage
+!include class-JInstallerAdapterLanguage.puml
+@enduml

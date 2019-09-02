@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsTableNewsfeed
+JTable <|-- NewsfeedsTableNewsfeed
+!include class-JTable.puml
+@enduml

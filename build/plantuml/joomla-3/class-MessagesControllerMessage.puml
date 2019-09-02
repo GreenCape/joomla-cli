@@ -1,0 +1,5 @@
+@startuml
+class MessagesControllerMessage
+JControllerForm <|-- MessagesControllerMessage
+!include class-JControllerForm.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JWebClient
+JApplicationWebClient <|-- JWebClient
+!include class-JApplicationWebClient.puml
+@enduml

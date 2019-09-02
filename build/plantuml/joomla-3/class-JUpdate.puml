@@ -1,0 +1,5 @@
+@startuml
+class JUpdate
+JObject <|-- JUpdate
+!include class-JObject.puml
+@enduml

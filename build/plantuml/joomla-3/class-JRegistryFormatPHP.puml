@@ -1,0 +1,5 @@
+@startuml
+class JRegistryFormatPHP
+JRegistryFormat <|-- JRegistryFormatPHP
+!include class-JRegistryFormat.puml
+@enduml

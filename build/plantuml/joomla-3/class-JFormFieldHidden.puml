@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldHidden
+JFormField <|-- JFormFieldHidden
+!include class-JFormField.puml
+@enduml

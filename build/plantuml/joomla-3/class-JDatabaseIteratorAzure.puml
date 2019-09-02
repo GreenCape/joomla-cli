@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseIteratorAzure
+JDatabaseIteratorSqlsrv <|-- JDatabaseIteratorAzure
+!include class-JDatabaseIteratorSqlsrv.puml
+@enduml

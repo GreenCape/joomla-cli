@@ -1,0 +1,5 @@
+@startuml
+class RedirectTableLink
+JTable <|-- RedirectTableLink
+!include class-JTable.puml
+@enduml

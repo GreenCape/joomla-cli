@@ -1,0 +1,5 @@
+@startuml
+class JRegistry
+JsonSerializable <|.. JRegistry
+!include class-JsonSerializable.puml
+@enduml

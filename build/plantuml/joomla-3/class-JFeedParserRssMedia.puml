@@ -1,0 +1,5 @@
+@startuml
+class JFeedParserRssMedia
+JFeedParserNamespace <|.. JFeedParserRssMedia
+!include class-JFeedParserNamespace.puml
+@enduml

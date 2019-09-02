@@ -1,0 +1,5 @@
+@startuml
+class ContactModelContacts
+JModelList <|-- ContactModelContacts
+!include class-JModelList.puml
+@enduml

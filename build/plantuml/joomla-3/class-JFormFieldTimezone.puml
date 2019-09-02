@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldTimezone
+JFormFieldGroupedList <|-- JFormFieldTimezone
+!include class-JFormFieldGroupedList.puml
+@enduml

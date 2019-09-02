@@ -1,0 +1,5 @@
+@startuml
+class RedirectControllerLinks
+JControllerAdmin <|-- RedirectControllerLinks
+!include class-JControllerAdmin.puml
+@enduml

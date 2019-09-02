@@ -1,0 +1,5 @@
+@startuml
+class FinderModelStatistics
+JModelLegacy <|-- FinderModelStatistics
+!include class-JModelLegacy.puml
+@enduml

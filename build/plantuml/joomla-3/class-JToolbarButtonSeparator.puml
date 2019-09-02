@@ -1,0 +1,5 @@
+@startuml
+class JToolbarButtonSeparator
+JToolbarButton <|-- JToolbarButtonSeparator
+!include class-JToolbarButton.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class UsersModelDebugGroup
+JModelList <|-- UsersModelDebugGroup
+!include class-JModelList.puml
+@enduml

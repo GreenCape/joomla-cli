@@ -1,0 +1,5 @@
+@startuml
+class JTableUpdate
+JTable <|-- JTableUpdate
+!include class-JTable.puml
+@enduml

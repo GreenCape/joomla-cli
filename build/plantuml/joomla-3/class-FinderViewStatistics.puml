@@ -1,0 +1,5 @@
+@startuml
+class FinderViewStatistics
+JViewLegacy <|-- FinderViewStatistics
+!include class-JViewLegacy.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldChromeStyle
+JFormFieldGroupedList <|-- JFormFieldChromeStyle
+!include class-JFormFieldGroupedList.puml
+@enduml

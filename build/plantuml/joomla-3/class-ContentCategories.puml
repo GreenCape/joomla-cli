@@ -1,0 +1,5 @@
+@startuml
+class ContentCategories
+JCategories <|-- ContentCategories
+!include class-JCategories.puml
+@enduml

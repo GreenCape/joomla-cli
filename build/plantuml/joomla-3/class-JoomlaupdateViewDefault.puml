@@ -1,0 +1,5 @@
+@startuml
+class JoomlaupdateViewDefault
+JViewLegacy <|-- JoomlaupdateViewDefault
+!include class-JViewLegacy.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class SearchModelSearches
+JModelList <|-- SearchModelSearches
+!include class-JModelList.puml
+@enduml

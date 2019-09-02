@@ -1,0 +1,5 @@
+@startuml
+class JFormRuleEquals
+JFormRule <|-- JFormRuleEquals
+!include class-JFormRule.puml
+@enduml

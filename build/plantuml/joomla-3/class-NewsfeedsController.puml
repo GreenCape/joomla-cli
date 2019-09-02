@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsController
+JControllerLegacy <|-- NewsfeedsController
+!include class-JControllerLegacy.puml
+@enduml

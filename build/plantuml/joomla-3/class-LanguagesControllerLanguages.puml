@@ -1,0 +1,5 @@
+@startuml
+class LanguagesControllerLanguages
+JControllerAdmin <|-- LanguagesControllerLanguages
+!include class-JControllerAdmin.puml
+@enduml

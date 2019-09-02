@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsModelCategory
+JModelList <|-- NewsfeedsModelCategory
+!include class-JModelList.puml
+@enduml

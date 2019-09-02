@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemRedirect
+JPlugin <|-- PlgSystemRedirect
+!include class-JPlugin.puml
+@enduml

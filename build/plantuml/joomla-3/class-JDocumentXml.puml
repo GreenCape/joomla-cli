@@ -1,0 +1,5 @@
+@startuml
+class JDocumentXml
+JDocument <|-- JDocumentXml
+!include class-JDocument.puml
+@enduml

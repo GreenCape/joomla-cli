@@ -1,0 +1,5 @@
+@startuml
+class MessagesModelMessage
+JModelAdmin <|-- MessagesModelMessage
+!include class-JModelAdmin.puml
+@enduml

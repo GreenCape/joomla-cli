@@ -1,0 +1,5 @@
+@startuml
+class JSchemaChangeitemMysql
+JSchemaChangeitem <|-- JSchemaChangeitemMysql
+!include class-JSchemaChangeitem.puml
+@enduml

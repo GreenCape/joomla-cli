@@ -1,0 +1,5 @@
+@startuml
+class JMediawikiHttp
+JHttp <|-- JMediawikiHttp
+!include class-JHttp.puml
+@enduml

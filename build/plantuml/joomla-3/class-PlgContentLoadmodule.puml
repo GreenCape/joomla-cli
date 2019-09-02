@@ -1,0 +1,5 @@
+@startuml
+class PlgContentLoadmodule
+JPlugin <|-- PlgContentLoadmodule
+!include class-JPlugin.puml
+@enduml

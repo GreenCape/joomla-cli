@@ -1,0 +1,5 @@
+@startuml
+class JDataSet
+JDataDumpable <|.. JDataSet
+!include class-JDataDumpable.puml
+@enduml

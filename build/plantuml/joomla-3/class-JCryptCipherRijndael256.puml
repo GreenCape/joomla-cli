@@ -1,0 +1,5 @@
+@startuml
+class JCryptCipherRijndael256
+JCryptCipherMcrypt <|-- JCryptCipherRijndael256
+!include class-JCryptCipherMcrypt.puml
+@enduml

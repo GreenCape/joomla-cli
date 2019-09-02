@@ -1,0 +1,5 @@
+@startuml
+class JCryptCipherBlowfish
+JCryptCipherMcrypt <|-- JCryptCipherBlowfish
+!include class-JCryptCipherMcrypt.puml
+@enduml

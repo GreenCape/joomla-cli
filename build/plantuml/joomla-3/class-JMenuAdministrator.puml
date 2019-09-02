@@ -1,0 +1,5 @@
+@startuml
+class JMenuAdministrator
+JMenu <|-- JMenuAdministrator
+!include class-JMenu.puml
+@enduml

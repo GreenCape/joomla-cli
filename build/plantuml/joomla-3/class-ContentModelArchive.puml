@@ -1,0 +1,5 @@
+@startuml
+class ContentModelArchive
+ContentModelArticles <|-- ContentModelArchive
+!include class-ContentModelArticles.puml
+@enduml

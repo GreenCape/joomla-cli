@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseIteratorMysql
+JDatabaseIterator <|-- JDatabaseIteratorMysql
+!include class-JDatabaseIterator.puml
+@enduml

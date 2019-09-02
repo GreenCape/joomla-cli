@@ -1,0 +1,5 @@
+@startuml
+class JUcmType
+JUcm <|.. JUcmType
+!include class-JUcm.puml
+@enduml

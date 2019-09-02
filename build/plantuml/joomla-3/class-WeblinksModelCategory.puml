@@ -1,0 +1,5 @@
+@startuml
+class WeblinksModelCategory
+JModelList <|-- WeblinksModelCategory
+!include class-JModelList.puml
+@enduml

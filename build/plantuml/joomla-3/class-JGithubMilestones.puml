@@ -1,0 +1,5 @@
+@startuml
+class JGithubMilestones
+JGithubObject <|-- JGithubMilestones
+!include class-JGithubObject.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class MenusTableMenu
+JTableMenu <|-- MenusTableMenu
+!include class-JTableMenu.puml
+@enduml

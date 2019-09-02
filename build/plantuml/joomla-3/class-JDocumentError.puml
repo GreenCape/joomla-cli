@@ -1,0 +1,5 @@
+@startuml
+class JDocumentError
+JDocument <|-- JDocumentError
+!include class-JDocument.puml
+@enduml

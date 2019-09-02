@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerApplication
+JControllerLegacy <|-- ConfigControllerApplication
+!include class-JControllerLegacy.puml
+@enduml

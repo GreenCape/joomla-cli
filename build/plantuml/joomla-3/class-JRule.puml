@@ -1,0 +1,5 @@
+@startuml
+class JRule
+JAccessRule <|-- JRule
+!include class-JAccessRule.puml
+@enduml

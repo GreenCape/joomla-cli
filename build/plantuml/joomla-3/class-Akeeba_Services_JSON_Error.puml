@@ -1,0 +1,3 @@
+@startuml
+class Akeeba_Services_JSON_Error
+@enduml

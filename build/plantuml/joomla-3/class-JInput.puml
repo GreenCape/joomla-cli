@@ -1,0 +1,5 @@
+@startuml
+class JInput
+Serializable <|.. JInput
+!include class-Serializable.puml
+@enduml

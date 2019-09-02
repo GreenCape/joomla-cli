@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerProfile
+UsersController <|-- UsersControllerProfile
+!include class-UsersController.puml
+@enduml

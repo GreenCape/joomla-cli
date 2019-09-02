@@ -1,0 +1,5 @@
+@startuml
+class CategoriesControllerCategory
+JControllerForm <|-- CategoriesControllerCategory
+!include class-JControllerForm.puml
+@enduml

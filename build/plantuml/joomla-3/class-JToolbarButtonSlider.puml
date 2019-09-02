@@ -1,0 +1,5 @@
+@startuml
+class JToolbarButtonSlider
+JToolbarButton <|-- JToolbarButtonSlider
+!include class-JToolbarButton.puml
+@enduml

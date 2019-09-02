@@ -1,0 +1,5 @@
+@startuml
+class JApplication
+JApplicationBase <|-- JApplication
+!include class-JApplicationBase.puml
+@enduml

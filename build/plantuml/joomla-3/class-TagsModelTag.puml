@@ -1,0 +1,5 @@
+@startuml
+class TagsModelTag
+JModelAdmin <|-- TagsModelTag
+!include class-JModelAdmin.puml
+@enduml

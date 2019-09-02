@@ -1,0 +1,5 @@
+@startuml
+class LanguagesController
+JControllerLegacy <|-- LanguagesController
+!include class-JControllerLegacy.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JoomlaupdateModelDefault
+JModelLegacy <|-- JoomlaupdateModelDefault
+!include class-JModelLegacy.puml
+@enduml

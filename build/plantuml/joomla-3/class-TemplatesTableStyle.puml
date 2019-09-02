@@ -1,0 +1,5 @@
+@startuml
+class TemplatesTableStyle
+JTable <|-- TemplatesTableStyle
+!include class-JTable.puml
+@enduml

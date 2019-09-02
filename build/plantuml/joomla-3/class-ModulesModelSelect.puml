@@ -1,0 +1,5 @@
+@startuml
+class ModulesModelSelect
+JModelList <|-- ModulesModelSelect
+!include class-JModelList.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JRouterSite
+JRouter <|-- JRouterSite
+!include class-JRouter.puml
+@enduml

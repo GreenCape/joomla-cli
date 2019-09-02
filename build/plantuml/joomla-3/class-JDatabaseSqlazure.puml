@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseSqlazure
+JDatabaseDriverSqlazure <|-- JDatabaseSqlazure
+!include class-JDatabaseDriverSqlazure.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormRuleContactEmailMessage
+JFormRule <|-- JFormRuleContactEmailMessage
+!include class-JFormRule.puml
+@enduml

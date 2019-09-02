@@ -1,0 +1,5 @@
+@startuml
+class JCategoryNode
+JObject <|-- JCategoryNode
+!include class-JObject.puml
+@enduml

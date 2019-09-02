@@ -1,0 +1,5 @@
+@startuml
+class JWeb
+JApplicationWeb <|-- JWeb
+!include class-JApplicationWeb.puml
+@enduml

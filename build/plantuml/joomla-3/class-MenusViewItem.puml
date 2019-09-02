@@ -1,0 +1,5 @@
+@startuml
+class MenusViewItem
+JViewLegacy <|-- MenusViewItem
+!include class-JViewLegacy.puml
+@enduml

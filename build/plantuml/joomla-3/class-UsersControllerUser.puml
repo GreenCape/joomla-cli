@@ -1,0 +1,5 @@
+@startuml
+class UsersControllerUser
+JControllerForm <|-- UsersControllerUser
+!include class-JControllerForm.puml
+@enduml

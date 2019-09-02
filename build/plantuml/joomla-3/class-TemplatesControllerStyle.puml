@@ -1,0 +1,5 @@
+@startuml
+class TemplatesControllerStyle
+JControllerForm <|-- TemplatesControllerStyle
+!include class-JControllerForm.puml
+@enduml

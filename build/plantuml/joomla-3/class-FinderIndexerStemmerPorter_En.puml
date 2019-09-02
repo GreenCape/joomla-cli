@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerStemmerPorter_En
+FinderIndexerStemmer <|-- FinderIndexerStemmerPorter_En
+!include class-FinderIndexerStemmer.puml
+@enduml

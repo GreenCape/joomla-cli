@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseDriverMysql
+JDatabaseDriverMysqli <|-- JDatabaseDriverMysql
+!include class-JDatabaseDriverMysqli.puml
+@enduml

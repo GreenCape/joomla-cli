@@ -1,0 +1,5 @@
+@startuml
+class TagsController
+JControllerLegacy <|-- TagsController
+!include class-JControllerLegacy.puml
+@enduml

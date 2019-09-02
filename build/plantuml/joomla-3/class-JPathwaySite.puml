@@ -1,0 +1,5 @@
+@startuml
+class JPathwaySite
+JPathway <|-- JPathwaySite
+!include class-JPathway.puml
+@enduml

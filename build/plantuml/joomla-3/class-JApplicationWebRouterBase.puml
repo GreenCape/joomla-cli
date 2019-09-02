@@ -1,0 +1,5 @@
+@startuml
+class JApplicationWebRouterBase
+JApplicationWebRouter <|-- JApplicationWebRouterBase
+!include class-JApplicationWebRouter.puml
+@enduml

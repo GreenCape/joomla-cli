@@ -1,0 +1,5 @@
+@startuml
+class MessagesViewConfig
+JViewLegacy <|-- MessagesViewConfig
+!include class-JViewLegacy.puml
+@enduml

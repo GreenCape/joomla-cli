@@ -1,0 +1,5 @@
+@startuml
+abstract class JModelItem
+JModelLegacy <|-- JModelItem
+!include class-JModelLegacy.puml
+@enduml

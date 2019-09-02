@@ -1,0 +1,5 @@
+@startuml
+class JImageFilterSmooth
+JImageFilter <|-- JImageFilterSmooth
+!include class-JImageFilter.puml
+@enduml

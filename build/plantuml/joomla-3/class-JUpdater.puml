@@ -1,0 +1,5 @@
+@startuml
+class JUpdater
+JAdapter <|-- JUpdater
+!include class-JAdapter.puml
+@enduml

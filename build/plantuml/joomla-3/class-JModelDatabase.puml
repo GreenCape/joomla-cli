@@ -1,0 +1,5 @@
+@startuml
+abstract class JModelDatabase
+JModelBase <|-- JModelDatabase
+!include class-JModelBase.puml
+@enduml

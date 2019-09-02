@@ -1,0 +1,5 @@
+@startuml
+class WeblinksModelWeblink
+JModelAdmin <|-- WeblinksModelWeblink
+!include class-JModelAdmin.puml
+@enduml

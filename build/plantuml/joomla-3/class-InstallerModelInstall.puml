@@ -1,0 +1,5 @@
+@startuml
+class InstallerModelInstall
+JModelLegacy <|-- InstallerModelInstall
+!include class-JModelLegacy.puml
+@enduml

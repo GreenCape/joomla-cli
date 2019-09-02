@@ -1,0 +1,5 @@
+@startuml
+class WrapperController
+JControllerLegacy <|-- WrapperController
+!include class-JControllerLegacy.puml
+@enduml

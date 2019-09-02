@@ -1,0 +1,5 @@
+@startuml
+class LanguagesModelOverride
+JModelAdmin <|-- LanguagesModelOverride
+!include class-JModelAdmin.puml
+@enduml

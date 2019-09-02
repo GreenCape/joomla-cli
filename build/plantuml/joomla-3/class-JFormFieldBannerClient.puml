@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldBannerClient
+JFormFieldList <|-- JFormFieldBannerClient
+!include class-JFormFieldList.puml
+@enduml

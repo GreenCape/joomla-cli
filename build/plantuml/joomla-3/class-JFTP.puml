@@ -1,0 +1,5 @@
+@startuml
+class JFTP
+JClientFtp <|-- JFTP
+!include class-JClientFtp.puml
+@enduml

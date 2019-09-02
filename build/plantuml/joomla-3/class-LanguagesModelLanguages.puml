@@ -1,0 +1,5 @@
+@startuml
+class LanguagesModelLanguages
+JModelList <|-- LanguagesModelLanguages
+!include class-JModelList.puml
+@enduml

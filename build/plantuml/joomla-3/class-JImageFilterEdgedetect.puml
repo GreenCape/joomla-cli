@@ -1,0 +1,5 @@
+@startuml
+class JImageFilterEdgedetect
+JImageFilter <|-- JImageFilterEdgedetect
+!include class-JImageFilter.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class MediaModelList
+JModelLegacy <|-- MediaModelList
+!include class-JModelLegacy.puml
+@enduml

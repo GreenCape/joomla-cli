@@ -1,0 +1,5 @@
+@startuml
+class WeblinksControllerWeblink
+JControllerForm <|-- WeblinksControllerWeblink
+!include class-JControllerForm.puml
+@enduml

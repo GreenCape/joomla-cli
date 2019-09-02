@@ -1,0 +1,5 @@
+@startuml
+class JXMLElement
+SimpleXMLElement <|-- JXMLElement
+!include class-SimpleXMLElement.puml
+@enduml

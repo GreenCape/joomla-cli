@@ -1,0 +1,5 @@
+@startuml
+class JHttpTransportCurl
+JHttpTransport <|.. JHttpTransportCurl
+!include class-JHttpTransport.puml
+@enduml

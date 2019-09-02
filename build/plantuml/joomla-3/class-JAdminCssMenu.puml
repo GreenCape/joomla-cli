@@ -1,0 +1,5 @@
+@startuml
+class JAdminCssMenu
+JObject <|-- JAdminCssMenu
+!include class-JObject.puml
+@enduml

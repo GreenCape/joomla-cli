@@ -1,0 +1,5 @@
+@startuml
+class ContactControllerContacts
+JControllerAdmin <|-- ContactControllerContacts
+!include class-JControllerAdmin.puml
+@enduml

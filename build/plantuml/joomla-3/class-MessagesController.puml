@@ -1,0 +1,5 @@
+@startuml
+class MessagesController
+JControllerLegacy <|-- MessagesController
+!include class-JControllerLegacy.puml
+@enduml

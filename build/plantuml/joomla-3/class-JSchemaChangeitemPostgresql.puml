@@ -1,0 +1,5 @@
+@startuml
+class JSchemaChangeitemPostgresql
+JSchemaChangeitem <|-- JSchemaChangeitemPostgresql
+!include class-JSchemaChangeitem.puml
+@enduml

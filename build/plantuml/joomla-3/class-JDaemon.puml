@@ -1,0 +1,5 @@
+@startuml
+class JDaemon
+JApplicationDaemon <|-- JDaemon
+!include class-JApplicationDaemon.puml
+@enduml

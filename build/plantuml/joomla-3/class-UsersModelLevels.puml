@@ -1,0 +1,5 @@
+@startuml
+class UsersModelLevels
+JModelList <|-- UsersModelLevels
+!include class-JModelList.puml
+@enduml

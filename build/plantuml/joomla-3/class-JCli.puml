@@ -1,0 +1,5 @@
+@startuml
+class JCli
+JApplicationCli <|-- JCli
+!include class-JApplicationCli.puml
+@enduml

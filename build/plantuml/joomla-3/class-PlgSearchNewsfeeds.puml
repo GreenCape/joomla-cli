@@ -1,0 +1,5 @@
+@startuml
+class PlgSearchNewsfeeds
+JPlugin <|-- PlgSearchNewsfeeds
+!include class-JPlugin.puml
+@enduml

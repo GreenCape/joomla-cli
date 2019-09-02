@@ -1,0 +1,5 @@
+@startuml
+class BannersModelClients
+JModelList <|-- BannersModelClients
+!include class-JModelList.puml
+@enduml

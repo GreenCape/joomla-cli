@@ -1,0 +1,5 @@
+@startuml
+class ContactViewFeatured
+JViewLegacy <|-- ContactViewFeatured
+!include class-JViewLegacy.puml
+@enduml

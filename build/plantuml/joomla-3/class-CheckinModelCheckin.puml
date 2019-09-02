@@ -1,0 +1,5 @@
+@startuml
+class CheckinModelCheckin
+JModelList <|-- CheckinModelCheckin
+!include class-JModelList.puml
+@enduml

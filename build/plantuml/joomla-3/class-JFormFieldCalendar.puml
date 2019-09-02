@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldCalendar
+JFormField <|-- JFormFieldCalendar
+!include class-JFormField.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FinderViewFilters
+JViewLegacy <|-- FinderViewFilters
+!include class-JViewLegacy.puml
+@enduml

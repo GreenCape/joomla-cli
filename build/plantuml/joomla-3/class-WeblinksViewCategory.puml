@@ -1,0 +1,5 @@
+@startuml
+class WeblinksViewCategory
+JViewLegacy <|-- WeblinksViewCategory
+!include class-JViewLegacy.puml
+@enduml

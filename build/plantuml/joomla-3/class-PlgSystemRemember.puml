@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemRemember
+JPlugin <|-- PlgSystemRemember
+!include class-JPlugin.puml
+@enduml

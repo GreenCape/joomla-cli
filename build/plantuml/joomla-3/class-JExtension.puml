@@ -1,0 +1,5 @@
+@startuml
+class JExtension
+JInstallerExtension <|-- JExtension
+!include class-JInstallerExtension.puml
+@enduml

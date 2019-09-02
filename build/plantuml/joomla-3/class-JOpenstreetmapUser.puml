@@ -1,0 +1,5 @@
+@startuml
+class JOpenstreetmapUser
+JOpenstreetmapObject <|-- JOpenstreetmapUser
+!include class-JOpenstreetmapObject.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldTos
+JFormFieldRadio <|-- JFormFieldTos
+!include class-JFormFieldRadio.puml
+@enduml

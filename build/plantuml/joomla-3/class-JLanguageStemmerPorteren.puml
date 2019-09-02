@@ -1,0 +1,5 @@
+@startuml
+class JLanguageStemmerPorteren
+JLanguageStemmer <|-- JLanguageStemmerPorteren
+!include class-JLanguageStemmer.puml
+@enduml

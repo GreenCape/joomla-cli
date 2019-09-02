@@ -1,0 +1,5 @@
+@startuml
+class ContactViewCategory
+JViewLegacy <|-- ContactViewCategory
+!include class-JViewLegacy.puml
+@enduml

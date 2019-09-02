@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldCombo
+JFormFieldList <|-- JFormFieldCombo
+!include class-JFormFieldList.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsControllerNewsfeed
+JControllerForm <|-- NewsfeedsControllerNewsfeed
+!include class-JControllerForm.puml
+@enduml

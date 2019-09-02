@@ -1,0 +1,5 @@
+@startuml
+class JCryptCipherSimple
+JCryptCipher <|.. JCryptCipherSimple
+!include class-JCryptCipher.puml
+@enduml

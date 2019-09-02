@@ -1,0 +1,5 @@
+@startuml
+class JMediawikiSearch
+JMediawikiObject <|-- JMediawikiSearch
+!include class-JMediawikiObject.puml
+@enduml

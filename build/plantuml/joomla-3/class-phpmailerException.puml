@@ -1,0 +1,5 @@
+@startuml
+class phpmailerException
+Exception <|-- phpmailerException
+!include class-Exception.puml
+@enduml
