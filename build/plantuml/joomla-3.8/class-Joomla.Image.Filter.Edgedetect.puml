@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Image.Filter.Edgedetect
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Edgedetect
+!include class-Joomla.Image.Filter.ImageFilter.puml
+@enduml

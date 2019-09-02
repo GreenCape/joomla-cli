@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderRowselect
+FOFFormHeader <|-- FOFFormHeaderRowselect
+!include class-FOFFormHeader.puml
+@enduml

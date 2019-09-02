@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldCaptcha
+JFormFieldCaptcha <|-- FOFFormFieldCaptcha
+!include class-JFormFieldCaptcha.puml
+FOFFormField <|.. FOFFormFieldCaptcha
+!include class-FOFFormField.puml
+@enduml

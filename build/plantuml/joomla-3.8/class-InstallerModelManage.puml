@@ -1,0 +1,5 @@
+@startuml
+class InstallerModelManage
+InstallerModel <|-- InstallerModelManage
+!include class-InstallerModel.puml
+@enduml

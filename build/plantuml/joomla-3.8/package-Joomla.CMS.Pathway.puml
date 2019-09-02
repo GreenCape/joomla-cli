@@ -1,0 +1,6 @@
+@startuml
+class Joomla.CMS.Pathway.Pathway
+
+class Joomla.CMS.Pathway.SitePathway
+Joomla.CMS.Pathway.Pathway <|-- Joomla.CMS.Pathway.SitePathway
+@enduml

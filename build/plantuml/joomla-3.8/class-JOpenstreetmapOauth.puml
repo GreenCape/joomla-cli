@@ -1,0 +1,5 @@
+@startuml
+class JOpenstreetmapOauth
+JOAuth1Client <|-- JOpenstreetmapOauth
+!include class-JOAuth1Client.puml
+@enduml

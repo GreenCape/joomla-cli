@@ -1,0 +1,5 @@
+@startuml
+class ContentControllerFeatured
+ContentControllerArticles <|-- ContentControllerFeatured
+!include class-ContentControllerArticles.puml
+@enduml

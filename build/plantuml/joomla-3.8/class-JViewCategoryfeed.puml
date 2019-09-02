@@ -1,0 +1,3 @@
+@startuml
+class JViewCategoryfeed << (·,Transparent) >>
+@enduml

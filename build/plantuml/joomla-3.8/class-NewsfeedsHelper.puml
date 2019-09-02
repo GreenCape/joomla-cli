@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsHelper
+JHelperContent <|-- NewsfeedsHelper
+!include class-JHelperContent.puml
+@enduml

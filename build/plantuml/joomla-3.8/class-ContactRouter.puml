@@ -1,0 +1,5 @@
+@startuml
+class ContactRouter
+JComponentRouterView <|-- ContactRouter
+!include class-JComponentRouterView.puml
+@enduml

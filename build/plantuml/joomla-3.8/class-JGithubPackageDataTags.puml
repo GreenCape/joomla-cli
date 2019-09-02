@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageDataTags
+JGithubPackage <|-- JGithubPackageDataTags
+!include class-JGithubPackage.puml
+@enduml

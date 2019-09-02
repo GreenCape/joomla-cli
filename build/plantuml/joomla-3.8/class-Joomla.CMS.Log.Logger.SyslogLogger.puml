@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Log.Logger.SyslogLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.SyslogLogger
+!include class-Joomla.CMS.Log.Logger.Logger.puml
+@enduml

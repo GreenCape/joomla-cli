@@ -1,0 +1,3 @@
+@startuml
+interface Joomla.Uri.UriInterface
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class ContentTableFeatured
+JTable <|-- ContentTableFeatured
+!include class-JTable.puml
+@enduml

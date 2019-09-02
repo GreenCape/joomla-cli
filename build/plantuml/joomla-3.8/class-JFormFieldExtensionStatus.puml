@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldExtensionStatus
+JFormFieldList <|-- JFormFieldExtensionStatus
+!include class-JFormFieldList.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseDriverSqlazure
+FOFDatabaseDriverSqlsrv <|-- FOFDatabaseDriverSqlazure
+!include class-FOFDatabaseDriverSqlsrv.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class FOFTable
+FOFUtilsObject <|-- FOFTable
+!include class-FOFUtilsObject.puml
+JTableInterface <|.. FOFTable
+!include class-JTableInterface.puml
+@enduml

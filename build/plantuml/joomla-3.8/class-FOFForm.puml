@@ -1,0 +1,5 @@
+@startuml
+class FOFForm
+JForm <|-- FOFForm
+!include class-JForm.puml
+@enduml

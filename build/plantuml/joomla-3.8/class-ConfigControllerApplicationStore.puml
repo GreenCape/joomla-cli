@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerApplicationStore
+JControllerBase <|-- ConfigControllerApplicationStore
+!include class-JControllerBase.puml
+@enduml

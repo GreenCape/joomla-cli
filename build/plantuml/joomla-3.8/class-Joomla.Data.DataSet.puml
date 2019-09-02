@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Data.DataSet
+Joomla.Data.DumpableInterface <|.. Joomla.Data.DataSet
+!include class-Joomla.Data.DumpableInterface.puml
+@enduml

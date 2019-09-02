@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemStats
+JPlugin <|-- PlgSystemStats
+!include class-JPlugin.puml
+@enduml

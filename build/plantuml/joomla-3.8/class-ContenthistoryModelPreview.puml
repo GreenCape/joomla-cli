@@ -1,0 +1,5 @@
+@startuml
+class ContenthistoryModelPreview
+JModelItem <|-- ContenthistoryModelPreview
+!include class-JModelItem.puml
+@enduml

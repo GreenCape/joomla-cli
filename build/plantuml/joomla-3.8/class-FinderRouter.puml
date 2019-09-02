@@ -1,0 +1,5 @@
+@startuml
+class FinderRouter
+JComponentRouterBase <|-- FinderRouter
+!include class-JComponentRouterBase.puml
+@enduml

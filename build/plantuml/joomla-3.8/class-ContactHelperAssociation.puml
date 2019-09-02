@@ -1,0 +1,5 @@
+@startuml
+abstract class ContactHelperAssociation
+CategoryHelperAssociation <|-- ContactHelperAssociation
+!include class-CategoryHelperAssociation.puml
+@enduml

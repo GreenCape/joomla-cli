@@ -1,0 +1,5 @@
+@startuml
+class InvalidCiphertextException
+Exception <|-- InvalidCiphertextException
+!include class-Exception.puml
+@enduml

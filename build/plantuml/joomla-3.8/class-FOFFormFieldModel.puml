@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldModel
+FOFFormFieldList <|-- FOFFormFieldModel
+!include class-FOFFormFieldList.puml
+FOFFormField <|.. FOFFormFieldModel
+!include class-FOFFormField.puml
+@enduml

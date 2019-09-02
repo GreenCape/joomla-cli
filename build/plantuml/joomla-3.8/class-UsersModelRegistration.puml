@@ -1,0 +1,5 @@
+@startuml
+class UsersModelRegistration
+JModelForm <|-- UsersModelRegistration
+!include class-JModelForm.puml
+@enduml

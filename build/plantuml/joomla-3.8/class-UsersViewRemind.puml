@@ -1,0 +1,5 @@
+@startuml
+class UsersViewRemind
+JViewLegacy <|-- UsersViewRemind
+!include class-JViewLegacy.puml
+@enduml

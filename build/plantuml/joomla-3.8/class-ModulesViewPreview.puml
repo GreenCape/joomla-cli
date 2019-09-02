@@ -1,0 +1,5 @@
+@startuml
+class ModulesViewPreview
+JViewLegacy <|-- ModulesViewPreview
+!include class-JViewLegacy.puml
+@enduml

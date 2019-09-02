@@ -1,0 +1,3 @@
+@startuml
+abstract class Joomla.CMS.Language.LanguageStemmer
+@enduml

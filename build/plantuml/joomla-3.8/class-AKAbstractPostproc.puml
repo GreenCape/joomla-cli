@@ -1,0 +1,5 @@
+@startuml
+abstract class AKAbstractPostproc
+AKAbstractObject <|-- AKAbstractPostproc
+!include class-AKAbstractObject.puml
+@enduml

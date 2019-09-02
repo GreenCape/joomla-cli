@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerApplicationRemoveroot
+JControllerBase <|-- ConfigControllerApplicationRemoveroot
+!include class-JControllerBase.puml
+@enduml

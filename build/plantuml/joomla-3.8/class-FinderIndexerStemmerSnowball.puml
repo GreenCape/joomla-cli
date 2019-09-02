@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerStemmerSnowball
+FinderIndexerStemmer <|-- FinderIndexerStemmerSnowball
+!include class-FinderIndexerStemmer.puml
+@enduml

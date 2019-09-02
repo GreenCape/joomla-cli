@@ -1,0 +1,48 @@
+@startuml
+class ParagonIE.Sodium.Core.HChaCha20
+ParagonIE_Sodium_Core_HChaCha20 <|-- ParagonIE.Sodium.Core.HChaCha20
+
+class ParagonIE.Sodium.Core.X25519
+ParagonIE_Sodium_Core_X25519 <|-- ParagonIE.Sodium.Core.X25519
+class ParagonIE.Sodium.Core.Xsalsa20
+ParagonIE_Sodium_Core_Xsalsa20 <|-- ParagonIE.Sodium.Core.Xsalsa20
+class ParagonIE.Sodium.Core.ChaCha20.Ctx
+ParagonIE_Sodium_Core_ChaCha20_Ctx <|-- ParagonIE.Sodium.Core.ChaCha20.Ctx
+class ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+ParagonIE_Sodium_Core_ChaCha20_IetfCtx <|-- ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+class ParagonIE.Sodium.Core.XChaCha20
+ParagonIE_Sodium_Core_XChaCha20 <|-- ParagonIE.Sodium.Core.XChaCha20
+class ParagonIE.Sodium.Core.BLAKE2b
+ParagonIE_Sodium_Core_BLAKE2b <|-- ParagonIE.Sodium.Core.BLAKE2b
+class ParagonIE.Sodium.Core.ChaCha20
+ParagonIE_Sodium_Core_ChaCha20 <|-- ParagonIE.Sodium.Core.ChaCha20
+class ParagonIE.Sodium.Core.SipHash
+ParagonIE_Sodium_Core_Salsa20 <|-- ParagonIE.Sodium.Core.SipHash
+class ParagonIE.Sodium.Core.Poly1305.State
+ParagonIE_Sodium_Core_Poly1305_State <|-- ParagonIE.Sodium.Core.Poly1305.State
+class ParagonIE.Sodium.Core.Poly1305
+ParagonIE_Sodium_Core_Poly1305 <|-- ParagonIE.Sodium.Core.Poly1305
+class ParagonIE.Sodium.Core.Curve25519
+ParagonIE_Sodium_Core_Curve25519 <|-- ParagonIE.Sodium.Core.Curve25519
+class ParagonIE.Sodium.Core.Util
+ParagonIE_Sodium_Core_Util <|-- ParagonIE.Sodium.Core.Util
+ParagonIE_Sodium_Core_SipHash <|-- ParagonIE.Sodium.Core.SipHash
+class ParagonIE.Sodium.Core.HSalsa20
+ParagonIE_Sodium_Core_HSalsa20 <|-- ParagonIE.Sodium.Core.HSalsa20
+class ParagonIE.Sodium.Core.Curve25519.H
+ParagonIE_Sodium_Core_Curve25519_H <|-- ParagonIE.Sodium.Core.Curve25519.H
+class ParagonIE.Sodium.Core.Curve25519.Fe
+ParagonIE_Sodium_Core_Curve25519_Fe <|-- ParagonIE.Sodium.Core.Curve25519.Fe
+class ParagonIE.Sodium.Core.Curve25519.Ge.P1p1
+ParagonIE_Sodium_Core_Curve25519_Ge_P1p1 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P1p1
+class ParagonIE.Sodium.Core.Curve25519.Ge.Cached
+ParagonIE_Sodium_Core_Curve25519_Ge_Cached <|-- ParagonIE.Sodium.Core.Curve25519.Ge.Cached
+class ParagonIE.Sodium.Core.Curve25519.Ge.P2
+ParagonIE_Sodium_Core_Curve25519_Ge_P2 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P2
+class ParagonIE.Sodium.Core.Curve25519.Ge.Precomp
+ParagonIE_Sodium_Core_Curve25519_Ge_Precomp <|-- ParagonIE.Sodium.Core.Curve25519.Ge.Precomp
+class ParagonIE.Sodium.Core.Curve25519.Ge.P3
+ParagonIE_Sodium_Core_Curve25519_Ge_P3 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P3
+class ParagonIE.Sodium.Core.Ed25519
+ParagonIE_Sodium_Core_Ed25519 <|-- ParagonIE.Sodium.Core.Ed25519
+@enduml

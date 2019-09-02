@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Crypt.Cipher.TripleDesCipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.TripleDesCipher
+!include class-Joomla.CMS.Crypt.Cipher.McryptCipher.puml
+@enduml

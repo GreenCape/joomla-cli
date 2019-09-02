@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseExceptionUnsupported
+RuntimeException <|-- JDatabaseExceptionUnsupported
+!include class-RuntimeException.puml
+@enduml

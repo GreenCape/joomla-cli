@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseQueryPdo
+JDatabaseQuery <|-- JDatabaseQueryPdo
+!include class-JDatabaseQuery.puml
+@enduml

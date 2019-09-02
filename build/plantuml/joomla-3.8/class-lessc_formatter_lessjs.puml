@@ -1,0 +1,5 @@
+@startuml
+class lessc_formatter_lessjs
+lessc_formatter_classic <|-- lessc_formatter_lessjs
+!include class-lessc_formatter_classic.puml
+@enduml

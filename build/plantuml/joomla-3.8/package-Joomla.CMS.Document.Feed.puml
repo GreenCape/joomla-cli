@@ -1,0 +1,6 @@
+@startuml
+class Joomla.CMS.Document.Feed.FeedImage
+
+class Joomla.CMS.Document.Feed.FeedEnclosure
+class Joomla.CMS.Document.Feed.FeedItem
+@enduml

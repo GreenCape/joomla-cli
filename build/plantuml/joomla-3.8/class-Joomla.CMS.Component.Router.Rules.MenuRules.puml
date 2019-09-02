@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Component.Router.Rules.MenuRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.MenuRules
+!include class-Joomla.CMS.Component.Router.Rules.RulesInterface.puml
+@enduml

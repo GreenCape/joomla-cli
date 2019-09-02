@@ -1,0 +1,5 @@
+@startuml
+class PlgAuthenticationGMail
+JPlugin <|-- PlgAuthenticationGMail
+!include class-JPlugin.puml
+@enduml

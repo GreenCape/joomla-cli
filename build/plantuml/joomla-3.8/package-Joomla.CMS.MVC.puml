@@ -1,0 +1,27 @@
+@startuml
+abstract class Joomla.CMS.MVC.Model.BaseDatabaseModel
+JObject <|-- Joomla.CMS.MVC.Model.BaseDatabaseModel
+
+class Joomla.CMS.MVC.Model.ListModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ListModel
+abstract class Joomla.CMS.MVC.Model.FormModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.FormModel
+abstract class Joomla.CMS.MVC.Model.ItemModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ItemModel
+abstract class Joomla.CMS.MVC.Model.AdminModel
+Joomla.CMS.MVC.Model.FormModel <|-- Joomla.CMS.MVC.Model.AdminModel
+class Joomla.CMS.MVC.Controller.FormController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.FormController
+class Joomla.CMS.MVC.Controller.AdminController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.AdminController
+class Joomla.CMS.MVC.Controller.BaseController
+JObject <|-- Joomla.CMS.MVC.Controller.BaseController
+class Joomla.CMS.MVC.View.CategoryView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryView
+class Joomla.CMS.MVC.View.CategoriesView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoriesView
+class Joomla.CMS.MVC.View.HtmlView
+JObject <|-- Joomla.CMS.MVC.View.HtmlView
+class Joomla.CMS.MVC.View.CategoryFeedView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryFeedView
+@enduml

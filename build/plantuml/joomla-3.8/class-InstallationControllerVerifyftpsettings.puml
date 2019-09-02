@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerVerifyftpsettings
+JControllerBase <|-- InstallationControllerVerifyftpsettings
+!include class-JControllerBase.puml
+@enduml

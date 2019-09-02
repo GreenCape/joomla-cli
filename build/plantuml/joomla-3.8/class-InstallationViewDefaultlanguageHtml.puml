@@ -1,0 +1,5 @@
+@startuml
+class InstallationViewDefaultlanguageHtml
+JViewHtml <|-- InstallationViewDefaultlanguageHtml
+!include class-JViewHtml.puml
+@enduml

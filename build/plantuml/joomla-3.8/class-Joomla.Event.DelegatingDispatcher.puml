@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Event.DelegatingDispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.DelegatingDispatcher
+!include class-Joomla.Event.DispatcherInterface.puml
+@enduml

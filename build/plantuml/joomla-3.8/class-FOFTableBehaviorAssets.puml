@@ -1,0 +1,5 @@
+@startuml
+class FOFTableBehaviorAssets
+FOFTableBehavior <|-- FOFTableBehaviorAssets
+!include class-FOFTableBehavior.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JLinkedinPeople
+JLinkedinObject <|-- JLinkedinPeople
+!include class-JLinkedinObject.puml
+@enduml

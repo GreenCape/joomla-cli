@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Filter.OutputFilter
+Joomla.CMS.Filter.BaseOutputFilter <|-- Joomla.CMS.Filter.OutputFilter
+!include class-Joomla.CMS.Filter.BaseOutputFilter.puml
+@enduml

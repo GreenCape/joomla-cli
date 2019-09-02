@@ -1,0 +1,5 @@
+@startuml
+class ConfigModelModules
+ConfigModelForm <|-- ConfigModelModules
+!include class-ConfigModelForm.puml
+@enduml

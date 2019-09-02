@@ -1,0 +1,3 @@
+@startuml
+class Joomla.CMS.Installer.Adapter.InstallerAdapter << (·,Transparent) >>
+@enduml

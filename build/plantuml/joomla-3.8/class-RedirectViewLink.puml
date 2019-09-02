@@ -1,0 +1,5 @@
+@startuml
+class RedirectViewLink
+JViewLegacy <|-- RedirectViewLink
+!include class-JViewLegacy.puml
+@enduml

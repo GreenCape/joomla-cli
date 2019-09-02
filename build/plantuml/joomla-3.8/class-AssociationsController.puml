@@ -1,0 +1,5 @@
+@startuml
+class AssociationsController
+JControllerLegacy <|-- AssociationsController
+!include class-JControllerLegacy.puml
+@enduml

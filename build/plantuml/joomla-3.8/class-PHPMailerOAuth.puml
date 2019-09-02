@@ -1,0 +1,5 @@
+@startuml
+class PHPMailerOAuth
+PHPMailer <|-- PHPMailerOAuth
+!include class-PHPMailer.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFModelFieldDate
+FOFModelFieldText <|-- FOFModelFieldDate
+!include class-FOFModelFieldText.puml
+@enduml

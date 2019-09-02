@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldEditor
+JFormFieldEditor <|-- FOFFormFieldEditor
+!include class-JFormFieldEditor.puml
+FOFFormField <|.. FOFFormFieldEditor
+!include class-FOFFormField.puml
+@enduml

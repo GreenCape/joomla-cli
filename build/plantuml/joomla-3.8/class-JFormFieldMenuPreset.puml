@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldMenuPreset
+JFormFieldList <|-- JFormFieldMenuPreset
+!include class-JFormFieldList.puml
+@enduml

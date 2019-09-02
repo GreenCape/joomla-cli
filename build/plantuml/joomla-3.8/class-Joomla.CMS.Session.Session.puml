@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Session.Session
+IteratorAggregate <|.. Joomla.CMS.Session.Session
+!include class-IteratorAggregate.puml
+@enduml

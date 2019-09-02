@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Editor.Editor
+JObject <|-- Joomla.CMS.Editor.Editor
+!include class-JObject.puml
+@enduml

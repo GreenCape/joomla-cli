@@ -1,0 +1,7 @@
+@startuml
+class JDatabaseQuerySqlsrv
+JDatabaseQuery <|-- JDatabaseQuerySqlsrv
+!include class-JDatabaseQuery.puml
+JDatabaseQueryLimitable <|.. JDatabaseQuerySqlsrv
+!include class-JDatabaseQueryLimitable.puml
+@enduml

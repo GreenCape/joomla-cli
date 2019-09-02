@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.OrderingField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.OrderingField
+!include class-Joomla.CMS.Form.Field.FormField.puml
+@enduml

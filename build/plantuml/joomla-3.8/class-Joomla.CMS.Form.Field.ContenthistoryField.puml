@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.ContenthistoryField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ContenthistoryField
+!include class-Joomla.CMS.Form.Field.FormField.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.CMS.MVC.Model.BaseDatabaseModel
+JObject <|-- Joomla.CMS.MVC.Model.BaseDatabaseModel
+!include class-JObject.puml
+@enduml

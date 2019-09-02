@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemLogout
+JPlugin <|-- PlgSystemLogout
+!include class-JPlugin.puml
+@enduml

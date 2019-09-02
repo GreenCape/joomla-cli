@@ -1,0 +1,3 @@
+@startuml
+class Joomla.Archive.Archive
+@enduml

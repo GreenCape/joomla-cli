@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFUtilsObservableEvent
+FOFUtilsObject <|-- FOFUtilsObservableEvent
+!include class-FOFUtilsObject.puml
+@enduml

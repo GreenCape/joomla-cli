@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageIssuesLabels
+JGithubPackage <|-- JGithubPackageIssuesLabels
+!include class-JGithubPackage.puml
+@enduml

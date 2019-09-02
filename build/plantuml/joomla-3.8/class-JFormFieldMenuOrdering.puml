@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldMenuOrdering
+JFormFieldList <|-- JFormFieldMenuOrdering
+!include class-JFormFieldList.puml
+@enduml

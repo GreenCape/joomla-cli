@@ -1,0 +1,5 @@
+@startuml
+class FOFRenderJoomla
+FOFRenderAbstract <|-- FOFRenderJoomla
+!include class-FOFRenderAbstract.puml
+@enduml

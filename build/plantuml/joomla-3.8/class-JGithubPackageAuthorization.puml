@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageAuthorization
+JGithubPackage <|-- JGithubPackageAuthorization
+!include class-JGithubPackage.puml
+@enduml

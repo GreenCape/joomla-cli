@@ -1,0 +1,5 @@
+@startuml
+class BannersModelClient
+JModelAdmin <|-- BannersModelClient
+!include class-JModelAdmin.puml
+@enduml

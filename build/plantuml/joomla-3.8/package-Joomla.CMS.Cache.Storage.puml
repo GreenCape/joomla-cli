@@ -1,0 +1,22 @@
+@startuml
+class Joomla.CMS.Cache.Storage.RedisStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.RedisStorage
+
+class Joomla.CMS.Cache.Storage.CacheStorageHelper
+class Joomla.CMS.Cache.Storage.MemcachedStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcachedStorage
+class Joomla.CMS.Cache.Storage.FileStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.FileStorage
+class Joomla.CMS.Cache.Storage.WincacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.WincacheStorage
+class Joomla.CMS.Cache.Storage.ApcStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcStorage
+class Joomla.CMS.Cache.Storage.XcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.XcacheStorage
+class Joomla.CMS.Cache.Storage.ApcuStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcuStorage
+class Joomla.CMS.Cache.Storage.CacheliteStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.CacheliteStorage
+class Joomla.CMS.Cache.Storage.MemcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcacheStorage
+@enduml

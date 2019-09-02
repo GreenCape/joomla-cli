@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Captcha.Captcha
+JObject <|-- Joomla.CMS.Captcha.Captcha
+!include class-JObject.puml
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+class Joomla.Image.Filter.Negate
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Negate
+
+class Joomla.Image.Filter.Emboss
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Emboss
+class Joomla.Image.Filter.Backgroundfill
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Backgroundfill
+class Joomla.Image.Filter.Edgedetect
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Edgedetect
+class Joomla.Image.Filter.Contrast
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Contrast
+class Joomla.Image.Filter.Smooth
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Smooth
+class Joomla.Image.Filter.Brightness
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Brightness
+class Joomla.Image.Filter.Sketchy
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Sketchy
+class Joomla.Image.Filter.Grayscale
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Grayscale
+@enduml

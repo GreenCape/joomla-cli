@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerSetdefaultlanguage
+JControllerBase <|-- InstallationControllerSetdefaultlanguage
+!include class-JControllerBase.puml
+@enduml

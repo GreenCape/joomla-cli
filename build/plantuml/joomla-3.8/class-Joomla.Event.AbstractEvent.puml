@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.Event.AbstractEvent
+Joomla.Event.EventInterface <|.. Joomla.Event.AbstractEvent
+!include class-Joomla.Event.EventInterface.puml
+@enduml

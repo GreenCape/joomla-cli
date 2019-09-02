@@ -1,0 +1,5 @@
+@startuml
+class JLinkedinOauth
+JOAuth1Client <|-- JLinkedinOauth
+!include class-JOAuth1Client.puml
+@enduml

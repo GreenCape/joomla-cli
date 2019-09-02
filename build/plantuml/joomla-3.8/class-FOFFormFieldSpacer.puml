@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldSpacer
+JFormFieldSpacer <|-- FOFFormFieldSpacer
+!include class-JFormFieldSpacer.puml
+FOFFormField <|.. FOFFormFieldSpacer
+!include class-FOFFormField.puml
+@enduml

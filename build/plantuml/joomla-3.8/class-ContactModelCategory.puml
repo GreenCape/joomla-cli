@@ -1,0 +1,5 @@
+@startuml
+class ContactModelCategory
+JModelList <|-- ContactModelCategory
+!include class-JModelList.puml
+@enduml

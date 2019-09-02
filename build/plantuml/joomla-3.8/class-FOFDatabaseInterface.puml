@@ -1,0 +1,5 @@
+@startuml
+interface FOFDatabaseInterface
+JDatabaseInterface <|-- FOFDatabaseInterface
+!include class-JDatabaseInterface.puml
+@enduml

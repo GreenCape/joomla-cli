@@ -1,0 +1,5 @@
+@startuml
+class MailtoViewMailto
+JViewLegacy <|-- MailtoViewMailto
+!include class-JViewLegacy.puml
+@enduml

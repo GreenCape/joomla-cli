@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerDriverMysql
+FinderIndexer <|-- FinderIndexerDriverMysql
+!include class-FinderIndexer.puml
+@enduml

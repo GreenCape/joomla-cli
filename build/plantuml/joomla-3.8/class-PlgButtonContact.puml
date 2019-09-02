@@ -1,0 +1,5 @@
+@startuml
+class PlgButtonContact
+JPlugin <|-- PlgButtonContact
+!include class-JPlugin.puml
+@enduml

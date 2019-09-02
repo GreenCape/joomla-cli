@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsCheckboxes
+FieldsListPlugin <|-- PlgFieldsCheckboxes
+!include class-FieldsListPlugin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorMysql
+FOFDatabaseIterator <|-- FOFDatabaseIteratorMysql
+!include class-FOFDatabaseIterator.puml
+@enduml

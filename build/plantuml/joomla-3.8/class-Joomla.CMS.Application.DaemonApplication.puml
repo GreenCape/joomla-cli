@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Application.DaemonApplication
+Joomla.CMS.Application.CliApplication <|-- Joomla.CMS.Application.DaemonApplication
+!include class-Joomla.CMS.Application.CliApplication.puml
+@enduml

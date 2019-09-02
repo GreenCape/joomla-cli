@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsRouterRulesLegacy
+JComponentRouterRulesInterface <|.. NewsfeedsRouterRulesLegacy
+!include class-JComponentRouterRulesInterface.puml
+@enduml

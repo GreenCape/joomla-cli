@@ -1,0 +1,5 @@
+@startuml
+class JTwitterBlock
+JTwitterObject <|-- JTwitterBlock
+!include class-JTwitterObject.puml
+@enduml

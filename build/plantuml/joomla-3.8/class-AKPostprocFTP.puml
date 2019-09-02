@@ -1,0 +1,5 @@
+@startuml
+class AKPostprocFTP
+AKAbstractPostproc <|-- AKPostprocFTP
+!include class-AKAbstractPostproc.puml
+@enduml

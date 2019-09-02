@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.CMS.Plugin.CMSPlugin
+JEvent <|-- Joomla.CMS.Plugin.CMSPlugin
+!include class-JEvent.puml
+@enduml

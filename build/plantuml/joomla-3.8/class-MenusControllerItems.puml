@@ -1,0 +1,5 @@
+@startuml
+class MenusControllerItems
+JControllerAdmin <|-- MenusControllerItems
+!include class-JControllerAdmin.puml
+@enduml

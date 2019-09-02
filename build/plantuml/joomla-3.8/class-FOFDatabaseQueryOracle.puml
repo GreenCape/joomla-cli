@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseQueryOracle
+FOFDatabaseQueryPdo <|-- FOFDatabaseQueryOracle
+!include class-FOFDatabaseQueryPdo.puml
+FOFDatabaseQueryPreparable <|.. FOFDatabaseQueryOracle
+!include class-FOFDatabaseQueryPreparable.puml
+@enduml

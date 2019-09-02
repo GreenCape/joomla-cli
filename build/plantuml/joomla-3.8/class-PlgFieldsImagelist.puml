@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsImagelist
+FieldsListPlugin <|-- PlgFieldsImagelist
+!include class-FieldsListPlugin.puml
+@enduml

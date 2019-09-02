@@ -1,0 +1,20 @@
+@startuml
+abstract class Joomla.Event.AbstractEvent
+Joomla.Event.EventInterface <|.. Joomla.Event.AbstractEvent
+
+interface Joomla.Event.DispatcherAwareInterface
+class Joomla.Event.Dispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.Dispatcher
+trait Joomla.Event.DispatcherAwareTrait
+class Joomla.Event.Event
+Joomla.Event.AbstractEvent <|-- Joomla.Event.Event
+interface Joomla.Event.DispatcherInterface
+class Joomla.Event.EventImmutable
+Joomla.Event.AbstractEvent <|-- Joomla.Event.EventImmutable
+interface Joomla.Event.EventInterface
+class Joomla.Event.ListenersPriorityQueue
+Joomla.Event.IteratorAggregate <|.. Joomla.Event.ListenersPriorityQueue
+class Joomla.Event.DelegatingDispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.DelegatingDispatcher
+class Joomla.Event.Priority
+@enduml

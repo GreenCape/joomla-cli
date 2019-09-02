@@ -1,0 +1,5 @@
+@startuml
+class PlgCaptchaRecaptcha
+JPlugin <|-- PlgCaptchaRecaptcha
+!include class-JPlugin.puml
+@enduml

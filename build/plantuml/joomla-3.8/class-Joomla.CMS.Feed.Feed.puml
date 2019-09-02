@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Feed.Feed
+ArrayAccess <|.. Joomla.CMS.Feed.Feed
+!include class-ArrayAccess.puml
+@enduml

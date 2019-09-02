@@ -1,0 +1,5 @@
+@startuml
+class CheckinController
+JControllerLegacy <|-- CheckinController
+!include class-JControllerLegacy.puml
+@enduml

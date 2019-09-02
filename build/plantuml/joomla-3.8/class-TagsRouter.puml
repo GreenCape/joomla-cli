@@ -1,0 +1,5 @@
+@startuml
+class TagsRouter
+JComponentRouterBase <|-- TagsRouter
+!include class-JComponentRouterBase.puml
+@enduml

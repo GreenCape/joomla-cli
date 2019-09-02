@@ -1,0 +1,5 @@
+@startuml
+class JControllerForm
+JControllerLegacy <|-- JControllerForm
+!include class-JControllerLegacy.puml
+@enduml

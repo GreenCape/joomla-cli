@@ -1,0 +1,5 @@
+@startuml
+class ContactRouterRulesLegacy
+JComponentRouterRulesInterface <|.. ContactRouterRulesLegacy
+!include class-JComponentRouterRulesInterface.puml
+@enduml

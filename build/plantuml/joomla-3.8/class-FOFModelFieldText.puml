@@ -1,0 +1,5 @@
+@startuml
+class FOFModelFieldText
+FOFModelField <|-- FOFModelFieldText
+!include class-FOFModelField.puml
+@enduml

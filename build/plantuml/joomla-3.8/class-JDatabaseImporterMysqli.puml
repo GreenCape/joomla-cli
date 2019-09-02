@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseImporterMysqli
+JDatabaseImporter <|-- JDatabaseImporterMysqli
+!include class-JDatabaseImporter.puml
+@enduml

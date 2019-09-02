@@ -1,0 +1,5 @@
+@startuml
+class PostinstallControllerMessage
+FOFController <|-- PostinstallControllerMessage
+!include class-FOFController.puml
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+class Joomla.CMS.Document.RawDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.RawDocument
+
+class Joomla.CMS.Document.Feed.FeedImage
+class Joomla.CMS.Document.Feed.FeedEnclosure
+class Joomla.CMS.Document.Feed.FeedItem
+class Joomla.CMS.Document.Opensearch.OpensearchImage
+class Joomla.CMS.Document.Opensearch.OpensearchUrl
+class Joomla.CMS.Document.OpensearchDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.OpensearchDocument
+class Joomla.CMS.Document.HtmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.HtmlDocument
+class Joomla.CMS.Document.ImageDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ImageDocument
+class Joomla.CMS.Document.JsonDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.JsonDocument
+class Joomla.CMS.Document.XmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.XmlDocument
+class Joomla.CMS.Document.FeedDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.FeedDocument
+class Joomla.CMS.Document.Document
+class Joomla.CMS.Document.DocumentRenderer
+class Joomla.CMS.Document.Renderer.Feed.RssRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.RssRenderer
+class Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+class Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+class Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+class Joomla.CMS.Document.Renderer.Html.HeadRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.HeadRenderer
+class Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+class Joomla.CMS.Document.Renderer.Html.MessageRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.MessageRenderer
+class Joomla.CMS.Document.ErrorDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ErrorDocument
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemFields
+JPlugin <|-- PlgSystemFields
+!include class-JPlugin.puml
+@enduml

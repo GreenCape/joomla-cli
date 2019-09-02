@@ -1,0 +1,5 @@
+@startuml
+class ContenthistoryModelCompare
+JModelItem <|-- ContenthistoryModelCompare
+!include class-JModelItem.puml
+@enduml

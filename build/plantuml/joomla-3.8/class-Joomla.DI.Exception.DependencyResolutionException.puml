@@ -1,0 +1,5 @@
+@startuml
+class Joomla.DI.Exception.DependencyResolutionException
+Exception <|-- Joomla.DI.Exception.DependencyResolutionException
+!include class-Exception.puml
+@enduml

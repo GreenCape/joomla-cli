@@ -1,0 +1,5 @@
+@startuml
+class InstallationViewRemoveHtml
+JViewHtml <|-- InstallationViewRemoveHtml
+!include class-JViewHtml.puml
+@enduml

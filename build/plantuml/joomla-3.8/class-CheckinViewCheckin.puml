@@ -1,0 +1,5 @@
+@startuml
+class CheckinViewCheckin
+JViewLegacy <|-- CheckinViewCheckin
+!include class-JViewLegacy.puml
+@enduml

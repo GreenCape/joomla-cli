@@ -1,0 +1,9 @@
+@startuml
+class Joomla.CMS.MVC.Controller.FormController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.FormController
+
+class Joomla.CMS.MVC.Controller.AdminController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.AdminController
+class Joomla.CMS.MVC.Controller.BaseController
+JObject <|-- Joomla.CMS.MVC.Controller.BaseController
+@enduml

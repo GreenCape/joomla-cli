@@ -1,0 +1,25 @@
+@startuml
+class Symfony.Component.Yaml.Dumper
+
+class Symfony.Component.Yaml.Exception.DumpException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.DumpException
+class Symfony.Component.Yaml.Exception.RuntimeException
+RuntimeException <|-- Symfony.Component.Yaml.Exception.RuntimeException
+Symfony.Component.Yaml.Exception.ExceptionInterface <|.. Symfony.Component.Yaml.Exception.RuntimeException
+class Symfony.Component.Yaml.Exception.ParseException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.ParseException
+interface Symfony.Component.Yaml.Exception.ExceptionInterface
+class Symfony.Component.Yaml.Escaper
+class Symfony.Component.Yaml.Inline
+class Symfony.Component.Yaml.Unescaper
+class Symfony.Component.Yaml.Yaml
+class Symfony.Component.Yaml.Parser
+class Symfony.Polyfill.Php55.Php55
+class Symfony.Polyfill.Php55.Php55ArrayColumn
+class Symfony.Polyfill.Util.BinaryNoFuncOverload
+class Symfony.Polyfill.Util.BinaryOnFuncOverload
+class Symfony.Polyfill.Util.Binary
+Symfony.Polyfill.Util.BinaryOnFuncOverload <|-- Symfony.Polyfill.Util.Binary
+Symfony.Polyfill.Util.BinaryNoFuncOverload <|-- Symfony.Polyfill.Util.Binary
+class Symfony.Polyfill.Php56.Php56
+@enduml

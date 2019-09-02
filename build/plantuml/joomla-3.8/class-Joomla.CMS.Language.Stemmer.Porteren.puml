@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Language.Stemmer.Porteren
+Joomla.CMS.Language.Stemmer.LanguageStemmer <|-- Joomla.CMS.Language.Stemmer.Porteren
+!include class-Joomla.CMS.Language.Stemmer.LanguageStemmer.puml
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+abstract class Joomla.String.StringHelper
+
+class Joomla.String.Inflector
+abstract class Joomla.String.String
+Joomla.String.StringHelper <|-- Joomla.String.String
+abstract class Joomla.String.Normalise
+@enduml

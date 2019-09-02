@@ -1,0 +1,5 @@
+@startuml
+abstract class SimplePie_Cache_DB
+SimplePie_Cache_Base <|.. SimplePie_Cache_DB
+!include class-SimplePie_Cache_Base.puml
+@enduml

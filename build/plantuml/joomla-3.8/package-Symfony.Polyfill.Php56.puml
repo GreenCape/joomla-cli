@@ -1,0 +1,4 @@
+@startuml
+class Symfony.Polyfill.Php56.Php56
+
+@enduml

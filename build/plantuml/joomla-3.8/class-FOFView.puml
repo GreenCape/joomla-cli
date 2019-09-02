@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFView
+FOFUtilsObject <|-- FOFView
+!include class-FOFUtilsObject.puml
+@enduml

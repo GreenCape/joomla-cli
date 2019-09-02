@@ -1,0 +1,5 @@
+@startuml
+class ContentRouterRulesLegacy
+JComponentRouterRulesInterface <|.. ContentRouterRulesLegacy
+!include class-JComponentRouterRulesInterface.puml
+@enduml

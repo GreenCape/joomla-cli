@@ -1,0 +1,5 @@
+@startuml
+class UsersModelReset
+JModelForm <|-- UsersModelReset
+!include class-JModelForm.puml
+@enduml

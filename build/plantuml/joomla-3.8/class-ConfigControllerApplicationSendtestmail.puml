@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerApplicationSendtestmail
+JControllerBase <|-- ConfigControllerApplicationSendtestmail
+!include class-JControllerBase.puml
+@enduml

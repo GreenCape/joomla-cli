@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Document.JsonDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.JsonDocument
+!include class-Joomla.CMS.Document.Document.puml
+@enduml

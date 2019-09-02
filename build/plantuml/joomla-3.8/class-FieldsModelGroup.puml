@@ -1,0 +1,5 @@
+@startuml
+class FieldsModelGroup
+JModelAdmin <|-- FieldsModelGroup
+!include class-JModelAdmin.puml
+@enduml

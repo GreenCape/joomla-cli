@@ -1,0 +1,5 @@
+@startuml
+class TemplatesControllerStyles
+JControllerAdmin <|-- TemplatesControllerStyles
+!include class-JControllerAdmin.puml
+@enduml

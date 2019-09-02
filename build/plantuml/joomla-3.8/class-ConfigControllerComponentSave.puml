@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerComponentSave
+JControllerBase <|-- ConfigControllerComponentSave
+!include class-JControllerBase.puml
+@enduml

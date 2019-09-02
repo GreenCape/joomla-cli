@@ -1,0 +1,5 @@
+@startuml
+class KeychainManager
+JApplicationCli <|-- KeychainManager
+!include class-JApplicationCli.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class AssociationsControllerAssociation
+JControllerForm <|-- AssociationsControllerAssociation
+!include class-JControllerForm.puml
+@enduml

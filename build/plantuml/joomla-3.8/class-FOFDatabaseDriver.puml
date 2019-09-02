@@ -1,0 +1,7 @@
+@startuml
+abstract class FOFDatabaseDriver
+FOFDatabase <|-- FOFDatabaseDriver
+!include class-FOFDatabase.puml
+FOFDatabaseInterface <|.. FOFDatabaseDriver
+!include class-FOFDatabaseInterface.puml
+@enduml

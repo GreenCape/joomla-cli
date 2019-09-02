@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Component.Exception.MissingComponentException
+Joomla.CMS.Component.Exception.RouteNotFoundException <|-- Joomla.CMS.Component.Exception.MissingComponentException
+!include class-Joomla.CMS.Component.Exception.RouteNotFoundException.puml
+@enduml

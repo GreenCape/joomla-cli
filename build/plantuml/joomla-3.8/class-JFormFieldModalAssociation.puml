@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldModalAssociation
+JFormField <|-- JFormFieldModalAssociation
+!include class-JFormField.puml
+@enduml

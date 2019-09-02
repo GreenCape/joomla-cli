@@ -1,0 +1,5 @@
+@startuml
+class InstallationFormFieldSample
+JFormFieldRadio <|-- InstallationFormFieldSample
+!include class-JFormFieldRadio.puml
+@enduml

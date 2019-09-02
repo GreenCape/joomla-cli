@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+
+class Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+@enduml

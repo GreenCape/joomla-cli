@@ -1,0 +1,5 @@
+@startuml
+class SearchController
+JControllerLegacy <|-- SearchController
+!include class-JControllerLegacy.puml
+@enduml

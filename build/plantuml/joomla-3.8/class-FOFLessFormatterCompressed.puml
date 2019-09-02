@@ -1,0 +1,5 @@
+@startuml
+class FOFLessFormatterCompressed
+FOFLessFormatterClassic <|-- FOFLessFormatterCompressed
+!include class-FOFLessFormatterClassic.puml
+@enduml

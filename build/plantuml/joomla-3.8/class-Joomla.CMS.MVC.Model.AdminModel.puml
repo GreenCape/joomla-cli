@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.CMS.MVC.Model.AdminModel
+Joomla.CMS.MVC.Model.FormModel <|-- Joomla.CMS.MVC.Model.AdminModel
+!include class-Joomla.CMS.MVC.Model.FormModel.puml
+@enduml

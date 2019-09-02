@@ -1,0 +1,5 @@
+@startuml
+class JSessionStorageRedis
+JSessionStorage <|-- JSessionStorageRedis
+!include class-JSessionStorage.puml
+@enduml

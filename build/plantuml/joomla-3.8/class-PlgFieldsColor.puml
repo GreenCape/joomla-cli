@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsColor
+FieldsPlugin <|-- PlgFieldsColor
+!include class-FieldsPlugin.puml
+@enduml

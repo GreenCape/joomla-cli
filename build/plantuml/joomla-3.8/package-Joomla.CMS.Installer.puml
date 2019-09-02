@@ -1,0 +1,32 @@
+@startuml
+class Joomla.CMS.Installer.Installer
+JAdapter <|-- Joomla.CMS.Installer.Installer
+
+class Joomla.CMS.Installer.InstallerScript
+class Joomla.CMS.Installer.Manifest.PackageManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.PackageManifest
+class Joomla.CMS.Installer.Manifest.LibraryManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.LibraryManifest
+class Joomla.CMS.Installer.InstallerExtension
+JObject <|-- Joomla.CMS.Installer.InstallerExtension
+abstract class Joomla.CMS.Installer.Manifest
+class Joomla.CMS.Installer.Adapter.TemplateAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.TemplateAdapter
+class Joomla.CMS.Installer.Adapter.LanguageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LanguageAdapter
+class Joomla.CMS.Installer.Adapter.PluginAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PluginAdapter
+class Joomla.CMS.Installer.Adapter.PackageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PackageAdapter
+class Joomla.CMS.Installer.Adapter.ModuleAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ModuleAdapter
+class Joomla.CMS.Installer.Adapter.LibraryAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LibraryAdapter
+class Joomla.CMS.Installer.Adapter.ComponentAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ComponentAdapter
+class Joomla.CMS.Installer.Adapter.FileAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.FileAdapter
+abstract class Joomla.CMS.Installer.InstallerAdapter
+JAdapterInstance <|-- Joomla.CMS.Installer.InstallerAdapter
+abstract class Joomla.CMS.Installer.InstallerHelper
+@enduml

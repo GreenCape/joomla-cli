@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsTextarea
+FieldsPlugin <|-- PlgFieldsTextarea
+!include class-FieldsPlugin.puml
+@enduml

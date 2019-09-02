@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Installer.Installer
+JAdapter <|-- Joomla.CMS.Installer.Installer
+!include class-JAdapter.puml
+@enduml

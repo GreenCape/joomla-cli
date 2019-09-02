@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldSql
+JFormFieldSql <|-- FOFFormFieldSql
+!include class-JFormFieldSql.puml
+FOFFormField <|.. FOFFormFieldSql
+!include class-FOFFormField.puml
+@enduml

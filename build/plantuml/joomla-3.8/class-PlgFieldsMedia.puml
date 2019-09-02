@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsMedia
+FieldsPlugin <|-- PlgFieldsMedia
+!include class-FieldsPlugin.puml
+@enduml

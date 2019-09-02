@@ -1,0 +1,5 @@
+@startuml
+class InstallationModelLanguages
+JModelBase <|-- InstallationModelLanguages
+!include class-JModelBase.puml
+@enduml

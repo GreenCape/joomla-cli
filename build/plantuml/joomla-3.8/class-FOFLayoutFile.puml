@@ -1,0 +1,5 @@
+@startuml
+class FOFLayoutFile
+JLayoutFile <|-- FOFLayoutFile
+!include class-JLayoutFile.puml
+@enduml

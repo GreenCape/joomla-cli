@@ -1,0 +1,5 @@
+@startuml
+class JFacebookOAuth
+JOAuth2Client <|-- JFacebookOAuth
+!include class-JOAuth2Client.puml
+@enduml

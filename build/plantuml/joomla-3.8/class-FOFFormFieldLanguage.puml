@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldLanguage
+JFormFieldLanguage <|-- FOFFormFieldLanguage
+!include class-JFormFieldLanguage.puml
+FOFFormField <|.. FOFFormFieldLanguage
+!include class-FOFFormField.puml
+@enduml

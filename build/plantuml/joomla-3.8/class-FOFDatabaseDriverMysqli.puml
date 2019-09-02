@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseDriverMysqli
+FOFDatabaseDriver <|-- FOFDatabaseDriverMysqli
+!include class-FOFDatabaseDriver.puml
+@enduml

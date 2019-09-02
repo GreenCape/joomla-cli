@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Core.Curve25519.H
+ParagonIE_Sodium_Core_Curve25519_H <|-- ParagonIE.Sodium.Core.Curve25519.H
+!include class-ParagonIE_Sodium_Core_Curve25519_H.puml
+@enduml

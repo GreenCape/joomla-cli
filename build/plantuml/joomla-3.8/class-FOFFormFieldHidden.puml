@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldHidden
+JFormFieldHidden <|-- FOFFormFieldHidden
+!include class-JFormFieldHidden.puml
+FOFFormField <|.. FOFFormFieldHidden
+!include class-FOFFormField.puml
+@enduml

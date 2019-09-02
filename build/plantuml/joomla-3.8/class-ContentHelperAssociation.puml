@@ -1,0 +1,5 @@
+@startuml
+abstract class ContentHelperAssociation
+CategoryHelperAssociation <|-- ContentHelperAssociation
+!include class-CategoryHelperAssociation.puml
+@enduml

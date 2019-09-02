@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.ColorRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.ColorRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

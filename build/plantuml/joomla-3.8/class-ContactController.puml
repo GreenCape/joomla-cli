@@ -1,0 +1,5 @@
+@startuml
+class ContactController
+JControllerLegacy <|-- ContactController
+!include class-JControllerLegacy.puml
+@enduml

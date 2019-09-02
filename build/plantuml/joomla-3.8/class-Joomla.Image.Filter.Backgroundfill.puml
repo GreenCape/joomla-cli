@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Image.Filter.Backgroundfill
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Backgroundfill
+!include class-Joomla.Image.Filter.ImageFilter.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class ContenthistoryViewPreview
+JViewLegacy <|-- ContenthistoryViewPreview
+!include class-JViewLegacy.puml
+@enduml

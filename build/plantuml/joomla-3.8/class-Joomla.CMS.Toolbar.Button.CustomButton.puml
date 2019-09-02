@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Toolbar.Button.CustomButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.CustomButton
+!include class-Joomla.CMS.Toolbar.Button.ToolbarButton.puml
+@enduml

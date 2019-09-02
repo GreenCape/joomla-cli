@@ -1,0 +1,3 @@
+@startuml
+class ParagonIE_Sodium_Core_Curve25519_Ge_P1p1
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class PlgQuickiconJoomlaupdate
+JPlugin <|-- PlgQuickiconJoomlaupdate
+!include class-JPlugin.puml
+@enduml

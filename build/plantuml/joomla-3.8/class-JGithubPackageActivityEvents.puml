@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageActivityEvents
+JGithubPackage <|-- JGithubPackageActivityEvents
+!include class-JGithubPackage.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class FOFIntegrationJoomlaFilesystem
+FOFPlatformFilesystem <|-- FOFIntegrationJoomlaFilesystem
+!include class-FOFPlatformFilesystem.puml
+FOFPlatformFilesystemInterface <|.. FOFIntegrationJoomlaFilesystem
+!include class-FOFPlatformFilesystemInterface.puml
+@enduml

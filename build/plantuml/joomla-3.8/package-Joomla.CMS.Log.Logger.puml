@@ -1,0 +1,17 @@
+@startuml
+class Joomla.CMS.Log.Logger.DatabaseLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.DatabaseLogger
+
+class Joomla.CMS.Log.Logger.CallbackLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.CallbackLogger
+class Joomla.CMS.Log.Logger.EchoLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.EchoLogger
+class Joomla.CMS.Log.Logger.W3cLogger
+Joomla.CMS.Log.Logger.FormattedtextLogger <|-- Joomla.CMS.Log.Logger.W3cLogger
+class Joomla.CMS.Log.Logger.FormattedtextLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.FormattedtextLogger
+class Joomla.CMS.Log.Logger.SyslogLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.SyslogLogger
+class Joomla.CMS.Log.Logger.MessagequeueLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.MessagequeueLogger
+@enduml

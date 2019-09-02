@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseQueryPostgresql
+FOFDatabaseQuery <|-- FOFDatabaseQueryPostgresql
+!include class-FOFDatabaseQuery.puml
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQueryPostgresql
+!include class-FOFDatabaseQueryLimitable.puml
+@enduml

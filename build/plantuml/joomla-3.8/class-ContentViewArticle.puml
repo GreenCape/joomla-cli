@@ -1,0 +1,5 @@
+@startuml
+class ContentViewArticle
+JViewLegacy <|-- ContentViewArticle
+!include class-JViewLegacy.puml
+@enduml

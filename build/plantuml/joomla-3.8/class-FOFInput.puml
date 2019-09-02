@@ -1,0 +1,5 @@
+@startuml
+class FOFInput
+JInput <|-- FOFInput
+!include class-JInput.puml
+@enduml

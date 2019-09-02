@@ -1,0 +1,5 @@
+@startuml
+class JSessionStorageDatabase
+JSessionStorage <|-- JSessionStorageDatabase
+!include class-JSessionStorage.puml
+@enduml

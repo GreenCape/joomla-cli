@@ -1,0 +1,5 @@
+@startuml
+class JFormRuleLogoutUniqueField
+JFormRule <|-- JFormRuleLogoutUniqueField
+!include class-JFormRule.puml
+@enduml

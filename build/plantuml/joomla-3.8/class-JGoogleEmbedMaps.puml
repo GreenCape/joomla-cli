@@ -1,0 +1,5 @@
+@startuml
+class JGoogleEmbedMaps
+JGoogleEmbed <|-- JGoogleEmbedMaps
+!include class-JGoogleEmbed.puml
+@enduml

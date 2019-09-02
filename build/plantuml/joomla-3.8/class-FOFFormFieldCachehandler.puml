@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldCachehandler
+JFormFieldCacheHandler <|-- FOFFormFieldCachehandler
+!include class-JFormFieldCacheHandler.puml
+FOFFormField <|.. FOFFormFieldCachehandler
+!include class-FOFFormField.puml
+@enduml

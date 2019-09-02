@@ -1,0 +1,5 @@
+@startuml
+class PostinstallToolbar
+FOFToolbar <|-- PostinstallToolbar
+!include class-FOFToolbar.puml
+@enduml

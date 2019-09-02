@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFPlatformFilesystem
+FOFPlatformFilesystemInterface <|.. FOFPlatformFilesystem
+!include class-FOFPlatformFilesystemInterface.puml
+@enduml

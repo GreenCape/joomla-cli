@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldAccesslevel
+JFormFieldAccessLevel <|-- FOFFormFieldAccesslevel
+!include class-JFormFieldAccessLevel.puml
+FOFFormField <|.. FOFFormFieldAccesslevel
+!include class-FOFFormField.puml
+@enduml

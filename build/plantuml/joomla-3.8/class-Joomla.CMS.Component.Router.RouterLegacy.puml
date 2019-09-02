@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Component.Router.RouterLegacy
+Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterLegacy
+!include class-Joomla.CMS.Component.Router.RouterInterface.puml
+@enduml

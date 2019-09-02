@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerFtp
+JControllerBase <|-- InstallationControllerFtp
+!include class-JControllerBase.puml
+@enduml

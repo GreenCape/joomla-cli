@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Registry.Registry
+JsonSerializable <|.. Joomla.Registry.Registry
+!include class-JsonSerializable.puml
+@enduml

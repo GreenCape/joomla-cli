@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldSelectrow
+JFormField <|-- FOFFormFieldSelectrow
+!include class-JFormField.puml
+FOFFormField <|.. FOFFormFieldSelectrow
+!include class-FOFFormField.puml
+@enduml

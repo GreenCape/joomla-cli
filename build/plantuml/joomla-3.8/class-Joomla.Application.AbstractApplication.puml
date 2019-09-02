@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.Application.AbstractApplication
+Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractApplication
+!include class-Joomla.Application.LoggerAwareInterface.puml
+@enduml

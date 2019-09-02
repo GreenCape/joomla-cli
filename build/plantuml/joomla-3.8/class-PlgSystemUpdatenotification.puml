@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemUpdatenotification
+JPlugin <|-- PlgSystemUpdatenotification
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JTree
+JObject <|-- JTree
+!include class-JObject.puml
+@enduml

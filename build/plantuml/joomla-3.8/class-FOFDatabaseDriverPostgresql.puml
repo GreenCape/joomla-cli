@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseDriverPostgresql
+FOFDatabaseDriver <|-- FOFDatabaseDriverPostgresql
+!include class-FOFDatabaseDriver.puml
+@enduml

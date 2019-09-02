@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.File
+ParagonIE_Sodium_File <|-- ParagonIE.Sodium.File
+!include class-ParagonIE_Sodium_File.puml
+@enduml

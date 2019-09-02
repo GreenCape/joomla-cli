@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageGitignore
+JGithubPackage <|-- JGithubPackageGitignore
+!include class-JGithubPackage.puml
+@enduml

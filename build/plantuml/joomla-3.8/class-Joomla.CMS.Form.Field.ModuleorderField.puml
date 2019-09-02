@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.ModuleorderField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ModuleorderField
+!include class-Joomla.CMS.Form.Field.FormField.puml
+@enduml

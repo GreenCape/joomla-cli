@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldCacheHandler
+JFormFieldList <|-- JFormFieldCacheHandler
+!include class-JFormFieldList.puml
+@enduml

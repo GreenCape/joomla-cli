@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.Module
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Module
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

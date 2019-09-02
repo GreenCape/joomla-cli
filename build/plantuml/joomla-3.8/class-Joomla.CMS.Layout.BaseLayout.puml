@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Layout.BaseLayout
+Joomla.CMS.Layout.LayoutInterface <|.. Joomla.CMS.Layout.BaseLayout
+!include class-Joomla.CMS.Layout.LayoutInterface.puml
+@enduml

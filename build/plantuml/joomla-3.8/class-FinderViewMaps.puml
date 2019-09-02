@@ -1,0 +1,5 @@
+@startuml
+class FinderViewMaps
+JViewLegacy <|-- FinderViewMaps
+!include class-JViewLegacy.puml
+@enduml

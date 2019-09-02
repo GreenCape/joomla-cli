@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldSpacer
+JFormField <|-- JFormFieldSpacer
+!include class-JFormField.puml
+@enduml

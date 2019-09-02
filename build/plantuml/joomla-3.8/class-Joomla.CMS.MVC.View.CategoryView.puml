@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.MVC.View.CategoryView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryView
+!include class-Joomla.CMS.MVC.View.HtmlView.puml
+@enduml

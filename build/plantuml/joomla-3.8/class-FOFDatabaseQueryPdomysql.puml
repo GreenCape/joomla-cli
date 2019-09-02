@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseQueryPdomysql
+FOFDatabaseQueryMysqli <|-- FOFDatabaseQueryPdomysql
+!include class-FOFDatabaseQueryMysqli.puml
+@enduml

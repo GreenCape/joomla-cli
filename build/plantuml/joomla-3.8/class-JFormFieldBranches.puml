@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldBranches
+JFormFieldList <|-- JFormFieldBranches
+!include class-JFormFieldList.puml
+@enduml

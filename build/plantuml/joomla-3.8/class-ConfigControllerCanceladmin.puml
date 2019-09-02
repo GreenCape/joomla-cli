@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerCanceladmin
+ConfigControllerCancel <|-- ConfigControllerCanceladmin
+!include class-ConfigControllerCancel.puml
+@enduml

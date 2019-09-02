@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.StatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.StatusField
+!include class-JFormFieldPredefinedList.puml
+@enduml

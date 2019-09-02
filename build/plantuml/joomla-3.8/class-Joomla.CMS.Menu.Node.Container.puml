@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Menu.Node.Container
+Joomla.CMS.Menu.Node.Heading <|-- Joomla.CMS.Menu.Node.Container
+!include class-Joomla.CMS.Menu.Node.Heading.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Document.Renderer.Html.MessageRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.MessageRenderer
+!include class-Joomla.CMS.Document.Renderer.Html.DocumentRenderer.puml
+@enduml

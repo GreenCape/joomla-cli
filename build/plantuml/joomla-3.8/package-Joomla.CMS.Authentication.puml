@@ -1,0 +1,6 @@
+@startuml
+class Joomla.CMS.Authentication.Authentication
+JObject <|-- Joomla.CMS.Authentication.Authentication
+
+class Joomla.CMS.Authentication.AuthenticationResponse
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class TemplatesViewStyles
+JViewLegacy <|-- TemplatesViewStyles
+!include class-JViewLegacy.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.CaptchaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.CaptchaField
+!include class-Joomla.CMS.Form.Field.FormField.puml
+@enduml

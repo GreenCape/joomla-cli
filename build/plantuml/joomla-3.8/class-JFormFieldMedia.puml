@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldMedia
+JFormField <|-- JFormFieldMedia
+!include class-JFormField.puml
+@enduml

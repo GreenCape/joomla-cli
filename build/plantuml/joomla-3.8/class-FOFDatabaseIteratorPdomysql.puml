@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorPdomysql
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorPdomysql
+!include class-FOFDatabaseIteratorPdo.puml
+@enduml

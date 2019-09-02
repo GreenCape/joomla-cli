@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Event.ListenersPriorityQueue
+Joomla.Event.IteratorAggregate <|.. Joomla.Event.ListenersPriorityQueue
+!include class-Joomla.Event.IteratorAggregate.puml
+@enduml

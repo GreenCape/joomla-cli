@@ -1,0 +1,3 @@
+@startuml
+interface Psr.Log.LoggerInterface
+@enduml

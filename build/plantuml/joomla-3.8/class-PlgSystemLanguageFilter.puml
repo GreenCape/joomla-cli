@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemLanguageFilter
+JPlugin <|-- PlgSystemLanguageFilter
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.ContentType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentType
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JAdapter
+JObject <|-- JAdapter
+!include class-JObject.puml
+@enduml

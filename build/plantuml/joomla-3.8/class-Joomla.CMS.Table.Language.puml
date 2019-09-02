@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.Language
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Language
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

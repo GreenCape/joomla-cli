@@ -1,0 +1,5 @@
+@startuml
+class SimplePie_Exception
+Exception <|-- SimplePie_Exception
+!include class-Exception.puml
+@enduml

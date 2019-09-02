@@ -1,0 +1,5 @@
+@startuml
+abstract class JModelAdmin
+JModelForm <|-- JModelAdmin
+!include class-JModelForm.puml
+@enduml

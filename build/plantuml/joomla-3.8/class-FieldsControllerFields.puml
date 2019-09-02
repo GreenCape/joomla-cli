@@ -1,0 +1,5 @@
+@startuml
+class FieldsControllerFields
+JControllerAdmin <|-- FieldsControllerFields
+!include class-JControllerAdmin.puml
+@enduml

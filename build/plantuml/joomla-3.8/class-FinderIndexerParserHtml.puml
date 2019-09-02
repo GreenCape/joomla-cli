@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerParserHtml
+FinderIndexerParser <|-- FinderIndexerParserHtml
+!include class-FinderIndexerParser.puml
+@enduml

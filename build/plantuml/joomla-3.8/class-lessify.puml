@@ -1,0 +1,5 @@
+@startuml
+class lessify
+lessc <|-- lessify
+!include class-lessc.puml
+@enduml

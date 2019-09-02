@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseQuerySqlite
+FOFDatabaseQueryPdo <|-- FOFDatabaseQuerySqlite
+!include class-FOFDatabaseQueryPdo.puml
+FOFDatabaseQueryPreparable <|.. FOFDatabaseQuerySqlite
+!include class-FOFDatabaseQueryPreparable.puml
+@enduml

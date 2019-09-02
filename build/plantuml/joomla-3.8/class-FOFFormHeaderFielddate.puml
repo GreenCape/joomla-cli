@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderFielddate
+FOFFormHeaderField <|-- FOFFormHeaderFielddate
+!include class-FOFFormHeaderField.puml
+@enduml

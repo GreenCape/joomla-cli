@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldModal_Category
+JFormField <|-- JFormFieldModal_Category
+!include class-JFormField.puml
+@enduml

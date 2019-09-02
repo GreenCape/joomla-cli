@@ -1,0 +1,5 @@
+@startuml
+class MediaController
+JControllerLegacy <|-- MediaController
+!include class-JControllerLegacy.puml
+@enduml

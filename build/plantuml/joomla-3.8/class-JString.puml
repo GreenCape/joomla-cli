@@ -1,0 +1,5 @@
+@startuml
+abstract class JString
+StringHelper <|-- JString
+!include class-StringHelper.puml
+@enduml

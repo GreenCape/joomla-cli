@@ -1,0 +1,7 @@
+@startuml
+class Mcrypt
+AKEncryptionAESAdapterAbstract <|-- Mcrypt
+!include class-AKEncryptionAESAdapterAbstract.puml
+AKEncryptionAESAdapterInterface <|.. Mcrypt
+!include class-AKEncryptionAESAdapterInterface.puml
+@enduml

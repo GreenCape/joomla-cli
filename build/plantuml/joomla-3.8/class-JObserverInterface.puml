@@ -1,0 +1,3 @@
+@startuml
+interface JObserverInterface
+@enduml

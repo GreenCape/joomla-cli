@@ -1,0 +1,5 @@
+@startuml
+class LanguagesModelStrings
+JModelLegacy <|-- LanguagesModelStrings
+!include class-JModelLegacy.puml
+@enduml

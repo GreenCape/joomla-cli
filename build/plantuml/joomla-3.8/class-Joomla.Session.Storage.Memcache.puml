@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Session.Storage.Memcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcache
+!include class-Joomla.Session.Storage.Storage.puml
+@enduml

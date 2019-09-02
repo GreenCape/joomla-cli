@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldSessionhandler
+JFormFieldSessionHandler <|-- FOFFormFieldSessionhandler
+!include class-JFormFieldSessionHandler.puml
+FOFFormField <|.. FOFFormFieldSessionhandler
+!include class-FOFFormField.puml
+@enduml

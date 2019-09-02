@@ -1,0 +1,5 @@
+@startuml
+class TagsControllerTags
+JControllerAdmin <|-- TagsControllerTags
+!include class-JControllerAdmin.puml
+@enduml

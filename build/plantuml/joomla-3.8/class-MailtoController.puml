@@ -1,0 +1,5 @@
+@startuml
+class MailtoController
+JControllerLegacy <|-- MailtoController
+!include class-JControllerLegacy.puml
+@enduml

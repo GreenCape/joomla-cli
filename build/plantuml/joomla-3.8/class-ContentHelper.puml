@@ -1,0 +1,5 @@
+@startuml
+class ContentHelper
+JHelperContent <|-- ContentHelper
+!include class-JHelperContent.puml
+@enduml

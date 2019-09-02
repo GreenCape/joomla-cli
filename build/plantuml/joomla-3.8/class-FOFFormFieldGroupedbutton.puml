@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldGroupedbutton
+JFormFieldText <|-- FOFFormFieldGroupedbutton
+!include class-JFormFieldText.puml
+FOFFormField <|.. FOFFormFieldGroupedbutton
+!include class-FOFFormField.puml
+@enduml

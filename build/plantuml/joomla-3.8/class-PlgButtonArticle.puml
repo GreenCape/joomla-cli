@@ -1,0 +1,5 @@
+@startuml
+class PlgButtonArticle
+JPlugin <|-- PlgButtonArticle
+!include class-JPlugin.puml
+@enduml

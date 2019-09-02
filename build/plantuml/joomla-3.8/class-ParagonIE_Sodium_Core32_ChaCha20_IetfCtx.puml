@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE_Sodium_Core32_ChaCha20_IetfCtx
+ParagonIE_Sodium_Core32_ChaCha20_Ctx <|-- ParagonIE_Sodium_Core32_ChaCha20_IetfCtx
+!include class-ParagonIE_Sodium_Core32_ChaCha20_Ctx.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.TemplatestyleField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.TemplatestyleField
+!include class-JFormFieldGroupedList.puml
+@enduml

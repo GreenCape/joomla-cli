@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseQueryMysqli
+FOFDatabaseQuery <|-- FOFDatabaseQueryMysqli
+!include class-FOFDatabaseQuery.puml
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQueryMysqli
+!include class-FOFDatabaseQueryLimitable.puml
+@enduml

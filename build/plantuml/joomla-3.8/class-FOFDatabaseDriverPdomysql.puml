@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseDriverPdomysql
+FOFDatabaseDriverPdo <|-- FOFDatabaseDriverPdomysql
+!include class-FOFDatabaseDriverPdo.puml
+@enduml

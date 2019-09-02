@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.TelRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.TelRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldAliastag
+JFormFieldList <|-- JFormFieldAliastag
+!include class-JFormFieldList.puml
+@enduml

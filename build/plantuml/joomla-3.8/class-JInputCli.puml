@@ -1,0 +1,5 @@
+@startuml
+class JInputCli
+JInput <|-- JInputCli
+!include class-JInput.puml
+@enduml

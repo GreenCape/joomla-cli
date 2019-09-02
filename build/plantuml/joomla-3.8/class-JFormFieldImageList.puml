@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldImageList
+JFormFieldFileList <|-- JFormFieldImageList
+!include class-JFormFieldFileList.puml
+@enduml

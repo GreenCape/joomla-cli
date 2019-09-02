@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.ContentHistory
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentHistory
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

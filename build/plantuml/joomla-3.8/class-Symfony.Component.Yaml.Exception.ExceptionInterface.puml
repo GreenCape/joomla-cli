@@ -1,0 +1,3 @@
+@startuml
+interface Symfony.Component.Yaml.Exception.ExceptionInterface
+@enduml

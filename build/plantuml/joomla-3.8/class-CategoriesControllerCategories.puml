@@ -1,0 +1,5 @@
+@startuml
+class CategoriesControllerCategories
+JControllerAdmin <|-- CategoriesControllerCategories
+!include class-JControllerAdmin.puml
+@enduml

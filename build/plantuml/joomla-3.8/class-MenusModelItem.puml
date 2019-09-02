@@ -1,0 +1,5 @@
+@startuml
+class MenusModelItem
+JModelAdmin <|-- MenusModelItem
+!include class-JModelAdmin.puml
+@enduml

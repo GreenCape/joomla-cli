@@ -1,0 +1,5 @@
+@startuml
+class FinderViewIndexer
+JViewLegacy <|-- FinderViewIndexer
+!include class-JViewLegacy.puml
+@enduml

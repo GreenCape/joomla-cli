@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Image.Filter.Brightness
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Brightness
+!include class-Joomla.Image.Filter.ImageFilter.puml
+@enduml

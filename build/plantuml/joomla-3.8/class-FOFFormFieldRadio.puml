@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldRadio
+JFormFieldRadio <|-- FOFFormFieldRadio
+!include class-JFormFieldRadio.puml
+FOFFormField <|.. FOFFormFieldRadio
+!include class-FOFFormField.puml
+@enduml

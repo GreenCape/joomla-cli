@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.Cache.Exception.UnsupportedCacheException
+RuntimeException <|-- Joomla.CMS.Cache.Exception.UnsupportedCacheException
+!include class-RuntimeException.puml
+Joomla.CMS.Cache.Exception.CacheExceptionInterface <|.. Joomla.CMS.Cache.Exception.UnsupportedCacheException
+!include class-Joomla.CMS.Cache.Exception.CacheExceptionInterface.puml
+@enduml

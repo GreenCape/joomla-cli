@@ -1,0 +1,20 @@
+@startuml
+class Joomla.Session.Session
+IteratorAggregate <|.. Joomla.Session.Session
+
+abstract class Joomla.Session.Storage
+class Joomla.Session.Storage.Database
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Database
+class Joomla.Session.Storage.Memcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcache
+class Joomla.Session.Storage.Memcached
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcached
+class Joomla.Session.Storage.Apc
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Apc
+class Joomla.Session.Storage.None
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.None
+class Joomla.Session.Storage.Wincache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Wincache
+class Joomla.Session.Storage.Xcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Xcache
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.RedirectStatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.RedirectStatusField
+!include class-JFormFieldPredefinedList.puml
+@enduml

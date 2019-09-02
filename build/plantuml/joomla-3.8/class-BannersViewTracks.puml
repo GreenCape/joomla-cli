@@ -1,0 +1,5 @@
+@startuml
+class BannersViewTracks
+JViewLegacy <|-- BannersViewTracks
+!include class-JViewLegacy.puml
+@enduml

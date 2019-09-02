@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldContentMap
+JFormFieldGroupedList <|-- JFormFieldContentMap
+!include class-JFormFieldGroupedList.puml
+@enduml

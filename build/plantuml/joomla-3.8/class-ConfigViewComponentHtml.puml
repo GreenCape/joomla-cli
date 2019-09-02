@@ -1,0 +1,5 @@
+@startuml
+class ConfigViewComponentHtml
+ConfigViewCmsHtml <|-- ConfigViewComponentHtml
+!include class-ConfigViewCmsHtml.puml
+@enduml

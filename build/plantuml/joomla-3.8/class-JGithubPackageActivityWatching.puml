@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageActivityWatching
+JGithubPackage <|-- JGithubPackageActivityWatching
+!include class-JGithubPackage.puml
+@enduml

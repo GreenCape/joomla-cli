@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFModelBehavior
+FOFUtilsObservableEvent <|-- FOFModelBehavior
+!include class-FOFUtilsObservableEvent.puml
+@enduml

@@ -1,0 +1,3 @@
+@startuml
+class JOAuth2Client
+@enduml

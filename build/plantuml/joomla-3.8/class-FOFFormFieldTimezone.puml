@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldTimezone
+JFormFieldTimezone <|-- FOFFormFieldTimezone
+!include class-JFormFieldTimezone.puml
+FOFFormField <|.. FOFFormFieldTimezone
+!include class-FOFFormField.puml
+@enduml

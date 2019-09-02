@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldCheckboxes
+JFormFieldCheckboxes <|-- FOFFormFieldCheckboxes
+!include class-JFormFieldCheckboxes.puml
+FOFFormField <|.. FOFFormFieldCheckboxes
+!include class-FOFFormField.puml
+@enduml

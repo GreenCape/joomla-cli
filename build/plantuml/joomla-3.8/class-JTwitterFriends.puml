@@ -1,0 +1,5 @@
+@startuml
+class JTwitterFriends
+JTwitterObject <|-- JTwitterFriends
+!include class-JTwitterObject.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JGoogleDataPlus
+JGoogleData <|-- JGoogleDataPlus
+!include class-JGoogleData.puml
+@enduml

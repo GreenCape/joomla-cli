@@ -1,0 +1,5 @@
+@startuml
+class InstallerViewDiscover
+InstallerViewDefault <|-- InstallerViewDiscover
+!include class-InstallerViewDefault.puml
+@enduml

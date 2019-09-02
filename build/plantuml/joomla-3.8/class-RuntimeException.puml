@@ -1,0 +1,5 @@
+@startuml
+class RuntimeException
+Exception <|-- RuntimeException
+!include class-Exception.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class AssociationsHelper
+JHelperContent <|-- AssociationsHelper
+!include class-JHelperContent.puml
+@enduml

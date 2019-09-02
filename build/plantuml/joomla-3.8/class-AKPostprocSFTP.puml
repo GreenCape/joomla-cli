@@ -1,0 +1,5 @@
+@startuml
+class AKPostprocSFTP
+AKAbstractPostproc <|-- AKPostprocSFTP
+!include class-AKAbstractPostproc.puml
+@enduml

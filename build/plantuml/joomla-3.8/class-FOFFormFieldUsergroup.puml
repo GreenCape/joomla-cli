@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldUsergroup
+JFormFieldUsergroup <|-- FOFFormFieldUsergroup
+!include class-JFormFieldUsergroup.puml
+FOFFormField <|.. FOFFormFieldUsergroup
+!include class-FOFFormField.puml
+@enduml

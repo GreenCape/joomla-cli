@@ -1,0 +1,5 @@
+@startuml
+class ConfigHelperConfig
+JHelperContent <|-- ConfigHelperConfig
+!include class-JHelperContent.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class AssociationsModelAssociation
+JModelList <|-- AssociationsModelAssociation
+!include class-JModelList.puml
+@enduml

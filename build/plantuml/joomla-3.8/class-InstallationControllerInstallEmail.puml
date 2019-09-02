@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerInstallEmail
+JControllerBase <|-- InstallationControllerInstallEmail
+!include class-JControllerBase.puml
+@enduml

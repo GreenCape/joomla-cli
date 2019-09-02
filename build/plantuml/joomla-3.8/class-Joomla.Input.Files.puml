@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Input.Files
+Joomla.Input.Input <|-- Joomla.Input.Files
+!include class-Joomla.Input.Input.puml
+@enduml

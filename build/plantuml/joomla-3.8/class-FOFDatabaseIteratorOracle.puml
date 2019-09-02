@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorOracle
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorOracle
+!include class-FOFDatabaseIteratorPdo.puml
+@enduml

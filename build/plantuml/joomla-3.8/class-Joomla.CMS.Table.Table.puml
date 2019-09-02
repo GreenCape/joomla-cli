@@ -1,0 +1,7 @@
+@startuml
+abstract class Joomla.CMS.Table.Table
+JObject <|-- Joomla.CMS.Table.Table
+!include class-JObject.puml
+JObservableInterface <|.. Joomla.CMS.Table.Table
+!include class-JObservableInterface.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Input.Input
+Serializable <|.. Joomla.Input.Input
+!include class-Serializable.puml
+@enduml

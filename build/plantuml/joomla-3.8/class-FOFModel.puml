@@ -1,0 +1,5 @@
+@startuml
+class FOFModel
+FOFUtilsObject <|-- FOFModel
+!include class-FOFUtilsObject.puml
+@enduml

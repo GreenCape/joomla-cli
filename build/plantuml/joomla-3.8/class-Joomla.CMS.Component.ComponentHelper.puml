@@ -1,0 +1,3 @@
+@startuml
+class Joomla.CMS.Component.ComponentHelper
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerInstallDatabase_backup
+JControllerBase <|-- InstallationControllerInstallDatabase_backup
+!include class-JControllerBase.puml
+@enduml

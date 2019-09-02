@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Crypt.Cipher.CryptoCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.CryptoCipher
+!include class-Joomla.CMS.Crypt.Cipher.CipherInterface.puml
+@enduml

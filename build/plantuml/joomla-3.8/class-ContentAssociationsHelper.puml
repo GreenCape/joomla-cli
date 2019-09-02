@@ -1,0 +1,5 @@
+@startuml
+class ContentAssociationsHelper
+AssociationExtensionHelper <|-- ContentAssociationsHelper
+!include class-AssociationExtensionHelper.puml
+@enduml

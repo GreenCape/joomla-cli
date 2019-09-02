@@ -1,0 +1,5 @@
+@startuml
+class JFacebookAlbum
+JFacebookObject <|-- JFacebookAlbum
+!include class-JFacebookObject.puml
+@enduml

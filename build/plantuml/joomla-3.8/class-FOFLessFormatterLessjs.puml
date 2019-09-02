@@ -1,0 +1,5 @@
+@startuml
+class FOFLessFormatterLessjs
+FOFLessFormatterClassic <|-- FOFLessFormatterLessjs
+!include class-FOFLessFormatterClassic.puml
+@enduml

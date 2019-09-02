@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.Menu
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Menu
+!include class-Joomla.CMS.Table.Nested.puml
+@enduml

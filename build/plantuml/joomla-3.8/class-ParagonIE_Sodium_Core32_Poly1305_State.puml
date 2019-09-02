@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE_Sodium_Core32_Poly1305_State
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Poly1305_State
+!include class-ParagonIE_Sodium_Core32_Util.puml
+@enduml

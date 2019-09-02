@@ -1,0 +1,3 @@
+@startuml
+class Joomla.CMS.Installer.Manifest.Manifest << (·,Transparent) >>
+@enduml

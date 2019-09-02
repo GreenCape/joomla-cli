@@ -1,0 +1,5 @@
+@startuml
+class FOFTableDispatcherBehavior
+FOFUtilsObservableDispatcher <|-- FOFTableDispatcherBehavior
+!include class-FOFUtilsObservableDispatcher.puml
+@enduml

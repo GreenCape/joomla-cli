@@ -1,0 +1,5 @@
+@startuml
+class PlgContentContact
+JPlugin <|-- PlgContentContact
+!include class-JPlugin.puml
+@enduml

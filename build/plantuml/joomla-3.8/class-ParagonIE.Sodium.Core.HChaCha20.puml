@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Core.HChaCha20
+ParagonIE_Sodium_Core_HChaCha20 <|-- ParagonIE.Sodium.Core.HChaCha20
+!include class-ParagonIE_Sodium_Core_HChaCha20.puml
+@enduml

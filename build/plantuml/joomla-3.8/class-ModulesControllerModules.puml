@@ -1,0 +1,5 @@
+@startuml
+class ModulesControllerModules
+JControllerAdmin <|-- ModulesControllerModules
+!include class-JControllerAdmin.puml
+@enduml

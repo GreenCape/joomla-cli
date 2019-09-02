@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Pagination.PaginationObject
+
+class Joomla.CMS.Pagination.Pagination
+@enduml

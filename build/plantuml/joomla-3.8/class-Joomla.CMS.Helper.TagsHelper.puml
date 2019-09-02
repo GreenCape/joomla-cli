@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Helper.TagsHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.TagsHelper
+!include class-Joomla.CMS.Helper.CMSHelper.puml
+@enduml

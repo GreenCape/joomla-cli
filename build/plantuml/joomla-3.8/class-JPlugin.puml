@@ -1,0 +1,5 @@
+@startuml
+abstract class JPlugin
+JEvent <|-- JPlugin
+!include class-JEvent.puml
+@enduml

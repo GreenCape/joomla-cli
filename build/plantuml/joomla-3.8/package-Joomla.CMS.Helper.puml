@@ -1,0 +1,16 @@
+@startuml
+class Joomla.CMS.Helper.MediaHelper
+
+class Joomla.CMS.Helper.TagsHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.TagsHelper
+abstract class Joomla.CMS.Helper.AuthenticationHelper
+class Joomla.CMS.Helper.ContentHistoryHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.ContentHistoryHelper
+class Joomla.CMS.Helper.ContentHelper
+class Joomla.CMS.Helper.SearchHelper
+abstract class Joomla.CMS.Helper.ModuleHelper
+class Joomla.CMS.Helper.UserGroupsHelper
+class Joomla.CMS.Helper.CMSHelper
+class Joomla.CMS.Helper.LibraryHelper
+class Joomla.CMS.Helper.RouteHelper
+@enduml

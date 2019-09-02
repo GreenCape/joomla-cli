@@ -1,0 +1,5 @@
+@startuml
+class MenusModelMenus
+JModelList <|-- MenusModelMenus
+!include class-JModelList.puml
+@enduml

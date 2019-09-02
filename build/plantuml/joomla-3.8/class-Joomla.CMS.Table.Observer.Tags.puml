@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.Observer.Tags
+Joomla.CMS.Table.Observer.AbstractObserver <|-- Joomla.CMS.Table.Observer.Tags
+!include class-Joomla.CMS.Table.Observer.AbstractObserver.puml
+@enduml

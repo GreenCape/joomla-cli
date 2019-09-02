@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldEmail
+JFormFieldEMail <|-- FOFFormFieldEmail
+!include class-JFormFieldEMail.puml
+FOFFormField <|.. FOFFormFieldEmail
+!include class-FOFFormField.puml
+@enduml

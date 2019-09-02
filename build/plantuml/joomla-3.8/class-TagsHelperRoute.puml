@@ -1,0 +1,5 @@
+@startuml
+class TagsHelperRoute
+JHelperRoute <|-- TagsHelperRoute
+!include class-JHelperRoute.puml
+@enduml

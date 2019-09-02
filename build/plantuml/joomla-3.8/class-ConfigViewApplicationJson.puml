@@ -1,0 +1,5 @@
+@startuml
+class ConfigViewApplicationJson
+ConfigViewCmsJson <|-- ConfigViewApplicationJson
+!include class-ConfigViewCmsJson.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Router.AdministratorRouter
+Joomla.CMS.Router.Router <|-- Joomla.CMS.Router.AdministratorRouter
+!include class-Joomla.CMS.Router.Router.puml
+@enduml

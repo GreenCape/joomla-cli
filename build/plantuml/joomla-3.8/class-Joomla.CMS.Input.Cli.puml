@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Input.Cli
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Cli
+!include class-Joomla.CMS.Input.Input.puml
+@enduml

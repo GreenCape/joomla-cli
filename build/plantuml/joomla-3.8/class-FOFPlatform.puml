@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFPlatform
+FOFPlatformInterface <|.. FOFPlatform
+!include class-FOFPlatformInterface.puml
+@enduml

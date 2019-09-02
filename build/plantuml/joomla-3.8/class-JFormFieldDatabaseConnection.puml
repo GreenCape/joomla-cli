@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldDatabaseConnection
+JFormFieldList <|-- JFormFieldDatabaseConnection
+!include class-JFormFieldList.puml
+@enduml

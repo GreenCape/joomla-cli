@@ -1,0 +1,5 @@
+@startuml
+class InstallerViewLanguages
+InstallerViewDefault <|-- InstallerViewLanguages
+!include class-InstallerViewDefault.puml
+@enduml

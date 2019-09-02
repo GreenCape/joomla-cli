@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Cache.Storage.ApcStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcStorage
+!include class-Joomla.CMS.Cache.Storage.CacheStorage.puml
+@enduml

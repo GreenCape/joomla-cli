@@ -1,0 +1,5 @@
+@startuml
+class PlgSearchContacts
+JPlugin <|-- PlgSearchContacts
+!include class-JPlugin.puml
+@enduml

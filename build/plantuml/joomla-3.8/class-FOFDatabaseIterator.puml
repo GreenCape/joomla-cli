@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFDatabaseIterator
+Iterator <|.. FOFDatabaseIterator
+!include class-Iterator.puml
+@enduml

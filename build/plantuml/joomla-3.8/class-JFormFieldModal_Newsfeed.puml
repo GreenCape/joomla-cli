@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldModal_Newsfeed
+JFormField <|-- JFormFieldModal_Newsfeed
+!include class-JFormField.puml
+@enduml

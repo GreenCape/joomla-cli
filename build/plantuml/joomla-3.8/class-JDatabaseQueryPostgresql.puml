@@ -1,0 +1,7 @@
+@startuml
+class JDatabaseQueryPostgresql
+JDatabaseQuery <|-- JDatabaseQueryPostgresql
+!include class-JDatabaseQuery.puml
+JDatabaseQueryLimitable <|.. JDatabaseQueryPostgresql
+!include class-JDatabaseQueryLimitable.puml
+@enduml

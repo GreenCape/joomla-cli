@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageUsersFollowers
+JGithubPackage <|-- JGithubPackageUsersFollowers
+!include class-JGithubPackage.puml
+@enduml

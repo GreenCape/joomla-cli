@@ -1,0 +1,5 @@
+@startuml
+class PlgEditorCodemirror
+JPlugin <|-- PlgEditorCodemirror
+!include class-JPlugin.puml
+@enduml

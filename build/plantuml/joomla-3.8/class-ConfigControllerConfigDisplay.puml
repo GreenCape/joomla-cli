@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerConfigDisplay
+ConfigControllerDisplay <|-- ConfigControllerConfigDisplay
+!include class-ConfigControllerDisplay.puml
+@enduml

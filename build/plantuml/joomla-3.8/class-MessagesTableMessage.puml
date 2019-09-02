@@ -1,0 +1,5 @@
+@startuml
+class MessagesTableMessage
+JTable <|-- MessagesTableMessage
+!include class-JTable.puml
+@enduml

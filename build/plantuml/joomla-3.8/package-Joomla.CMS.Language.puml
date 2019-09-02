@@ -1,0 +1,15 @@
+@startuml
+class Joomla.CMS.Language.Multilanguage
+
+class Joomla.CMS.Language.Text
+class Joomla.CMS.Language.Wrapper.LanguageHelperWrapper
+class Joomla.CMS.Language.Wrapper.JTextWrapper
+class Joomla.CMS.Language.Wrapper.TransliterateWrapper
+class Joomla.CMS.Language.Associations
+class Joomla.CMS.Language.Transliterate
+class Joomla.CMS.Language.Language
+class Joomla.CMS.Language.LanguageHelper
+abstract class Joomla.CMS.Language.LanguageStemmer
+class Joomla.CMS.Language.Stemmer.Porteren
+Joomla.CMS.Language.Stemmer.LanguageStemmer <|-- Joomla.CMS.Language.Stemmer.Porteren
+@enduml

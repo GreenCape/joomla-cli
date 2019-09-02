@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerRemovefolder
+JControllerBase <|-- InstallationControllerRemovefolder
+!include class-JControllerBase.puml
+@enduml

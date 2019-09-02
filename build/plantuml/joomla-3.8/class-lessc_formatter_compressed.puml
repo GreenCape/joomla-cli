@@ -1,0 +1,5 @@
+@startuml
+class lessc_formatter_compressed
+lessc_formatter_classic <|-- lessc_formatter_compressed
+!include class-lessc_formatter_classic.puml
+@enduml

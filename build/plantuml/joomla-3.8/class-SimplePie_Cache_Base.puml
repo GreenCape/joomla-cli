@@ -1,0 +1,3 @@
+@startuml
+interface SimplePie_Cache_Base
+@enduml

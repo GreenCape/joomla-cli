@@ -1,0 +1,7 @@
+@startuml
+class JDatabaseQueryMysqli
+JDatabaseQuery <|-- JDatabaseQueryMysqli
+!include class-JDatabaseQuery.puml
+JDatabaseQueryLimitable <|.. JDatabaseQueryMysqli
+!include class-JDatabaseQueryLimitable.puml
+@enduml

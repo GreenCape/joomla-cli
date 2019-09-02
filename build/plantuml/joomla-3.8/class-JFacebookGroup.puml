@@ -1,0 +1,5 @@
+@startuml
+class JFacebookGroup
+JFacebookObject <|-- JFacebookGroup
+!include class-JFacebookObject.puml
+@enduml

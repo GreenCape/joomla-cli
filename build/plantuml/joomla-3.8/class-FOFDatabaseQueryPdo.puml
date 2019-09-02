@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseQueryPdo
+FOFDatabaseQuery <|-- FOFDatabaseQueryPdo
+!include class-FOFDatabaseQuery.puml
+@enduml

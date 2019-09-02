@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsRouter
+JComponentRouterView <|-- NewsfeedsRouter
+!include class-JComponentRouterView.puml
+@enduml

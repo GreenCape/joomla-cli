@@ -1,0 +1,5 @@
+@startuml
+class MenusAssociationsHelper
+AssociationExtensionHelper <|-- MenusAssociationsHelper
+!include class-AssociationExtensionHelper.puml
+@enduml

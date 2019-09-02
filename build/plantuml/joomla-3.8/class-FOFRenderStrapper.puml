@@ -1,0 +1,5 @@
+@startuml
+class FOFRenderStrapper
+FOFRenderAbstract <|-- FOFRenderStrapper
+!include class-FOFRenderAbstract.puml
+@enduml

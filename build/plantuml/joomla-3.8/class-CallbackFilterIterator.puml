@@ -1,0 +1,5 @@
+@startuml
+class CallbackFilterIterator
+FilterIterator <|-- CallbackFilterIterator
+!include class-FilterIterator.puml
+@enduml

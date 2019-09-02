@@ -1,0 +1,5 @@
+@startuml
+class AssociationsViewAssociation
+JViewLegacy <|-- AssociationsViewAssociation
+!include class-JViewLegacy.puml
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+class Joomla.CMS.MVC.View.CategoryView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryView
+
+class Joomla.CMS.MVC.View.CategoriesView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoriesView
+class Joomla.CMS.MVC.View.HtmlView
+JObject <|-- Joomla.CMS.MVC.View.HtmlView
+class Joomla.CMS.MVC.View.CategoryFeedView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryFeedView
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+interface Joomla.Application.Cli.Output.Processor.ProcessorInterface
+
+class Joomla.Application.Cli.Output.Processor.ColorProcessor
+Joomla.Application.Cli.Output.Processor.ProcessorInterface <|.. Joomla.Application.Cli.Output.Processor.ColorProcessor
+@enduml

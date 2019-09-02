@@ -1,0 +1,5 @@
+@startuml
+class SimplePie_Core
+SimplePie <|-- SimplePie_Core
+!include class-SimplePie.puml
+@enduml

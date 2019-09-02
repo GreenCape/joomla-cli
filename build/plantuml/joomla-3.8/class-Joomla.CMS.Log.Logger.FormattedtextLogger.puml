@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Log.Logger.FormattedtextLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.FormattedtextLogger
+!include class-Joomla.CMS.Log.Logger.Logger.puml
+@enduml

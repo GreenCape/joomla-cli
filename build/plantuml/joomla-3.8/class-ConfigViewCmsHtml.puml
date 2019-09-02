@@ -1,0 +1,5 @@
+@startuml
+abstract class ConfigViewCmsHtml
+JViewHtml <|-- ConfigViewCmsHtml
+!include class-JViewHtml.puml
+@enduml

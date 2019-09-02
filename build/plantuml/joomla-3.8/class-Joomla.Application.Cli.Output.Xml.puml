@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Application.Cli.Output.Xml
+Joomla.Application.Cli.Output.CliOutput <|-- Joomla.Application.Cli.Output.Xml
+!include class-Joomla.Application.Cli.Output.CliOutput.puml
+@enduml

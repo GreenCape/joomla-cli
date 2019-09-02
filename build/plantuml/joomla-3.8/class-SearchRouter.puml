@@ -1,0 +1,5 @@
+@startuml
+class SearchRouter
+JComponentRouterBase <|-- SearchRouter
+!include class-JComponentRouterBase.puml
+@enduml

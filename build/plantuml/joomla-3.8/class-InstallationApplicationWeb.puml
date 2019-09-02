@@ -1,0 +1,5 @@
+@startuml
+class InstallationApplicationWeb
+JApplicationCms <|-- InstallationApplicationWeb
+!include class-JApplicationCms.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Installer.Adapter.TemplateAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.TemplateAdapter
+!include class-Joomla.CMS.Installer.Adapter.InstallerAdapter.puml
+@enduml

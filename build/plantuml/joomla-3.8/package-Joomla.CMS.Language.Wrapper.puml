@@ -1,0 +1,6 @@
+@startuml
+class Joomla.CMS.Language.Wrapper.LanguageHelperWrapper
+
+class Joomla.CMS.Language.Wrapper.JTextWrapper
+class Joomla.CMS.Language.Wrapper.TransliterateWrapper
+@enduml

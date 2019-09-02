@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.NotequalsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NotequalsRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

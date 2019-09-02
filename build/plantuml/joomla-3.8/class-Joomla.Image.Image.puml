@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Image.Image
+Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.Image
+!include class-Joomla.Image.LoggerAwareInterface.puml
+@enduml

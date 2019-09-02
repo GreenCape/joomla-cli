@@ -1,0 +1,5 @@
+@startuml
+class FOFEncryptRandval
+FOFEncryptRandvalinterface <|.. FOFEncryptRandval
+!include class-FOFEncryptRandvalinterface.puml
+@enduml

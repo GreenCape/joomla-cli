@@ -1,0 +1,5 @@
+@startuml
+class JArchiveGzip
+JArchiveExtractable <|.. JArchiveGzip
+!include class-JArchiveExtractable.puml
+@enduml

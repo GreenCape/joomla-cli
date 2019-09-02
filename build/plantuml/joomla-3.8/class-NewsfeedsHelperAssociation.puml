@@ -1,0 +1,5 @@
+@startuml
+abstract class NewsfeedsHelperAssociation
+CategoryHelperAssociation <|-- NewsfeedsHelperAssociation
+!include class-CategoryHelperAssociation.puml
+@enduml

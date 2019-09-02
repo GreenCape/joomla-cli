@@ -1,0 +1,5 @@
+@startuml
+class JEventDispatcher
+JObject <|-- JEventDispatcher
+!include class-JObject.puml
+@enduml

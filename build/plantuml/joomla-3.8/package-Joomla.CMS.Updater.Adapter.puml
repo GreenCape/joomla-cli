@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.Updater.Adapter.CollectionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.CollectionAdapter
+
+class Joomla.CMS.Updater.Adapter.ExtensionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.ExtensionAdapter
+@enduml

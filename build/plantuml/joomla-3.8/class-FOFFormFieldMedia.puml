@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldMedia
+JFormFieldMedia <|-- FOFFormFieldMedia
+!include class-JFormFieldMedia.puml
+FOFFormField <|.. FOFFormFieldMedia
+!include class-FOFFormField.puml
+@enduml

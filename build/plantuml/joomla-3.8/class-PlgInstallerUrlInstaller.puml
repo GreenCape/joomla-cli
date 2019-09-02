@@ -1,0 +1,5 @@
+@startuml
+class PlgInstallerUrlInstaller
+JPlugin <|-- PlgInstallerUrlInstaller
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FinderCli
+JApplicationCli <|-- FinderCli
+!include class-JApplicationCli.puml
+@enduml

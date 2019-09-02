@@ -1,0 +1,21 @@
+@startuml
+abstract class Joomla.CMS.Toolbar.ToolbarButton
+
+class Joomla.CMS.Toolbar.Toolbar
+class Joomla.CMS.Toolbar.Button.PopupButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.PopupButton
+class Joomla.CMS.Toolbar.Button.CustomButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.CustomButton
+class Joomla.CMS.Toolbar.Button.ConfirmButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.ConfirmButton
+class Joomla.CMS.Toolbar.Button.LinkButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.LinkButton
+class Joomla.CMS.Toolbar.Button.HelpButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.HelpButton
+class Joomla.CMS.Toolbar.Button.SeparatorButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SeparatorButton
+class Joomla.CMS.Toolbar.Button.SliderButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SliderButton
+class Joomla.CMS.Toolbar.Button.StandardButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.StandardButton
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class AKUnarchiverJPA
+AKAbstractUnarchiver <|-- AKUnarchiverJPA
+!include class-AKAbstractUnarchiver.puml
+@enduml

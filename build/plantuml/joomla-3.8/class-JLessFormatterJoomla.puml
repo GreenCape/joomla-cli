@@ -1,0 +1,5 @@
+@startuml
+class JLessFormatterJoomla
+lessc_formatter_classic <|-- JLessFormatterJoomla
+!include class-lessc_formatter_classic.puml
+@enduml

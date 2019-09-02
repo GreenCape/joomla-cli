@@ -1,0 +1,5 @@
+@startuml
+class JLayoutBase
+JLayout <|.. JLayoutBase
+!include class-JLayout.puml
+@enduml

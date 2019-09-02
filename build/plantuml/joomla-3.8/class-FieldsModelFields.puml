@@ -1,0 +1,5 @@
+@startuml
+class FieldsModelFields
+JModelList <|-- FieldsModelFields
+!include class-JModelList.puml
+@enduml

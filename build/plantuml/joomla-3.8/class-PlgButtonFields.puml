@@ -1,0 +1,5 @@
+@startuml
+class PlgButtonFields
+JPlugin <|-- PlgButtonFields
+!include class-JPlugin.puml
+@enduml

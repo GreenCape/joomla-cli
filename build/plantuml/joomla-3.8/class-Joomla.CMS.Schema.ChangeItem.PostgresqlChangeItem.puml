@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+!include class-Joomla.CMS.Schema.ChangeItem.ChangeItem.puml
+@enduml

@@ -1,0 +1,3 @@
+@startuml
+class JFormFieldCaptcha << (·,Transparent) >>
+@enduml

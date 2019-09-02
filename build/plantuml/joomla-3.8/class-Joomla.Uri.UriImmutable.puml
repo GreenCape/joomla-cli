@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Uri.UriImmutable
+Joomla.Uri.AbstractUri <|-- Joomla.Uri.UriImmutable
+!include class-Joomla.Uri.AbstractUri.puml
+@enduml

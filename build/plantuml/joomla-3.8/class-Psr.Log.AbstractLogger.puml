@@ -1,0 +1,5 @@
+@startuml
+abstract class Psr.Log.AbstractLogger
+Psr.Log.LoggerInterface <|.. Psr.Log.AbstractLogger
+!include class-Psr.Log.LoggerInterface.puml
+@enduml

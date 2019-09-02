@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldRedirect
+JFormFieldList <|-- JFormFieldRedirect
+!include class-JFormFieldList.puml
+@enduml

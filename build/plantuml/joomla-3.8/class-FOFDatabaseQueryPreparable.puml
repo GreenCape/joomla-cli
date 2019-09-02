@@ -1,0 +1,5 @@
+@startuml
+interface FOFDatabaseQueryPreparable
+JDatabaseQueryPreparable <|-- FOFDatabaseQueryPreparable
+!include class-JDatabaseQueryPreparable.puml
+@enduml

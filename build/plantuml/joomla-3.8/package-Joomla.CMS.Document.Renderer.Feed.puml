@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.Document.Renderer.Feed.RssRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.RssRenderer
+
+class Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+@enduml

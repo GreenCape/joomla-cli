@@ -1,0 +1,5 @@
+@startuml
+class BannersCategories
+JCategories <|-- BannersCategories
+!include class-JCategories.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseDriverPdomysql
+JDatabaseDriverPdo <|-- JDatabaseDriverPdomysql
+!include class-JDatabaseDriverPdo.puml
+@enduml

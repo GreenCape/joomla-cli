@@ -1,0 +1,5 @@
+@startuml
+class FOFTableBehaviorContenthistory
+FOFTableBehavior <|-- FOFTableBehaviorContenthistory
+!include class-FOFTableBehavior.puml
+@enduml

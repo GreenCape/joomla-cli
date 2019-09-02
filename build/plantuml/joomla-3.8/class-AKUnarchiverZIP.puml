@@ -1,0 +1,5 @@
+@startuml
+class AKUnarchiverZIP
+AKUnarchiverJPA <|-- AKUnarchiverZIP
+!include class-AKUnarchiverJPA.puml
+@enduml

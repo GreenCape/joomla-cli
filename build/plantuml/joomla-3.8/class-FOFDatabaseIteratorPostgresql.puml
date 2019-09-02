@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorPostgresql
+FOFDatabaseIterator <|-- FOFDatabaseIteratorPostgresql
+!include class-FOFDatabaseIterator.puml
+@enduml

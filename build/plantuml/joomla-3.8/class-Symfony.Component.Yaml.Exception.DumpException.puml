@@ -1,0 +1,5 @@
+@startuml
+class Symfony.Component.Yaml.Exception.DumpException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.DumpException
+!include class-Symfony.Component.Yaml.Exception.RuntimeException.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class PlgFinderContacts
+FinderIndexerAdapter <|-- PlgFinderContacts
+!include class-FinderIndexerAdapter.puml
+@enduml

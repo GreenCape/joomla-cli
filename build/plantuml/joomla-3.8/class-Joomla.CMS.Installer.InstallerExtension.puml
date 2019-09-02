@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Installer.InstallerExtension
+JObject <|-- Joomla.CMS.Installer.InstallerExtension
+!include class-JObject.puml
+@enduml

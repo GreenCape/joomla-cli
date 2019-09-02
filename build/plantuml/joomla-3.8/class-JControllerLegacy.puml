@@ -1,0 +1,5 @@
+@startuml
+class JControllerLegacy
+JObject <|-- JControllerLegacy
+!include class-JObject.puml
+@enduml

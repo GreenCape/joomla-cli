@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Installer.Adapter.FileAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.FileAdapter
+!include class-Joomla.CMS.Installer.Adapter.InstallerAdapter.puml
+@enduml

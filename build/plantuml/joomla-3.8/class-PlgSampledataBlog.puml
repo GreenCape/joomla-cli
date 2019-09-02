@@ -1,0 +1,5 @@
+@startuml
+class PlgSampledataBlog
+JPlugin <|-- PlgSampledataBlog
+!include class-JPlugin.puml
+@enduml

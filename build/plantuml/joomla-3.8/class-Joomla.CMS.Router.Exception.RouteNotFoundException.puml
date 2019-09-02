@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Router.Exception.RouteNotFoundException
+InvalidArgumentException <|-- Joomla.CMS.Router.Exception.RouteNotFoundException
+!include class-InvalidArgumentException.puml
+@enduml

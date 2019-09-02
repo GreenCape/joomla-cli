@@ -1,0 +1,5 @@
+@startuml
+class InstallationViewSummaryHtml
+InstallationViewDefault <|-- InstallationViewSummaryHtml
+!include class-InstallationViewDefault.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class BannersControllerTracks
+JControllerLegacy <|-- BannersControllerTracks
+!include class-JControllerLegacy.puml
+@enduml

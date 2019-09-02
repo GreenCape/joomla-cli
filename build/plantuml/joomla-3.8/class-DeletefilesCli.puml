@@ -1,0 +1,5 @@
+@startuml
+class DeletefilesCli
+JApplicationCli <|-- DeletefilesCli
+!include class-JApplicationCli.puml
+@enduml

@@ -1,0 +1,3 @@
+@startuml
+class idna_convert
+@enduml

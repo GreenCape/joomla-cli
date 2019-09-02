@@ -1,0 +1,7 @@
+@startuml
+class ParagonIE.Sodium.Core.ChaCha20.Ctx
+ParagonIE_Sodium_Core_ChaCha20_Ctx <|-- ParagonIE.Sodium.Core.ChaCha20.Ctx
+
+class ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+ParagonIE_Sodium_Core_ChaCha20_IetfCtx <|-- ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+@enduml

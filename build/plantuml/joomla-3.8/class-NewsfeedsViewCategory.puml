@@ -1,0 +1,5 @@
+@startuml
+class NewsfeedsViewCategory
+JViewCategory <|-- NewsfeedsViewCategory
+!include class-JViewCategory.puml
+@enduml

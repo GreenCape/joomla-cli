@@ -1,0 +1,5 @@
+@startuml
+class ContenthistoryControllerPreview
+JControllerLegacy <|-- ContenthistoryControllerPreview
+!include class-JControllerLegacy.puml
+@enduml

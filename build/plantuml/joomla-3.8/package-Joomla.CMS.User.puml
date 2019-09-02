@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.User.User
+JObject <|-- Joomla.CMS.User.User
+
+abstract class Joomla.CMS.User.UserHelper
+class Joomla.CMS.User.UserWrapper
+@enduml

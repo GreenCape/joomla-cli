@@ -1,0 +1,5 @@
+@startuml
+abstract class Joomla.CMS.Image.ImageFilter
+Joomla.Image.ImageFilter <|-- Joomla.CMS.Image.ImageFilter
+!include class-Joomla.Image.ImageFilter.puml
+@enduml

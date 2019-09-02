@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderFiltersql
+FOFFormHeaderFieldsql <|-- FOFFormHeaderFiltersql
+!include class-FOFFormHeaderFieldsql.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class PlgUserProfile
+JPlugin <|-- PlgUserProfile
+!include class-JPlugin.puml
+@enduml

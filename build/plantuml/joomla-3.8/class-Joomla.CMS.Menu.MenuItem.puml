@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Menu.MenuItem
+stdClass <|-- Joomla.CMS.Menu.MenuItem
+!include class-stdClass.puml
+@enduml

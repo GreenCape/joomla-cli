@@ -1,0 +1,5 @@
+@startuml
+class JLinkedinJobs
+JLinkedinObject <|-- JLinkedinJobs
+!include class-JLinkedinObject.puml
+@enduml

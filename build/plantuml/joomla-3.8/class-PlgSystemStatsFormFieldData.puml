@@ -1,0 +1,5 @@
+@startuml
+class PlgSystemStatsFormFieldData
+PlgSystemStatsFormFieldBase <|-- PlgSystemStatsFormFieldData
+!include class-PlgSystemStatsFormFieldBase.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class AssociationsControllerAssociations
+JControllerAdmin <|-- AssociationsControllerAssociations
+!include class-JControllerAdmin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldFonts
+JFormFieldList <|-- JFormFieldFonts
+!include class-JFormFieldList.puml
+@enduml

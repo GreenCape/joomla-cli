@@ -1,0 +1,6 @@
+@startuml
+interface Joomla.CMS.Association.AssociationExtensionInterface
+
+abstract class Joomla.CMS.Association.AssociationExtensionHelper
+Joomla.CMS.Association.AssociationExtensionInterface <|.. Joomla.CMS.Association.AssociationExtensionHelper
+@enduml

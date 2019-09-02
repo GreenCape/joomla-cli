@@ -1,0 +1,5 @@
+@startuml
+abstract class JDatabaseIterator
+Countable <|.. JDatabaseIterator
+!include class-Countable.puml
+@enduml

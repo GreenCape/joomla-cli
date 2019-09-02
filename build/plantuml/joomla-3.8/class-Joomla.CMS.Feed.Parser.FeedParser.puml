@@ -1,0 +1,3 @@
+@startuml
+class Joomla.CMS.Feed.Parser.FeedParser << (·,Transparent) >>
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Core.Xsalsa20
+ParagonIE_Sodium_Core_Xsalsa20 <|-- ParagonIE.Sodium.Core.Xsalsa20
+!include class-ParagonIE_Sodium_Core_Xsalsa20.puml
+@enduml

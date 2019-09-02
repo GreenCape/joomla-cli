@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.MediaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.MediaField
+!include class-Joomla.CMS.Form.Field.FormField.puml
+@enduml

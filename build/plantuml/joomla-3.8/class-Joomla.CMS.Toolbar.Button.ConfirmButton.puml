@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Toolbar.Button.ConfirmButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.ConfirmButton
+!include class-Joomla.CMS.Toolbar.Button.ToolbarButton.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+abstract class FieldsPlugin
+JPlugin <|-- FieldsPlugin
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFHalRenderJson
+FOFHalRenderInterface <|.. FOFHalRenderJson
+!include class-FOFHalRenderInterface.puml
+@enduml

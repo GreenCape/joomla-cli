@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseQueryMysql
+JDatabaseQueryMysqli <|-- JDatabaseQueryMysql
+!include class-JDatabaseQueryMysqli.puml
+@enduml

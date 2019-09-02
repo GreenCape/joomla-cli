@@ -1,0 +1,5 @@
+@startuml
+class FinderTableMap
+JTable <|-- FinderTableMap
+!include class-JTable.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class RedirectModelLinks
+JModelList <|-- RedirectModelLinks
+!include class-JModelList.puml
+@enduml

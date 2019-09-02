@@ -1,0 +1,5 @@
+@startuml
+class PostinstallViewMessages
+FOFViewHtml <|-- PostinstallViewMessages
+!include class-FOFViewHtml.puml
+@enduml

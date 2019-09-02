@@ -1,0 +1,6 @@
+@startuml
+class Joomla.Filesystem.Stream.StringWrapper
+
+class Joomla.Filesystem.Stream.String
+Joomla.Filesystem.Stream.StringWrapper <|-- Joomla.Filesystem.Stream.String
+@enduml

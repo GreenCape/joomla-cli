@@ -1,0 +1,5 @@
+@startuml
+class UsersViewReset
+JViewLegacy <|-- UsersViewReset
+!include class-JViewLegacy.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JSessionHandlerNative
+JSessionHandlerInterface <|.. JSessionHandlerNative
+!include class-JSessionHandlerInterface.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorAzure
+FOFDatabaseIteratorSqlsrv <|-- FOFDatabaseIteratorAzure
+!include class-FOFDatabaseIteratorSqlsrv.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseQuerySqlsrv
+FOFDatabaseQuery <|-- FOFDatabaseQuerySqlsrv
+!include class-FOFDatabaseQuery.puml
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQuerySqlsrv
+!include class-FOFDatabaseQueryLimitable.puml
+@enduml

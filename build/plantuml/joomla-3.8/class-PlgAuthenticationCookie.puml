@@ -1,0 +1,5 @@
+@startuml
+class PlgAuthenticationCookie
+JPlugin <|-- PlgAuthenticationCookie
+!include class-JPlugin.puml
+@enduml

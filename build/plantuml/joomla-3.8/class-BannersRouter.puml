@@ -1,0 +1,5 @@
+@startuml
+class BannersRouter
+JComponentRouterBase <|-- BannersRouter
+!include class-JComponentRouterBase.puml
+@enduml

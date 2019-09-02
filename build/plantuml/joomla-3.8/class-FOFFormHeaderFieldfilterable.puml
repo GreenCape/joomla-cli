@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderFieldfilterable
+FOFFormHeaderFieldsearchable <|-- FOFFormHeaderFieldfilterable
+!include class-FOFFormHeaderFieldsearchable.puml
+@enduml

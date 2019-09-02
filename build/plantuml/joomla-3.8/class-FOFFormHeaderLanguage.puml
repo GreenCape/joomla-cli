@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderLanguage
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderLanguage
+!include class-FOFFormHeaderFieldselectable.puml
+@enduml

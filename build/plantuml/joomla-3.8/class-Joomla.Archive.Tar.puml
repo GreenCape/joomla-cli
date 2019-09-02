@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Archive.Tar
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Tar
+!include class-Joomla.Archive.ExtractableInterface.puml
+@enduml

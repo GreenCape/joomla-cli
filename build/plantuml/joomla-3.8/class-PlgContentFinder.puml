@@ -1,0 +1,5 @@
+@startuml
+class PlgContentFinder
+JPlugin <|-- PlgContentFinder
+!include class-JPlugin.puml
+@enduml

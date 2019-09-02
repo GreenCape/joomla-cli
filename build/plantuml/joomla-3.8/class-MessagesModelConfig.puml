@@ -1,0 +1,5 @@
+@startuml
+class MessagesModelConfig
+JModelForm <|-- MessagesModelConfig
+!include class-JModelForm.puml
+@enduml

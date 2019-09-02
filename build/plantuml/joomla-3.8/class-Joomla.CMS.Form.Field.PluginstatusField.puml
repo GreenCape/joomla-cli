@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.PluginstatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.PluginstatusField
+!include class-JFormFieldPredefinedList.puml
+@enduml

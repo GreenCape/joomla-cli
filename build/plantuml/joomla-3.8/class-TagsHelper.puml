@@ -1,0 +1,5 @@
+@startuml
+class TagsHelper
+JHelperContent <|-- TagsHelper
+!include class-JHelperContent.puml
+@enduml

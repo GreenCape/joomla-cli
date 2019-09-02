@@ -1,0 +1,5 @@
+@startuml
+class TemplatesModelTemplate
+JModelForm <|-- TemplatesModelTemplate
+!include class-JModelForm.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Feed.Parser.RssParser
+Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.RssParser
+!include class-Joomla.CMS.Feed.Parser.FeedParser.puml
+@enduml

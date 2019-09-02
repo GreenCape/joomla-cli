@@ -1,0 +1,5 @@
+@startuml
+class FOFDatabaseIteratorSqlite
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorSqlite
+!include class-FOFDatabaseIteratorPdo.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JGoogleAuthOauth2
+JGoogleAuth <|-- JGoogleAuthOauth2
+!include class-JGoogleAuth.puml
+@enduml

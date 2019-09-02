@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldTextarea
+JFormFieldTextarea <|-- FOFFormFieldTextarea
+!include class-JFormFieldTextarea.puml
+FOFFormField <|.. FOFFormFieldTextarea
+!include class-FOFFormField.puml
+@enduml

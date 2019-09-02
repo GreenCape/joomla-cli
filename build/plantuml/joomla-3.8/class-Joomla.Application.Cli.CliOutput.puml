@@ -1,0 +1,3 @@
+@startuml
+abstract class Joomla.Application.Cli.CliOutput
+@enduml

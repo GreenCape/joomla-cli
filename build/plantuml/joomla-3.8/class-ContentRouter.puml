@@ -1,0 +1,5 @@
+@startuml
+class ContentRouter
+JComponentRouterView <|-- ContentRouter
+!include class-JComponentRouterView.puml
+@enduml

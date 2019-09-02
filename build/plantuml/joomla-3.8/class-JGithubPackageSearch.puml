@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageSearch
+JGithubPackage <|-- JGithubPackageSearch
+!include class-JGithubPackage.puml
+@enduml

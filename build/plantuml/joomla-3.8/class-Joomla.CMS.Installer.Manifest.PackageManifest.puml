@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Installer.Manifest.PackageManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.PackageManifest
+!include class-Joomla.CMS.Installer.Manifest.Manifest.puml
+@enduml

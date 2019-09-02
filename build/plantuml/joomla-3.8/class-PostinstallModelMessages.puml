@@ -1,0 +1,5 @@
+@startuml
+class PostinstallModelMessages
+FOFModel <|-- PostinstallModelMessages
+!include class-FOFModel.puml
+@enduml

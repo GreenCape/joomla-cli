@@ -1,0 +1,706 @@
+@startuml
+class Joomla.CMS.Utility.Utility
+
+class Joomla.CMS.Utility.BufferStreamHandler
+class Joomla.CMS.Helper.MediaHelper
+class Joomla.CMS.Helper.TagsHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.TagsHelper
+abstract class Joomla.CMS.Helper.AuthenticationHelper
+class Joomla.CMS.Helper.ContentHistoryHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.ContentHistoryHelper
+class Joomla.CMS.Helper.ContentHelper
+class Joomla.CMS.Helper.SearchHelper
+abstract class Joomla.CMS.Helper.ModuleHelper
+class Joomla.CMS.Helper.UserGroupsHelper
+class Joomla.CMS.Helper.CMSHelper
+class Joomla.CMS.Helper.LibraryHelper
+class Joomla.CMS.Helper.RouteHelper
+class Joomla.CMS.Feed.FeedLink
+interface Joomla.CMS.Feed.Parser.NamespaceParserInterface
+class Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+class Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+class Joomla.CMS.Feed.Parser.AtomParser
+Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.AtomParser
+class Joomla.CMS.Feed.Parser.RssParser
+Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.RssParser
+class Joomla.CMS.Feed.FeedFactory
+class Joomla.CMS.Feed.Feed
+ArrayAccess <|.. Joomla.CMS.Feed.Feed
+class Joomla.CMS.Feed.FeedEntry
+abstract class Joomla.CMS.Feed.FeedParser
+class Joomla.CMS.Feed.FeedPerson
+class Joomla.CMS.Uri.Uri
+Joomla.Uri.Uri <|-- Joomla.CMS.Uri.Uri
+class Joomla.CMS.Updater.Updater
+JAdapter <|-- Joomla.CMS.Updater.Updater
+class Joomla.CMS.Updater.DownloadSource
+class Joomla.CMS.Updater.Adapter.CollectionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.CollectionAdapter
+class Joomla.CMS.Updater.Adapter.ExtensionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.ExtensionAdapter
+class Joomla.CMS.Updater.Update
+JObject <|-- Joomla.CMS.Updater.Update
+abstract class Joomla.CMS.Updater.UpdateAdapter
+JAdapterInstance <|-- Joomla.CMS.Updater.UpdateAdapter
+class Joomla.CMS.Cache.CacheStorage
+class Joomla.CMS.Cache.Controller.CallbackController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.CallbackController
+class Joomla.CMS.Cache.Controller.PageController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.PageController
+class Joomla.CMS.Cache.Controller.OutputController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.OutputController
+class Joomla.CMS.Cache.Controller.ViewController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.ViewController
+class Joomla.CMS.Cache.Exception.CacheConnectingException
+RuntimeException <|-- Joomla.CMS.Cache.Exception.CacheConnectingException
+Joomla.CMS.Cache.Exception.CacheExceptionInterface <|.. Joomla.CMS.Cache.Exception.CacheConnectingException
+class Joomla.CMS.Cache.Exception.UnsupportedCacheException
+RuntimeException <|-- Joomla.CMS.Cache.Exception.UnsupportedCacheException
+Joomla.CMS.Cache.Exception.CacheExceptionInterface <|.. Joomla.CMS.Cache.Exception.UnsupportedCacheException
+interface Joomla.CMS.Cache.Exception.CacheExceptionInterface
+class Joomla.CMS.Cache.Storage.RedisStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.RedisStorage
+class Joomla.CMS.Cache.Storage.CacheStorageHelper
+class Joomla.CMS.Cache.Storage.MemcachedStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcachedStorage
+class Joomla.CMS.Cache.Storage.FileStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.FileStorage
+class Joomla.CMS.Cache.Storage.WincacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.WincacheStorage
+class Joomla.CMS.Cache.Storage.ApcStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcStorage
+class Joomla.CMS.Cache.Storage.XcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.XcacheStorage
+class Joomla.CMS.Cache.Storage.ApcuStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcuStorage
+class Joomla.CMS.Cache.Storage.CacheliteStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.CacheliteStorage
+class Joomla.CMS.Cache.Storage.MemcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcacheStorage
+class Joomla.CMS.Cache.CacheController
+class Joomla.CMS.Cache.Cache
+abstract class Joomla.CMS.Factory
+class Joomla.CMS.Application.WebApplication
+Joomla.CMS.Application.BaseApplication <|-- Joomla.CMS.Application.WebApplication
+abstract class Joomla.CMS.Application.BaseApplication
+Joomla.CMS.Application.AbstractApplication <|-- Joomla.CMS.Application.BaseApplication
+class Joomla.CMS.Application.CMSApplication
+Joomla.CMS.Application.WebApplication <|-- Joomla.CMS.Application.CMSApplication
+class Joomla.CMS.Application.ApplicationHelper
+class Joomla.CMS.Application.SiteApplication
+Joomla.CMS.Application.CMSApplication <|-- Joomla.CMS.Application.SiteApplication
+class Joomla.CMS.Application.CliApplication
+Joomla.CMS.Application.BaseApplication <|-- Joomla.CMS.Application.CliApplication
+class Joomla.CMS.Application.AdministratorApplication
+Joomla.CMS.Application.CMSApplication <|-- Joomla.CMS.Application.AdministratorApplication
+class Joomla.CMS.Application.DaemonApplication
+Joomla.CMS.Application.CliApplication <|-- Joomla.CMS.Application.DaemonApplication
+class Joomla.CMS.Layout.BaseLayout
+Joomla.CMS.Layout.LayoutInterface <|.. Joomla.CMS.Layout.BaseLayout
+class Joomla.CMS.Layout.LayoutHelper
+interface Joomla.CMS.Layout.LayoutInterface
+class Joomla.CMS.Layout.FileLayout
+Joomla.CMS.Layout.BaseLayout <|-- Joomla.CMS.Layout.FileLayout
+class Joomla.CMS.Component.Exception.MissingComponentException
+Joomla.CMS.Component.Exception.RouteNotFoundException <|-- Joomla.CMS.Component.Exception.MissingComponentException
+class Joomla.CMS.Component.Router.Rules.NomenuRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.NomenuRules
+class Joomla.CMS.Component.Router.Rules.MenuRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.MenuRules
+class Joomla.CMS.Component.Router.Rules.StandardRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.StandardRules
+interface Joomla.CMS.Component.Router.Rules.RulesInterface
+class Joomla.CMS.Component.Router.RouterLegacy
+Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterLegacy
+abstract class Joomla.CMS.Component.Router.RouterBase
+Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterBase
+class Joomla.CMS.Component.Router.RouterViewConfiguration
+abstract class Joomla.CMS.Component.Router.RouterView
+Joomla.CMS.Component.Router.RouterBase <|-- Joomla.CMS.Component.Router.RouterView
+interface Joomla.CMS.Component.Router.RouterInterface
+class Joomla.CMS.Component.ComponentHelper
+class Joomla.CMS.Component.ComponentRecord
+JObject <|-- Joomla.CMS.Component.ComponentRecord
+class Joomla.CMS.Session.Session
+IteratorAggregate <|.. Joomla.CMS.Session.Session
+class Joomla.CMS.Session.Exception.UnsupportedStorageException
+RuntimeException <|-- Joomla.CMS.Session.Exception.UnsupportedStorageException
+class Joomla.CMS.Access.Access
+class Joomla.CMS.Access.Exception.NotAllowed
+RuntimeException <|-- Joomla.CMS.Access.Exception.NotAllowed
+class Joomla.CMS.Access.Wrapper.Access
+class Joomla.CMS.Access.Rule
+class Joomla.CMS.Access.Rules
+class Joomla.CMS.Editor.Editor
+JObject <|-- Joomla.CMS.Editor.Editor
+class Joomla.CMS.Exception.ExceptionHandler
+class Joomla.CMS.Profiler.Profiler
+class Joomla.CMS.User.User
+JObject <|-- Joomla.CMS.User.User
+abstract class Joomla.CMS.User.UserHelper
+class Joomla.CMS.User.UserWrapper
+class Joomla.CMS.Installer.Installer
+JAdapter <|-- Joomla.CMS.Installer.Installer
+class Joomla.CMS.Installer.InstallerScript
+class Joomla.CMS.Installer.Manifest.PackageManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.PackageManifest
+class Joomla.CMS.Installer.Manifest.LibraryManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.LibraryManifest
+class Joomla.CMS.Installer.InstallerExtension
+JObject <|-- Joomla.CMS.Installer.InstallerExtension
+abstract class Joomla.CMS.Installer.Manifest
+class Joomla.CMS.Installer.Adapter.TemplateAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.TemplateAdapter
+class Joomla.CMS.Installer.Adapter.LanguageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LanguageAdapter
+class Joomla.CMS.Installer.Adapter.PluginAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PluginAdapter
+class Joomla.CMS.Installer.Adapter.PackageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PackageAdapter
+class Joomla.CMS.Installer.Adapter.ModuleAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ModuleAdapter
+class Joomla.CMS.Installer.Adapter.LibraryAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LibraryAdapter
+class Joomla.CMS.Installer.Adapter.ComponentAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ComponentAdapter
+class Joomla.CMS.Installer.Adapter.FileAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.FileAdapter
+abstract class Joomla.CMS.Installer.InstallerAdapter
+JAdapterInstance <|-- Joomla.CMS.Installer.InstallerAdapter
+abstract class Joomla.CMS.Installer.InstallerHelper
+class Joomla.CMS.Menu.MenuHelper
+class Joomla.CMS.Menu.MenuItem
+stdClass <|-- Joomla.CMS.Menu.MenuItem
+class Joomla.CMS.Menu.Tree
+class Joomla.CMS.Menu.SiteMenu
+Joomla.CMS.Menu.AbstractMenu <|-- Joomla.CMS.Menu.SiteMenu
+class Joomla.CMS.Menu.AbstractMenu
+class Joomla.CMS.Menu.AdministratorMenu
+Joomla.CMS.Menu.AbstractMenu <|-- Joomla.CMS.Menu.AdministratorMenu
+class Joomla.CMS.Menu.Node
+class Joomla.CMS.Menu.Node.Container
+Joomla.CMS.Menu.Node.Heading <|-- Joomla.CMS.Menu.Node.Container
+class Joomla.CMS.Menu.Node.Component
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Component
+class Joomla.CMS.Menu.Node.Heading
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Heading
+class Joomla.CMS.Menu.Node.Separator
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Separator
+class Joomla.CMS.Menu.Node.Url
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Url
+interface Joomla.CMS.Crypt.CipherInterface
+class Joomla.CMS.Crypt.Crypt
+class Joomla.CMS.Crypt.Password.SimpleCryptPassword
+Joomla.CMS.Crypt.Password.CryptPassword <|.. Joomla.CMS.Crypt.Password.SimpleCryptPassword
+class Joomla.CMS.Crypt.Key
+abstract class Joomla.CMS.Crypt.Cipher.McryptCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.McryptCipher
+class Joomla.CMS.Crypt.Cipher.BlowfishCipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.BlowfishCipher
+class Joomla.CMS.Crypt.Cipher.CryptoCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.CryptoCipher
+class Joomla.CMS.Crypt.Cipher.SimpleCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.SimpleCipher
+class Joomla.CMS.Crypt.Cipher.TripleDesCipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.TripleDesCipher
+class Joomla.CMS.Crypt.Cipher.Rijndael256Cipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.Rijndael256Cipher
+class Joomla.CMS.Crypt.Cipher.SodiumCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.SodiumCipher
+interface Joomla.CMS.Crypt.CryptPassword
+class Joomla.CMS.Version
+class Joomla.CMS.Date.Date
+DateTime <|-- Joomla.CMS.Date.Date
+class Joomla.CMS.Captcha.Captcha
+JObject <|-- Joomla.CMS.Captcha.Captcha
+class Joomla.CMS.Filter.Wrapper.OutputFilterWrapper
+class Joomla.CMS.Filter.InputFilter
+Joomla.CMS.Filter.BaseInputFilter <|-- Joomla.CMS.Filter.InputFilter
+class Joomla.CMS.Filter.OutputFilter
+Joomla.CMS.Filter.BaseOutputFilter <|-- Joomla.CMS.Filter.OutputFilter
+abstract class Joomla.CMS.MVC.Model.BaseDatabaseModel
+JObject <|-- Joomla.CMS.MVC.Model.BaseDatabaseModel
+class Joomla.CMS.MVC.Model.ListModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ListModel
+abstract class Joomla.CMS.MVC.Model.FormModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.FormModel
+abstract class Joomla.CMS.MVC.Model.ItemModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ItemModel
+abstract class Joomla.CMS.MVC.Model.AdminModel
+Joomla.CMS.MVC.Model.FormModel <|-- Joomla.CMS.MVC.Model.AdminModel
+class Joomla.CMS.MVC.Controller.FormController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.FormController
+class Joomla.CMS.MVC.Controller.AdminController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.AdminController
+class Joomla.CMS.MVC.Controller.BaseController
+JObject <|-- Joomla.CMS.MVC.Controller.BaseController
+class Joomla.CMS.MVC.View.CategoryView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryView
+class Joomla.CMS.MVC.View.CategoriesView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoriesView
+class Joomla.CMS.MVC.View.HtmlView
+JObject <|-- Joomla.CMS.MVC.View.HtmlView
+class Joomla.CMS.MVC.View.CategoryFeedView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryFeedView
+class Joomla.CMS.Object.CMSObject
+class Joomla.CMS.Categories.Categories
+class Joomla.CMS.Categories.CategoryNode
+JObject <|-- Joomla.CMS.Categories.CategoryNode
+interface Joomla.CMS.Association.AssociationExtensionInterface
+abstract class Joomla.CMS.Association.AssociationExtensionHelper
+Joomla.CMS.Association.AssociationExtensionInterface <|.. Joomla.CMS.Association.AssociationExtensionHelper
+class Joomla.CMS.Router.Router
+class Joomla.CMS.Router.Exception.RouteNotFoundException
+InvalidArgumentException <|-- Joomla.CMS.Router.Exception.RouteNotFoundException
+class Joomla.CMS.Router.SiteRouter
+Joomla.CMS.Router.Router <|-- Joomla.CMS.Router.SiteRouter
+class Joomla.CMS.Router.AdministratorRouter
+Joomla.CMS.Router.Router <|-- Joomla.CMS.Router.AdministratorRouter
+class Joomla.CMS.Router.Route
+abstract class Joomla.CMS.Table.Observer.AbstractObserver
+JObserverInterface <|.. Joomla.CMS.Table.Observer.AbstractObserver
+class Joomla.CMS.Table.Observer.ContentHistory
+Joomla.CMS.Table.Observer.AbstractObserver <|-- Joomla.CMS.Table.Observer.ContentHistory
+class Joomla.CMS.Table.Observer.Tags
+Joomla.CMS.Table.Observer.AbstractObserver <|-- Joomla.CMS.Table.Observer.Tags
+class Joomla.CMS.Table.UpdateSite
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.UpdateSite
+class Joomla.CMS.Table.ViewLevel
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ViewLevel
+class Joomla.CMS.Table.User
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.User
+class Joomla.CMS.Table.Ucm
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Ucm
+class Joomla.CMS.Table.ContentType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentType
+abstract class Joomla.CMS.Table.Table
+JObject <|-- Joomla.CMS.Table.Table
+JObservableInterface <|.. Joomla.CMS.Table.Table
+class Joomla.CMS.Table.Category
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Category
+class Joomla.CMS.Table.Usergroup
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Usergroup
+class Joomla.CMS.Table.CoreContent
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.CoreContent
+interface Joomla.CMS.Table.TableInterface
+class Joomla.CMS.Table.Module
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Module
+class Joomla.CMS.Table.Language
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Language
+class Joomla.CMS.Table.ContentHistory
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentHistory
+class Joomla.CMS.Table.MenuType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.MenuType
+class Joomla.CMS.Table.Asset
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Asset
+class Joomla.CMS.Table.Menu
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Menu
+class Joomla.CMS.Table.Update
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Update
+class Joomla.CMS.Table.Extension
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Extension
+class Joomla.CMS.Table.Nested
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Nested
+class Joomla.CMS.Table.Content
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Content
+abstract class Joomla.CMS.String.PunycodeHelper
+class Joomla.CMS.Response.JsonResponse
+class Joomla.CMS.Http.Wrapper.FactoryWrapper
+class Joomla.CMS.Http.Transport.SocketTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.SocketTransport
+class Joomla.CMS.Http.Transport.StreamTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.StreamTransport
+class Joomla.CMS.Http.Transport.CurlTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.CurlTransport
+class Joomla.CMS.Http.HttpFactory
+interface Joomla.CMS.Http.TransportInterface
+class Joomla.CMS.Http.Response
+class Joomla.CMS.Http.Http
+class Joomla.CMS.UCM.UCMBase
+Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMBase
+interface Joomla.CMS.UCM.UCM
+class Joomla.CMS.UCM.UCMContent
+Joomla.CMS.UCM.UCMBase <|-- Joomla.CMS.UCM.UCMContent
+class Joomla.CMS.UCM.UCMType
+Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMType
+class Joomla.CMS.Pathway.Pathway
+class Joomla.CMS.Pathway.SitePathway
+Joomla.CMS.Pathway.Pathway <|-- Joomla.CMS.Pathway.SitePathway
+abstract class Joomla.CMS.HTML.HTMLHelper
+class Joomla.CMS.Microdata.Microdata
+class Joomla.CMS.Input.Cookie
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Cookie
+class Joomla.CMS.Input.Input
+Joomla.Input.Input <|-- Joomla.CMS.Input.Input
+class Joomla.CMS.Input.Files
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Files
+class Joomla.CMS.Input.Json
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Json
+class Joomla.CMS.Input.Cli
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Cli
+class Joomla.CMS.Language.Multilanguage
+class Joomla.CMS.Language.Text
+class Joomla.CMS.Language.Wrapper.LanguageHelperWrapper
+class Joomla.CMS.Language.Wrapper.JTextWrapper
+class Joomla.CMS.Language.Wrapper.TransliterateWrapper
+class Joomla.CMS.Language.Associations
+class Joomla.CMS.Language.Transliterate
+class Joomla.CMS.Language.Language
+class Joomla.CMS.Language.LanguageHelper
+abstract class Joomla.CMS.Language.LanguageStemmer
+class Joomla.CMS.Language.Stemmer.Porteren
+Joomla.CMS.Language.Stemmer.LanguageStemmer <|-- Joomla.CMS.Language.Stemmer.Porteren
+class Joomla.CMS.Schema.ChangeSet
+abstract class Joomla.CMS.Schema.ChangeItem
+class Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
+class Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+class Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+abstract class Joomla.CMS.Toolbar.ToolbarButton
+class Joomla.CMS.Toolbar.Toolbar
+class Joomla.CMS.Toolbar.Button.PopupButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.PopupButton
+class Joomla.CMS.Toolbar.Button.CustomButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.CustomButton
+class Joomla.CMS.Toolbar.Button.ConfirmButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.ConfirmButton
+class Joomla.CMS.Toolbar.Button.LinkButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.LinkButton
+class Joomla.CMS.Toolbar.Button.HelpButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.HelpButton
+class Joomla.CMS.Toolbar.Button.SeparatorButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SeparatorButton
+class Joomla.CMS.Toolbar.Button.SliderButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SliderButton
+class Joomla.CMS.Toolbar.Button.StandardButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.StandardButton
+class Joomla.CMS.Pagination.PaginationObject
+class Joomla.CMS.Pagination.Pagination
+class Joomla.CMS.Client.ClientWrapper
+class Joomla.CMS.Client.FtpClient
+class Joomla.CMS.Client.ClientHelper
+class Joomla.CMS.Log.LogEntry
+class Joomla.CMS.Log.DelegatingPsrLogger
+Joomla.CMS.Log.AbstractLogger <|-- Joomla.CMS.Log.DelegatingPsrLogger
+class Joomla.CMS.Log.Log
+class Joomla.CMS.Log.Logger.DatabaseLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.DatabaseLogger
+class Joomla.CMS.Log.Logger.CallbackLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.CallbackLogger
+class Joomla.CMS.Log.Logger.EchoLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.EchoLogger
+class Joomla.CMS.Log.Logger.W3cLogger
+Joomla.CMS.Log.Logger.FormattedtextLogger <|-- Joomla.CMS.Log.Logger.W3cLogger
+class Joomla.CMS.Log.Logger.FormattedtextLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.FormattedtextLogger
+class Joomla.CMS.Log.Logger.SyslogLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.SyslogLogger
+class Joomla.CMS.Log.Logger.MessagequeueLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.MessagequeueLogger
+abstract class Joomla.CMS.Log.Logger
+class Joomla.CMS.Document.RawDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.RawDocument
+class Joomla.CMS.Document.Feed.FeedImage
+class Joomla.CMS.Document.Feed.FeedEnclosure
+class Joomla.CMS.Document.Feed.FeedItem
+class Joomla.CMS.Document.Opensearch.OpensearchImage
+class Joomla.CMS.Document.Opensearch.OpensearchUrl
+class Joomla.CMS.Document.OpensearchDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.OpensearchDocument
+class Joomla.CMS.Document.HtmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.HtmlDocument
+class Joomla.CMS.Document.ImageDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ImageDocument
+class Joomla.CMS.Document.JsonDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.JsonDocument
+class Joomla.CMS.Document.XmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.XmlDocument
+class Joomla.CMS.Document.FeedDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.FeedDocument
+class Joomla.CMS.Document.Document
+class Joomla.CMS.Document.DocumentRenderer
+class Joomla.CMS.Document.Renderer.Feed.RssRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.RssRenderer
+class Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+class Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+class Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+class Joomla.CMS.Document.Renderer.Html.HeadRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.HeadRenderer
+class Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+class Joomla.CMS.Document.Renderer.Html.MessageRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.MessageRenderer
+class Joomla.CMS.Document.ErrorDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ErrorDocument
+abstract class Joomla.CMS.Plugin.CMSPlugin
+JEvent <|-- Joomla.CMS.Plugin.CMSPlugin
+abstract class Joomla.CMS.Plugin.PluginHelper
+class Joomla.CMS.Authentication.Authentication
+JObject <|-- Joomla.CMS.Authentication.Authentication
+class Joomla.CMS.Authentication.AuthenticationResponse
+class Joomla.CMS.Extension.ExtensionHelper
+class Joomla.CMS.Mail.Mail
+PHPMailer <|-- Joomla.CMS.Mail.Mail
+abstract class Joomla.CMS.Mail.MailHelper
+class Joomla.CMS.Mail.MailWrapper
+class Joomla.CMS.Environment.Browser
+class Joomla.CMS.Image.Image
+Joomla.Image.Image <|-- Joomla.CMS.Image.Image
+abstract class Joomla.CMS.Image.ImageFilter
+Joomla.Image.ImageFilter <|-- Joomla.CMS.Image.ImageFilter
+class Joomla.CMS.Help.Help
+class Joomla.CMS.Form.Field.EditorField
+JFormFieldTextarea <|-- Joomla.CMS.Form.Field.EditorField
+class Joomla.CMS.Form.Field.ModuletagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ModuletagField
+class Joomla.CMS.Form.Field.LimitboxField
+JFormFieldList <|-- Joomla.CMS.Form.Field.LimitboxField
+class Joomla.CMS.Form.Field.StatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.StatusField
+class Joomla.CMS.Form.Field.MenuitemField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuitemField
+class Joomla.CMS.Form.Field.UseractiveField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.UseractiveField
+class Joomla.CMS.Form.Field.OrderingField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.OrderingField
+class Joomla.CMS.Form.Field.HelpsiteField
+JFormFieldList <|-- Joomla.CMS.Form.Field.HelpsiteField
+class Joomla.CMS.Form.Field.UserstateField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.UserstateField
+class Joomla.CMS.Form.Field.LastvisitdaterangeField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.LastvisitdaterangeField
+class Joomla.CMS.Form.Field.MenuField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuField
+class Joomla.CMS.Form.Field.ChromestyleField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.ChromestyleField
+class Joomla.CMS.Form.Field.RegistrationdaterangeField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.RegistrationdaterangeField
+class Joomla.CMS.Form.Field.ContenthistoryField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ContenthistoryField
+class Joomla.CMS.Form.Field.HeadertagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.HeadertagField
+class Joomla.CMS.Form.Field.MediaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.MediaField
+class Joomla.CMS.Form.Field.PluginstatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.PluginstatusField
+class Joomla.CMS.Form.Field.ModulepositionField
+JFormFieldText <|-- Joomla.CMS.Form.Field.ModulepositionField
+class Joomla.CMS.Form.Field.FrontendlanguageField
+JFormFieldList <|-- Joomla.CMS.Form.Field.FrontendlanguageField
+class Joomla.CMS.Form.Field.ContentlanguageField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ContentlanguageField
+class Joomla.CMS.Form.Field.UsergrouplistField
+JFormFieldList <|-- Joomla.CMS.Form.Field.UsergrouplistField
+class Joomla.CMS.Form.Field.UserField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.UserField
+class Joomla.CMS.Form.Field.AuthorField
+JFormFieldList <|-- Joomla.CMS.Form.Field.AuthorField
+class Joomla.CMS.Form.Field.TemplatestyleField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.TemplatestyleField
+class Joomla.CMS.Form.Field.CaptchaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.CaptchaField
+class Joomla.CMS.Form.Field.ContenttypeField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ContenttypeField
+class Joomla.CMS.Form.Field.ModuleorderField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ModuleorderField
+class Joomla.CMS.Form.Field.RedirectStatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.RedirectStatusField
+class Joomla.CMS.Form.Field.TagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.TagField
+class Joomla.CMS.Form.FormWrapper
+class Joomla.CMS.Form.FormHelper
+class Joomla.CMS.Form.Rule.UrlRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UrlRule
+class Joomla.CMS.Form.Rule.OptionsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.OptionsRule
+class Joomla.CMS.Form.Rule.NumberRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NumberRule
+class Joomla.CMS.Form.Rule.TelRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.TelRule
+class Joomla.CMS.Form.Rule.UsernameRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UsernameRule
+class Joomla.CMS.Form.Rule.ColorRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.ColorRule
+class Joomla.CMS.Form.Rule.PasswordRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.PasswordRule
+class Joomla.CMS.Form.Rule.CalendarRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CalendarRule
+class Joomla.CMS.Form.Rule.NotequalsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NotequalsRule
+class Joomla.CMS.Form.Rule.EmailRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EmailRule
+class Joomla.CMS.Form.Rule.EqualsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EqualsRule
+class Joomla.CMS.Form.Rule.BooleanRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.BooleanRule
+class Joomla.CMS.Form.Rule.CaptchaRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CaptchaRule
+class Joomla.CMS.Form.Rule.RulesRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.RulesRule
+class Joomla.CMS.Form.FormRule
+abstract class Joomla.CMS.Form.FormField
+class Joomla.CMS.Form.Form
+class Joomla.Filter.InputFilter
+class Joomla.Filter.OutputFilter
+class Joomla.DI.Container
+interface Joomla.DI.ServiceProviderInterface
+interface Joomla.DI.ContainerAwareInterface
+trait Joomla.DI.ContainerAwareTrait
+class Joomla.DI.Exception.DependencyResolutionException
+Exception <|-- Joomla.DI.Exception.DependencyResolutionException
+class Joomla.Utilities.ArrayHelper
+abstract class Joomla.String.StringHelper
+class Joomla.String.Inflector
+abstract class Joomla.String.String
+Joomla.String.StringHelper <|-- Joomla.String.String
+abstract class Joomla.String.Normalise
+class Joomla.Input.Cookie
+Joomla.Input.Input <|-- Joomla.Input.Cookie
+class Joomla.Input.Input
+Serializable <|.. Joomla.Input.Input
+class Joomla.Input.Files
+Joomla.Input.Input <|-- Joomla.Input.Files
+class Joomla.Input.Json
+Joomla.Input.Input <|-- Joomla.Input.Json
+class Joomla.Input.Cli
+Joomla.Input.Input <|-- Joomla.Input.Cli
+class Joomla.Session.Session
+IteratorAggregate <|.. Joomla.Session.Session
+abstract class Joomla.Session.Storage
+class Joomla.Session.Storage.Database
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Database
+class Joomla.Session.Storage.Memcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcache
+class Joomla.Session.Storage.Memcached
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcached
+class Joomla.Session.Storage.Apc
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Apc
+class Joomla.Session.Storage.None
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.None
+class Joomla.Session.Storage.Wincache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Wincache
+class Joomla.Session.Storage.Xcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Xcache
+class Joomla.Archive.Gzip
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Gzip
+interface Joomla.Archive.ExtractableInterface
+class Joomla.Archive.Archive
+class Joomla.Archive.Zip
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Zip
+class Joomla.Archive.Bzip2
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Bzip2
+class Joomla.Archive.Tar
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Tar
+class Joomla.Image.Filter.Negate
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Negate
+class Joomla.Image.Filter.Emboss
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Emboss
+class Joomla.Image.Filter.Backgroundfill
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Backgroundfill
+class Joomla.Image.Filter.Edgedetect
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Edgedetect
+class Joomla.Image.Filter.Contrast
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Contrast
+class Joomla.Image.Filter.Smooth
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Smooth
+class Joomla.Image.Filter.Brightness
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Brightness
+class Joomla.Image.Filter.Sketchy
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Sketchy
+class Joomla.Image.Filter.Grayscale
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Grayscale
+class Joomla.Image.Image
+Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.Image
+abstract class Joomla.Image.ImageFilter
+Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.ImageFilter
+abstract class Joomla.Application.AbstractCliApplication
+Joomla.Application.AbstractApplication <|-- Joomla.Application.AbstractCliApplication
+class Joomla.Application.Web.WebClient
+abstract class Joomla.Application.AbstractDaemonApplication
+Joomla.Application.AbstractCliApplication <|-- Joomla.Application.AbstractDaemonApplication
+Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractDaemonApplication
+abstract class Joomla.Application.AbstractApplication
+Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractApplication
+class Joomla.Application.Cli.ColorStyle
+class Joomla.Application.Cli.ColorProcessor
+Joomla.Application.Cli.RealColorProcessor <|-- Joomla.Application.Cli.ColorProcessor
+class Joomla.Application.Cli.CliInput
+interface Joomla.Application.Cli.Output.Processor.ProcessorInterface
+class Joomla.Application.Cli.Output.Processor.ColorProcessor
+Joomla.Application.Cli.Output.Processor.ProcessorInterface <|.. Joomla.Application.Cli.Output.Processor.ColorProcessor
+class Joomla.Application.Cli.Output.Xml
+Joomla.Application.Cli.Output.CliOutput <|-- Joomla.Application.Cli.Output.Xml
+class Joomla.Application.Cli.Output.Stdout
+Joomla.Application.Cli.Output.CliOutput <|-- Joomla.Application.Cli.Output.Stdout
+abstract class Joomla.Application.Cli.CliOutput
+abstract class Joomla.Application.AbstractWebApplication
+Joomla.Application.AbstractApplication <|-- Joomla.Application.AbstractWebApplication
+class Joomla.Ldap.LdapClient
+class Joomla.Filesystem.Support.StringController
+abstract class Joomla.Filesystem.Folder
+class Joomla.Filesystem.Clients.FtpClient
+class Joomla.Filesystem.Exception.FilesystemException
+RuntimeException <|-- Joomla.Filesystem.Exception.FilesystemException
+class Joomla.Filesystem.Stream
+class Joomla.Filesystem.File
+class Joomla.Filesystem.Path
+class Joomla.Filesystem.Buffer
+class Joomla.Filesystem.Stream.StringWrapper
+class Joomla.Filesystem.Stream.String
+Joomla.Filesystem.Stream.StringWrapper <|-- Joomla.Filesystem.Stream.String
+class Joomla.Filesystem.Patcher
+class Joomla.Filesystem.Helper
+class Joomla.Uri.UriImmutable
+Joomla.Uri.AbstractUri <|-- Joomla.Uri.UriImmutable
+class Joomla.Uri.UriHelper
+interface Joomla.Uri.UriInterface
+class Joomla.Uri.Uri
+Joomla.Uri.AbstractUri <|-- Joomla.Uri.Uri
+abstract class Joomla.Uri.AbstractUri
+Joomla.Uri.UriInterface <|.. Joomla.Uri.AbstractUri
+class Joomla.Data.DataSet
+Joomla.Data.DumpableInterface <|.. Joomla.Data.DataSet
+interface Joomla.Data.DumpableInterface
+class Joomla.Data.DataObject
+Joomla.Data.DumpableInterface <|.. Joomla.Data.DataObject
+abstract class Joomla.Event.AbstractEvent
+Joomla.Event.EventInterface <|.. Joomla.Event.AbstractEvent
+interface Joomla.Event.DispatcherAwareInterface
+class Joomla.Event.Dispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.Dispatcher
+trait Joomla.Event.DispatcherAwareTrait
+class Joomla.Event.Event
+Joomla.Event.AbstractEvent <|-- Joomla.Event.Event
+interface Joomla.Event.DispatcherInterface
+class Joomla.Event.EventImmutable
+Joomla.Event.AbstractEvent <|-- Joomla.Event.EventImmutable
+interface Joomla.Event.EventInterface
+class Joomla.Event.ListenersPriorityQueue
+Joomla.Event.IteratorAggregate <|.. Joomla.Event.ListenersPriorityQueue
+class Joomla.Event.DelegatingDispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.DelegatingDispatcher
+class Joomla.Event.Priority
+interface Joomla.Registry.FormatInterface
+class Joomla.Registry.Factory
+class Joomla.Registry.Registry
+JsonSerializable <|.. Joomla.Registry.Registry
+abstract class Joomla.Registry.AbstractRegistryFormat
+Joomla.Registry.FormatInterface <|.. Joomla.Registry.AbstractRegistryFormat
+class Joomla.Registry.Format.Php
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Php
+class Joomla.Registry.Format.Xml
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Xml
+class Joomla.Registry.Format.Json
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Json
+class Joomla.Registry.Format.Yaml
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Yaml
+class Joomla.Registry.Format.Ini
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Ini
+@enduml

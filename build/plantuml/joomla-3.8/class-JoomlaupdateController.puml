@@ -1,0 +1,5 @@
+@startuml
+class JoomlaupdateController
+JControllerLegacy <|-- JoomlaupdateController
+!include class-JControllerLegacy.puml
+@enduml

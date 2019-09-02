@@ -1,0 +1,5 @@
+@startuml
+class JSite
+JObject <|-- JSite
+!include class-JObject.puml
+@enduml

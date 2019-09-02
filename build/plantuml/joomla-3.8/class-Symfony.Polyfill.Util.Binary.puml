@@ -1,0 +1,5 @@
+@startuml
+class Symfony.Polyfill.Util.Binary
+Symfony.Polyfill.Util.BinaryNoFuncOverload <|-- Symfony.Polyfill.Util.Binary
+!include class-Symfony.Polyfill.Util.BinaryNoFuncOverload.puml
+@enduml

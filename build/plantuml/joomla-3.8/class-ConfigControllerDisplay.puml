@@ -1,0 +1,5 @@
+@startuml
+class ConfigControllerDisplay
+JControllerBase <|-- ConfigControllerDisplay
+!include class-JControllerBase.puml
+@enduml

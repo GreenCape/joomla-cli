@@ -1,0 +1,5 @@
+@startuml
+class MediaViewMedia
+JViewLegacy <|-- MediaViewMedia
+!include class-JViewLegacy.puml
+@enduml

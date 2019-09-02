@@ -1,0 +1,5 @@
+@startuml
+class CategoriesModelCategories
+JModelList <|-- CategoriesModelCategories
+!include class-JModelList.puml
+@enduml

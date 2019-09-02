@@ -1,0 +1,5 @@
+@startuml
+class InstallerViewDefault
+JViewLegacy <|-- InstallerViewDefault
+!include class-JViewLegacy.puml
+@enduml

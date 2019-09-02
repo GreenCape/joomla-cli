@@ -1,0 +1,4 @@
+@startuml
+class Joomla.CMS.Access.Wrapper.Access
+
+@enduml

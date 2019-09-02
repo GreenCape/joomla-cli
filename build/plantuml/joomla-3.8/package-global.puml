@@ -1,0 +1,3351 @@
+@startuml
+abstract class En_GBLocalise
+
+class myclass
+class .well
+class .tooltip
+abstract class MailtoHelper
+class MailtoViewMailto
+JViewLegacy <|-- MailtoViewMailto
+class MailtoViewSent
+JViewLegacy <|-- MailtoViewSent
+class MailtoController
+JControllerLegacy <|-- MailtoController
+class NewsfeedsModelCategories
+JModelList <|-- NewsfeedsModelCategories
+class NewsfeedsModelNewsfeed
+JModelItem <|-- NewsfeedsModelNewsfeed
+class NewsfeedsModelCategory
+JModelList <|-- NewsfeedsModelCategory
+class NewsfeedsRouter
+JComponentRouterView <|-- NewsfeedsRouter
+abstract class NewsfeedsHelperRoute
+class NewsfeedsRouterRulesLegacy
+JComponentRouterRulesInterface <|.. NewsfeedsRouterRulesLegacy
+class NewsfeedsCategories
+JCategories <|-- NewsfeedsCategories
+abstract class NewsfeedsHelperAssociation
+CategoryHelperAssociation <|-- NewsfeedsHelperAssociation
+class NewsfeedsViewCategory
+JViewCategory <|-- NewsfeedsViewCategory
+class NewsfeedsViewCategories
+JViewCategories <|-- NewsfeedsViewCategories
+class NewsfeedsViewNewsfeed
+JViewLegacy <|-- NewsfeedsViewNewsfeed
+class NewsfeedsController
+JControllerLegacy <|-- NewsfeedsController
+class FinderControllerSuggestions
+JControllerLegacy <|-- FinderControllerSuggestions
+class FinderModelSuggestions
+JModelList <|-- FinderModelSuggestions
+class FinderModelSearch
+JModelList <|-- FinderModelSearch
+class FinderRouter
+JComponentRouterBase <|-- FinderRouter
+class FinderHelperRoute
+abstract class JHtmlFilter
+abstract class JHtmlQuery
+class FinderViewSearch
+JViewLegacy <|-- FinderViewSearch
+class FinderController
+JControllerLegacy <|-- FinderController
+class SearchModelSearch
+JModelLegacy <|-- SearchModelSearch
+class SearchRouter
+JComponentRouterBase <|-- SearchRouter
+class SearchViewSearch
+JViewLegacy <|-- SearchViewSearch
+class SearchController
+JControllerLegacy <|-- SearchController
+class WrapperRouter
+JComponentRouterBase <|-- WrapperRouter
+class WrapperViewWrapper
+JViewLegacy <|-- WrapperViewWrapper
+class WrapperController
+JControllerLegacy <|-- WrapperController
+class ContactControllerContact
+JControllerForm <|-- ContactControllerContact
+class JFormRuleContactEmailSubject
+JFormRule <|-- JFormRuleContactEmailSubject
+class JFormRuleContactEmailMessage
+JFormRule <|-- JFormRuleContactEmailMessage
+class JFormRuleContactEmail
+JFormRuleEmail <|-- JFormRuleContactEmail
+class ContactModelCategories
+JModelList <|-- ContactModelCategories
+class ContactModelCategory
+JModelList <|-- ContactModelCategory
+class ContactModelFeatured
+JModelList <|-- ContactModelFeatured
+class ContactModelContact
+JModelForm <|-- ContactModelContact
+class ContactRouter
+JComponentRouterView <|-- ContactRouter
+abstract class ContactHelperRoute
+class ContactRouterRulesLegacy
+JComponentRouterRulesInterface <|.. ContactRouterRulesLegacy
+class ContactCategories
+JCategories <|-- ContactCategories
+abstract class ContactHelperAssociation
+CategoryHelperAssociation <|-- ContactHelperAssociation
+class ContactViewCategory
+JViewCategoryfeed <|-- ContactViewCategory
+JViewCategory <|-- ContactViewCategory
+class ContactViewFeatured
+JViewLegacy <|-- ContactViewFeatured
+class ContactViewCategories
+JViewCategories <|-- ContactViewCategories
+class ContactViewContact
+JViewLegacy <|-- ContactViewContact
+class ContactController
+JControllerLegacy <|-- ContactController
+class BannersModelBanners
+JModelList <|-- BannersModelBanners
+class BannersModelBanner
+JModelLegacy <|-- BannersModelBanner
+class BannersRouter
+JComponentRouterBase <|-- BannersRouter
+class BannersCategories
+JCategories <|-- BannersCategories
+abstract class BannerHelper
+class BannersController
+JControllerLegacy <|-- BannersController
+class TagsControllerTags
+JControllerLegacy <|-- TagsControllerTags
+class TagsModelTags
+JModelList <|-- TagsModelTags
+class TagsModelTag
+JModelList <|-- TagsModelTag
+class TagsRouter
+JComponentRouterBase <|-- TagsRouter
+class TagsHelperRoute
+JHelperRoute <|-- TagsHelperRoute
+class TagsViewTag
+JViewLegacy <|-- TagsViewTag
+class TagsViewTags
+JViewLegacy <|-- TagsViewTags
+class TagsController
+JControllerLegacy <|-- TagsController
+class ModulesController
+JControllerLegacy <|-- ModulesController
+class ContentControllerArticle
+JControllerForm <|-- ContentControllerArticle
+class ContentModelCategories
+JModelList <|-- ContentModelCategories
+class ContentModelCategory
+JModelList <|-- ContentModelCategory
+class ContentModelForm
+ContentModelArticle <|-- ContentModelForm
+class ContentModelArticles
+JModelList <|-- ContentModelArticles
+class ContentModelArticle
+JModelItem <|-- ContentModelArticle
+class ContentModelFeatured
+ContentModelArticles <|-- ContentModelFeatured
+class ContentModelArchive
+ContentModelArticles <|-- ContentModelArchive
+class ContentRouter
+JComponentRouterView <|-- ContentRouter
+abstract class ContentHelperRoute
+class ContentRouterRulesLegacy
+JComponentRouterRulesInterface <|.. ContentRouterRulesLegacy
+class ContentCategories
+JCategories <|-- ContentCategories
+abstract class ContentHelperAssociation
+CategoryHelperAssociation <|-- ContentHelperAssociation
+class ContentHelperQuery
+abstract class JHtmlIcon
+class ContentViewCategory
+JViewCategoryfeed <|-- ContentViewCategory
+JViewCategory <|-- ContentViewCategory
+class ContentViewForm
+JViewLegacy <|-- ContentViewForm
+class ContentViewFeatured
+JViewLegacy <|-- ContentViewFeatured
+class ContentViewCategories
+JViewCategories <|-- ContentViewCategories
+class ContentViewArchive
+JViewLegacy <|-- ContentViewArchive
+class ContentViewArticle
+JViewLegacy <|-- ContentViewArticle
+class ContentController
+JControllerLegacy <|-- ContentController
+class FieldsController
+JControllerLegacy <|-- FieldsController
+class UsersControllerProfile
+UsersController <|-- UsersControllerProfile
+class UsersControllerUser
+UsersController <|-- UsersControllerUser
+class UsersControllerProfile_Base_Json
+JControllerLegacy <|-- UsersControllerProfile_Base_Json
+class UsersControllerReset
+UsersController <|-- UsersControllerReset
+class UsersControllerRemind
+UsersController <|-- UsersControllerRemind
+UsersControllerProfile_Base_Json <|-- UsersControllerProfile
+class UsersControllerRegistration
+UsersController <|-- UsersControllerRegistration
+class JFormRuleLogoutUniqueField
+JFormRule <|-- JFormRuleLogoutUniqueField
+class JFormRuleLoginUniqueField
+JFormRule <|-- JFormRuleLoginUniqueField
+class UsersModelProfile
+JModelForm <|-- UsersModelProfile
+class UsersModelLogin
+JModelForm <|-- UsersModelLogin
+class UsersModelReset
+JModelForm <|-- UsersModelReset
+class UsersModelRemind
+JModelForm <|-- UsersModelRemind
+class UsersModelRegistration
+JModelForm <|-- UsersModelRegistration
+class UsersRouter
+JComponentRouterView <|-- UsersRouter
+class UsersHelperRoute
+class UsersRouterRulesLegacy
+JComponentRouterRulesInterface <|.. UsersRouterRulesLegacy
+abstract class JHtmlUsers
+class UsersViewProfile
+JViewLegacy <|-- UsersViewProfile
+class UsersViewReset
+JViewLegacy <|-- UsersViewReset
+class UsersViewRemind
+JViewLegacy <|-- UsersViewRemind
+class UsersViewLogin
+JViewLegacy <|-- UsersViewLogin
+class UsersViewRegistration
+JViewLegacy <|-- UsersViewRegistration
+class UsersController
+JControllerLegacy <|-- UsersController
+abstract class ConfigModelCms
+JModelDatabase <|-- ConfigModelCms
+abstract class ConfigModelForm
+ConfigModelCms <|-- ConfigModelForm
+class ConfigModelModules
+ConfigModelForm <|-- ConfigModelModules
+class ConfigModelConfig
+ConfigModelForm <|-- ConfigModelConfig
+class ConfigModelTemplates
+ConfigModelForm <|-- ConfigModelTemplates
+abstract class ConfigViewCmsHtml
+JViewHtml <|-- ConfigViewCmsHtml
+abstract class ConfigViewCmsJson
+ConfigViewCmsHtml <|-- ConfigViewCmsJson
+class ConfigViewConfigHtml
+ConfigViewCmsHtml <|-- ConfigViewConfigHtml
+class ConfigViewTemplatesHtml
+ConfigViewCmsHtml <|-- ConfigViewTemplatesHtml
+class ConfigViewModulesHtml
+ConfigViewCmsHtml <|-- ConfigViewModulesHtml
+class ConfigControllerCmsbase
+JControllerBase <|-- ConfigControllerCmsbase
+class ConfigControllerCancel
+JControllerBase <|-- ConfigControllerCancel
+class ConfigControllerDisplay
+JControllerBase <|-- ConfigControllerDisplay
+class ConfigControllerHelper
+class ConfigControllerConfigSave
+JControllerBase <|-- ConfigControllerConfigSave
+class ConfigControllerConfigDisplay
+ConfigControllerDisplay <|-- ConfigControllerConfigDisplay
+class ConfigControllerCanceladmin
+ConfigControllerCancel <|-- ConfigControllerCanceladmin
+class ConfigControllerTemplatesSave
+JControllerBase <|-- ConfigControllerTemplatesSave
+class ConfigControllerTemplatesDisplay
+ConfigControllerDisplay <|-- ConfigControllerTemplatesDisplay
+class ConfigControllerModulesCancel
+ConfigControllerCanceladmin <|-- ConfigControllerModulesCancel
+class ConfigControllerModulesSave
+JControllerBase <|-- ConfigControllerModulesSave
+class ConfigControllerModulesDisplay
+ConfigControllerDisplay <|-- ConfigControllerModulesDisplay
+class MenusController
+JControllerLegacy <|-- MenusController
+class DeletefilesCli
+JApplicationCli <|-- DeletefilesCli
+class Updatecron
+JApplicationCli <|-- Updatecron
+class GarbageCron
+JApplicationCli <|-- GarbageCron
+class FinderCli
+JApplicationCli <|-- FinderCli
+class InstallationModelFtp
+JModelBase <|-- InstallationModelFtp
+class InstallationModelSetup
+JModelBase <|-- InstallationModelSetup
+class InstallationModelDatabase
+JModelBase <|-- InstallationModelDatabase
+class InstallationModelLanguages
+JModelBase <|-- InstallationModelLanguages
+class InstallationModelConfiguration
+JModelBase <|-- InstallationModelConfiguration
+class InstallationFormFieldSample
+JFormFieldRadio <|-- InstallationFormFieldSample
+class InstallationFormFieldLanguage
+JFormFieldList <|-- InstallationFormFieldLanguage
+class InstallationFormFieldPrefix
+JFormField <|-- InstallationFormFieldPrefix
+class InstallationFormRulePrefix
+JFormRule <|-- InstallationFormRulePrefix
+class JRouterInstallation
+JRouter <|-- JRouterInstallation
+class InstallationApplicationWeb
+JApplicationCms <|-- InstallationApplicationWeb
+class InstallationViewCompleteHtml
+JViewHtml <|-- InstallationViewCompleteHtml
+class InstallationViewPreinstallHtml
+InstallationViewDefault <|-- InstallationViewPreinstallHtml
+class InstallationViewSummaryHtml
+InstallationViewDefault <|-- InstallationViewSummaryHtml
+class InstallationViewInstallHtml
+JViewHtml <|-- InstallationViewInstallHtml
+class InstallationViewRemoveHtml
+JViewHtml <|-- InstallationViewRemoveHtml
+class InstallationViewLanguagesHtml
+JViewHtml <|-- InstallationViewLanguagesHtml
+class InstallationViewDefaultlanguageHtml
+JViewHtml <|-- InstallationViewDefaultlanguageHtml
+class InstallationViewDefault
+JViewHtml <|-- InstallationViewDefault
+class JConfig
+abstract class InstallationHelperDatabase
+class InstallationHtmlHelper
+class InstallationResponseJson
+class InstallationControllerSite
+JControllerBase <|-- InstallationControllerSite
+class InstallationControllerPreinstall
+JControllerBase <|-- InstallationControllerPreinstall
+class InstallationControllerSetdefaultlanguage
+JControllerBase <|-- InstallationControllerSetdefaultlanguage
+class InstallationControllerVerifyftpsettings
+JControllerBase <|-- InstallationControllerVerifyftpsettings
+class InstallationControllerRemovefolder
+JControllerBase <|-- InstallationControllerRemovefolder
+class InstallationControllerSummary
+JControllerBase <|-- InstallationControllerSummary
+class InstallationControllerFtp
+JControllerBase <|-- InstallationControllerFtp
+class InstallationControllerDetectftproot
+JControllerBase <|-- InstallationControllerDetectftproot
+class InstallationControllerDatabase
+JControllerBase <|-- InstallationControllerDatabase
+class InstallationControllerInstallSample
+JControllerBase <|-- InstallationControllerInstallSample
+class InstallationControllerInstallDatabase_backup
+JControllerBase <|-- InstallationControllerInstallDatabase_backup
+class InstallationControllerInstallEmail
+JControllerBase <|-- InstallationControllerInstallEmail
+class InstallationControllerInstallDatabase_remove
+InstallationControllerInstallDatabase_backup <|-- InstallationControllerInstallDatabase_remove
+class InstallationControllerInstallConfig
+JControllerBase <|-- InstallationControllerInstallConfig
+class InstallationControllerInstallDatabase
+JControllerBase <|-- InstallationControllerInstallDatabase
+class InstallationControllerInstallLanguages
+JControllerBase <|-- InstallationControllerInstallLanguages
+class InstallationControllerSetlanguage
+JControllerBase <|-- InstallationControllerSetlanguage
+class InstallationControllerDefault
+JControllerBase <|-- InstallationControllerDefault
+class KeychainManager
+JApplicationCli <|-- KeychainManager
+class Joomla.CMS.Utility.Utility
+class Joomla.CMS.Utility.BufferStreamHandler
+class Joomla.CMS.Helper.MediaHelper
+class Joomla.CMS.Helper.TagsHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.TagsHelper
+abstract class Joomla.CMS.Helper.AuthenticationHelper
+class Joomla.CMS.Helper.ContentHistoryHelper
+Joomla.CMS.Helper.CMSHelper <|-- Joomla.CMS.Helper.ContentHistoryHelper
+class Joomla.CMS.Helper.ContentHelper
+class Joomla.CMS.Helper.SearchHelper
+abstract class Joomla.CMS.Helper.ModuleHelper
+class Joomla.CMS.Helper.UserGroupsHelper
+class Joomla.CMS.Helper.CMSHelper
+class Joomla.CMS.Helper.LibraryHelper
+class Joomla.CMS.Helper.RouteHelper
+class Joomla.CMS.Feed.FeedLink
+interface Joomla.CMS.Feed.Parser.NamespaceParserInterface
+class Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.MediaRssParser
+class Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+Joomla.CMS.Feed.Parser.Rss.NamespaceParserInterface <|.. Joomla.CMS.Feed.Parser.Rss.ItunesRssParser
+class Joomla.CMS.Feed.Parser.AtomParser
+Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.AtomParser
+class Joomla.CMS.Feed.Parser.RssParser
+Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.RssParser
+class Joomla.CMS.Feed.FeedFactory
+class Joomla.CMS.Feed.Feed
+ArrayAccess <|.. Joomla.CMS.Feed.Feed
+class Joomla.CMS.Feed.FeedEntry
+abstract class Joomla.CMS.Feed.FeedParser
+class Joomla.CMS.Feed.FeedPerson
+class Joomla.CMS.Uri.Uri
+Joomla.Uri.Uri <|-- Joomla.CMS.Uri.Uri
+class Joomla.CMS.Updater.Updater
+JAdapter <|-- Joomla.CMS.Updater.Updater
+class Joomla.CMS.Updater.DownloadSource
+class Joomla.CMS.Updater.Adapter.CollectionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.CollectionAdapter
+class Joomla.CMS.Updater.Adapter.ExtensionAdapter
+Joomla.CMS.Updater.Adapter.UpdateAdapter <|-- Joomla.CMS.Updater.Adapter.ExtensionAdapter
+class Joomla.CMS.Updater.Update
+JObject <|-- Joomla.CMS.Updater.Update
+abstract class Joomla.CMS.Updater.UpdateAdapter
+JAdapterInstance <|-- Joomla.CMS.Updater.UpdateAdapter
+class Joomla.CMS.Cache.CacheStorage
+class Joomla.CMS.Cache.Controller.CallbackController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.CallbackController
+class Joomla.CMS.Cache.Controller.PageController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.PageController
+class Joomla.CMS.Cache.Controller.OutputController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.OutputController
+class Joomla.CMS.Cache.Controller.ViewController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.ViewController
+class Joomla.CMS.Cache.Exception.CacheConnectingException
+RuntimeException <|-- Joomla.CMS.Cache.Exception.CacheConnectingException
+Joomla.CMS.Cache.Exception.CacheExceptionInterface <|.. Joomla.CMS.Cache.Exception.CacheConnectingException
+class Joomla.CMS.Cache.Exception.UnsupportedCacheException
+RuntimeException <|-- Joomla.CMS.Cache.Exception.UnsupportedCacheException
+Joomla.CMS.Cache.Exception.CacheExceptionInterface <|.. Joomla.CMS.Cache.Exception.UnsupportedCacheException
+interface Joomla.CMS.Cache.Exception.CacheExceptionInterface
+class Joomla.CMS.Cache.Storage.RedisStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.RedisStorage
+class Joomla.CMS.Cache.Storage.CacheStorageHelper
+class Joomla.CMS.Cache.Storage.MemcachedStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcachedStorage
+class Joomla.CMS.Cache.Storage.FileStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.FileStorage
+class Joomla.CMS.Cache.Storage.WincacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.WincacheStorage
+class Joomla.CMS.Cache.Storage.ApcStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcStorage
+class Joomla.CMS.Cache.Storage.XcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.XcacheStorage
+class Joomla.CMS.Cache.Storage.ApcuStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.ApcuStorage
+class Joomla.CMS.Cache.Storage.CacheliteStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.CacheliteStorage
+class Joomla.CMS.Cache.Storage.MemcacheStorage
+Joomla.CMS.Cache.Storage.CacheStorage <|-- Joomla.CMS.Cache.Storage.MemcacheStorage
+class Joomla.CMS.Cache.CacheController
+class Joomla.CMS.Cache.Cache
+abstract class Joomla.CMS.Factory
+class Joomla.CMS.Application.WebApplication
+Joomla.CMS.Application.BaseApplication <|-- Joomla.CMS.Application.WebApplication
+abstract class Joomla.CMS.Application.BaseApplication
+Joomla.CMS.Application.AbstractApplication <|-- Joomla.CMS.Application.BaseApplication
+class Joomla.CMS.Application.CMSApplication
+Joomla.CMS.Application.WebApplication <|-- Joomla.CMS.Application.CMSApplication
+class Joomla.CMS.Application.ApplicationHelper
+class Joomla.CMS.Application.SiteApplication
+Joomla.CMS.Application.CMSApplication <|-- Joomla.CMS.Application.SiteApplication
+class Joomla.CMS.Application.CliApplication
+Joomla.CMS.Application.BaseApplication <|-- Joomla.CMS.Application.CliApplication
+class Joomla.CMS.Application.AdministratorApplication
+Joomla.CMS.Application.CMSApplication <|-- Joomla.CMS.Application.AdministratorApplication
+class Joomla.CMS.Application.DaemonApplication
+Joomla.CMS.Application.CliApplication <|-- Joomla.CMS.Application.DaemonApplication
+class Joomla.CMS.Layout.BaseLayout
+Joomla.CMS.Layout.LayoutInterface <|.. Joomla.CMS.Layout.BaseLayout
+class Joomla.CMS.Layout.LayoutHelper
+interface Joomla.CMS.Layout.LayoutInterface
+class Joomla.CMS.Layout.FileLayout
+Joomla.CMS.Layout.BaseLayout <|-- Joomla.CMS.Layout.FileLayout
+class Joomla.CMS.Component.Exception.MissingComponentException
+Joomla.CMS.Component.Exception.RouteNotFoundException <|-- Joomla.CMS.Component.Exception.MissingComponentException
+class Joomla.CMS.Component.Router.Rules.NomenuRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.NomenuRules
+class Joomla.CMS.Component.Router.Rules.MenuRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.MenuRules
+class Joomla.CMS.Component.Router.Rules.StandardRules
+Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.StandardRules
+interface Joomla.CMS.Component.Router.Rules.RulesInterface
+class Joomla.CMS.Component.Router.RouterLegacy
+Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterLegacy
+abstract class Joomla.CMS.Component.Router.RouterBase
+Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterBase
+class Joomla.CMS.Component.Router.RouterViewConfiguration
+abstract class Joomla.CMS.Component.Router.RouterView
+Joomla.CMS.Component.Router.RouterBase <|-- Joomla.CMS.Component.Router.RouterView
+interface Joomla.CMS.Component.Router.RouterInterface
+class Joomla.CMS.Component.ComponentHelper
+class Joomla.CMS.Component.ComponentRecord
+JObject <|-- Joomla.CMS.Component.ComponentRecord
+class Joomla.CMS.Session.Session
+IteratorAggregate <|.. Joomla.CMS.Session.Session
+class Joomla.CMS.Session.Exception.UnsupportedStorageException
+RuntimeException <|-- Joomla.CMS.Session.Exception.UnsupportedStorageException
+class Joomla.CMS.Access.Access
+class Joomla.CMS.Access.Exception.NotAllowed
+RuntimeException <|-- Joomla.CMS.Access.Exception.NotAllowed
+class Joomla.CMS.Access.Wrapper.Access
+class Joomla.CMS.Access.Rule
+class Joomla.CMS.Access.Rules
+class Joomla.CMS.Editor.Editor
+JObject <|-- Joomla.CMS.Editor.Editor
+class Joomla.CMS.Exception.ExceptionHandler
+class Joomla.CMS.Profiler.Profiler
+class Joomla.CMS.User.User
+JObject <|-- Joomla.CMS.User.User
+abstract class Joomla.CMS.User.UserHelper
+class Joomla.CMS.User.UserWrapper
+class Joomla.CMS.Installer.Installer
+JAdapter <|-- Joomla.CMS.Installer.Installer
+class Joomla.CMS.Installer.InstallerScript
+class Joomla.CMS.Installer.Manifest.PackageManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.PackageManifest
+class Joomla.CMS.Installer.Manifest.LibraryManifest
+Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.LibraryManifest
+class Joomla.CMS.Installer.InstallerExtension
+JObject <|-- Joomla.CMS.Installer.InstallerExtension
+abstract class Joomla.CMS.Installer.Manifest
+class Joomla.CMS.Installer.Adapter.TemplateAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.TemplateAdapter
+class Joomla.CMS.Installer.Adapter.LanguageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LanguageAdapter
+class Joomla.CMS.Installer.Adapter.PluginAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PluginAdapter
+class Joomla.CMS.Installer.Adapter.PackageAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.PackageAdapter
+class Joomla.CMS.Installer.Adapter.ModuleAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ModuleAdapter
+class Joomla.CMS.Installer.Adapter.LibraryAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.LibraryAdapter
+class Joomla.CMS.Installer.Adapter.ComponentAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.ComponentAdapter
+class Joomla.CMS.Installer.Adapter.FileAdapter
+Joomla.CMS.Installer.Adapter.InstallerAdapter <|-- Joomla.CMS.Installer.Adapter.FileAdapter
+abstract class Joomla.CMS.Installer.InstallerAdapter
+JAdapterInstance <|-- Joomla.CMS.Installer.InstallerAdapter
+abstract class Joomla.CMS.Installer.InstallerHelper
+class Joomla.CMS.Menu.MenuHelper
+class Joomla.CMS.Menu.MenuItem
+stdClass <|-- Joomla.CMS.Menu.MenuItem
+class Joomla.CMS.Menu.Tree
+class Joomla.CMS.Menu.SiteMenu
+Joomla.CMS.Menu.AbstractMenu <|-- Joomla.CMS.Menu.SiteMenu
+class Joomla.CMS.Menu.AbstractMenu
+class Joomla.CMS.Menu.AdministratorMenu
+Joomla.CMS.Menu.AbstractMenu <|-- Joomla.CMS.Menu.AdministratorMenu
+class Joomla.CMS.Menu.Node
+class Joomla.CMS.Menu.Node.Container
+Joomla.CMS.Menu.Node.Heading <|-- Joomla.CMS.Menu.Node.Container
+class Joomla.CMS.Menu.Node.Component
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Component
+class Joomla.CMS.Menu.Node.Heading
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Heading
+class Joomla.CMS.Menu.Node.Separator
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Separator
+class Joomla.CMS.Menu.Node.Url
+Joomla.CMS.Menu.Node.Node <|-- Joomla.CMS.Menu.Node.Url
+interface Joomla.CMS.Crypt.CipherInterface
+class Joomla.CMS.Crypt.Crypt
+class Joomla.CMS.Crypt.Password.SimpleCryptPassword
+Joomla.CMS.Crypt.Password.CryptPassword <|.. Joomla.CMS.Crypt.Password.SimpleCryptPassword
+class Joomla.CMS.Crypt.Key
+abstract class Joomla.CMS.Crypt.Cipher.McryptCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.McryptCipher
+class Joomla.CMS.Crypt.Cipher.BlowfishCipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.BlowfishCipher
+class Joomla.CMS.Crypt.Cipher.CryptoCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.CryptoCipher
+class Joomla.CMS.Crypt.Cipher.SimpleCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.SimpleCipher
+class Joomla.CMS.Crypt.Cipher.TripleDesCipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.TripleDesCipher
+class Joomla.CMS.Crypt.Cipher.Rijndael256Cipher
+Joomla.CMS.Crypt.Cipher.McryptCipher <|-- Joomla.CMS.Crypt.Cipher.Rijndael256Cipher
+class Joomla.CMS.Crypt.Cipher.SodiumCipher
+Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.SodiumCipher
+interface Joomla.CMS.Crypt.CryptPassword
+class Joomla.CMS.Version
+class Joomla.CMS.Date.Date
+DateTime <|-- Joomla.CMS.Date.Date
+class Joomla.CMS.Captcha.Captcha
+JObject <|-- Joomla.CMS.Captcha.Captcha
+class Joomla.CMS.Filter.Wrapper.OutputFilterWrapper
+class Joomla.CMS.Filter.InputFilter
+Joomla.CMS.Filter.BaseInputFilter <|-- Joomla.CMS.Filter.InputFilter
+class Joomla.CMS.Filter.OutputFilter
+Joomla.CMS.Filter.BaseOutputFilter <|-- Joomla.CMS.Filter.OutputFilter
+abstract class Joomla.CMS.MVC.Model.BaseDatabaseModel
+JObject <|-- Joomla.CMS.MVC.Model.BaseDatabaseModel
+class Joomla.CMS.MVC.Model.ListModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ListModel
+abstract class Joomla.CMS.MVC.Model.FormModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.FormModel
+abstract class Joomla.CMS.MVC.Model.ItemModel
+Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ItemModel
+abstract class Joomla.CMS.MVC.Model.AdminModel
+Joomla.CMS.MVC.Model.FormModel <|-- Joomla.CMS.MVC.Model.AdminModel
+class Joomla.CMS.MVC.Controller.FormController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.FormController
+class Joomla.CMS.MVC.Controller.AdminController
+Joomla.CMS.MVC.Controller.BaseController <|-- Joomla.CMS.MVC.Controller.AdminController
+class Joomla.CMS.MVC.Controller.BaseController
+JObject <|-- Joomla.CMS.MVC.Controller.BaseController
+class Joomla.CMS.MVC.View.CategoryView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryView
+class Joomla.CMS.MVC.View.CategoriesView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoriesView
+class Joomla.CMS.MVC.View.HtmlView
+JObject <|-- Joomla.CMS.MVC.View.HtmlView
+class Joomla.CMS.MVC.View.CategoryFeedView
+Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoryFeedView
+class Joomla.CMS.Object.CMSObject
+class Joomla.CMS.Categories.Categories
+class Joomla.CMS.Categories.CategoryNode
+JObject <|-- Joomla.CMS.Categories.CategoryNode
+interface Joomla.CMS.Association.AssociationExtensionInterface
+abstract class Joomla.CMS.Association.AssociationExtensionHelper
+Joomla.CMS.Association.AssociationExtensionInterface <|.. Joomla.CMS.Association.AssociationExtensionHelper
+class Joomla.CMS.Router.Router
+class Joomla.CMS.Router.Exception.RouteNotFoundException
+InvalidArgumentException <|-- Joomla.CMS.Router.Exception.RouteNotFoundException
+class Joomla.CMS.Router.SiteRouter
+Joomla.CMS.Router.Router <|-- Joomla.CMS.Router.SiteRouter
+class Joomla.CMS.Router.AdministratorRouter
+Joomla.CMS.Router.Router <|-- Joomla.CMS.Router.AdministratorRouter
+class Joomla.CMS.Router.Route
+abstract class Joomla.CMS.Table.Observer.AbstractObserver
+JObserverInterface <|.. Joomla.CMS.Table.Observer.AbstractObserver
+class Joomla.CMS.Table.Observer.ContentHistory
+Joomla.CMS.Table.Observer.AbstractObserver <|-- Joomla.CMS.Table.Observer.ContentHistory
+class Joomla.CMS.Table.Observer.Tags
+Joomla.CMS.Table.Observer.AbstractObserver <|-- Joomla.CMS.Table.Observer.Tags
+class Joomla.CMS.Table.UpdateSite
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.UpdateSite
+class Joomla.CMS.Table.ViewLevel
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ViewLevel
+class Joomla.CMS.Table.User
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.User
+class Joomla.CMS.Table.Ucm
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Ucm
+class Joomla.CMS.Table.ContentType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentType
+abstract class Joomla.CMS.Table.Table
+JObject <|-- Joomla.CMS.Table.Table
+JObservableInterface <|.. Joomla.CMS.Table.Table
+class Joomla.CMS.Table.Category
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Category
+class Joomla.CMS.Table.Usergroup
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Usergroup
+class Joomla.CMS.Table.CoreContent
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.CoreContent
+interface Joomla.CMS.Table.TableInterface
+class Joomla.CMS.Table.Module
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Module
+class Joomla.CMS.Table.Language
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Language
+class Joomla.CMS.Table.ContentHistory
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.ContentHistory
+class Joomla.CMS.Table.MenuType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.MenuType
+class Joomla.CMS.Table.Asset
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Asset
+class Joomla.CMS.Table.Menu
+Joomla.CMS.Table.Nested <|-- Joomla.CMS.Table.Menu
+class Joomla.CMS.Table.Update
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Update
+class Joomla.CMS.Table.Extension
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Extension
+class Joomla.CMS.Table.Nested
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Nested
+class Joomla.CMS.Table.Content
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Content
+abstract class Joomla.CMS.String.PunycodeHelper
+class Joomla.CMS.Response.JsonResponse
+class Joomla.CMS.Http.Wrapper.FactoryWrapper
+class Joomla.CMS.Http.Transport.SocketTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.SocketTransport
+class Joomla.CMS.Http.Transport.StreamTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.StreamTransport
+class Joomla.CMS.Http.Transport.CurlTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.CurlTransport
+class Joomla.CMS.Http.HttpFactory
+interface Joomla.CMS.Http.TransportInterface
+class Joomla.CMS.Http.Response
+class Joomla.CMS.Http.Http
+class Joomla.CMS.UCM.UCMBase
+Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMBase
+interface Joomla.CMS.UCM.UCM
+class Joomla.CMS.UCM.UCMContent
+Joomla.CMS.UCM.UCMBase <|-- Joomla.CMS.UCM.UCMContent
+class Joomla.CMS.UCM.UCMType
+Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMType
+class Joomla.CMS.Pathway.Pathway
+class Joomla.CMS.Pathway.SitePathway
+Joomla.CMS.Pathway.Pathway <|-- Joomla.CMS.Pathway.SitePathway
+abstract class Joomla.CMS.HTML.HTMLHelper
+class Joomla.CMS.Microdata.Microdata
+class Joomla.CMS.Input.Cookie
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Cookie
+class Joomla.CMS.Input.Input
+Joomla.Input.Input <|-- Joomla.CMS.Input.Input
+class Joomla.CMS.Input.Files
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Files
+class Joomla.CMS.Input.Json
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Json
+class Joomla.CMS.Input.Cli
+Joomla.CMS.Input.Input <|-- Joomla.CMS.Input.Cli
+class Joomla.CMS.Language.Multilanguage
+class Joomla.CMS.Language.Text
+class Joomla.CMS.Language.Wrapper.LanguageHelperWrapper
+class Joomla.CMS.Language.Wrapper.JTextWrapper
+class Joomla.CMS.Language.Wrapper.TransliterateWrapper
+class Joomla.CMS.Language.Associations
+class Joomla.CMS.Language.Transliterate
+class Joomla.CMS.Language.Language
+class Joomla.CMS.Language.LanguageHelper
+abstract class Joomla.CMS.Language.LanguageStemmer
+class Joomla.CMS.Language.Stemmer.Porteren
+Joomla.CMS.Language.Stemmer.LanguageStemmer <|-- Joomla.CMS.Language.Stemmer.Porteren
+class Joomla.CMS.Schema.ChangeSet
+abstract class Joomla.CMS.Schema.ChangeItem
+class Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
+class Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+class Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
+abstract class Joomla.CMS.Toolbar.ToolbarButton
+class Joomla.CMS.Toolbar.Toolbar
+class Joomla.CMS.Toolbar.Button.PopupButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.PopupButton
+class Joomla.CMS.Toolbar.Button.CustomButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.CustomButton
+class Joomla.CMS.Toolbar.Button.ConfirmButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.ConfirmButton
+class Joomla.CMS.Toolbar.Button.LinkButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.LinkButton
+class Joomla.CMS.Toolbar.Button.HelpButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.HelpButton
+class Joomla.CMS.Toolbar.Button.SeparatorButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SeparatorButton
+class Joomla.CMS.Toolbar.Button.SliderButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.SliderButton
+class Joomla.CMS.Toolbar.Button.StandardButton
+Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.StandardButton
+class Joomla.CMS.Pagination.PaginationObject
+class Joomla.CMS.Pagination.Pagination
+class Joomla.CMS.Client.ClientWrapper
+class Joomla.CMS.Client.FtpClient
+class Joomla.CMS.Client.ClientHelper
+class Joomla.CMS.Log.LogEntry
+class Joomla.CMS.Log.DelegatingPsrLogger
+Joomla.CMS.Log.AbstractLogger <|-- Joomla.CMS.Log.DelegatingPsrLogger
+class Joomla.CMS.Log.Log
+class Joomla.CMS.Log.Logger.DatabaseLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.DatabaseLogger
+class Joomla.CMS.Log.Logger.CallbackLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.CallbackLogger
+class Joomla.CMS.Log.Logger.EchoLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.EchoLogger
+class Joomla.CMS.Log.Logger.W3cLogger
+Joomla.CMS.Log.Logger.FormattedtextLogger <|-- Joomla.CMS.Log.Logger.W3cLogger
+class Joomla.CMS.Log.Logger.FormattedtextLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.FormattedtextLogger
+class Joomla.CMS.Log.Logger.SyslogLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.SyslogLogger
+class Joomla.CMS.Log.Logger.MessagequeueLogger
+Joomla.CMS.Log.Logger.Logger <|-- Joomla.CMS.Log.Logger.MessagequeueLogger
+abstract class Joomla.CMS.Log.Logger
+class Joomla.CMS.Document.RawDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.RawDocument
+class Joomla.CMS.Document.Feed.FeedImage
+class Joomla.CMS.Document.Feed.FeedEnclosure
+class Joomla.CMS.Document.Feed.FeedItem
+class Joomla.CMS.Document.Opensearch.OpensearchImage
+class Joomla.CMS.Document.Opensearch.OpensearchUrl
+class Joomla.CMS.Document.OpensearchDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.OpensearchDocument
+class Joomla.CMS.Document.HtmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.HtmlDocument
+class Joomla.CMS.Document.ImageDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ImageDocument
+class Joomla.CMS.Document.JsonDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.JsonDocument
+class Joomla.CMS.Document.XmlDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.XmlDocument
+class Joomla.CMS.Document.FeedDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.FeedDocument
+class Joomla.CMS.Document.Document
+class Joomla.CMS.Document.DocumentRenderer
+class Joomla.CMS.Document.Renderer.Feed.RssRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.RssRenderer
+class Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.AtomRenderer
+class Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModulesRenderer
+class Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ComponentRenderer
+class Joomla.CMS.Document.Renderer.Html.HeadRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.HeadRenderer
+class Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.ModuleRenderer
+class Joomla.CMS.Document.Renderer.Html.MessageRenderer
+Joomla.CMS.Document.Renderer.Html.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Html.MessageRenderer
+class Joomla.CMS.Document.ErrorDocument
+Joomla.CMS.Document.Document <|-- Joomla.CMS.Document.ErrorDocument
+abstract class Joomla.CMS.Plugin.CMSPlugin
+JEvent <|-- Joomla.CMS.Plugin.CMSPlugin
+abstract class Joomla.CMS.Plugin.PluginHelper
+class Joomla.CMS.Authentication.Authentication
+JObject <|-- Joomla.CMS.Authentication.Authentication
+class Joomla.CMS.Authentication.AuthenticationResponse
+class Joomla.CMS.Extension.ExtensionHelper
+class Joomla.CMS.Mail.Mail
+PHPMailer <|-- Joomla.CMS.Mail.Mail
+abstract class Joomla.CMS.Mail.MailHelper
+class Joomla.CMS.Mail.MailWrapper
+class Joomla.CMS.Environment.Browser
+class Joomla.CMS.Image.Image
+Joomla.Image.Image <|-- Joomla.CMS.Image.Image
+abstract class Joomla.CMS.Image.ImageFilter
+Joomla.Image.ImageFilter <|-- Joomla.CMS.Image.ImageFilter
+class Joomla.CMS.Help.Help
+class Joomla.CMS.Form.Field.EditorField
+JFormFieldTextarea <|-- Joomla.CMS.Form.Field.EditorField
+class Joomla.CMS.Form.Field.ModuletagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ModuletagField
+class Joomla.CMS.Form.Field.LimitboxField
+JFormFieldList <|-- Joomla.CMS.Form.Field.LimitboxField
+class Joomla.CMS.Form.Field.StatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.StatusField
+class Joomla.CMS.Form.Field.MenuitemField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuitemField
+class Joomla.CMS.Form.Field.UseractiveField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.UseractiveField
+class Joomla.CMS.Form.Field.OrderingField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.OrderingField
+class Joomla.CMS.Form.Field.HelpsiteField
+JFormFieldList <|-- Joomla.CMS.Form.Field.HelpsiteField
+class Joomla.CMS.Form.Field.UserstateField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.UserstateField
+class Joomla.CMS.Form.Field.LastvisitdaterangeField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.LastvisitdaterangeField
+class Joomla.CMS.Form.Field.MenuField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuField
+class Joomla.CMS.Form.Field.ChromestyleField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.ChromestyleField
+class Joomla.CMS.Form.Field.RegistrationdaterangeField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.RegistrationdaterangeField
+class Joomla.CMS.Form.Field.ContenthistoryField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ContenthistoryField
+class Joomla.CMS.Form.Field.HeadertagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.HeadertagField
+class Joomla.CMS.Form.Field.MediaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.MediaField
+class Joomla.CMS.Form.Field.PluginstatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.PluginstatusField
+class Joomla.CMS.Form.Field.ModulepositionField
+JFormFieldText <|-- Joomla.CMS.Form.Field.ModulepositionField
+class Joomla.CMS.Form.Field.FrontendlanguageField
+JFormFieldList <|-- Joomla.CMS.Form.Field.FrontendlanguageField
+class Joomla.CMS.Form.Field.ContentlanguageField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ContentlanguageField
+class Joomla.CMS.Form.Field.UsergrouplistField
+JFormFieldList <|-- Joomla.CMS.Form.Field.UsergrouplistField
+class Joomla.CMS.Form.Field.UserField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.UserField
+class Joomla.CMS.Form.Field.AuthorField
+JFormFieldList <|-- Joomla.CMS.Form.Field.AuthorField
+class Joomla.CMS.Form.Field.TemplatestyleField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.TemplatestyleField
+class Joomla.CMS.Form.Field.CaptchaField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.CaptchaField
+class Joomla.CMS.Form.Field.ContenttypeField
+JFormFieldList <|-- Joomla.CMS.Form.Field.ContenttypeField
+class Joomla.CMS.Form.Field.ModuleorderField
+Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ModuleorderField
+class Joomla.CMS.Form.Field.RedirectStatusField
+JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.RedirectStatusField
+class Joomla.CMS.Form.Field.TagField
+JFormFieldList <|-- Joomla.CMS.Form.Field.TagField
+class Joomla.CMS.Form.FormWrapper
+class Joomla.CMS.Form.FormHelper
+class Joomla.CMS.Form.Rule.UrlRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UrlRule
+class Joomla.CMS.Form.Rule.OptionsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.OptionsRule
+class Joomla.CMS.Form.Rule.NumberRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NumberRule
+class Joomla.CMS.Form.Rule.TelRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.TelRule
+class Joomla.CMS.Form.Rule.UsernameRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UsernameRule
+class Joomla.CMS.Form.Rule.ColorRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.ColorRule
+class Joomla.CMS.Form.Rule.PasswordRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.PasswordRule
+class Joomla.CMS.Form.Rule.CalendarRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CalendarRule
+class Joomla.CMS.Form.Rule.NotequalsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NotequalsRule
+class Joomla.CMS.Form.Rule.EmailRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EmailRule
+class Joomla.CMS.Form.Rule.EqualsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EqualsRule
+class Joomla.CMS.Form.Rule.BooleanRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.BooleanRule
+class Joomla.CMS.Form.Rule.CaptchaRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CaptchaRule
+class Joomla.CMS.Form.Rule.RulesRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.RulesRule
+class Joomla.CMS.Form.FormRule
+abstract class Joomla.CMS.Form.FormField
+class Joomla.CMS.Form.Form
+class SimplePie_Autoloader
+class SimplePie
+class SimplePie_Item
+class SimplePie_Cache_Memcache
+SimplePie_Cache_Base <|.. SimplePie_Cache_Memcache
+abstract class SimplePie_Cache_DB
+SimplePie_Cache_Base <|.. SimplePie_Cache_DB
+class SimplePie_Cache_File
+SimplePie_Cache_Base <|.. SimplePie_Cache_File
+interface SimplePie_Cache_Base
+class SimplePie_Cache_MySQL
+SimplePie_Cache_DB <|-- SimplePie_Cache_MySQL
+class SimplePie_Rating
+class SimplePie_Exception
+Exception <|-- SimplePie_Exception
+class SimplePie_Copyright
+class SimplePie_Locator
+class SimplePie_Category
+class SimplePie_IRI
+class SimplePie_Parse_Date
+class SimplePie_Source
+class SimplePie_File
+class SimplePie_Credit
+class SimplePie_Registry
+class SimplePie_Author
+class SimplePie_HTTP_Parser
+class SimplePie_Misc
+class SimplePie_Sanitize
+class SimplePie_Enclosure
+class SimplePie_Cache
+class SimplePie_Restriction
+class SimplePie_Caption
+class SimplePie_Content_Type_Sniffer
+class SimplePie_Core
+SimplePie <|-- SimplePie_Core
+class SimplePie_Decode_HTML_Entities
+class SimplePie_XML_Declaration_Parser
+class SimplePie_gzdecode
+class SimplePie_Net_IPv6
+class = array('').SimplePie_Parser
+class idna_convert
+class Net_IDNA_php4
+idna_convert <|-- Net_IDNA_php4
+interface Psr.Log.LoggerInterface
+interface Psr.Log.LoggerAwareInterface
+class Psr.Log.InvalidArgumentException
+InvalidArgumentException <|-- Psr.Log.InvalidArgumentException
+abstract class Psr.Log.AbstractLogger
+Psr.Log.LoggerInterface <|.. Psr.Log.AbstractLogger
+class Psr.Log.LogLevel
+trait Psr.Log.LoggerAwareTrait
+trait Psr.Log.LoggerTrait
+class Psr.Log.NullLogger
+Psr.Log.AbstractLogger <|-- Psr.Log.NullLogger
+class Symfony.Component.Yaml.Dumper
+class Symfony.Component.Yaml.Exception.DumpException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.DumpException
+class Symfony.Component.Yaml.Exception.RuntimeException
+RuntimeException <|-- Symfony.Component.Yaml.Exception.RuntimeException
+Symfony.Component.Yaml.Exception.ExceptionInterface <|.. Symfony.Component.Yaml.Exception.RuntimeException
+class Symfony.Component.Yaml.Exception.ParseException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.ParseException
+interface Symfony.Component.Yaml.Exception.ExceptionInterface
+class Symfony.Component.Yaml.Escaper
+class Symfony.Component.Yaml.Inline
+class Symfony.Component.Yaml.Unescaper
+class Symfony.Component.Yaml.Yaml
+class Symfony.Component.Yaml.Parser
+class Symfony.Polyfill.Php55.Php55
+class Symfony.Polyfill.Php55.Php55ArrayColumn
+class Symfony.Polyfill.Util.BinaryNoFuncOverload
+class Symfony.Polyfill.Util.BinaryOnFuncOverload
+class Symfony.Polyfill.Util.Binary
+Symfony.Polyfill.Util.BinaryOnFuncOverload <|-- Symfony.Polyfill.Util.Binary
+Symfony.Polyfill.Util.BinaryNoFuncOverload <|-- Symfony.Polyfill.Util.Binary
+class Symfony.Polyfill.Php56.Php56
+class Composer.Autoload.ComposerStaticInit205c915b9c7d3e718e7c95793ee67ffe
+class ComposerAutoloaderInit205c915b9c7d3e718e7c95793ee67ffe
+class Composer.Autoload.ClassLoader
+class Joomla.Filter.InputFilter
+class Joomla.Filter.OutputFilter
+class Joomla.DI.Container
+interface Joomla.DI.ServiceProviderInterface
+interface Joomla.DI.ContainerAwareInterface
+trait Joomla.DI.ContainerAwareTrait
+class Joomla.DI.Exception.DependencyResolutionException
+Exception <|-- Joomla.DI.Exception.DependencyResolutionException
+class Joomla.Utilities.ArrayHelper
+abstract class Joomla.String.StringHelper
+class Joomla.String.Inflector
+abstract class Joomla.String.String
+Joomla.String.StringHelper <|-- Joomla.String.String
+abstract class Joomla.String.Normalise
+class Joomla.Input.Cookie
+Joomla.Input.Input <|-- Joomla.Input.Cookie
+class Joomla.Input.Input
+Serializable <|.. Joomla.Input.Input
+class Joomla.Input.Files
+Joomla.Input.Input <|-- Joomla.Input.Files
+class Joomla.Input.Json
+Joomla.Input.Input <|-- Joomla.Input.Json
+class Joomla.Input.Cli
+Joomla.Input.Input <|-- Joomla.Input.Cli
+class Joomla.Session.Session
+IteratorAggregate <|.. Joomla.Session.Session
+abstract class Joomla.Session.Storage
+class Joomla.Session.Storage.Database
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Database
+class Joomla.Session.Storage.Memcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcache
+class Joomla.Session.Storage.Memcached
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcached
+class Joomla.Session.Storage.Apc
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Apc
+class Joomla.Session.Storage.None
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.None
+class Joomla.Session.Storage.Wincache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Wincache
+class Joomla.Session.Storage.Xcache
+Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Xcache
+class Joomla.Archive.Gzip
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Gzip
+interface Joomla.Archive.ExtractableInterface
+class Joomla.Archive.Archive
+class Joomla.Archive.Zip
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Zip
+class Joomla.Archive.Bzip2
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Bzip2
+class Joomla.Archive.Tar
+Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Tar
+class Joomla.Image.Filter.Negate
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Negate
+class Joomla.Image.Filter.Emboss
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Emboss
+class Joomla.Image.Filter.Backgroundfill
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Backgroundfill
+class Joomla.Image.Filter.Edgedetect
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Edgedetect
+class Joomla.Image.Filter.Contrast
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Contrast
+class Joomla.Image.Filter.Smooth
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Smooth
+class Joomla.Image.Filter.Brightness
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Brightness
+class Joomla.Image.Filter.Sketchy
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Sketchy
+class Joomla.Image.Filter.Grayscale
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Grayscale
+class Joomla.Image.Image
+Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.Image
+abstract class Joomla.Image.ImageFilter
+Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.ImageFilter
+abstract class Joomla.Application.AbstractCliApplication
+Joomla.Application.AbstractApplication <|-- Joomla.Application.AbstractCliApplication
+class Joomla.Application.Web.WebClient
+abstract class Joomla.Application.AbstractDaemonApplication
+Joomla.Application.AbstractCliApplication <|-- Joomla.Application.AbstractDaemonApplication
+Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractDaemonApplication
+abstract class Joomla.Application.AbstractApplication
+Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractApplication
+class Joomla.Application.Cli.ColorStyle
+class Joomla.Application.Cli.ColorProcessor
+Joomla.Application.Cli.RealColorProcessor <|-- Joomla.Application.Cli.ColorProcessor
+class Joomla.Application.Cli.CliInput
+interface Joomla.Application.Cli.Output.Processor.ProcessorInterface
+class Joomla.Application.Cli.Output.Processor.ColorProcessor
+Joomla.Application.Cli.Output.Processor.ProcessorInterface <|.. Joomla.Application.Cli.Output.Processor.ColorProcessor
+class Joomla.Application.Cli.Output.Xml
+Joomla.Application.Cli.Output.CliOutput <|-- Joomla.Application.Cli.Output.Xml
+class Joomla.Application.Cli.Output.Stdout
+Joomla.Application.Cli.Output.CliOutput <|-- Joomla.Application.Cli.Output.Stdout
+abstract class Joomla.Application.Cli.CliOutput
+abstract class Joomla.Application.AbstractWebApplication
+Joomla.Application.AbstractApplication <|-- Joomla.Application.AbstractWebApplication
+class Joomla.Ldap.LdapClient
+class Joomla.Filesystem.Support.StringController
+abstract class Joomla.Filesystem.Folder
+class Joomla.Filesystem.Clients.FtpClient
+class Joomla.Filesystem.Exception.FilesystemException
+RuntimeException <|-- Joomla.Filesystem.Exception.FilesystemException
+class Joomla.Filesystem.Stream
+class Joomla.Filesystem.File
+class Joomla.Filesystem.Path
+class Joomla.Filesystem.Buffer
+class Joomla.Filesystem.Stream.StringWrapper
+class Joomla.Filesystem.Stream.String
+Joomla.Filesystem.Stream.StringWrapper <|-- Joomla.Filesystem.Stream.String
+class Joomla.Filesystem.Patcher
+class Joomla.Filesystem.Helper
+class Joomla.Uri.UriImmutable
+Joomla.Uri.AbstractUri <|-- Joomla.Uri.UriImmutable
+class Joomla.Uri.UriHelper
+interface Joomla.Uri.UriInterface
+class Joomla.Uri.Uri
+Joomla.Uri.AbstractUri <|-- Joomla.Uri.Uri
+abstract class Joomla.Uri.AbstractUri
+Joomla.Uri.UriInterface <|.. Joomla.Uri.AbstractUri
+class CallbackFilterIterator
+FilterIterator <|-- CallbackFilterIterator
+interface JsonSerializable
+class Joomla.Data.DataSet
+Joomla.Data.DumpableInterface <|.. Joomla.Data.DataSet
+interface Joomla.Data.DumpableInterface
+class Joomla.Data.DataObject
+Joomla.Data.DumpableInterface <|.. Joomla.Data.DataObject
+abstract class Joomla.Event.AbstractEvent
+Joomla.Event.EventInterface <|.. Joomla.Event.AbstractEvent
+interface Joomla.Event.DispatcherAwareInterface
+class Joomla.Event.Dispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.Dispatcher
+trait Joomla.Event.DispatcherAwareTrait
+class Joomla.Event.Event
+Joomla.Event.AbstractEvent <|-- Joomla.Event.Event
+interface Joomla.Event.DispatcherInterface
+class Joomla.Event.EventImmutable
+Joomla.Event.AbstractEvent <|-- Joomla.Event.EventImmutable
+interface Joomla.Event.EventInterface
+class Joomla.Event.ListenersPriorityQueue
+Joomla.Event.IteratorAggregate <|.. Joomla.Event.ListenersPriorityQueue
+class Joomla.Event.DelegatingDispatcher
+Joomla.Event.DispatcherInterface <|.. Joomla.Event.DelegatingDispatcher
+class Joomla.Event.Priority
+interface Joomla.Registry.FormatInterface
+class Joomla.Registry.Factory
+class Joomla.Registry.Registry
+JsonSerializable <|.. Joomla.Registry.Registry
+abstract class Joomla.Registry.AbstractRegistryFormat
+Joomla.Registry.FormatInterface <|.. Joomla.Registry.AbstractRegistryFormat
+class Joomla.Registry.Format.Php
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Php
+class Joomla.Registry.Format.Xml
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Xml
+class Joomla.Registry.Format.Json
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Json
+class Joomla.Registry.Format.Yaml
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Yaml
+class Joomla.Registry.Format.Ini
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Ini
+class Error
+Exception <|-- Error
+class TypeError
+Error <|-- TypeError
+Exception <|-- TypeError
+class ParagonIE_Sodium_Compat
+class ParagonIE_Sodium_File
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_File
+abstract class ParagonIE_Sodium_Crypto32
+class ParagonIE_Sodium_Core32_Int32
+class ParagonIE_Sodium_Core32_HChaCha20
+ParagonIE_Sodium_Core32_ChaCha20 <|-- ParagonIE_Sodium_Core32_HChaCha20
+class ParagonIE_Sodium_Core32_Int64
+abstract class ParagonIE_Sodium_Core32_XSalsa20
+ParagonIE_Sodium_Core32_HSalsa20 <|-- ParagonIE_Sodium_Core32_XSalsa20
+abstract class ParagonIE_Sodium_Core32_X25519
+ParagonIE_Sodium_Core32_Curve25519 <|-- ParagonIE_Sodium_Core32_X25519
+class ParagonIE_Sodium_Core32_ChaCha20_Ctx
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_ChaCha20_Ctx
+ArrayAccess <|.. ParagonIE_Sodium_Core32_ChaCha20_Ctx
+class ParagonIE_Sodium_Core32_ChaCha20_IetfCtx
+ParagonIE_Sodium_Core32_ChaCha20_Ctx <|-- ParagonIE_Sodium_Core32_ChaCha20_IetfCtx
+class ParagonIE_Sodium_Core32_XChaCha20
+ParagonIE_Sodium_Core32_HChaCha20 <|-- ParagonIE_Sodium_Core32_XChaCha20
+abstract class ParagonIE_Sodium_Core32_BLAKE2b
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core32_BLAKE2b
+class ParagonIE_Sodium_Core32_ChaCha20
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_ChaCha20
+abstract class ParagonIE_Sodium_Core32_Salsa20
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Salsa20
+class ParagonIE_Sodium_Core32_Poly1305_State
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Poly1305_State
+abstract class ParagonIE_Sodium_Core32_Poly1305
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Poly1305
+abstract class ParagonIE_Sodium_Core32_Curve25519
+ParagonIE_Sodium_Core32_Curve25519_H <|-- ParagonIE_Sodium_Core32_Curve25519
+abstract class ParagonIE_Sodium_Core32_Util
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core32_Util
+class ParagonIE_Sodium_Core32_SipHash
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_SipHash
+abstract class ParagonIE_Sodium_Core32_HSalsa20
+ParagonIE_Sodium_Core32_Salsa20 <|-- ParagonIE_Sodium_Core32_HSalsa20
+class ParagonIE_Sodium_Core32_Curve25519_H
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Curve25519_H
+class ParagonIE_Sodium_Core32_Curve25519_Fe
+ArrayAccess <|.. ParagonIE_Sodium_Core32_Curve25519_Fe
+class ParagonIE_Sodium_Core32_Curve25519_Ge_P1p1
+class ParagonIE_Sodium_Core32_Curve25519_Ge_Cached
+class ParagonIE_Sodium_Core32_Curve25519_Ge_P2
+class ParagonIE_Sodium_Core32_Curve25519_Ge_Precomp
+class ParagonIE_Sodium_Core32_Curve25519_Ge_P3
+abstract class ParagonIE_Sodium_Core32_Ed25519
+ParagonIE_Sodium_Core32_Curve25519 <|-- ParagonIE_Sodium_Core32_Ed25519
+class ParagonIE_Sodium_Core_HChaCha20
+ParagonIE_Sodium_Core_ChaCha20 <|-- ParagonIE_Sodium_Core_HChaCha20
+abstract class ParagonIE_Sodium_Core_X25519
+ParagonIE_Sodium_Core_Curve25519 <|-- ParagonIE_Sodium_Core_X25519
+abstract class ParagonIE_Sodium_Core_XSalsa20
+ParagonIE_Sodium_Core_HSalsa20 <|-- ParagonIE_Sodium_Core_XSalsa20
+class ParagonIE_Sodium_Core_ChaCha20_Ctx
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_ChaCha20_Ctx
+ArrayAccess <|.. ParagonIE_Sodium_Core_ChaCha20_Ctx
+class ParagonIE_Sodium_Core_ChaCha20_IetfCtx
+ParagonIE_Sodium_Core_ChaCha20_Ctx <|-- ParagonIE_Sodium_Core_ChaCha20_IetfCtx
+class ParagonIE_Sodium_Core_XChaCha20
+ParagonIE_Sodium_Core_HChaCha20 <|-- ParagonIE_Sodium_Core_XChaCha20
+abstract class ParagonIE_Sodium_Core_BLAKE2b
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_BLAKE2b
+class ParagonIE_Sodium_Core_ChaCha20
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_ChaCha20
+abstract class ParagonIE_Sodium_Core_Salsa20
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_Salsa20
+class ParagonIE_Sodium_Core_Poly1305_State
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_Poly1305_State
+abstract class ParagonIE_Sodium_Core_Poly1305
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_Poly1305
+abstract class ParagonIE_Sodium_Core_Curve25519
+ParagonIE_Sodium_Core_Curve25519_H <|-- ParagonIE_Sodium_Core_Curve25519
+abstract class ParagonIE_Sodium_Core_Util
+class ParagonIE_Sodium_Core_SipHash
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_SipHash
+abstract class ParagonIE_Sodium_Core_HSalsa20
+ParagonIE_Sodium_Core_Salsa20 <|-- ParagonIE_Sodium_Core_HSalsa20
+class ParagonIE_Sodium_Core_Curve25519_H
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_Curve25519_H
+class ParagonIE_Sodium_Core_Curve25519_Fe
+ArrayAccess <|.. ParagonIE_Sodium_Core_Curve25519_Fe
+class ParagonIE_Sodium_Core_Curve25519_Ge_P1p1
+class ParagonIE_Sodium_Core_Curve25519_Ge_Cached
+class ParagonIE_Sodium_Core_Curve25519_Ge_P2
+class ParagonIE_Sodium_Core_Curve25519_Ge_Precomp
+class ParagonIE_Sodium_Core_Curve25519_Ge_P3
+abstract class ParagonIE_Sodium_Core_Ed25519
+ParagonIE_Sodium_Core_Curve25519 <|-- ParagonIE_Sodium_Core_Ed25519
+abstract class ParagonIE_Sodium_Crypto
+class ParagonIE.Sodium.Compat
+ParagonIE_Sodium_Compat <|-- ParagonIE.Sodium.Compat
+class ParagonIE.Sodium.File
+ParagonIE_Sodium_File <|-- ParagonIE.Sodium.File
+class ParagonIE.Sodium.Core.HChaCha20
+ParagonIE_Sodium_Core_HChaCha20 <|-- ParagonIE.Sodium.Core.HChaCha20
+class ParagonIE.Sodium.Core.X25519
+ParagonIE_Sodium_Core_X25519 <|-- ParagonIE.Sodium.Core.X25519
+class ParagonIE.Sodium.Core.Xsalsa20
+ParagonIE_Sodium_Core_Xsalsa20 <|-- ParagonIE.Sodium.Core.Xsalsa20
+class ParagonIE.Sodium.Core.ChaCha20.Ctx
+ParagonIE_Sodium_Core_ChaCha20_Ctx <|-- ParagonIE.Sodium.Core.ChaCha20.Ctx
+class ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+ParagonIE_Sodium_Core_ChaCha20_IetfCtx <|-- ParagonIE.Sodium.Core.ChaCha20.IetfCtx
+class ParagonIE.Sodium.Core.XChaCha20
+ParagonIE_Sodium_Core_XChaCha20 <|-- ParagonIE.Sodium.Core.XChaCha20
+class ParagonIE.Sodium.Core.BLAKE2b
+ParagonIE_Sodium_Core_BLAKE2b <|-- ParagonIE.Sodium.Core.BLAKE2b
+class ParagonIE.Sodium.Core.ChaCha20
+ParagonIE_Sodium_Core_ChaCha20 <|-- ParagonIE.Sodium.Core.ChaCha20
+class ParagonIE.Sodium.Core.SipHash
+ParagonIE_Sodium_Core_Salsa20 <|-- ParagonIE.Sodium.Core.SipHash
+class ParagonIE.Sodium.Core.Poly1305.State
+ParagonIE_Sodium_Core_Poly1305_State <|-- ParagonIE.Sodium.Core.Poly1305.State
+class ParagonIE.Sodium.Core.Poly1305
+ParagonIE_Sodium_Core_Poly1305 <|-- ParagonIE.Sodium.Core.Poly1305
+class ParagonIE.Sodium.Core.Curve25519
+ParagonIE_Sodium_Core_Curve25519 <|-- ParagonIE.Sodium.Core.Curve25519
+class ParagonIE.Sodium.Core.Util
+ParagonIE_Sodium_Core_Util <|-- ParagonIE.Sodium.Core.Util
+ParagonIE_Sodium_Core_SipHash <|-- ParagonIE.Sodium.Core.SipHash
+class ParagonIE.Sodium.Core.HSalsa20
+ParagonIE_Sodium_Core_HSalsa20 <|-- ParagonIE.Sodium.Core.HSalsa20
+class ParagonIE.Sodium.Core.Curve25519.H
+ParagonIE_Sodium_Core_Curve25519_H <|-- ParagonIE.Sodium.Core.Curve25519.H
+class ParagonIE.Sodium.Core.Curve25519.Fe
+ParagonIE_Sodium_Core_Curve25519_Fe <|-- ParagonIE.Sodium.Core.Curve25519.Fe
+class ParagonIE.Sodium.Core.Curve25519.Ge.P1p1
+ParagonIE_Sodium_Core_Curve25519_Ge_P1p1 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P1p1
+class ParagonIE.Sodium.Core.Curve25519.Ge.Cached
+ParagonIE_Sodium_Core_Curve25519_Ge_Cached <|-- ParagonIE.Sodium.Core.Curve25519.Ge.Cached
+class ParagonIE.Sodium.Core.Curve25519.Ge.P2
+ParagonIE_Sodium_Core_Curve25519_Ge_P2 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P2
+class ParagonIE.Sodium.Core.Curve25519.Ge.Precomp
+ParagonIE_Sodium_Core_Curve25519_Ge_Precomp <|-- ParagonIE.Sodium.Core.Curve25519.Ge.Precomp
+class ParagonIE.Sodium.Core.Curve25519.Ge.P3
+ParagonIE_Sodium_Core_Curve25519_Ge_P3 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P3
+class ParagonIE.Sodium.Core.Ed25519
+ParagonIE_Sodium_Core_Ed25519 <|-- ParagonIE.Sodium.Core.Ed25519
+class ParagonIE.Sodium.Crypto
+ParagonIE_Sodium_Crypto <|-- ParagonIE.Sodium.Crypto
+class easyparse
+class tagparse
+easyparse <|-- tagparse
+class nodecounter
+class lessify
+lessc <|-- lessify
+class lessc
+class lessc_parser
+class lessc_formatter_classic
+class lessc_formatter_compressed
+lessc_formatter_classic <|-- lessc_formatter_compressed
+class lessc_formatter_lessjs
+lessc_formatter_classic <|-- lessc_formatter_lessjs
+class PHPMailer
+class phpmailerException
+Exception <|-- phpmailerException
+class EasyPeasyICS
+class ntlm_sasl_client_class
+class PHPMailerOAuthGoogle
+class SMTP
+class POP3
+class PHPMailerOAuth
+PHPMailer <|-- PHPMailerOAuth
+class uctc
+abstract class = trim($namespace, '..').JLoader
+class JException
+Exception <|-- JException
+class JSimplecrypt
+abstract class JError
+class JXMLElement
+SimpleXMLElement <|-- JXMLElement
+class JDispatcher
+JEventDispatcher <|-- JDispatcher
+class JSimplepieFactory
+class JFormFieldModulelayout
+JFormField <|-- JFormFieldModulelayout
+class JFormFieldCategory
+JFormFieldList <|-- JFormFieldCategory
+class JFormFieldComponentlayout
+JFormField <|-- JFormFieldComponentlayout
+class JRequest
+class LogException
+RuntimeException <|-- LogException
+class JDatabaseException
+RuntimeException <|-- JDatabaseException
+class JDatabaseSqlazure
+JDatabaseDriverSqlazure <|-- JDatabaseSqlazure
+class JDatabaseSqlsrv
+JDatabaseDriverSqlsrv <|-- JDatabaseSqlsrv
+class JDatabaseMysqli
+JDatabaseDriverMysqli <|-- JDatabaseMysqli
+class JDatabaseMysql
+JDatabaseDriverMysql <|-- JDatabaseMysql
+class JApplication
+BaseApplication <|-- JApplication
+class JTableSession
+JTable <|-- JTableSession
+class JResponse
+class JObservable
+JObject <|-- JObservable
+class JNode
+JObject <|-- JNode
+class JTree
+JObject <|-- JTree
+abstract class JObserver
+JObject <|-- JObserver
+class JLess
+lessc <|-- JLess
+class JLessFormatterJoomla
+lessc_formatter_classic <|-- JLessFormatterJoomla
+class JClassLoader
+abstract class JHtmlNumber
+abstract class JHtmlRules
+abstract class JHtmlContentLanguage
+abstract class JHtmlSelect
+abstract class JHtmlActionsDropdown
+abstract class JHtmlSliders
+abstract class JHtmlEmail
+abstract class JHtmlMenu
+abstract class JHtmlIcons
+abstract class JHtmlDate
+abstract class JHtmlSidebar
+abstract class JHtmlJquery
+abstract class JHtmlCategory
+abstract class JHtmlAccess
+abstract class JHtmlGrid
+abstract class JHtmlBootstrap
+abstract class JHtmlDropdown
+abstract class JHtmlLinks
+abstract class JHtmlForm
+abstract class JHtmlContent
+abstract class JHtmlUser
+abstract class JHtmlTabs
+abstract class JHtmlTag
+abstract class JHtmlJGrid
+abstract class JHtmlBehavior
+abstract class JHtmlSearchtools
+abstract class JHtmlString
+abstract class JHtmlTel
+abstract class JHtmlList
+abstract class JHtmlAdminLanguage
+abstract class JHtmlBatch
+abstract class JHtmlSortablelist
+abstract class JHtmlFormbehavior
+abstract class JHtmlDebug
+class FOFDownload
+interface FOFDownloadInterface
+class FOFDownloadAdapterFopen
+FOFDownloadAdapterAbstract <|-- FOFDownloadAdapterFopen
+FOFDownloadInterface <|.. FOFDownloadAdapterFopen
+class FOFDownloadAdapterCurl
+FOFDownloadAdapterAbstract <|-- FOFDownloadAdapterCurl
+FOFDownloadInterface <|.. FOFDownloadAdapterCurl
+abstract class FOFDownloadAdapterAbstract
+FOFDownloadInterface <|.. FOFDownloadAdapterAbstract
+class FOFModel
+FOFUtilsObject <|-- FOFModel
+class FOFModelDispatcherBehavior
+FOFUtilsObservableDispatcher <|-- FOFModelDispatcherBehavior
+class FOFModelFieldNumber
+FOFModelField <|-- FOFModelFieldNumber
+class FOFModelFieldBoolean
+FOFModelFieldNumber <|-- FOFModelFieldBoolean
+class FOFModelFieldDate
+FOFModelFieldText <|-- FOFModelFieldDate
+class FOFModelFieldText
+FOFModelField <|-- FOFModelFieldText
+abstract class FOFModelField
+class FOFModelBehaviorAccess
+FOFModelBehavior <|-- FOFModelBehaviorAccess
+class FOFModelBehaviorFilters
+FOFModelBehavior <|-- FOFModelBehaviorFilters
+class FOFModelBehaviorPrivate
+FOFModelBehavior <|-- FOFModelBehaviorPrivate
+class FOFModelBehaviorEnabled
+FOFModelBehavior <|-- FOFModelBehaviorEnabled
+class FOFModelBehaviorEmptynonzero
+FOFModelBehavior <|-- FOFModelBehaviorEmptynonzero
+class FOFModelBehaviorLanguage
+FOFModelBehavior <|-- FOFModelBehaviorLanguage
+abstract class FOFModelBehavior
+FOFUtilsObservableEvent <|-- FOFModelBehavior
+class FOFDispatcher
+FOFUtilsObject <|-- FOFDispatcher
+class FOFLess
+class FOFLessFormatterLessjs
+FOFLessFormatterClassic <|-- FOFLessFormatterLessjs
+class FOFLessFormatterCompressed
+FOFLessFormatterClassic <|-- FOFLessFormatterCompressed
+class FOFLessFormatterJoomla
+FOFLessFormatterClassic <|-- FOFLessFormatterJoomla
+class FOFLessFormatterClassic
+class FOFLessParser
+class FOFFormFieldModel
+FOFFormFieldList <|-- FOFFormFieldModel
+FOFFormField <|.. FOFFormFieldModel
+class FOFFormFieldSelectrow
+JFormField <|-- FOFFormFieldSelectrow
+FOFFormField <|.. FOFFormFieldSelectrow
+class FOFFormFieldGroupedlist
+JFormFieldGroupedList <|-- FOFFormFieldGroupedlist
+FOFFormField <|.. FOFFormFieldGroupedlist
+class FOFFormFieldImage
+FOFFormFieldMedia <|-- FOFFormFieldImage
+class FOFFormFieldRules
+JFormFieldRules <|-- FOFFormFieldRules
+FOFFormField <|.. FOFFormFieldRules
+class FOFFormFieldMedia
+JFormFieldMedia <|-- FOFFormFieldMedia
+FOFFormField <|.. FOFFormFieldMedia
+class FOFFormFieldCaptcha
+JFormFieldCaptcha <|-- FOFFormFieldCaptcha
+FOFFormField <|.. FOFFormFieldCaptcha
+class FOFFormFieldEmail
+JFormFieldEMail <|-- FOFFormFieldEmail
+FOFFormField <|.. FOFFormFieldEmail
+class FOFFormFieldInteger
+JFormFieldInteger <|-- FOFFormFieldInteger
+FOFFormField <|.. FOFFormFieldInteger
+class FOFFormFieldButton
+FOFFormFieldText <|-- FOFFormFieldButton
+FOFFormField <|.. FOFFormFieldButton
+class FOFFormFieldRadio
+JFormFieldRadio <|-- FOFFormFieldRadio
+FOFFormField <|.. FOFFormFieldRadio
+class FOFFormFieldText
+JFormFieldText <|-- FOFFormFieldText
+FOFFormField <|.. FOFFormFieldText
+class FOFFormFieldImagelist
+JFormFieldImageList <|-- FOFFormFieldImagelist
+FOFFormField <|.. FOFFormFieldImagelist
+class FOFFormFieldTextarea
+JFormFieldTextarea <|-- FOFFormFieldTextarea
+FOFFormField <|.. FOFFormFieldTextarea
+class FOFFormFieldEditor
+JFormFieldEditor <|-- FOFFormFieldEditor
+FOFFormField <|.. FOFFormFieldEditor
+class FOFFormFieldPassword
+JFormFieldPassword <|-- FOFFormFieldPassword
+FOFFormField <|.. FOFFormFieldPassword
+class FOFFormFieldTitle
+FOFFormFieldText <|-- FOFFormFieldTitle
+FOFFormField <|.. FOFFormFieldTitle
+class FOFFormFieldActions
+JFormFieldList <|-- FOFFormFieldActions
+FOFFormField <|.. FOFFormFieldActions
+class FOFFormFieldTimezone
+JFormFieldTimezone <|-- FOFFormFieldTimezone
+FOFFormField <|.. FOFFormFieldTimezone
+class FOFFormFieldUser
+JFormFieldUser <|-- FOFFormFieldUser
+FOFFormField <|.. FOFFormFieldUser
+class FOFFormFieldAccesslevel
+JFormFieldAccessLevel <|-- FOFFormFieldAccesslevel
+FOFFormField <|.. FOFFormFieldAccesslevel
+class FOFFormFieldRelation
+FOFFormFieldList <|-- FOFFormFieldRelation
+class FOFFormFieldGroupedbutton
+JFormFieldText <|-- FOFFormFieldGroupedbutton
+FOFFormField <|.. FOFFormFieldGroupedbutton
+class FOFFormFieldSessionhandler
+JFormFieldSessionHandler <|-- FOFFormFieldSessionhandler
+FOFFormField <|.. FOFFormFieldSessionhandler
+class FOFFormFieldTag
+JFormFieldTag <|-- FOFFormFieldTag
+FOFFormField <|.. FOFFormFieldTag
+class FOFFormFieldPublished
+JFormFieldList <|-- FOFFormFieldPublished
+FOFFormField <|.. FOFFormFieldPublished
+class FOFFormFieldLanguage
+JFormFieldLanguage <|-- FOFFormFieldLanguage
+FOFFormField <|.. FOFFormFieldLanguage
+class FOFFormFieldSpacer
+JFormFieldSpacer <|-- FOFFormFieldSpacer
+FOFFormField <|.. FOFFormFieldSpacer
+class FOFFormFieldComponents
+JFormFieldList <|-- FOFFormFieldComponents
+FOFFormField <|.. FOFFormFieldComponents
+class FOFFormFieldCheckboxes
+JFormFieldCheckboxes <|-- FOFFormFieldCheckboxes
+FOFFormField <|.. FOFFormFieldCheckboxes
+class FOFFormFieldCalendar
+JFormFieldCalendar <|-- FOFFormFieldCalendar
+FOFFormField <|.. FOFFormFieldCalendar
+class FOFFormFieldCheckbox
+JFormFieldCheckbox <|-- FOFFormFieldCheckbox
+FOFFormField <|.. FOFFormFieldCheckbox
+class FOFFormFieldSql
+JFormFieldSql <|-- FOFFormFieldSql
+FOFFormField <|.. FOFFormFieldSql
+class FOFFormFieldUrl
+JFormFieldUrl <|-- FOFFormFieldUrl
+FOFFormField <|.. FOFFormFieldUrl
+class FOFFormFieldUsergroup
+JFormFieldUsergroup <|-- FOFFormFieldUsergroup
+FOFFormField <|.. FOFFormFieldUsergroup
+class FOFFormFieldCachehandler
+JFormFieldCacheHandler <|-- FOFFormFieldCachehandler
+FOFFormField <|.. FOFFormFieldCachehandler
+class FOFFormFieldTel
+JFormFieldTel <|-- FOFFormFieldTel
+FOFFormField <|.. FOFFormFieldTel
+class FOFFormFieldList
+JFormFieldList <|-- FOFFormFieldList
+FOFFormField <|.. FOFFormFieldList
+class FOFFormFieldHidden
+JFormFieldHidden <|-- FOFFormFieldHidden
+FOFFormField <|.. FOFFormFieldHidden
+class FOFFormFieldOrdering
+JFormField <|-- FOFFormFieldOrdering
+FOFFormField <|.. FOFFormFieldOrdering
+class FOFFormFieldPlugins
+JFormFieldPlugins <|-- FOFFormFieldPlugins
+FOFFormField <|.. FOFFormFieldPlugins
+interface FOFFormField
+class FOFFormHeaderModel
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderModel
+class FOFFormHeaderFiltersearchable
+FOFFormHeaderFieldsearchable <|-- FOFFormHeaderFiltersearchable
+class FOFFormHeaderFilterselectable
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderFilterselectable
+class FOFFormHeaderFieldfilterable
+FOFFormHeaderFieldsearchable <|-- FOFFormHeaderFieldfilterable
+class FOFFormHeaderFieldselectable
+FOFFormHeaderField <|-- FOFFormHeaderFieldselectable
+class FOFFormHeaderFielddate
+FOFFormHeaderField <|-- FOFFormHeaderFielddate
+class FOFFormHeaderFilterdate
+FOFFormHeaderFielddate <|-- FOFFormHeaderFilterdate
+class FOFFormHeaderFieldsql
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderFieldsql
+class FOFFormHeaderField
+FOFFormHeader <|-- FOFFormHeaderField
+class FOFFormHeaderFieldsearchable
+FOFFormHeaderField <|-- FOFFormHeaderFieldsearchable
+class FOFFormHeaderFilterfilterable
+FOFFormHeaderFieldfilterable <|-- FOFFormHeaderFilterfilterable
+class FOFFormHeaderAccesslevel
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderAccesslevel
+class FOFFormHeaderPublished
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderPublished
+class FOFFormHeaderLanguage
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderLanguage
+class FOFFormHeaderFiltersql
+FOFFormHeaderFieldsql <|-- FOFFormHeaderFiltersql
+class FOFFormHeaderRowselect
+FOFFormHeader <|-- FOFFormHeaderRowselect
+class FOFFormHeaderOrdering
+FOFFormHeader <|-- FOFFormHeaderOrdering
+class FOFFormHelper
+JFormHelper <|-- FOFFormHelper
+class FOFForm
+JForm <|-- FOFForm
+abstract class FOFFormHeader
+class FOFToolbar
+class if(!class_exists('JToolbarHelper'))
+abstract class FOFStringUtils
+class FOFUtilsFilescheck
+abstract class FOFUtilsArray
+class FOFUtilsObject
+class FOFUtilsIniParser
+class FOFUtilsPhpfunc
+class FOFUtilsConfigHelper
+abstract class FOFUtilsIp
+class FOFUtilsCacheCleaner
+class FOFUtilsObservableDispatcher
+FOFUtilsObject <|-- FOFUtilsObservableDispatcher
+abstract class FOFUtilsObservableEvent
+FOFUtilsObject <|-- FOFUtilsObservableEvent
+class FOFUtilsTimer
+class FOFUtilsUpdateCollection
+class FOFUtilsUpdate
+FOFModel <|-- FOFUtilsUpdate
+class FOFUtilsUpdateExtension
+class FOFUtilsUpdateJoomla
+FOFUtilsUpdateExtension <|-- FOFUtilsUpdateJoomla
+abstract class FOFUtilsInstallscript
+abstract class FOFRenderAbstract
+class FOFRenderJoomla3
+FOFRenderStrapper <|-- FOFRenderJoomla3
+class FOFRenderJoomla
+FOFRenderAbstract <|-- FOFRenderJoomla
+class FOFRenderStrapper
+FOFRenderAbstract <|-- FOFRenderStrapper
+class FOFInput
+JInput <|-- FOFInput
+class JInput
+Serializable <|.. JInput
+class JInputJSON
+JInput <|-- JInputJSON
+class JInputCookie
+JInput <|-- JInputCookie
+class JInputFiles
+JInput <|-- JInputFiles
+class JInputCli
+JInput <|-- JInputCli
+class FOFDatabaseIteratorSqlsrv
+FOFDatabaseIterator <|-- FOFDatabaseIteratorSqlsrv
+class FOFDatabaseIteratorSqlite
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorSqlite
+class FOFDatabaseIteratorMysqli
+FOFDatabaseIterator <|-- FOFDatabaseIteratorMysqli
+class FOFDatabaseIteratorPostgresql
+FOFDatabaseIterator <|-- FOFDatabaseIteratorPostgresql
+class FOFDatabaseIteratorMysql
+FOFDatabaseIterator <|-- FOFDatabaseIteratorMysql
+class FOFDatabaseIteratorAzure
+FOFDatabaseIteratorSqlsrv <|-- FOFDatabaseIteratorAzure
+class FOFDatabaseIteratorPdomysql
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorPdomysql
+class FOFDatabaseIteratorPdo
+FOFDatabaseIterator <|-- FOFDatabaseIteratorPdo
+class FOFDatabaseIteratorOracle
+FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorOracle
+interface JDatabaseInterface
+interface FOFDatabaseInterface
+JDatabaseInterface <|-- FOFDatabaseInterface
+abstract class FOFDatabaseQuery
+abstract class FOFDatabaseDriver
+FOFDatabase <|-- FOFDatabaseDriver
+FOFDatabaseInterface <|.. FOFDatabaseDriver
+abstract class FOFDatabase
+class FOFDatabaseInstaller
+abstract class FOFDatabaseIterator
+Iterator <|.. FOFDatabaseIterator
+class FOFDatabaseDriverSqlazure
+FOFDatabaseDriverSqlsrv <|-- FOFDatabaseDriverSqlazure
+class FOFDatabaseDriverSqlsrv
+FOFDatabaseDriver <|-- FOFDatabaseDriverSqlsrv
+class FOFDatabaseDriverSqlite
+FOFDatabaseDriverPdo <|-- FOFDatabaseDriverSqlite
+class FOFDatabaseDriverMysqli
+FOFDatabaseDriver <|-- FOFDatabaseDriverMysqli
+class FOFDatabaseDriverPostgresql
+FOFDatabaseDriver <|-- FOFDatabaseDriverPostgresql
+class FOFDatabaseDriverMysql
+FOFDatabaseDriverMysqli <|-- FOFDatabaseDriverMysql
+class FOFDatabaseDriverPdomysql
+FOFDatabaseDriverPdo <|-- FOFDatabaseDriverPdomysql
+abstract class FOFDatabaseDriverPdo
+FOFDatabaseDriver <|-- FOFDatabaseDriverPdo
+class FOFDatabaseDriverJoomla
+FOFDatabase <|-- FOFDatabaseDriverJoomla
+FOFDatabaseInterface <|.. FOFDatabaseDriverJoomla
+class FOFDatabaseDriverOracle
+FOFDatabaseDriverPdo <|-- FOFDatabaseDriverOracle
+class FOFDatabaseQuerySqlazure
+FOFDatabaseQuerySqlsrv <|-- FOFDatabaseQuerySqlazure
+class FOFDatabaseQuerySqlsrv
+FOFDatabaseQuery <|-- FOFDatabaseQuerySqlsrv
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQuerySqlsrv
+class FOFDatabaseQueryElement
+class FOFDatabaseQuerySqlite
+FOFDatabaseQueryPdo <|-- FOFDatabaseQuerySqlite
+FOFDatabaseQueryPreparable <|.. FOFDatabaseQuerySqlite
+interface JDatabaseQueryLimitable
+interface FOFDatabaseQueryLimitable
+JDatabaseQueryLimitable <|-- FOFDatabaseQueryLimitable
+class FOFDatabaseQueryMysqli
+FOFDatabaseQuery <|-- FOFDatabaseQueryMysqli
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQueryMysqli
+class FOFDatabaseQueryPostgresql
+FOFDatabaseQuery <|-- FOFDatabaseQueryPostgresql
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQueryPostgresql
+interface JDatabaseQueryPreparable
+interface FOFDatabaseQueryPreparable
+JDatabaseQueryPreparable <|-- FOFDatabaseQueryPreparable
+class FOFDatabaseQueryMysql
+FOFDatabaseQueryMysqli <|-- FOFDatabaseQueryMysql
+class FOFDatabaseQueryPdomysql
+FOFDatabaseQueryMysqli <|-- FOFDatabaseQueryPdomysql
+class FOFDatabaseQueryPdo
+FOFDatabaseQuery <|-- FOFDatabaseQueryPdo
+class FOFDatabaseQueryOracle
+FOFDatabaseQueryPdo <|-- FOFDatabaseQueryOracle
+FOFDatabaseQueryPreparable <|.. FOFDatabaseQueryOracle
+class FOFDatabaseFactory
+interface FOFPlatformInterface
+abstract class FOFPlatform
+FOFPlatformInterface <|.. FOFPlatform
+abstract class FOFPlatformFilesystem
+FOFPlatformFilesystemInterface <|.. FOFPlatformFilesystem
+interface FOFPlatformFilesystemInterface
+class FOFIntegrationJoomlaPlatform
+FOFPlatform <|-- FOFIntegrationJoomlaPlatform
+FOFPlatformInterface <|.. FOFIntegrationJoomlaPlatform
+class FOFIntegrationJoomlaFilesystem
+FOFPlatformFilesystem <|-- FOFIntegrationJoomlaFilesystem
+FOFPlatformFilesystemInterface <|.. FOFIntegrationJoomlaFilesystem
+class FOFConfigDomainViews
+FOFConfigDomainInterface <|.. FOFConfigDomainViews
+interface FOFConfigDomainInterface
+class FOFConfigDomainDispatcher
+FOFConfigDomainInterface <|.. FOFConfigDomainDispatcher
+class FOFConfigDomainTables
+FOFConfigDomainInterface <|.. FOFConfigDomainTables
+class FOFConfigProvider
+interface FOFHalRenderInterface
+class FOFHalRenderJson
+FOFHalRenderInterface <|.. FOFHalRenderJson
+class FOFHalLink
+class FOFHalLinks
+class FOFHalDocument
+class FOFTemplateUtils
+class FOFTableDispatcherBehavior
+FOFUtilsObservableDispatcher <|-- FOFTableDispatcherBehavior
+class FOFTableRelations
+interface JTableInterface
+class FOFTable
+FOFUtilsObject <|-- FOFTable
+JTableInterface <|.. FOFTable
+class FOFTableBehaviorContenthistory
+FOFTableBehavior <|-- FOFTableBehaviorContenthistory
+class FOFTableBehaviorAssets
+FOFTableBehavior <|-- FOFTableBehaviorAssets
+class FOFTableBehaviorTags
+FOFTableBehavior <|-- FOFTableBehaviorTags
+abstract class FOFTableBehavior
+FOFUtilsObservableEvent <|-- FOFTableBehavior
+class FOFTableNested
+FOFTable <|-- FOFTableNested
+class FOFViewHtml
+FOFViewRaw <|-- FOFViewHtml
+class FOFViewRaw
+FOFView <|-- FOFViewRaw
+abstract class FOFView
+FOFUtilsObject <|-- FOFView
+class FOFViewForm
+FOFViewHtml <|-- FOFViewForm
+class FOFViewCsv
+FOFViewHtml <|-- FOFViewCsv
+class FOFViewJson
+FOFViewHtml <|-- FOFViewJson
+class FOFLayoutFile
+JLayoutFile <|-- FOFLayoutFile
+class FOFLayoutHelper
+JLayoutHelper <|-- FOFLayoutHelper
+interface FOFEncryptRandvalinterface
+class FOFEncryptAes
+interface FOFEncryptAesInterface
+abstract class FOFEncryptAesAbstract
+class FOFEncryptAesMcrypt
+FOFEncryptAesAbstract <|-- FOFEncryptAesMcrypt
+FOFEncryptAesInterface <|.. FOFEncryptAesMcrypt
+class FOFEncryptAesOpenssl
+FOFEncryptAesAbstract <|-- FOFEncryptAesOpenssl
+FOFEncryptAesInterface <|.. FOFEncryptAesOpenssl
+class FOFEncryptBase32
+class FOFEncryptRandval
+FOFEncryptRandvalinterface <|.. FOFEncryptRandval
+class FOFEncryptTotp
+class FOFAutoloaderFof
+class FOFAutoloaderComponent
+class $alias
+$original <|-- $alias
+abstract class FOFQueryAbstract
+class FOFController
+FOFUtilsObject <|-- FOFController
+class FOFInflector
+class JTwitterHelp
+JTwitterObject <|-- JTwitterHelp
+abstract class JTwitterObject
+class JTwitterTrends
+JTwitterObject <|-- JTwitterTrends
+class JTwitter
+class JTwitterDirectmessages
+JTwitterObject <|-- JTwitterDirectmessages
+class JTwitterProfile
+JTwitterObject <|-- JTwitterProfile
+class JTwitterLists
+JTwitterObject <|-- JTwitterLists
+class JTwitterFriends
+JTwitterObject <|-- JTwitterFriends
+class JTwitterBlock
+JTwitterObject <|-- JTwitterBlock
+class JTwitterPlaces
+JTwitterObject <|-- JTwitterPlaces
+class JTwitterStatuses
+JTwitterObject <|-- JTwitterStatuses
+class JTwitterUsers
+JTwitterObject <|-- JTwitterUsers
+class JTwitterOAuth
+JOAuth1Client <|-- JTwitterOAuth
+class JTwitterFavorites
+JTwitterObject <|-- JTwitterFavorites
+class JTwittersearch
+JTwitterObject <|-- JTwittersearch
+class JOAuth2Client
+abstract class JGithubObject
+class JGithubRefs
+JGithubObject <|-- JGithubRefs
+class JGithubCommits
+JGithubObject <|-- JGithubCommits
+class JGithubMilestones
+JGithubObject <|-- JGithubMilestones
+class JGithubMeta
+JGithubObject <|-- JGithubMeta
+class JGithubPackageActivityWatching
+JGithubPackage <|-- JGithubPackageActivityWatching
+class JGithubPackageActivityEvents
+JGithubPackage <|-- JGithubPackageActivityEvents
+class JGithubPackageActivityNotifications
+JGithubPackage <|-- JGithubPackageActivityNotifications
+class JGithubPackageActivityStarring
+JGithubPackage <|-- JGithubPackageActivityStarring
+class JGithubPackageMarkdown
+JGithubPackage <|-- JGithubPackageMarkdown
+class JGithubPackageAuthorization
+JGithubPackage <|-- JGithubPackageAuthorization
+class JGithubPackageActivity
+JGithubPackage <|-- JGithubPackageActivity
+class JGithubPackageGitignore
+JGithubPackage <|-- JGithubPackageGitignore
+class JGithubPackageData
+JGithubPackage <|-- JGithubPackageData
+class JGithubPackageIssuesComments
+JGithubPackage <|-- JGithubPackageIssuesComments
+class JGithubPackageIssuesMilestones
+JGithubPackage <|-- JGithubPackageIssuesMilestones
+class JGithubPackageIssuesAssignees
+JGithubPackage <|-- JGithubPackageIssuesAssignees
+class JGithubPackageIssuesEvents
+JGithubPackage <|-- JGithubPackageIssuesEvents
+class JGithubPackageIssuesLabels
+JGithubPackage <|-- JGithubPackageIssuesLabels
+class JGithubPackageRepositoriesStatistics
+JGithubPackage <|-- JGithubPackageRepositoriesStatistics
+class JGithubPackageRepositoriesComments
+JGithubPackage <|-- JGithubPackageRepositoriesComments
+class JGithubPackageRepositoriesCollaborators
+JGithubPackage <|-- JGithubPackageRepositoriesCollaborators
+class JGithubPackageRepositoriesMerging
+JGithubPackage <|-- JGithubPackageRepositoriesMerging
+class JGithubPackageRepositoriesCommits
+JGithubPackage <|-- JGithubPackageRepositoriesCommits
+class JGithubPackageRepositoriesContents
+JGithubPackage <|-- JGithubPackageRepositoriesContents
+class JGithubPackageRepositoriesDownloads
+JGithubPackage <|-- JGithubPackageRepositoriesDownloads
+class JGithubPackageRepositoriesHooks
+JGithubPackage <|-- JGithubPackageRepositoriesHooks
+class JGithubPackageRepositoriesStatuses
+JGithubPackage <|-- JGithubPackageRepositoriesStatuses
+class JGithubPackageRepositoriesForks
+JGithubPackage <|-- JGithubPackageRepositoriesForks
+class JGithubPackageRepositoriesKeys
+JGithubPackage <|-- JGithubPackageRepositoriesKeys
+class JGithubPackageGists
+JGithubPackage <|-- JGithubPackageGists
+class JGithubPackagePulls
+JGithubPackage <|-- JGithubPackagePulls
+class JGithubPackageOrgsTeams
+JGithubPackage <|-- JGithubPackageOrgsTeams
+class JGithubPackageOrgsMembers
+JGithubPackage <|-- JGithubPackageOrgsMembers
+class JGithubPackageUsers
+JGithubPackage <|-- JGithubPackageUsers
+class JGithubPackageGistsComments
+JGithubPackage <|-- JGithubPackageGistsComments
+class JGithubPackageUsersEmails
+JGithubPackage <|-- JGithubPackageUsersEmails
+class JGithubPackageUsersFollowers
+JGithubPackage <|-- JGithubPackageUsersFollowers
+class JGithubPackageUsersKeys
+JGithubPackage <|-- JGithubPackageUsersKeys
+class JGithubPackageRepositories
+JGithubPackage <|-- JGithubPackageRepositories
+class JGithubPackageOrgs
+JGithubPackage <|-- JGithubPackageOrgs
+class JGithubPackagePullsComments
+JGithubPackage <|-- JGithubPackagePullsComments
+class JGithubPackageIssues
+JGithubPackage <|-- JGithubPackageIssues
+class JGithubPackageDataRefs
+JGithubPackage <|-- JGithubPackageDataRefs
+class JGithubPackageDataCommits
+JGithubPackage <|-- JGithubPackageDataCommits
+class JGithubPackageDataTags
+JGithubPackage <|-- JGithubPackageDataTags
+class JGithubPackageDataBlobs
+JGithubPackage <|-- JGithubPackageDataBlobs
+class JGithubPackageDataTrees
+JGithubPackage <|-- JGithubPackageDataTrees
+class JGithubPackageSearch
+JGithubPackage <|-- JGithubPackageSearch
+class JGithubHooks
+JGithubObject <|-- JGithubHooks
+class JGithub
+abstract class JGithubPackage
+JGithubObject <|-- JGithubPackage
+class JGithubStatuses
+JGithubObject <|-- JGithubStatuses
+class JGithubForks
+JGithubObject <|-- JGithubForks
+class JGithubAccount
+JGithubObject <|-- JGithubAccount
+class JGithubHttp
+JHttp <|-- JGithubHttp
+interface JModel
+abstract class JModelDatabase
+JModelBase <|-- JModelDatabase
+abstract class JModelBase
+JModel <|.. JModelBase
+abstract class JArrayHelper
+class JFormFieldNumber
+JFormField <|-- JFormFieldNumber
+class JFormFieldFile
+JFormField <|-- JFormFieldFile
+class JFormFieldCombo
+JFormFieldList <|-- JFormFieldCombo
+class JFormFieldGroupedList
+JFormField <|-- JFormFieldGroupedList
+class JFormFieldRules
+JFormField <|-- JFormFieldRules
+class JFormFieldDatabaseConnection
+JFormFieldList <|-- JFormFieldDatabaseConnection
+class JFormFieldEMail
+JFormFieldText <|-- JFormFieldEMail
+class JFormFieldInteger
+JFormFieldList <|-- JFormFieldInteger
+abstract class JFormFieldPredefinedList
+JFormFieldList <|-- JFormFieldPredefinedList
+class JFormFieldRadio
+JFormFieldList <|-- JFormFieldRadio
+class JFormFieldText
+JFormField <|-- JFormFieldText
+class JFormFieldImageList
+JFormFieldFileList <|-- JFormFieldImageList
+class JFormFieldTextarea
+JFormField <|-- JFormFieldTextarea
+class JFormFieldPassword
+JFormField <|-- JFormFieldPassword
+class JFormFieldFolderList
+JFormFieldList <|-- JFormFieldFolderList
+class JFormFieldTimezone
+JFormFieldGroupedList <|-- JFormFieldTimezone
+class JFormFieldNote
+JFormField <|-- JFormFieldNote
+class JFormFieldAccessLevel
+JFormFieldList <|-- JFormFieldAccessLevel
+class JFormFieldAliastag
+JFormFieldList <|-- JFormFieldAliastag
+class JFormFieldSessionHandler
+JFormFieldList <|-- JFormFieldSessionHandler
+class JFormFieldLanguage
+JFormFieldList <|-- JFormFieldLanguage
+class JFormFieldSpacer
+JFormField <|-- JFormFieldSpacer
+class JFormFieldComponents
+JFormFieldList <|-- JFormFieldComponents
+class JFormFieldCheckboxes
+JFormFieldList <|-- JFormFieldCheckboxes
+class JFormFieldColor
+JFormField <|-- JFormFieldColor
+class JFormFieldCalendar
+JFormField <|-- JFormFieldCalendar
+class JFormFieldCheckbox
+JFormField <|-- JFormFieldCheckbox
+class JFormFieldSubform
+JFormField <|-- JFormFieldSubform
+class JFormFieldSQL
+JFormFieldList <|-- JFormFieldSQL
+class JFormFieldUrl
+JFormFieldText <|-- JFormFieldUrl
+class JFormFieldUsergroup
+JFormField <|-- JFormFieldUsergroup
+class JFormFieldCacheHandler
+JFormFieldList <|-- JFormFieldCacheHandler
+class JFormFieldTel
+JFormFieldText <|-- JFormFieldTel
+class JFormFieldList
+JFormField <|-- JFormFieldList
+class JFormFieldFileList
+JFormFieldList <|-- JFormFieldFileList
+class JFormFieldHidden
+JFormField <|-- JFormFieldHidden
+class JFormFieldRepeatable
+JFormField <|-- JFormFieldRepeatable
+class JFormFieldMeter
+JFormFieldNumber <|-- JFormFieldMeter
+class JFormFieldPlugins
+JFormFieldList <|-- JFormFieldPlugins
+class JFormFieldRange
+JFormFieldNumber <|-- JFormFieldRange
+abstract class JString
+StringHelper <|-- JString
+class JStringWrapperNormalise
+class JStringWrapperPunycode
+class JOpenstreetmapElements
+JOpenstreetmapObject <|-- JOpenstreetmapElements
+abstract class JOpenstreetmapObject
+class JOpenstreetmapUser
+JOpenstreetmapObject <|-- JOpenstreetmapUser
+class JOpenstreetmap
+class JOpenstreetmapChangesets
+JOpenstreetmapObject <|-- JOpenstreetmapChangesets
+class JOpenstreetmapGps
+JOpenstreetmapObject <|-- JOpenstreetmapGps
+class JOpenstreetmapOauth
+JOAuth1Client <|-- JOpenstreetmapOauth
+class JOpenstreetmapInfo
+JOpenstreetmapObject <|-- JOpenstreetmapInfo
+class JFacebookStatus
+JFacebookObject <|-- JFacebookStatus
+class JFacebook
+abstract class JFacebookObject
+class JFacebookComment
+JFacebookObject <|-- JFacebookComment
+class JFacebookPost
+JFacebookObject <|-- JFacebookPost
+class JFacebookPhoto
+JFacebookObject <|-- JFacebookPhoto
+class JFacebookLink
+JFacebookObject <|-- JFacebookLink
+class JFacebookVideo
+JFacebookObject <|-- JFacebookVideo
+class JFacebookNote
+JFacebookObject <|-- JFacebookNote
+class JFacebookUser
+JFacebookObject <|-- JFacebookUser
+class JFacebookCheckin
+JFacebookObject <|-- JFacebookCheckin
+class JFacebookEvent
+JFacebookObject <|-- JFacebookEvent
+class JFacebookGroup
+JFacebookObject <|-- JFacebookGroup
+class JFacebookAlbum
+JFacebookObject <|-- JFacebookAlbum
+class JFacebookOAuth
+JOAuth2Client <|-- JFacebookOAuth
+class JPlatform
+interface JSessionHandlerInterface
+class JSessionHandlerNative
+JSessionHandlerInterface <|.. JSessionHandlerNative
+class JSessionHandlerJoomla
+JSessionHandlerNative <|-- JSessionHandlerJoomla
+class JSessionStorageRedis
+JSessionStorage <|-- JSessionStorageRedis
+class JSessionStorageNone
+JSessionStorage <|-- JSessionStorageNone
+class JSessionStorageWincache
+JSessionStorage <|-- JSessionStorageWincache
+class JSessionStorageXcache
+JSessionStorage <|-- JSessionStorageXcache
+class JSessionStorageDatabase
+JSessionStorage <|-- JSessionStorageDatabase
+class JSessionStorageApc
+JSessionStorage <|-- JSessionStorageApc
+class JSessionStorageMemcache
+JSessionStorage <|-- JSessionStorageMemcache
+class JSessionStorageMemcached
+JSessionStorage <|-- JSessionStorageMemcached
+abstract class JSessionStorage
+class JObserverMapper
+interface JObserverInterface
+interface JObserverUpdaterInterface
+class JObserverUpdater
+JObserverUpdaterInterface <|.. JObserverUpdater
+class JObserverWrapperMapper
+class JLinkedinCompanies
+JLinkedinObject <|-- JLinkedinCompanies
+class JLinkedinStream
+JLinkedinObject <|-- JLinkedinStream
+class JLinkedinJobs
+JLinkedinObject <|-- JLinkedinJobs
+abstract class JLinkedinObject
+class JLinkedin
+class JLinkedinGroups
+JLinkedinObject <|-- JLinkedinGroups
+class JLinkedinOauth
+JOAuth1Client <|-- JLinkedinOauth
+class JLinkedinPeople
+JLinkedinObject <|-- JLinkedinPeople
+class JLinkedinCommunications
+JLinkedinObject <|-- JLinkedinCommunications
+class JDatabaseExceptionConnecting
+RuntimeException <|-- JDatabaseExceptionConnecting
+class JDatabaseExceptionExecuting
+RuntimeException <|-- JDatabaseExceptionExecuting
+class JDatabaseExceptionUnsupported
+RuntimeException <|-- JDatabaseExceptionUnsupported
+class JDatabaseIteratorSqlazure
+JDatabaseIteratorSqlsrv <|-- JDatabaseIteratorSqlazure
+class JDatabaseIteratorSqlsrv
+JDatabaseIterator <|-- JDatabaseIteratorSqlsrv
+class JDatabaseIteratorSqlite
+JDatabaseIteratorPdo <|-- JDatabaseIteratorSqlite
+class JDatabaseIteratorMysqli
+JDatabaseIterator <|-- JDatabaseIteratorMysqli
+class JDatabaseIteratorPostgresql
+JDatabaseIterator <|-- JDatabaseIteratorPostgresql
+class JDatabaseIteratorMysql
+JDatabaseIterator <|-- JDatabaseIteratorMysql
+class JDatabaseIteratorPdomysql
+JDatabaseIteratorPdo <|-- JDatabaseIteratorPdomysql
+class JDatabaseIteratorPdo
+JDatabaseIterator <|-- JDatabaseIteratorPdo
+class JDatabaseIteratorOracle
+JDatabaseIteratorPdo <|-- JDatabaseIteratorOracle
+abstract class JDatabaseExporter
+abstract class JDatabaseQuery
+abstract class JDatabaseDriver
+JDatabase <|-- JDatabaseDriver
+JDatabaseInterface <|.. JDatabaseDriver
+class JDatabaseImporterMysqli
+JDatabaseImporter <|-- JDatabaseImporterMysqli
+class JDatabaseImporterPostgresql
+JDatabaseImporter <|-- JDatabaseImporterPostgresql
+class JDatabaseImporterMysql
+JDatabaseImporterMysqli <|-- JDatabaseImporterMysql
+class JDatabaseImporterPdomysql
+JDatabaseImporter <|-- JDatabaseImporterPdomysql
+abstract class JDatabase
+abstract class JDatabaseIterator
+Countable <|.. JDatabaseIterator
+class JDatabaseDriverSqlazure
+JDatabaseDriverSqlsrv <|-- JDatabaseDriverSqlazure
+class JDatabaseDriverSqlsrv
+JDatabaseDriver <|-- JDatabaseDriverSqlsrv
+class JDatabaseDriverSqlite
+JDatabaseDriverPdo <|-- JDatabaseDriverSqlite
+class JDatabaseDriverMysqli
+JDatabaseDriver <|-- JDatabaseDriverMysqli
+class JDatabaseDriverPostgresql
+JDatabaseDriver <|-- JDatabaseDriverPostgresql
+class JDatabaseDriverMysql
+JDatabaseDriverMysqli <|-- JDatabaseDriverMysql
+class JDatabaseDriverPdomysql
+JDatabaseDriverPdo <|-- JDatabaseDriverPdomysql
+abstract class JDatabaseDriverPdo
+JDatabaseDriver <|-- JDatabaseDriverPdo
+class JDatabaseDriverOracle
+JDatabaseDriverPdo <|-- JDatabaseDriverOracle
+class JDatabaseExporterMysqli
+JDatabaseExporter <|-- JDatabaseExporterMysqli
+class JDatabaseExporterPostgresql
+JDatabaseExporter <|-- JDatabaseExporterPostgresql
+class JDatabaseExporterMysql
+JDatabaseExporterMysqli <|-- JDatabaseExporterMysql
+class JDatabaseExporterPdomysql
+JDatabaseExporter <|-- JDatabaseExporterPdomysql
+class JDatabaseQuerySqlazure
+JDatabaseQuerySqlsrv <|-- JDatabaseQuerySqlazure
+class JDatabaseQuerySqlsrv
+JDatabaseQuery <|-- JDatabaseQuerySqlsrv
+JDatabaseQueryLimitable <|.. JDatabaseQuerySqlsrv
+class JDatabaseQueryElement
+class JDatabaseQuerySqlite
+JDatabaseQueryPdo <|-- JDatabaseQuerySqlite
+JDatabaseQueryPreparable <|.. JDatabaseQuerySqlite
+class JDatabaseQueryMysqli
+JDatabaseQuery <|-- JDatabaseQueryMysqli
+JDatabaseQueryLimitable <|.. JDatabaseQueryMysqli
+class JDatabaseQueryPostgresql
+JDatabaseQuery <|-- JDatabaseQueryPostgresql
+JDatabaseQueryLimitable <|.. JDatabaseQueryPostgresql
+class JDatabaseQueryMysql
+JDatabaseQueryMysqli <|-- JDatabaseQueryMysql
+class JDatabaseQueryPdomysql
+JDatabaseQueryMysqli <|-- JDatabaseQueryPdomysql
+class JDatabaseQueryPdo
+JDatabaseQuery <|-- JDatabaseQueryPdo
+class JDatabaseQueryOracle
+JDatabaseQueryPdo <|-- JDatabaseQueryOracle
+JDatabaseQueryPreparable <|.. JDatabaseQueryOracle
+abstract class JDatabaseImporter
+class JDatabaseFactory
+class JArchiveTar
+JArchiveExtractable <|.. JArchiveTar
+interface JArchiveExtractable
+class JArchiveZip
+JArchiveExtractable <|.. JArchiveZip
+class JArchiveBzip2
+JArchiveExtractable <|.. JArchiveBzip2
+class JArchiveGzip
+JArchiveExtractable <|.. JArchiveGzip
+class JArchiveWrapperArchive
+class JArchive
+class JGrid
+abstract class JApplicationWebRouter
+class JApplicationWebRouterRest
+JApplicationWebRouterBase <|-- JApplicationWebRouterRest
+class JApplicationWebRouterBase
+JApplicationWebRouter <|-- JApplicationWebRouterBase
+class JGoogle
+class JGoogleEmbedMaps
+JGoogleEmbed <|-- JGoogleEmbedMaps
+class JGoogleEmbedAnalytics
+JGoogleEmbed <|-- JGoogleEmbedAnalytics
+abstract class JGoogleData
+class JGoogleAuthOauth2
+JGoogleAuth <|-- JGoogleAuthOauth2
+abstract class JGoogleEmbed
+abstract class JGoogleAuth
+class JGoogleDataPlusComments
+JGoogleData <|-- JGoogleDataPlusComments
+class JGoogleDataPlusActivities
+JGoogleData <|-- JGoogleDataPlusActivities
+class JGoogleDataPlusPeople
+JGoogleData <|-- JGoogleDataPlusPeople
+class JGoogleDataPlus
+JGoogleData <|-- JGoogleDataPlus
+class JGoogleDataPicasa
+JGoogleData <|-- JGoogleDataPicasa
+class JGoogleDataPicasaPhoto
+JGoogleData <|-- JGoogleDataPicasaPhoto
+class JGoogleDataPicasaAlbum
+JGoogleData <|-- JGoogleDataPicasaAlbum
+class JGoogleDataCalendar
+JGoogleData <|-- JGoogleDataCalendar
+class JGoogleDataAdsense
+JGoogleData <|-- JGoogleDataAdsense
+class JFile
+class JStream
+JObject <|-- JStream
+class JStringController
+abstract class JFolder
+class JFilesystemHelper
+class JPath
+class JStreamString
+class JFilesystemWrapperFile
+class JFilesystemWrapperFolder
+class JFilesystemWrapperPath
+class JFilesystemPatcher
+interface JObservableInterface
+class JKeychain
+Joomla.Registry.Registry <|-- JKeychain
+abstract class JViewHtml
+JViewBase <|-- JViewHtml
+interface JView
+abstract class JViewBase
+JView <|.. JViewBase
+abstract class JMediawikiObject
+class JMediawikiCategories
+JMediawikiObject <|-- JMediawikiCategories
+class JMediawikiSites
+JMediawikiObject <|-- JMediawikiSites
+class JMediawikiPages
+JMediawikiObject <|-- JMediawikiPages
+class JMediawikiLinks
+JMediawikiObject <|-- JMediawikiLinks
+class JMediawiki
+class JMediawikiUsers
+JMediawikiObject <|-- JMediawikiUsers
+class JMediawikiImages
+JMediawikiObject <|-- JMediawikiImages
+class JMediawikiSearch
+JMediawikiObject <|-- JMediawikiSearch
+class JMediawikiHttp
+JHttp <|-- JMediawikiHttp
+class JEventDispatcher
+JObject <|-- JEventDispatcher
+abstract class JEvent
+JObject <|-- JEvent
+class JAdapter
+JObject <|-- JAdapter
+class JAdapterInstance
+JObject <|-- JAdapterInstance
+abstract class JOAuth1Client
+interface JController
+Serializable <|-- JController
+abstract class JControllerBase
+JController <|.. JControllerBase
+class JRouteWrapperRoute
+class PasswordHash
+class InvalidCiphertextException
+Exception <|-- InvalidCiphertextException
+class CannotPerformOperationException
+Exception <|-- CannotPerformOperationException
+class CryptoTestFailedException
+Exception <|-- CryptoTestFailedException
+class Crypto
+class CryptoExceptionHandler
+abstract class JSubMenuHelper
+class JAdministratorHelper
+abstract class JToolbarHelper
+class CacheModelCache
+JModelList <|-- CacheModelCache
+class CacheHelper
+class CacheViewPurge
+JViewLegacy <|-- CacheViewPurge
+class CacheViewCache
+JViewLegacy <|-- CacheViewCache
+class CacheController
+JControllerLegacy <|-- CacheController
+class NewsfeedsControllerNewsfeed
+JControllerForm <|-- NewsfeedsControllerNewsfeed
+class NewsfeedsControllerNewsfeeds
+JControllerAdmin <|-- NewsfeedsControllerNewsfeeds
+class NewsfeedsTableNewsfeed
+JTable <|-- NewsfeedsTableNewsfeed
+JModelAdmin <|-- NewsfeedsModelNewsfeed
+class NewsfeedsModelNewsfeeds
+JModelList <|-- NewsfeedsModelNewsfeeds
+class JFormFieldNewsfeeds
+JFormFieldList <|-- JFormFieldNewsfeeds
+class JFormFieldModal_Newsfeed
+JFormField <|-- JFormFieldModal_Newsfeed
+class NewsfeedsHelper
+JHelperContent <|-- NewsfeedsHelper
+class NewsfeedsAssociationsHelper
+AssociationExtensionHelper <|-- NewsfeedsAssociationsHelper
+class JHtmlNewsfeed
+class NewsfeedsViewNewsfeeds
+JViewLegacy <|-- NewsfeedsViewNewsfeeds
+class InstallerControllerUpdate
+JControllerLegacy <|-- InstallerControllerUpdate
+class InstallerControllerInstall
+JControllerLegacy <|-- InstallerControllerInstall
+class InstallerControllerUpdatesites
+JControllerLegacy <|-- InstallerControllerUpdatesites
+class InstallerControllerDiscover
+JControllerLegacy <|-- InstallerControllerDiscover
+class InstallerControllerDatabase
+JControllerLegacy <|-- InstallerControllerDatabase
+class InstallerControllerManage
+JControllerLegacy <|-- InstallerControllerManage
+class InstallerModelUpdate
+JModelList <|-- InstallerModelUpdate
+class InstallerModel
+JModelList <|-- InstallerModel
+class InstallerModelWarnings
+JModelList <|-- InstallerModelWarnings
+class InstallerModelInstall
+JModelLegacy <|-- InstallerModelInstall
+class InstallerModelUpdatesites
+InstallerModel <|-- InstallerModelUpdatesites
+class JFormFieldExtensionStatus
+JFormFieldList <|-- JFormFieldExtensionStatus
+class JFormFieldType
+JFormFieldList <|-- JFormFieldType
+class JFormFieldFolder
+JFormFieldList <|-- JFormFieldFolder
+class JFormFieldLocation
+JFormFieldList <|-- JFormFieldLocation
+class InstallerModelDiscover
+InstallerModel <|-- InstallerModelDiscover
+class InstallerModelDatabase
+InstallerModel <|-- InstallerModelDatabase
+class InstallerModelLanguages
+JModelList <|-- InstallerModelLanguages
+class InstallerModelManage
+InstallerModel <|-- InstallerModelManage
+class InstallerHelper
+abstract class InstallerHtmlUpdatesites
+abstract class InstallerHtmlManage
+class InstallerViewManage
+InstallerViewDefault <|-- InstallerViewManage
+class InstallerViewDefault
+JViewLegacy <|-- InstallerViewDefault
+class InstallerViewDatabase
+InstallerViewDefault <|-- InstallerViewDatabase
+class InstallerViewUpdatesites
+InstallerViewDefault <|-- InstallerViewUpdatesites
+class InstallerViewInstall
+InstallerViewDefault <|-- InstallerViewInstall
+class InstallerViewLanguages
+InstallerViewDefault <|-- InstallerViewLanguages
+class InstallerViewWarnings
+InstallerViewDefault <|-- InstallerViewWarnings
+class InstallerViewUpdate
+InstallerViewDefault <|-- InstallerViewUpdate
+class InstallerViewDiscover
+InstallerViewDefault <|-- InstallerViewDiscover
+class InstallerController
+JControllerLegacy <|-- InstallerController
+class FinderControllerFilter
+JControllerForm <|-- FinderControllerFilter
+class FinderControllerFilters
+JControllerAdmin <|-- FinderControllerFilters
+class FinderControllerIndex
+JControllerAdmin <|-- FinderControllerIndex
+class FinderControllerMaps
+JControllerAdmin <|-- FinderControllerMaps
+class FinderControllerIndexer
+JControllerLegacy <|-- FinderControllerIndexer
+class FinderIndexerResponse
+class FinderTableFilter
+JTable <|-- FinderTableFilter
+class FinderTableLink
+JTable <|-- FinderTableLink
+class FinderTableMap
+JTable <|-- FinderTableMap
+class FinderModelStatistics
+JModelLegacy <|-- FinderModelStatistics
+class FinderModelFilter
+JModelAdmin <|-- FinderModelFilter
+class FinderModelIndexer
+JModelLegacy <|-- FinderModelIndexer
+class FinderModelFilters
+JModelList <|-- FinderModelFilters
+class FinderModelIndex
+JModelList <|-- FinderModelIndex
+class JFormFieldContentTypes
+JFormFieldList <|-- JFormFieldContentTypes
+class JFormFieldSearchFilter
+JFormFieldList <|-- JFormFieldSearchFilter
+class JFormFieldDirectories
+JFormFieldList <|-- JFormFieldDirectories
+class JFormFieldBranches
+JFormFieldList <|-- JFormFieldBranches
+class JFormFieldContentMap
+JFormFieldGroupedList <|-- JFormFieldContentMap
+class FinderModelMaps
+JModelList <|-- FinderModelMaps
+class FinderIndexerToken
+abstract class FinderIndexerAdapter
+JPlugin <|-- FinderIndexerAdapter
+abstract class FinderIndexer
+abstract class FinderIndexerStemmer
+class FinderIndexerQuery
+class FinderIndexerHelper
+class FinderIndexerParserTxt
+FinderIndexerParser <|-- FinderIndexerParserTxt
+class FinderIndexerParserHtml
+FinderIndexerParser <|-- FinderIndexerParserHtml
+class FinderIndexerParserRtf
+FinderIndexerParser <|-- FinderIndexerParserRtf
+class FinderIndexerStemmerSnowball
+FinderIndexerStemmer <|-- FinderIndexerStemmerSnowball
+class FinderIndexerStemmerFr
+FinderIndexerStemmer <|-- FinderIndexerStemmerFr
+class FinderIndexerStemmerPorter_En
+FinderIndexerStemmer <|-- FinderIndexerStemmerPorter_En
+abstract class FinderIndexerParser
+class FinderIndexerResult
+class FinderIndexerDriverSqlsrv
+FinderIndexer <|-- FinderIndexerDriverSqlsrv
+class FinderIndexerDriverPostgresql
+FinderIndexer <|-- FinderIndexerDriverPostgresql
+class FinderIndexerDriverMysql
+FinderIndexer <|-- FinderIndexerDriverMysql
+class FinderIndexerTaxonomy
+class FinderHelper
+class FinderHelperLanguage
+abstract class JHtmlFinder
+class FinderViewMaps
+JViewLegacy <|-- FinderViewMaps
+class FinderViewFilter
+JViewLegacy <|-- FinderViewFilter
+class FinderViewIndexer
+JViewLegacy <|-- FinderViewIndexer
+class FinderViewStatistics
+JViewLegacy <|-- FinderViewStatistics
+class FinderViewIndex
+JViewLegacy <|-- FinderViewIndex
+class FinderViewFilters
+JViewLegacy <|-- FinderViewFilters
+class MessagesControllerMessages
+JControllerAdmin <|-- MessagesControllerMessages
+class MessagesControllerMessage
+JControllerForm <|-- MessagesControllerMessage
+class MessagesControllerConfig
+JControllerLegacy <|-- MessagesControllerConfig
+class MessagesTableMessage
+JTable <|-- MessagesTableMessage
+class MessagesModelMessages
+JModelList <|-- MessagesModelMessages
+class JFormFieldUserMessages
+JFormFieldUser <|-- JFormFieldUserMessages
+class JFormFieldMessageStates
+JFormFieldList <|-- JFormFieldMessageStates
+class MessagesModelMessage
+JModelAdmin <|-- MessagesModelMessage
+class MessagesModelConfig
+JModelForm <|-- MessagesModelConfig
+class MessagesHelper
+class JHtmlMessages
+class MessagesViewMessages
+JViewLegacy <|-- MessagesViewMessages
+class MessagesViewMessage
+JViewLegacy <|-- MessagesViewMessage
+class MessagesViewConfig
+JViewLegacy <|-- MessagesViewConfig
+class MessagesController
+JControllerLegacy <|-- MessagesController
+class SearchControllerSearches
+JControllerLegacy <|-- SearchControllerSearches
+class SearchModelSearches
+JModelList <|-- SearchModelSearches
+class JSite
+JObject <|-- JSite
+class SearchHelper
+class SearchViewSearches
+JViewLegacy <|-- SearchViewSearches
+class RedirectControllerLink
+JControllerForm <|-- RedirectControllerLink
+class RedirectControllerLinks
+JControllerAdmin <|-- RedirectControllerLinks
+class RedirectTableLink
+JTable <|-- RedirectTableLink
+class RedirectModelLink
+JModelAdmin <|-- RedirectModelLink
+class RedirectModelLinks
+JModelList <|-- RedirectModelLinks
+class JFormFieldRedirect
+JFormFieldList <|-- JFormFieldRedirect
+class RedirectHelper
+class JHtmlRedirect
+class RedirectViewLinks
+JViewLegacy <|-- RedirectViewLinks
+class RedirectViewLink
+JViewLegacy <|-- RedirectViewLink
+class RedirectController
+JControllerLegacy <|-- RedirectController
+class LoginModelLogin
+JModelLegacy <|-- LoginModelLogin
+class LoginViewLogin
+JViewLegacy <|-- LoginViewLogin
+class LoginController
+JControllerLegacy <|-- LoginController
+class MediaControllerFile
+JControllerLegacy <|-- MediaControllerFile
+class MediaControllerFolder
+JControllerLegacy <|-- MediaControllerFolder
+class MediaModelManager
+JModelLegacy <|-- MediaModelManager
+class MediaModelList
+JModelLegacy <|-- MediaModelList
+abstract class MediaHelper
+class MediaViewMedia
+JViewLegacy <|-- MediaViewMedia
+class MediaViewImages
+JViewLegacy <|-- MediaViewImages
+class MediaViewMediaList
+JViewLegacy <|-- MediaViewMediaList
+class MediaViewImagesList
+JViewLegacy <|-- MediaViewImagesList
+class MediaController
+JControllerLegacy <|-- MediaController
+class ContactControllerContacts
+JControllerAdmin <|-- ContactControllerContacts
+class ContactTableContact
+JTable <|-- ContactTableContact
+class JFormFieldModal_Contact
+JFormField <|-- JFormFieldModal_Contact
+class ContactModelContacts
+JModelList <|-- ContactModelContacts
+JModelAdmin <|-- ContactModelContact
+class ContactAssociationsHelper
+AssociationExtensionHelper <|-- ContactAssociationsHelper
+class ContactHelper
+JHelperContent <|-- ContactHelper
+abstract class JHtmlContact
+class ContactViewContacts
+JViewLegacy <|-- ContactViewContacts
+class TemplatesControllerStyle
+JControllerForm <|-- TemplatesControllerStyle
+class TemplatesControllerStyles
+JControllerAdmin <|-- TemplatesControllerStyles
+class TemplatesControllerTemplate
+JControllerLegacy <|-- TemplatesControllerTemplate
+class TemplatesTableStyle
+JTable <|-- TemplatesTableStyle
+class TemplatesModelStyle
+JModelAdmin <|-- TemplatesModelStyle
+class TemplatesModelStyles
+JModelList <|-- TemplatesModelStyles
+class JFormFieldTemplateLocation
+JFormFieldList <|-- JFormFieldTemplateLocation
+class JFormFieldTemplateName
+JFormFieldList <|-- JFormFieldTemplateName
+class TemplatesModelTemplate
+JModelForm <|-- TemplatesModelTemplate
+class TemplatesModelTemplates
+JModelList <|-- TemplatesModelTemplates
+abstract class TemplateHelper
+class JHtmlTemplates
+class TemplatesHelper
+class TemplatesViewStyle
+JViewLegacy <|-- TemplatesViewStyle
+class TemplatesViewTemplates
+JViewLegacy <|-- TemplatesViewTemplates
+class TemplatesViewTemplate
+JViewLegacy <|-- TemplatesViewTemplate
+class TemplatesViewStyles
+JViewLegacy <|-- TemplatesViewStyles
+class TemplatesController
+JControllerLegacy <|-- TemplatesController
+class CategoriesControllerCategories
+JControllerAdmin <|-- CategoriesControllerCategories
+class CategoriesControllerCategory
+JControllerForm <|-- CategoriesControllerCategory
+class CategoriesTableCategory
+JTableCategory <|-- CategoriesTableCategory
+class CategoriesModelCategories
+JModelList <|-- CategoriesModelCategories
+class CategoriesModelCategory
+JModelAdmin <|-- CategoriesModelCategory
+class JFormFieldCategoryEdit
+JFormFieldList <|-- JFormFieldCategoryEdit
+class JFormFieldCategoryParent
+JFormFieldList <|-- JFormFieldCategoryParent
+class JFormFieldModal_Category
+JFormField <|-- JFormFieldModal_Category
+class CategoriesHelper
+abstract class CategoryHelperAssociation
+abstract class JHtmlCategoriesAdministrator
+class CategoriesViewCategory
+JViewLegacy <|-- CategoriesViewCategory
+class CategoriesViewCategories
+JViewLegacy <|-- CategoriesViewCategories
+class CategoriesController
+JControllerLegacy <|-- CategoriesController
+class CpanelViewCpanel
+JViewLegacy <|-- CpanelViewCpanel
+class CpanelController
+JControllerLegacy <|-- CpanelController
+class ContenthistoryControllerHistory
+JControllerAdmin <|-- ContenthistoryControllerHistory
+class ContenthistoryControllerPreview
+JControllerLegacy <|-- ContenthistoryControllerPreview
+class ContenthistoryModelHistory
+JModelList <|-- ContenthistoryModelHistory
+class ContenthistoryModelCompare
+JModelItem <|-- ContenthistoryModelCompare
+class ContenthistoryModelPreview
+JModelItem <|-- ContenthistoryModelPreview
+class ContenthistoryHelper
+abstract class JHtmlTextdiff
+class ContenthistoryViewPreview
+JViewLegacy <|-- ContenthistoryViewPreview
+class ContenthistoryViewHistory
+JViewLegacy <|-- ContenthistoryViewHistory
+class ContenthistoryViewCompare
+JViewLegacy <|-- ContenthistoryViewCompare
+class ContenthistoryController
+JControllerLegacy <|-- ContenthistoryController
+class AdminControllerProfile
+JControllerForm <|-- AdminControllerProfile
+class JoomlaInstallerScript
+class AdminModelHelp
+JModelLegacy <|-- AdminModelHelp
+class AdminModelProfile
+UsersModelUser <|-- AdminModelProfile
+class AdminModelSysInfo
+JModelLegacy <|-- AdminModelSysInfo
+abstract class JHtmlSystem
+abstract class JHtmlDirectory
+abstract class JHtmlPhpSetting
+class AdminViewProfile
+JViewLegacy <|-- AdminViewProfile
+class AdminViewHelp
+JViewLegacy <|-- AdminViewHelp
+class AdminViewSysinfo
+JViewLegacy <|-- AdminViewSysinfo
+class AdminController
+JControllerLegacy <|-- AdminController
+class BannersControllerTracks
+JControllerLegacy <|-- BannersControllerTracks
+class BannersControllerClient
+JControllerForm <|-- BannersControllerClient
+class BannersControllerClients
+JControllerAdmin <|-- BannersControllerClients
+class BannersControllerBanners
+JControllerAdmin <|-- BannersControllerBanners
+class BannersControllerBanner
+JControllerForm <|-- BannersControllerBanner
+class BannersTableClient
+JTable <|-- BannersTableClient
+class BannersTableBanner
+JTable <|-- BannersTableBanner
+class BannersModelDownload
+JModelForm <|-- BannersModelDownload
+class BannersModelClient
+JModelAdmin <|-- BannersModelClient
+class BannersModelTracks
+JModelList <|-- BannersModelTracks
+class BannersModelClients
+JModelList <|-- BannersModelClients
+class JFormFieldBannerClient
+JFormFieldList <|-- JFormFieldBannerClient
+class JFormFieldImpTotal
+JFormField <|-- JFormFieldImpTotal
+class JFormFieldClicks
+JFormField <|-- JFormFieldClicks
+class JFormFieldImpMade
+JFormField <|-- JFormFieldImpMade
+JModelAdmin <|-- BannersModelBanner
+class BannersHelper
+JHelperContent <|-- BannersHelper
+abstract class JHtmlBanner
+class BannersViewDownload
+JViewLegacy <|-- BannersViewDownload
+class BannersViewClient
+JViewLegacy <|-- BannersViewClient
+class BannersViewBanner
+JViewLegacy <|-- BannersViewBanner
+class BannersViewBanners
+JViewLegacy <|-- BannersViewBanners
+class BannersViewClients
+JViewLegacy <|-- BannersViewClients
+class BannersViewTracks
+JViewLegacy <|-- BannersViewTracks
+JControllerAdmin <|-- TagsControllerTags
+class TagsControllerTag
+JControllerForm <|-- TagsControllerTag
+class TagsTableTag
+JTableNested <|-- TagsTableTag
+JModelAdmin <|-- TagsModelTag
+class TagsHelper
+JHelperContent <|-- TagsHelper
+class ModulesControllerModule
+JControllerForm <|-- ModulesControllerModule
+class ModulesControllerModules
+JControllerAdmin <|-- ModulesControllerModules
+class ModulesModelModule
+JModelAdmin <|-- ModulesModelModule
+class ModulesModelSelect
+JModelList <|-- ModulesModelSelect
+class ModulesModelPositions
+JModelList <|-- ModulesModelPositions
+class JFormFieldModulesModule
+JFormFieldList <|-- JFormFieldModulesModule
+class JFormFieldModulesPosition
+JFormFieldList <|-- JFormFieldModulesPosition
+class ModulesModelModules
+JModelList <|-- ModulesModelModules
+abstract class ModulesHelper
+abstract class JHtmlModules
+class ModulesHelperXML
+class ModulesViewPreview
+JViewLegacy <|-- ModulesViewPreview
+class ModulesViewSelect
+JViewLegacy <|-- ModulesViewSelect
+class ModulesViewModule
+JViewLegacy <|-- ModulesViewModule
+class ModulesViewModules
+JViewLegacy <|-- ModulesViewModules
+class ModulesViewPositions
+JViewLegacy <|-- ModulesViewPositions
+class CheckinModelCheckin
+JModelList <|-- CheckinModelCheckin
+class CheckinViewCheckin
+JViewLegacy <|-- CheckinViewCheckin
+class CheckinController
+JControllerLegacy <|-- CheckinController
+class JoomlaupdateControllerUpdate
+JControllerLegacy <|-- JoomlaupdateControllerUpdate
+abstract class AKAbstractObject
+abstract class AKAbstractPart
+AKAbstractObject <|-- AKAbstractPart
+abstract class AKAbstractUnarchiver
+AKAbstractPart <|-- AKAbstractUnarchiver
+abstract class AKAbstractPostproc
+AKAbstractObject <|-- AKAbstractPostproc
+abstract class AKAbstractPartObserver
+class AKPostprocDirect
+AKAbstractPostproc <|-- AKPostprocDirect
+class AKPostprocFTP
+AKAbstractPostproc <|-- AKPostprocFTP
+class AKPostprocSFTP
+AKAbstractPostproc <|-- AKPostprocSFTP
+class AKPostprocHybrid
+AKAbstractPostproc <|-- AKPostprocHybrid
+class AKUnarchiverJPA
+AKAbstractUnarchiver <|-- AKUnarchiverJPA
+class AKUnarchiverZIP
+AKUnarchiverJPA <|-- AKUnarchiverZIP
+class AKUnarchiverJPS
+AKUnarchiverJPA <|-- AKUnarchiverJPS
+class AKCoreTimer
+AKAbstractObject <|-- AKCoreTimer
+class AKUtilsLister
+AKAbstractObject <|-- AKUtilsLister
+class AKText
+AKAbstractObject <|-- AKText
+class AKFactory
+interface AKEncryptionAESAdapterInterface
+abstract class AKEncryptionAESAdapterAbstract
+class Mcrypt
+AKEncryptionAESAdapterAbstract <|-- Mcrypt
+AKEncryptionAESAdapterInterface <|.. Mcrypt
+class OpenSSL
+AKEncryptionAESAdapterAbstract <|-- OpenSSL
+AKEncryptionAESAdapterInterface <|.. OpenSSL
+class AKEncryptionAES
+class RestorationObserver
+AKAbstractPartObserver <|-- RestorationObserver
+class JoomlaupdateModelDefault
+JModelLegacy <|-- JoomlaupdateModelDefault
+class JoomlaupdateHelper
+class JoomlaupdateHelperSelect
+class JoomlaupdateViewUpload
+JViewLegacy <|-- JoomlaupdateViewUpload
+class JoomlaupdateViewDefault
+JViewLegacy <|-- JoomlaupdateViewDefault
+class JoomlaupdateViewUpdate
+JViewLegacy <|-- JoomlaupdateViewUpdate
+class JoomlaupdateController
+JControllerLegacy <|-- JoomlaupdateController
+abstract class JFile
+abstract class JText
+class PostinstallControllerMessage
+FOFController <|-- PostinstallControllerMessage
+class PostinstallModelMessages
+FOFModel <|-- PostinstallModelMessages
+class PostinstallViewMessages
+FOFViewHtml <|-- PostinstallViewMessages
+class PostinstallToolbar
+FOFToolbar <|-- PostinstallToolbar
+class ContentControllerArticles
+JControllerAdmin <|-- ContentControllerArticles
+class ContentControllerFeatured
+ContentControllerArticles <|-- ContentControllerFeatured
+class ContentTableFeatured
+JTable <|-- ContentTableFeatured
+class JFormFieldVoteradio
+JFormFieldRadio <|-- JFormFieldVoteradio
+class JFormFieldModal_Article
+JFormField <|-- JFormFieldModal_Article
+JModelAdmin <|-- ContentModelArticle
+class ContentModelFeature
+ContentModelArticle <|-- ContentModelFeature
+class ContentHelper
+JHelperContent <|-- ContentHelper
+class ContentAssociationsHelper
+AssociationExtensionHelper <|-- ContentAssociationsHelper
+abstract class JHtmlContentAdministrator
+class ContentViewArticles
+JViewLegacy <|-- ContentViewArticles
+class FieldsControllerFields
+JControllerAdmin <|-- FieldsControllerFields
+class FieldsControllerField
+JControllerForm <|-- FieldsControllerField
+class FieldsControllerGroups
+JControllerAdmin <|-- FieldsControllerGroups
+class FieldsControllerGroup
+JControllerForm <|-- FieldsControllerGroup
+class FieldsTableField
+JTable <|-- FieldsTableField
+class FieldsTableGroup
+JTable <|-- FieldsTableGroup
+class FieldsModelFields
+JModelList <|-- FieldsModelFields
+class FieldsModelField
+JModelAdmin <|-- FieldsModelField
+class JFormFieldFieldgroups
+JFormFieldList <|-- JFormFieldFieldgroups
+class JFormFieldSection
+JFormFieldList <|-- JFormFieldSection
+class JFormFieldFieldcontexts
+JFormFieldList <|-- JFormFieldFieldcontexts
+class FieldsModelGroups
+JModelList <|-- FieldsModelGroups
+class FieldsModelGroup
+JModelAdmin <|-- FieldsModelGroup
+class FieldsHelper
+class FieldsViewField
+JViewLegacy <|-- FieldsViewField
+class FieldsViewFields
+JViewLegacy <|-- FieldsViewFields
+class FieldsViewGroups
+JViewLegacy <|-- FieldsViewGroups
+class FieldsViewGroup
+JViewLegacy <|-- FieldsViewGroup
+class FieldsListPlugin
+FieldsPlugin <|-- FieldsListPlugin
+abstract class FieldsPlugin
+JPlugin <|-- FieldsPlugin
+class LanguagesControllerInstalled
+JControllerLegacy <|-- LanguagesControllerInstalled
+class LanguagesControllerLanguage
+JControllerForm <|-- LanguagesControllerLanguage
+class LanguagesControllerStrings
+JControllerAdmin <|-- LanguagesControllerStrings
+class LanguagesControllerOverrides
+JControllerAdmin <|-- LanguagesControllerOverrides
+class LanguagesControllerLanguages
+JControllerAdmin <|-- LanguagesControllerLanguages
+class LanguagesControllerOverride
+JControllerForm <|-- LanguagesControllerOverride
+class LanguagesModelStrings
+JModelLegacy <|-- LanguagesModelStrings
+class LanguagesModelInstalled
+JModelList <|-- LanguagesModelInstalled
+class LanguagesModelLanguage
+JModelAdmin <|-- LanguagesModelLanguage
+class LanguagesModelOverrides
+JModelList <|-- LanguagesModelOverrides
+class LanguagesModelLanguages
+JModelList <|-- LanguagesModelLanguages
+class LanguagesModelOverride
+JModelAdmin <|-- LanguagesModelOverride
+class JJsonResponse
+class LanguagesHelper
+abstract class JHtmlLanguages
+abstract class MultilangstatusHelper
+class LanguagesViewLanguage
+JViewLegacy <|-- LanguagesViewLanguage
+class LanguagesViewOverride
+JViewLegacy <|-- LanguagesViewOverride
+class LanguagesViewInstalled
+JViewLegacy <|-- LanguagesViewInstalled
+class LanguagesViewMultilangstatus
+JViewLegacy <|-- LanguagesViewMultilangstatus
+class LanguagesViewOverrides
+JViewLegacy <|-- LanguagesViewOverrides
+class LanguagesViewLanguages
+JViewLegacy <|-- LanguagesViewLanguages
+class LanguagesController
+JControllerLegacy <|-- LanguagesController
+class PluginsControllerPlugin
+JControllerForm <|-- PluginsControllerPlugin
+class PluginsControllerPlugins
+JControllerAdmin <|-- PluginsControllerPlugins
+class PluginsModelPlugin
+JModelAdmin <|-- PluginsModelPlugin
+class JFormFieldPluginType
+JFormFieldList <|-- JFormFieldPluginType
+class JFormFieldPluginordering
+JFormFieldOrdering <|-- JFormFieldPluginordering
+class PluginsModelPlugins
+JModelList <|-- PluginsModelPlugins
+class PluginsHelper
+class PluginsViewPlugin
+JViewLegacy <|-- PluginsViewPlugin
+class PluginsViewPlugins
+JViewLegacy <|-- PluginsViewPlugins
+class PluginsController
+JControllerLegacy <|-- PluginsController
+class UsersControllerLevels
+JControllerAdmin <|-- UsersControllerLevels
+class UsersControllerNotes
+JControllerAdmin <|-- UsersControllerNotes
+class UsersControllerNote
+JControllerForm <|-- UsersControllerNote
+JControllerForm <|-- UsersControllerUser
+class UsersControllerGroups
+JControllerAdmin <|-- UsersControllerGroups
+class UsersControllerGroup
+JControllerForm <|-- UsersControllerGroup
+class UsersControllerUsers
+JControllerAdmin <|-- UsersControllerUsers
+class UsersControllerLevel
+JControllerForm <|-- UsersControllerLevel
+class UsersControllerMail
+JControllerLegacy <|-- UsersControllerMail
+class UsersTableNote
+JTable <|-- UsersTableNote
+class UsersModelLevels
+JModelList <|-- UsersModelLevels
+class UsersModelNotes
+JModelList <|-- UsersModelNotes
+class UsersModelNote
+JModelAdmin <|-- UsersModelNote
+class UsersModelUser
+JModelAdmin <|-- UsersModelUser
+class JFormFieldLevels
+JFormFieldList <|-- JFormFieldLevels
+class JFormFieldGroupParent
+JFormFieldList <|-- JFormFieldGroupParent
+class UsersModelGroups
+JModelList <|-- UsersModelGroups
+class UsersModelDebuggroup
+JModelList <|-- UsersModelDebuggroup
+class UsersModelGroup
+JModelAdmin <|-- UsersModelGroup
+class UsersModelDebugUser
+JModelList <|-- UsersModelDebugUser
+class UsersModelUsers
+JModelList <|-- UsersModelUsers
+class UsersModelLevel
+JModelAdmin <|-- UsersModelLevel
+class UsersModelMail
+JModelAdmin <|-- UsersModelMail
+class UsersHelper
+class JHtmlUsers
+class UsersHelperDebug
+class UsersViewNotes
+JViewLegacy <|-- UsersViewNotes
+class UsersViewMail
+JViewLegacy <|-- UsersViewMail
+class UsersViewLevel
+JViewLegacy <|-- UsersViewLevel
+class UsersViewLevels
+JViewLegacy <|-- UsersViewLevels
+class UsersViewUser
+JViewLegacy <|-- UsersViewUser
+class UsersViewGroups
+JViewLegacy <|-- UsersViewGroups
+class UsersViewGroup
+JViewLegacy <|-- UsersViewGroup
+class UsersViewDebuguser
+JViewLegacy <|-- UsersViewDebuguser
+class UsersViewNote
+JViewLegacy <|-- UsersViewNote
+class UsersViewDebuggroup
+JViewLegacy <|-- UsersViewDebuggroup
+class UsersViewUsers
+JViewLegacy <|-- UsersViewUsers
+class ConfigControllerComponent
+JControllerLegacy <|-- ConfigControllerComponent
+class ConfigControllerApplication
+JControllerLegacy <|-- ConfigControllerApplication
+class JFormFieldConfigComponents
+JFormFieldList <|-- JFormFieldConfigComponents
+class JFormFieldFilters
+JFormField <|-- JFormFieldFilters
+class ConfigModelComponent
+ConfigModelForm <|-- ConfigModelComponent
+class ConfigModelApplication
+ConfigModelForm <|-- ConfigModelApplication
+class ConfigViewApplicationHtml
+ConfigViewCmsHtml <|-- ConfigViewApplicationHtml
+class ConfigViewApplicationJson
+ConfigViewCmsJson <|-- ConfigViewApplicationJson
+class ConfigViewComponentHtml
+ConfigViewCmsHtml <|-- ConfigViewComponentHtml
+class ConfigController
+JControllerLegacy <|-- ConfigController
+class ConfigHelperConfig
+JHelperContent <|-- ConfigHelperConfig
+class ConfigControllerApplicationStore
+JControllerBase <|-- ConfigControllerApplicationStore
+class ConfigControllerApplicationCancel
+ConfigControllerCanceladmin <|-- ConfigControllerApplicationCancel
+class ConfigControllerApplicationSave
+JControllerBase <|-- ConfigControllerApplicationSave
+class ConfigControllerApplicationDisplay
+ConfigControllerDisplay <|-- ConfigControllerApplicationDisplay
+class ConfigControllerApplicationSendtestmail
+JControllerBase <|-- ConfigControllerApplicationSendtestmail
+class ConfigControllerApplicationRemoveroot
+JControllerBase <|-- ConfigControllerApplicationRemoveroot
+class ConfigControllerComponentCancel
+ConfigControllerCanceladmin <|-- ConfigControllerComponentCancel
+class ConfigControllerComponentSave
+JControllerBase <|-- ConfigControllerComponentSave
+class ConfigControllerComponentDisplay
+ConfigControllerDisplay <|-- ConfigControllerComponentDisplay
+class MenusControllerMenus
+JControllerLegacy <|-- MenusControllerMenus
+class MenusControllerMenu
+JControllerForm <|-- MenusControllerMenu
+class MenusControllerItems
+JControllerAdmin <|-- MenusControllerItems
+class MenusControllerItem
+JControllerForm <|-- MenusControllerItem
+class MenusTableMenu
+JTableMenu <|-- MenusTableMenu
+class MenusModelMenus
+JModelList <|-- MenusModelMenus
+class MenusModelMenu
+JModelForm <|-- MenusModelMenu
+class MenusModelItems
+JModelList <|-- MenusModelItems
+class JFormFieldMenuPreset
+JFormFieldList <|-- JFormFieldMenuPreset
+class JFormFieldMenuOrdering
+JFormFieldList <|-- JFormFieldMenuOrdering
+class JFormFieldMenuitemByType
+JFormFieldGroupedList <|-- JFormFieldMenuitemByType
+class JFormFieldComponentsCategory
+JFormFieldList <|-- JFormFieldComponentsCategory
+class JFormFieldMenutype
+JFormFieldList <|-- JFormFieldMenutype
+class JFormFieldModal_Menu
+JFormField <|-- JFormFieldModal_Menu
+class JFormFieldMenuParent
+JFormFieldList <|-- JFormFieldMenuParent
+class MenusModelItem
+JModelAdmin <|-- MenusModelItem
+class MenusModelMenutypes
+JModelLegacy <|-- MenusModelMenutypes
+class MenusHelper
+class MenusAssociationsHelper
+AssociationExtensionHelper <|-- MenusAssociationsHelper
+abstract class MenusHtmlMenus
+class MenusViewItem
+JViewLegacy <|-- MenusViewItem
+class MenusViewMenutypes
+JViewLegacy <|-- MenusViewMenutypes
+class MenusViewMenu
+JViewLegacy <|-- MenusViewMenu
+class MenusViewItems
+JViewLegacy <|-- MenusViewItems
+class MenusViewMenus
+JViewLegacy <|-- MenusViewMenus
+class AssociationsControllerAssociation
+JControllerForm <|-- AssociationsControllerAssociation
+class AssociationsControllerAssociations
+JControllerAdmin <|-- AssociationsControllerAssociations
+class AssociationsModelAssociation
+JModelList <|-- AssociationsModelAssociation
+class JFormFieldItemLanguage
+JFormFieldList <|-- JFormFieldItemLanguage
+class JFormFieldItemType
+JFormFieldGroupedList <|-- JFormFieldItemType
+class JFormFieldModalAssociation
+JFormField <|-- JFormFieldModalAssociation
+class AssociationsModelAssociations
+JModelList <|-- AssociationsModelAssociations
+class AssociationsHelper
+JHelperContent <|-- AssociationsHelper
+class AssociationsViewAssociations
+JViewLegacy <|-- AssociationsViewAssociations
+class AssociationsViewAssociation
+JViewLegacy <|-- AssociationsViewAssociation
+class AssociationsController
+JControllerLegacy <|-- AssociationsController
+abstract class ModVersionHelper
+class ModStatsHelper
+abstract class ModLoginHelper
+abstract class ModQuickIconHelper
+class ModFeedHelper
+abstract class ModLatestHelper
+abstract class ModSampledataHelper
+abstract class ModLoggedHelper
+abstract class ModPopularHelper
+class JAdminCssMenu
+abstract class ModMenuHelper
+class ModUsersLatestHelper
+abstract class ModArticlesPopularHelper
+class ModBannersHelper
+abstract class ModArticlesLatestHelper
+class ModLoginHelper
+abstract class ModLanguagesHelper
+abstract class ModArticlesCategoryHelper
+class ModWrapperHelper
+class ModSearchHelper
+abstract class ModTagsPopularHelper
+abstract class ModArticlesCategoriesHelper
+abstract class ModArticlesNewsHelper
+class ModBreadCrumbsHelper
+class ModWhosonlineHelper
+class ModArchiveHelper
+abstract class ModRelatedItemsHelper
+abstract class ModTagssimilarHelper
+class ModFinderHelper
+class ModMenuHelper
+class ModSyndicateHelper
+class ModRandomImageHelper
+class PlgCaptchaRecaptcha
+JPlugin <|-- PlgCaptchaRecaptcha
+class JReCaptchaResponse
+class JReCaptcha
+class PlgAuthenticationJoomla
+JPlugin <|-- PlgAuthenticationJoomla
+class PlgAuthenticationCookie
+JPlugin <|-- PlgAuthenticationCookie
+class PlgAuthenticationGMail
+JPlugin <|-- PlgAuthenticationGMail
+class PlgAuthenticationLdap
+JPlugin <|-- PlgAuthenticationLdap
+class PlgTwofactorauthTotp
+JPlugin <|-- PlgTwofactorauthTotp
+class PlgTwofactorauthYubikey
+JPlugin <|-- PlgTwofactorauthYubikey
+class PlgInstallerPackageInstaller
+JPlugin <|-- PlgInstallerPackageInstaller
+class PlgInstallerUrlInstaller
+JPlugin <|-- PlgInstallerUrlInstaller
+class PlgInstallerFolderInstaller
+JPlugin <|-- PlgInstallerFolderInstaller
+class PlgFieldsCheckboxes
+FieldsListPlugin <|-- PlgFieldsCheckboxes
+class PlgFieldsMedia
+FieldsPlugin <|-- PlgFieldsMedia
+class PlgFieldsUrl
+FieldsPlugin <|-- PlgFieldsUrl
+class PlgFieldsSql
+FieldsListPlugin <|-- PlgFieldsSql
+class PlgFieldsText
+FieldsPlugin <|-- PlgFieldsText
+class PlgFieldsUser
+FieldsPlugin <|-- PlgFieldsUser
+class PlgFieldsColor
+FieldsPlugin <|-- PlgFieldsColor
+class PlgFieldsList
+FieldsListPlugin <|-- PlgFieldsList
+class PlgFieldsEditor
+FieldsPlugin <|-- PlgFieldsEditor
+class PlgFieldsUsergrouplist
+FieldsPlugin <|-- PlgFieldsUsergrouplist
+class PlgFieldsInteger
+FieldsPlugin <|-- PlgFieldsInteger
+class PlgFieldsCalendar
+FieldsPlugin <|-- PlgFieldsCalendar
+class PlgFieldsRadio
+FieldsListPlugin <|-- PlgFieldsRadio
+class PlgFieldsImagelist
+FieldsListPlugin <|-- PlgFieldsImagelist
+class PlgFieldsTextarea
+FieldsPlugin <|-- PlgFieldsTextarea
+class JFormFieldTos
+JFormFieldRadio <|-- JFormFieldTos
+class JFormFieldDob
+JFormFieldCalendar <|-- JFormFieldDob
+class PlgUserProfile
+JPlugin <|-- PlgUserProfile
+class PlgUserJoomla
+JPlugin <|-- PlgUserJoomla
+class PlgUserContactCreator
+JPlugin <|-- PlgUserContactCreator
+class PlgSearchNewsfeeds
+JPlugin <|-- PlgSearchNewsfeeds
+class PlgSearchContacts
+JPlugin <|-- PlgSearchContacts
+class PlgSearchCategories
+JPlugin <|-- PlgSearchCategories
+class PlgSearchTags
+JPlugin <|-- PlgSearchTags
+class PlgSearchContent
+JPlugin <|-- PlgSearchContent
+class PlgButtonMenu
+JPlugin <|-- PlgButtonMenu
+class PlgButtonFields
+JPlugin <|-- PlgButtonFields
+class PlgButtonModule
+JPlugin <|-- PlgButtonModule
+class PlgButtonContact
+JPlugin <|-- PlgButtonContact
+class PlgButtonImage
+JPlugin <|-- PlgButtonImage
+class PlgButtonArticle
+JPlugin <|-- PlgButtonArticle
+class PlgButtonReadmore
+JPlugin <|-- PlgButtonReadmore
+class PlgButtonPagebreak
+JPlugin <|-- PlgButtonPagebreak
+class JFormFieldSkins
+JFormFieldList <|-- JFormFieldSkins
+class JFormFieldUploaddirs
+JFormFieldFolderList <|-- JFormFieldUploaddirs
+class JFormFieldTinymceBuilder
+JFormField <|-- JFormFieldTinymceBuilder
+class PlgEditorTinymce
+JPlugin <|-- PlgEditorTinymce
+class PlgEditorNone
+JPlugin <|-- PlgEditorNone
+class PlgEditorCodemirror
+JPlugin <|-- PlgEditorCodemirror
+class JFormFieldFonts
+JFormFieldList <|-- JFormFieldFonts
+class PlgQuickiconJoomlaupdate
+JPlugin <|-- PlgQuickiconJoomlaupdate
+class PlgQuickiconPhpVersionCheck
+JPlugin <|-- PlgQuickiconPhpVersionCheck
+class PlgQuickiconExtensionupdate
+JPlugin <|-- PlgQuickiconExtensionupdate
+class PlgExtensionJoomla
+JPlugin <|-- PlgExtensionJoomla
+class PlgContentLoadmodule
+JPlugin <|-- PlgContentLoadmodule
+class PlgContentEmailcloak
+JPlugin <|-- PlgContentEmailcloak
+class PlgContentJoomla
+JPlugin <|-- PlgContentJoomla
+class PlgContentVote
+JPlugin <|-- PlgContentVote
+class PlgContentFields
+JPlugin <|-- PlgContentFields
+class PlgContentContact
+JPlugin <|-- PlgContentContact
+class PlgContentPagenavigation
+JPlugin <|-- PlgContentPagenavigation
+class PlgContentFinder
+JPlugin <|-- PlgContentFinder
+class PlgContentPagebreak
+JPlugin <|-- PlgContentPagebreak
+class PlgFinderNewsfeeds
+FinderIndexerAdapter <|-- PlgFinderNewsfeeds
+class PlgFinderContacts
+FinderIndexerAdapter <|-- PlgFinderContacts
+class PlgFinderCategories
+FinderIndexerAdapter <|-- PlgFinderCategories
+class PlgFinderTags
+FinderIndexerAdapter <|-- PlgFinderTags
+class PlgFinderContent
+FinderIndexerAdapter <|-- PlgFinderContent
+class PlgSystemP3p
+JPlugin <|-- PlgSystemP3p
+class PlgSystemLanguagecode
+JPlugin <|-- PlgSystemLanguagecode
+class PlgSystemStatsFormFieldData
+PlgSystemStatsFormFieldBase <|-- PlgSystemStatsFormFieldData
+class PlgSystemStatsFormFieldUniqueid
+PlgSystemStatsFormFieldBase <|-- PlgSystemStatsFormFieldUniqueid
+abstract class PlgSystemStatsFormFieldBase
+JFormField <|-- PlgSystemStatsFormFieldBase
+class PlgSystemStats
+JPlugin <|-- PlgSystemStats
+class PlgSystemHighlight
+JPlugin <|-- PlgSystemHighlight
+class PlgSystemRemember
+JPlugin <|-- PlgSystemRemember
+class PlgSystemRedirect
+JPlugin <|-- PlgSystemRedirect
+class PlgSystemLanguageFilter
+JPlugin <|-- PlgSystemLanguageFilter
+class PlgSystemSef
+JPlugin <|-- PlgSystemSef
+class PlgSystemLog
+JPlugin <|-- PlgSystemLog
+class PlgSystemFields
+JPlugin <|-- PlgSystemFields
+class PlgSystemDebug
+JPlugin <|-- PlgSystemDebug
+class PlgSystemCache
+JPlugin <|-- PlgSystemCache
+class PlgSystemUpdatenotification
+JPlugin <|-- PlgSystemUpdatenotification
+class PlgSystemLogout
+JPlugin <|-- PlgSystemLogout
+class PlgSampledataBlog
+JPlugin <|-- PlgSampledataBlog
+@enduml

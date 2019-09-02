@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHelper
+JFormHelper <|-- FOFFormHelper
+!include class-JFormHelper.puml
+@enduml

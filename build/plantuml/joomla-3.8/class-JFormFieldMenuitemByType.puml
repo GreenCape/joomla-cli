@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldMenuitemByType
+JFormFieldGroupedList <|-- JFormFieldMenuitemByType
+!include class-JFormFieldGroupedList.puml
+@enduml

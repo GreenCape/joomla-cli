@@ -1,0 +1,5 @@
+@startuml
+class AdminViewHelp
+JViewLegacy <|-- AdminViewHelp
+!include class-JViewLegacy.puml
+@enduml

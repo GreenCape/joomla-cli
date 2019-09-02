@@ -1,0 +1,5 @@
+@startuml
+class UsersViewLevels
+JViewLegacy <|-- UsersViewLevels
+!include class-JViewLegacy.puml
+@enduml

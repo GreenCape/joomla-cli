@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldInteger
+JFormFieldInteger <|-- FOFFormFieldInteger
+!include class-JFormFieldInteger.puml
+FOFFormField <|.. FOFFormFieldInteger
+!include class-FOFFormField.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Core.BLAKE2b
+ParagonIE_Sodium_Core_BLAKE2b <|-- ParagonIE.Sodium.Core.BLAKE2b
+!include class-ParagonIE_Sodium_Core_BLAKE2b.puml
+@enduml

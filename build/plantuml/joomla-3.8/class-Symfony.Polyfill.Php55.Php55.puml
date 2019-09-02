@@ -1,0 +1,3 @@
+@startuml
+class Symfony.Polyfill.Php55.Php55
+@enduml

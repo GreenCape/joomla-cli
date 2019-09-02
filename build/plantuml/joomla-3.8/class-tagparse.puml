@@ -1,0 +1,5 @@
+@startuml
+class tagparse
+easyparse <|-- tagparse
+!include class-easyparse.puml
+@enduml

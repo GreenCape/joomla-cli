@@ -1,0 +1,9 @@
+@startuml
+class Joomla.CMS.Http.Transport.SocketTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.SocketTransport
+
+class Joomla.CMS.Http.Transport.StreamTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.StreamTransport
+class Joomla.CMS.Http.Transport.CurlTransport
+Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.CurlTransport
+@enduml

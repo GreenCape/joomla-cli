@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.MVC.View.HtmlView
+JObject <|-- Joomla.CMS.MVC.View.HtmlView
+!include class-JObject.puml
+@enduml

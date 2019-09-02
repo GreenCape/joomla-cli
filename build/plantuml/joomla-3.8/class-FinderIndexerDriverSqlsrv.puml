@@ -1,0 +1,5 @@
+@startuml
+class FinderIndexerDriverSqlsrv
+FinderIndexer <|-- FinderIndexerDriverSqlsrv
+!include class-FinderIndexer.puml
+@enduml

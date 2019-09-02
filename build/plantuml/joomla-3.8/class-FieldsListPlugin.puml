@@ -1,0 +1,5 @@
+@startuml
+class FieldsListPlugin
+FieldsPlugin <|-- FieldsListPlugin
+!include class-FieldsPlugin.puml
+@enduml

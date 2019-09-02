@@ -1,0 +1,5 @@
+@startuml
+class FOFFormHeaderFilterselectable
+FOFFormHeaderFieldselectable <|-- FOFFormHeaderFilterselectable
+!include class-FOFFormHeaderFieldselectable.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldNote
+JFormField <|-- JFormFieldNote
+!include class-JFormField.puml
+@enduml

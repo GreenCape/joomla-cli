@@ -1,0 +1,5 @@
+@startuml
+class JSessionStorageXcache
+JSessionStorage <|-- JSessionStorageXcache
+!include class-JSessionStorage.puml
+@enduml

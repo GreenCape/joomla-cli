@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldTag
+JFormFieldTag <|-- FOFFormFieldTag
+!include class-JFormFieldTag.puml
+FOFFormField <|.. FOFFormFieldTag
+!include class-FOFFormField.puml
+@enduml

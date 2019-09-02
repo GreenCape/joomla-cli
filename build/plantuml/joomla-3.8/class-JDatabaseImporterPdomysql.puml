@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseImporterPdomysql
+JDatabaseImporter <|-- JDatabaseImporterPdomysql
+!include class-JDatabaseImporter.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FOFUtilsUpdateJoomla
+FOFUtilsUpdateExtension <|-- FOFUtilsUpdateJoomla
+!include class-FOFUtilsUpdateExtension.puml
+@enduml

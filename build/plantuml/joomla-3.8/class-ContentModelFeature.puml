@@ -1,0 +1,5 @@
+@startuml
+class ContentModelFeature
+ContentModelArticle <|-- ContentModelFeature
+!include class-ContentModelArticle.puml
+@enduml

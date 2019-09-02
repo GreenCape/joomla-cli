@@ -1,0 +1,5 @@
+@startuml
+class BannersHelper
+JHelperContent <|-- BannersHelper
+!include class-JHelperContent.puml
+@enduml

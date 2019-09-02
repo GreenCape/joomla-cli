@@ -1,0 +1,5 @@
+@startuml
+class CannotPerformOperationException
+Exception <|-- CannotPerformOperationException
+!include class-Exception.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+abstract class PlgSystemStatsFormFieldBase
+JFormField <|-- PlgSystemStatsFormFieldBase
+!include class-JFormField.puml
+@enduml

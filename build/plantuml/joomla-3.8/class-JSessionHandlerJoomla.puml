@@ -1,0 +1,5 @@
+@startuml
+class JSessionHandlerJoomla
+JSessionHandlerNative <|-- JSessionHandlerJoomla
+!include class-JSessionHandlerNative.puml
+@enduml

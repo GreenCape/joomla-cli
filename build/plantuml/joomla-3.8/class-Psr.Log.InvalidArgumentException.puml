@@ -1,0 +1,5 @@
+@startuml
+class Psr.Log.InvalidArgumentException
+InvalidArgumentException <|-- Psr.Log.InvalidArgumentException
+!include class-InvalidArgumentException.puml
+@enduml

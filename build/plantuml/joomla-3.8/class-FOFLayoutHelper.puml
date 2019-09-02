@@ -1,0 +1,5 @@
+@startuml
+class FOFLayoutHelper
+JLayoutHelper <|-- FOFLayoutHelper
+!include class-JLayoutHelper.puml
+@enduml

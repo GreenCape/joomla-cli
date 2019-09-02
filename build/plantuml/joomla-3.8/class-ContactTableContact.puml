@@ -1,0 +1,5 @@
+@startuml
+class ContactTableContact
+JTable <|-- ContactTableContact
+!include class-JTable.puml
+@enduml

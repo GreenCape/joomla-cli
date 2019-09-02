@@ -1,0 +1,5 @@
+@startuml
+class ContentViewCategory
+JViewCategory <|-- ContentViewCategory
+!include class-JViewCategory.puml
+@enduml

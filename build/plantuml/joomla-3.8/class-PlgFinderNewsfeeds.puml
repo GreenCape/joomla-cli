@@ -1,0 +1,5 @@
+@startuml
+class PlgFinderNewsfeeds
+FinderIndexerAdapter <|-- PlgFinderNewsfeeds
+!include class-FinderIndexerAdapter.puml
+@enduml

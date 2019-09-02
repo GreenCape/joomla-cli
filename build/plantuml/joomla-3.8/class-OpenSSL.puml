@@ -1,0 +1,7 @@
+@startuml
+class OpenSSL
+AKEncryptionAESAdapterAbstract <|-- OpenSSL
+!include class-AKEncryptionAESAdapterAbstract.puml
+AKEncryptionAESAdapterInterface <|.. OpenSSL
+!include class-AKEncryptionAESAdapterInterface.puml
+@enduml

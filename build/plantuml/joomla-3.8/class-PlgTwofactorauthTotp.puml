@@ -1,0 +1,5 @@
+@startuml
+class PlgTwofactorauthTotp
+JPlugin <|-- PlgTwofactorauthTotp
+!include class-JPlugin.puml
+@enduml

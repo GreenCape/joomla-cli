@@ -1,0 +1,5 @@
+@startuml
+class JTwitterHelp
+JTwitterObject <|-- JTwitterHelp
+!include class-JTwitterObject.puml
+@enduml

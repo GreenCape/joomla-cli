@@ -1,0 +1,5 @@
+@startuml
+abstract class FOFDownloadAdapterAbstract
+FOFDownloadInterface <|.. FOFDownloadAdapterAbstract
+!include class-FOFDownloadInterface.puml
+@enduml

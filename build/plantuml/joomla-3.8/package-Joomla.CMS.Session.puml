@@ -1,0 +1,7 @@
+@startuml
+class Joomla.CMS.Session.Session
+IteratorAggregate <|.. Joomla.CMS.Session.Session
+
+class Joomla.CMS.Session.Exception.UnsupportedStorageException
+RuntimeException <|-- Joomla.CMS.Session.Exception.UnsupportedStorageException
+@enduml

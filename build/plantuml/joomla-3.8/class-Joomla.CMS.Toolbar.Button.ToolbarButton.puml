@@ -1,0 +1,3 @@
+@startuml
+class Joomla.CMS.Toolbar.Button.ToolbarButton << (·,Transparent) >>
+@enduml

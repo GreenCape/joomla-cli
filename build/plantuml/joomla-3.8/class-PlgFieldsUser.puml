@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsUser
+FieldsPlugin <|-- PlgFieldsUser
+!include class-FieldsPlugin.puml
+@enduml

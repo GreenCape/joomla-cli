@@ -1,0 +1,5 @@
+@startuml
+class FieldsViewGroup
+JViewLegacy <|-- FieldsViewGroup
+!include class-JViewLegacy.puml
+@enduml

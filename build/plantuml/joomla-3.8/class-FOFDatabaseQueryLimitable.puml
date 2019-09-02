@@ -1,0 +1,5 @@
+@startuml
+interface FOFDatabaseQueryLimitable
+JDatabaseQueryLimitable <|-- FOFDatabaseQueryLimitable
+!include class-JDatabaseQueryLimitable.puml
+@enduml

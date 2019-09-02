@@ -1,0 +1,5 @@
+@startuml
+class PlgUserJoomla
+JPlugin <|-- PlgUserJoomla
+!include class-JPlugin.puml
+@enduml

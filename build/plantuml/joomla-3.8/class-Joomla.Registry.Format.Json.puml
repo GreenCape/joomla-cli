@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Registry.Format.Json
+Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Json
+!include class-Joomla.Registry.Format.AbstractRegistryFormat.puml
+@enduml

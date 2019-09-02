@@ -1,0 +1,6 @@
+@startuml
+class Joomla.CMS.Categories.Categories
+
+class Joomla.CMS.Categories.CategoryNode
+JObject <|-- Joomla.CMS.Categories.CategoryNode
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class InstallationControllerInstallDatabase_remove
+InstallationControllerInstallDatabase_backup <|-- InstallationControllerInstallDatabase_remove
+!include class-InstallationControllerInstallDatabase_backup.puml
+@enduml

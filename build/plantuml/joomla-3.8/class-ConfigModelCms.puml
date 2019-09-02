@@ -1,0 +1,5 @@
+@startuml
+abstract class ConfigModelCms
+JModelDatabase <|-- ConfigModelCms
+!include class-JModelDatabase.puml
+@enduml

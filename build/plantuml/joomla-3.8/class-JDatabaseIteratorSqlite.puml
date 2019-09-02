@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseIteratorSqlite
+JDatabaseIteratorPdo <|-- JDatabaseIteratorSqlite
+!include class-JDatabaseIteratorPdo.puml
+@enduml

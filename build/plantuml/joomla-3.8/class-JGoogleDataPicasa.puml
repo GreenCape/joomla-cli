@@ -1,0 +1,5 @@
+@startuml
+class JGoogleDataPicasa
+JGoogleData <|-- JGoogleDataPicasa
+!include class-JGoogleData.puml
+@enduml

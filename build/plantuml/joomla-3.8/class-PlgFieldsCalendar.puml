@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsCalendar
+FieldsPlugin <|-- PlgFieldsCalendar
+!include class-FieldsPlugin.puml
+@enduml

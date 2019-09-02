@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
+!include class-Joomla.CMS.Schema.ChangeItem.ChangeItem.puml
+@enduml

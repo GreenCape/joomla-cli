@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldRepeatable
+JFormField <|-- JFormFieldRepeatable
+!include class-JFormField.puml
+@enduml

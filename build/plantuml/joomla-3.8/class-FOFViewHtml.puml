@@ -1,0 +1,5 @@
+@startuml
+class FOFViewHtml
+FOFViewRaw <|-- FOFViewHtml
+!include class-FOFViewRaw.puml
+@enduml

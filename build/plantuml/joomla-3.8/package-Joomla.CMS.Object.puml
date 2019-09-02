@@ -1,0 +1,4 @@
+@startuml
+class Joomla.CMS.Object.CMSObject
+
+@enduml

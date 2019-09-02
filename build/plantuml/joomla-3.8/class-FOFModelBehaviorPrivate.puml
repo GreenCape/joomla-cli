@@ -1,0 +1,5 @@
+@startuml
+class FOFModelBehaviorPrivate
+FOFModelBehavior <|-- FOFModelBehaviorPrivate
+!include class-FOFModelBehavior.puml
+@enduml

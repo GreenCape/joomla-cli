@@ -1,0 +1,5 @@
+@startuml
+class CategoriesController
+JControllerLegacy <|-- CategoriesController
+!include class-JControllerLegacy.puml
+@enduml

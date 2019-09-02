@@ -1,0 +1,5 @@
+@startuml
+class InstallationFormFieldPrefix
+JFormField <|-- InstallationFormFieldPrefix
+!include class-JFormField.puml
+@enduml

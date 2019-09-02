@@ -1,0 +1,17 @@
+@startuml
+class Symfony.Component.Yaml.Dumper
+
+class Symfony.Component.Yaml.Exception.DumpException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.DumpException
+class Symfony.Component.Yaml.Exception.RuntimeException
+RuntimeException <|-- Symfony.Component.Yaml.Exception.RuntimeException
+Symfony.Component.Yaml.Exception.ExceptionInterface <|.. Symfony.Component.Yaml.Exception.RuntimeException
+class Symfony.Component.Yaml.Exception.ParseException
+Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.ParseException
+interface Symfony.Component.Yaml.Exception.ExceptionInterface
+class Symfony.Component.Yaml.Escaper
+class Symfony.Component.Yaml.Inline
+class Symfony.Component.Yaml.Unescaper
+class Symfony.Component.Yaml.Yaml
+class Symfony.Component.Yaml.Parser
+@enduml

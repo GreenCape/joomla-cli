@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Log.DelegatingPsrLogger
+Joomla.CMS.Log.AbstractLogger <|-- Joomla.CMS.Log.DelegatingPsrLogger
+!include class-Joomla.CMS.Log.AbstractLogger.puml
+@enduml

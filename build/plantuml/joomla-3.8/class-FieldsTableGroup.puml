@@ -1,0 +1,5 @@
+@startuml
+class FieldsTableGroup
+JTable <|-- FieldsTableGroup
+!include class-JTable.puml
+@enduml

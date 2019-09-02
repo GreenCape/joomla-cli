@@ -1,0 +1,5 @@
+@startuml
+class BannersControllerBanners
+JControllerAdmin <|-- BannersControllerBanners
+!include class-JControllerAdmin.puml
+@enduml

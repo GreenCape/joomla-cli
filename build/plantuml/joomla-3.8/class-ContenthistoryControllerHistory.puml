@@ -1,0 +1,5 @@
+@startuml
+class ContenthistoryControllerHistory
+JControllerAdmin <|-- ContenthistoryControllerHistory
+!include class-JControllerAdmin.puml
+@enduml

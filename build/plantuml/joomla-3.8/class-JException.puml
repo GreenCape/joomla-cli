@@ -1,0 +1,5 @@
+@startuml
+class JException
+Exception <|-- JException
+!include class-Exception.puml
+@enduml

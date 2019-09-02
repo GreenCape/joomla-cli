@@ -1,0 +1,5 @@
+@startuml
+class RedirectControllerLink
+JControllerForm <|-- RedirectControllerLink
+!include class-JControllerForm.puml
+@enduml

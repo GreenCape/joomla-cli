@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.NumberRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NumberRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

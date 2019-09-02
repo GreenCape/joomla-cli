@@ -1,0 +1,5 @@
+@startuml
+class JGoogleDataCalendar
+JGoogleData <|-- JGoogleDataCalendar
+!include class-JGoogleData.puml
+@enduml

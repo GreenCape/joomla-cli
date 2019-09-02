@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.UCM.UCMBase
+Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMBase
+!include class-Joomla.CMS.UCM.UCM.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class JRouterInstallation
+JRouter <|-- JRouterInstallation
+!include class-JRouter.puml
+@enduml

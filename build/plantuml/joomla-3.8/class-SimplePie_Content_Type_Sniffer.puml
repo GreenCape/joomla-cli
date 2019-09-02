@@ -1,0 +1,3 @@
+@startuml
+class SimplePie_Content_Type_Sniffer
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class TemplatesModelTemplates
+JModelList <|-- TemplatesModelTemplates
+!include class-JModelList.puml
+@enduml

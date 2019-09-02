@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Table.MenuType
+Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.MenuType
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

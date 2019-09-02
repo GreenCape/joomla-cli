@@ -1,0 +1,5 @@
+@startuml
+class PlgFieldsRadio
+FieldsListPlugin <|-- PlgFieldsRadio
+!include class-FieldsListPlugin.puml
+@enduml

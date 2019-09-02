@@ -1,0 +1,5 @@
+@startuml
+class JDatabaseIteratorPostgresql
+JDatabaseIterator <|-- JDatabaseIteratorPostgresql
+!include class-JDatabaseIterator.puml
+@enduml

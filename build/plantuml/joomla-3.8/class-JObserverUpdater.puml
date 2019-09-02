@@ -1,0 +1,5 @@
+@startuml
+class JObserverUpdater
+JObserverUpdaterInterface <|.. JObserverUpdater
+!include class-JObserverUpdaterInterface.puml
+@enduml

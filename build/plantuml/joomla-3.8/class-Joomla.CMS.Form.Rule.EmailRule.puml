@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.EmailRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EmailRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

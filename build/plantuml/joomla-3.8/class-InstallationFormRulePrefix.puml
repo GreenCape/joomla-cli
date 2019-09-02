@@ -1,0 +1,5 @@
+@startuml
+class InstallationFormRulePrefix
+JFormRule <|-- InstallationFormRulePrefix
+!include class-JFormRule.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Menu.AdministratorMenu
+Joomla.CMS.Menu.AbstractMenu <|-- Joomla.CMS.Menu.AdministratorMenu
+!include class-Joomla.CMS.Menu.AbstractMenu.puml
+@enduml

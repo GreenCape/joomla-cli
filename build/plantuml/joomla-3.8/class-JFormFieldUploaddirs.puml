@@ -1,0 +1,5 @@
+@startuml
+class JFormFieldUploaddirs
+JFormFieldFolderList <|-- JFormFieldUploaddirs
+!include class-JFormFieldFolderList.puml
+@enduml

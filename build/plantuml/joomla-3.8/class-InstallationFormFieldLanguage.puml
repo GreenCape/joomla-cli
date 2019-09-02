@@ -1,0 +1,5 @@
+@startuml
+class InstallationFormFieldLanguage
+JFormFieldList <|-- InstallationFormFieldLanguage
+!include class-JFormFieldList.puml
+@enduml

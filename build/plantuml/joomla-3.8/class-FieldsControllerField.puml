@@ -1,0 +1,5 @@
+@startuml
+class FieldsControllerField
+JControllerForm <|-- FieldsControllerField
+!include class-JControllerForm.puml
+@enduml

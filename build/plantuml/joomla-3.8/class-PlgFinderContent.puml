@@ -1,0 +1,5 @@
+@startuml
+class PlgFinderContent
+FinderIndexerAdapter <|-- PlgFinderContent
+!include class-FinderIndexerAdapter.puml
+@enduml

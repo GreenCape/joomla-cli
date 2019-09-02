@@ -1,0 +1,5 @@
+@startuml
+class Joomla.Image.Filter.Sketchy
+Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Sketchy
+!include class-Joomla.Image.Filter.ImageFilter.puml
+@enduml

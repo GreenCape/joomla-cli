@@ -1,0 +1,5 @@
+@startuml
+class FOFTableNested
+FOFTable <|-- FOFTableNested
+!include class-FOFTable.puml
+@enduml

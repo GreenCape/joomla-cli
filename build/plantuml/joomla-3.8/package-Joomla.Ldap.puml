@@ -1,0 +1,4 @@
+@startuml
+class Joomla.Ldap.LdapClient
+
+@enduml

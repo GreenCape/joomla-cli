@@ -1,0 +1,5 @@
+@startuml
+class JLess
+lessc <|-- JLess
+!include class-lessc.puml
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+class Joomla.CMS.Form.Rule.UrlRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UrlRule
+
+class Joomla.CMS.Form.Rule.OptionsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.OptionsRule
+class Joomla.CMS.Form.Rule.NumberRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NumberRule
+class Joomla.CMS.Form.Rule.TelRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.TelRule
+class Joomla.CMS.Form.Rule.UsernameRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UsernameRule
+class Joomla.CMS.Form.Rule.ColorRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.ColorRule
+class Joomla.CMS.Form.Rule.PasswordRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.PasswordRule
+class Joomla.CMS.Form.Rule.CalendarRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CalendarRule
+class Joomla.CMS.Form.Rule.NotequalsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.NotequalsRule
+class Joomla.CMS.Form.Rule.EmailRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EmailRule
+class Joomla.CMS.Form.Rule.EqualsRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EqualsRule
+class Joomla.CMS.Form.Rule.BooleanRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.BooleanRule
+class Joomla.CMS.Form.Rule.CaptchaRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.CaptchaRule
+class Joomla.CMS.Form.Rule.RulesRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.RulesRule
+@enduml

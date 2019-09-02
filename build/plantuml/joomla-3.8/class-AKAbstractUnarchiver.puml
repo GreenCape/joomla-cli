@@ -1,0 +1,5 @@
+@startuml
+abstract class AKAbstractUnarchiver
+AKAbstractPart <|-- AKAbstractUnarchiver
+!include class-AKAbstractPart.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class InstallerViewUpdatesites
+InstallerViewDefault <|-- InstallerViewUpdatesites
+!include class-InstallerViewDefault.puml
+@enduml

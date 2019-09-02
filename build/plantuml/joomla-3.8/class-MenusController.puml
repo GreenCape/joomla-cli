@@ -1,0 +1,5 @@
+@startuml
+class MenusController
+JControllerLegacy <|-- MenusController
+!include class-JControllerLegacy.puml
+@enduml

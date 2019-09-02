@@ -1,0 +1,5 @@
+@startuml
+class UsersRouter
+JComponentRouterView <|-- UsersRouter
+!include class-JComponentRouterView.puml
+@enduml

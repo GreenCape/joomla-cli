@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Component.ComponentRecord
+JObject <|-- Joomla.CMS.Component.ComponentRecord
+!include class-JObject.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Rule.UsernameRule
+Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.UsernameRule
+!include class-Joomla.CMS.Form.Rule.FormRule.puml
+@enduml

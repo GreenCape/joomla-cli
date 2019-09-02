@@ -1,0 +1,5 @@
+@startuml
+abstract class AKAbstractPart
+AKAbstractObject <|-- AKAbstractPart
+!include class-AKAbstractObject.puml
+@enduml

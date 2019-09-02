@@ -1,0 +1,5 @@
+@startuml
+class JGithubPackageRepositoriesStatistics
+JGithubPackage <|-- JGithubPackageRepositoriesStatistics
+!include class-JGithubPackage.puml
+@enduml

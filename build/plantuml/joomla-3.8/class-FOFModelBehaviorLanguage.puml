@@ -1,0 +1,5 @@
+@startuml
+class FOFModelBehaviorLanguage
+FOFModelBehavior <|-- FOFModelBehaviorLanguage
+!include class-FOFModelBehavior.puml
+@enduml

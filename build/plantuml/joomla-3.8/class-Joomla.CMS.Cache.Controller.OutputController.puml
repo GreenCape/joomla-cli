@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Cache.Controller.OutputController
+Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.OutputController
+!include class-Joomla.CMS.Cache.Controller.CacheController.puml
+@enduml

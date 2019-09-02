@@ -1,0 +1,5 @@
+@startuml
+class JTwitterOAuth
+JOAuth1Client <|-- JTwitterOAuth
+!include class-JOAuth1Client.puml
+@enduml

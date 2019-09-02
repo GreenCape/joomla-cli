@@ -1,0 +1,3 @@
+@startuml
+abstract class ParagonIE_Sodium_Core_Util
+@enduml

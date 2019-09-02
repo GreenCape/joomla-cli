@@ -1,0 +1,5 @@
+@startuml
+class CryptoTestFailedException
+Exception <|-- CryptoTestFailedException
+!include class-Exception.puml
+@enduml

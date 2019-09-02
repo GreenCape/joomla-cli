@@ -1,0 +1,5 @@
+@startuml
+class JFacebookEvent
+JFacebookObject <|-- JFacebookEvent
+!include class-JFacebookObject.puml
+@enduml

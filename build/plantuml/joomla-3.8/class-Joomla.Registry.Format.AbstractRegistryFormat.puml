@@ -1,0 +1,3 @@
+@startuml
+class Joomla.Registry.Format.AbstractRegistryFormat << (·,Transparent) >>
+@enduml

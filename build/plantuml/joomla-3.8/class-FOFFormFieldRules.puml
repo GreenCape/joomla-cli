@@ -1,0 +1,7 @@
+@startuml
+class FOFFormFieldRules
+JFormFieldRules <|-- FOFFormFieldRules
+!include class-JFormFieldRules.puml
+FOFFormField <|.. FOFFormFieldRules
+!include class-FOFFormField.puml
+@enduml

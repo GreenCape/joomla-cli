@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Utility.Utility
+
+class Joomla.CMS.Utility.BufferStreamHandler
+@enduml

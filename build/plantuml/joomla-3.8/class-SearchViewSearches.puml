@@ -1,0 +1,5 @@
+@startuml
+class SearchViewSearches
+JViewLegacy <|-- SearchViewSearches
+!include class-JViewLegacy.puml
+@enduml

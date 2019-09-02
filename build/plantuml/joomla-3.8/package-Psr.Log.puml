@@ -1,0 +1,14 @@
+@startuml
+interface Psr.Log.LoggerInterface
+
+interface Psr.Log.LoggerAwareInterface
+class Psr.Log.InvalidArgumentException
+InvalidArgumentException <|-- Psr.Log.InvalidArgumentException
+abstract class Psr.Log.AbstractLogger
+Psr.Log.LoggerInterface <|.. Psr.Log.AbstractLogger
+class Psr.Log.LogLevel
+trait Psr.Log.LoggerAwareTrait
+trait Psr.Log.LoggerTrait
+class Psr.Log.NullLogger
+Psr.Log.AbstractLogger <|-- Psr.Log.NullLogger
+@enduml

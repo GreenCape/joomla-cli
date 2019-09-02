@@ -1,0 +1,5 @@
+@startuml
+class Joomla.CMS.Form.Field.MenuitemField
+JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuitemField
+!include class-JFormFieldGroupedList.puml
+@enduml

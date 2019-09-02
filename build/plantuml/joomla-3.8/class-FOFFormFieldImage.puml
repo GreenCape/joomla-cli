@@ -1,0 +1,5 @@
+@startuml
+class FOFFormFieldImage
+FOFFormFieldMedia <|-- FOFFormFieldImage
+!include class-FOFFormFieldMedia.puml
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class FinderModelMaps
+JModelList <|-- FinderModelMaps
+!include class-JModelList.puml
+@enduml

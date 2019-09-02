@@ -1,0 +1,5 @@
+@startuml
+class ContentModelArticles
+JModelList <|-- ContentModelArticles
+!include class-JModelList.puml
+@enduml

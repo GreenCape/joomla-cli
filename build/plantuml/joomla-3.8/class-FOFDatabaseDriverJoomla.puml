@@ -1,0 +1,7 @@
+@startuml
+class FOFDatabaseDriverJoomla
+FOFDatabase <|-- FOFDatabaseDriverJoomla
+!include class-FOFDatabase.puml
+FOFDatabaseInterface <|.. FOFDatabaseDriverJoomla
+!include class-FOFDatabaseInterface.puml
+@enduml

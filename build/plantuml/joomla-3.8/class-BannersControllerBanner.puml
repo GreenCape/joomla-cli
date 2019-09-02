@@ -1,0 +1,5 @@
+@startuml
+class BannersControllerBanner
+JControllerForm <|-- BannersControllerBanner
+!include class-JControllerForm.puml
+@enduml

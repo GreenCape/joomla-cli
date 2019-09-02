@@ -1,0 +1,7 @@
+@startuml
+class FOFIntegrationJoomlaPlatform
+FOFPlatform <|-- FOFIntegrationJoomlaPlatform
+!include class-FOFPlatform.puml
+FOFPlatformInterface <|.. FOFIntegrationJoomlaPlatform
+!include class-FOFPlatformInterface.puml
+@enduml

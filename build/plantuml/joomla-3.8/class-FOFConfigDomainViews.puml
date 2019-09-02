@@ -1,0 +1,5 @@
+@startuml
+class FOFConfigDomainViews
+FOFConfigDomainInterface <|.. FOFConfigDomainViews
+!include class-FOFConfigDomainInterface.puml
+@enduml

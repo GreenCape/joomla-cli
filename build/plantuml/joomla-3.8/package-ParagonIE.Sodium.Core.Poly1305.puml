@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Core.Poly1305.State
+ParagonIE_Sodium_Core_Poly1305_State <|-- ParagonIE.Sodium.Core.Poly1305.State
+
+@enduml

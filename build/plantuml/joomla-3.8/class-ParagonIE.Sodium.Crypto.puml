@@ -1,0 +1,5 @@
+@startuml
+class ParagonIE.Sodium.Crypto
+ParagonIE_Sodium_Crypto <|-- ParagonIE.Sodium.Crypto
+!include class-ParagonIE_Sodium_Crypto.puml
+@enduml
