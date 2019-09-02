@@ -1,8 +1,8 @@
 apache:
   build: "${build-templates}/docker/apache"
   volumes:
-    - "${server-dockyard}/apache.conf:/etc/apache2/sites-enabled"
-    - "${server-dockyard}/apache.html:/var/www/html"
+    - "${server-dockyard}/apache/conf:/etc/apache2/sites-enabled"
+    - "${server-dockyard}/apache/html:/var/www/html"
     - "${basedir}/vendor:/usr/local/lib/php/vendor"
   environment:
     DISTFILES: "$DISTFILES"
@@ -14,8 +14,8 @@ apache:
 nginx:
   image: "nginx"
   volumes:
-    - "${server-dockyard}/nginx.conf:/etc/nginx/conf.d"
-    - "${server-dockyard}/nginx.html:/var/www/html"
+    - "${server-dockyard}/nginx/conf:/etc/nginx/conf.d"
+    - "${server-dockyard}/nginx/html:/var/www/html"
     - "${basedir}/vendor:/usr/local/lib/php/vendor"
   environment:
     DISTFILES: "$DISTFILES"
@@ -36,7 +36,7 @@ proxy:
 php:
   build: "${build-templates}/docker/php-fpm"
   volumes:
-    - "${server-dockyard}/nginx.html:/var/www/html"
+    - "${server-dockyard}/nginx/html:/var/www/html"
     - "${basedir}/vendor:/usr/local/lib/php/vendor"
   links:
     - "mysql"

@@ -271,11 +271,11 @@ class FromPhing
 
 		// Recreate directories for container contents
 		$this->delete($this->serverDockyard);
-		$this->mkdir($this->serverDockyard . '/nginx.conf');
-		$this->mkdir($this->serverDockyard . '/nginx.html');
-		$this->mkdir($this->serverDockyard . '/apache.conf');
-		$this->mkdir($this->serverDockyard . '/apache.html');
-		$this->mkdir($this->serverDockyard . '/proxy.conf');
+		$this->mkdir($this->serverDockyard . '/nginx/conf');
+		$this->mkdir($this->serverDockyard . '/nginx/html');
+		$this->mkdir($this->serverDockyard . '/apache/conf');
+		$this->mkdir($this->serverDockyard . '/apache/html');
+		$this->mkdir($this->serverDockyard . '/proxy/conf');
 		$this->mkdir($this->serverDockyard . '/mysql');
 		$this->mkdir($this->serverDockyard . '/postgresql');
 
