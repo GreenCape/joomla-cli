@@ -237,16 +237,7 @@ class UMLGenerator
 
 			if (!file_exists($this->dir . '/' . $file))
 			{
-				if (file_exists($this->predefinedClasses . '/' . $file))
-				{
-					$this->log("Using predefined class diagram for {$class}");
-					copy($this->predefinedClasses . '/' . $file, $this->dir . '/' . $file);
-				}
-				else
-				{
-					$this->log("Generating class diagram for unknown {$class}");
-					$this->writePuml($this->dir . '/' . $file, "@startuml\nclass {$class} << (·,Transparent) >>\n@enduml\n");
-				}
+				$this->findOrCreateDiagram($class, $file);
 			}
 		}
 
@@ -342,5 +333,37 @@ class UMLGenerator
 	private function log(string $string): void
 	{
 		echo "UML: {$string}\n";
+	}
+
+	/**
+	 * @param        $class
+	 * @param string $file
+	 */
+	private function findOrCreateDiagram($class, string $file): void
+	{
+		if (file_exists($this->predefinedClasses . '/' . $file))
+		{
+			$this->log("Using predefined class diagram for {$class}");
+			$this->copyWithIncludes($file);
+		}
+		else
+		{
+			$this->log("Generating class diagram for unknown {$class}");
+			$this->writePuml($this->dir . '/' . $file, "class {$class} << (·,Transparent) >>");
+		}
+	}
+
+	private function copyWithIncludes(string $file)
+	{
+		$uml = file_get_contents($this->predefinedClasses . '/' . $file);
+		file_put_contents($this->dir . '/' . $file, $uml);
+
+		if (preg_match_all('~class-(\w+).puml~', $uml, $matches, PREG_SET_ORDER))
+		{
+			foreach ($matches as $match)
+			{
+				$this->findOrCreateDiagram($match[1], $match[0]);
+			}
+		}
 	}
 }
