@@ -33,8 +33,8 @@ namespace GreenCape\JoomlaCLI\Command\Document;
 
 use FromPhing;
 use GreenCape\JoomlaCLI\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -57,7 +57,7 @@ class UmlCommand extends Command
 			->addOption(
 				'keep-sources',
 				'k',
-				InputArgument::OPTIONAL,
+				InputOption::VALUE_NONE,
 				"Keep the PlantUML sources",
 				false
 			);
@@ -71,9 +71,9 @@ class UmlCommand extends Command
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
-		$basePath = $input->getOption('basepath');
+		$basePath    = $input->getOption('basepath');
 		$keepSources = $input->getOption('basepath');
-		$project  = null;
+		$project     = null;
 
 		(new FromPhing($output, $basePath, $project))->documentUml($keepSources);
 	}
