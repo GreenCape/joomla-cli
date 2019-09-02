@@ -1034,6 +1034,7 @@ ECHO
 	public function testIntegration(): void
 	{
 		$this->dockerStart();
+
 		$environments = (new Fileset($this->testEnvironments))
 			->include('*.xml')
 			->exclude('database.xml')
@@ -1044,6 +1045,8 @@ ECHO
 		{
 			$this->testIntegrationSingle($environmentDefinition);
 		}
+
+		$this->dockerStop();
 	}
 
 	/**
@@ -1179,9 +1182,14 @@ ECHO
 
 	/**
 	 * Runs system tests on all test installations.
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function testSystem(): void
 	{
+		$this->dockerStart();
+
 		$this->delete("{$this->build}/screenshots");
 		$this->mkdir("{$this->build}/screenshots");
 
@@ -1195,6 +1203,8 @@ ECHO
 		{
 			$this->testSystemSingle($environmentDefinition);
 		}
+
+		$this->dockerStop();
 	}
 
 	/**
