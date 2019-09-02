@@ -986,22 +986,26 @@ ECHO
 	 */
 	public function testUnit(): void
 	{
-		if (!file_exists("{$this->tests}/tests/unit/bootstrap.php"))
+		if (!file_exists("{$this->tests}/unit/bootstrap.php"))
 		{
 			// Find bootstrap file
 			$bootstrap = $this->versionMatch(
 				'bootstrap-(.*).php',
 				"{$this->buildTemplates}/template/tests/unit",
-				$this->environment['joomla']['version']
+				$this->package['target']
 			);
 
 			if (empty($bootstrap))
 			{
-				throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
+				throw new RuntimeException("No bootstrap file found for Joomla! {$this->package['target']}");
 			}
 
-			$this->copy($bootstrap,"{$this->tests}/tests/unit/bootstrap.php");
-			$this->copy("{$this->buildTemplates}/template/tests/unit","{$this->tests}/tests/unit/autoload.php");
+			$this->copy($bootstrap, "{$this->tests}/unit/bootstrap.php");
+		}
+
+		if (!file_exists("{$this->tests}/unit/bootstrap.php"))
+		{
+			$this->copy("{$this->buildTemplates}/template/tests/unit/autoload.php", "{$this->tests}/unit/autoload.php");
 		}
 
 		$this->phpAb();
