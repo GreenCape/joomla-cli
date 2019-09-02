@@ -41,7 +41,7 @@ class UMLGenerator
 	private $skin;
 	private $jar;
 	private $includeRef = true;
-	private $generatedFiles = [];
+	private $predefinedClasses;
 
 	/**
 	 * UMLGenerator constructor.
@@ -54,11 +54,14 @@ class UMLGenerator
 	}
 
 	/**
+	 * @param string $repository Path to collection of predefined class diagrams
+	 *
 	 * @return UMLGenerator
 	 */
-	public function includeReferences(): self
+	public function includeReferences(string $repository = null): self
 	{
-		$this->includeRef = true;
+		$this->predefinedClasses = $repository;
+		$this->includeRef        = true;
 
 		return $this;
 	}
@@ -88,10 +91,8 @@ class UMLGenerator
 	/**
 	 * @param string[] $sourceFiles
 	 * @param string   $targetDir
-	 *
-	 * @return array The names of the generated files
 	 */
-	public function generate($sourceFiles, $targetDir): array
+	public function generate($sourceFiles, $targetDir): void
 	{
 		$this->dir = $targetDir;
 		$aggregate = $this->handleFiles($sourceFiles);
@@ -105,8 +106,6 @@ class UMLGenerator
 		}
 
 		$this->render();
-
-		return $this->generatedFiles;
 	}
 
 	/**
@@ -235,7 +234,18 @@ class UMLGenerator
 		{
 			$file = "class-{$class}.puml";
 			$uml  = "!include {$file}\n";
-			touch($file);
+
+			if (!file_exists($this->dir . '/' . $file))
+			{
+				if (file_exists($this->predefinedClasses . '/' . $file))
+				{
+					copy($this->predefinedClasses . '/' . $file, $this->dir . '/' . $file);
+				}
+				else
+				{
+					touch($this->dir . '/' . $file);
+				}
+			}
 		}
 
 		return $uml;
@@ -268,8 +278,6 @@ class UMLGenerator
 	 */
 	private function writePuml($filename, $uml): void
 	{
-		$this->generatedFiles[] = $filename;
-
 		file_put_contents($filename, "@startuml\n!include skin.puml\n{$uml}@enduml\n");
 	}
 

@@ -775,7 +775,7 @@ ECHO
 	/**
 	 * @param bool $keepSources
 	 */
-	public function documentUml(bool $keepSources = false): void
+	public function documentUml(bool $keepSources): void
 	{
 		$this->delete("{$this->build}/report/uml");
 		$this->mkdir("{$this->build}/report/uml");
@@ -786,30 +786,20 @@ ECHO
 			"{$this->build}/report/uml"
 		);
 
-		$uml   = new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar");
-		$files = $uml->generate(
-			(new Fileset($this->source))
-				->include('**/*')
-				->getFiles(),
-			"{$this->build}/report/uml"
-		);
+		(new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar"))
+			->includeReferences("{$this->buildTemplates}/plantuml/joomla-3")
+			->generate(
+				(new Fileset($this->source))
+					->include('**/*')
+					->getFiles(),
+				"{$this->build}/report/uml"
+			);
 
 		if (!$keepSources)
 		{
 			$this->delete(
 				(new Fileset("{$this->build}/report/uml"))
 					->include('*.puml')
-					->include('*.svg')
-					->exclude(array_map(function ($file) {
-							return preg_replace(
-								'~\.puml$~',
-								'.svg',
-								$file
-							);
-						},
-							$files
-						)
-					)
 			);
 		}
 	}
