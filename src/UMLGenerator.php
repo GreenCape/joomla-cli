@@ -349,7 +349,7 @@ class UMLGenerator
 		else
 		{
 			$this->log("Generating class diagram for unknown {$class}");
-			$this->writePuml($this->dir . '/' . $file, "class {$class} << (·,Transparent) >>");
+			$this->writePuml($this->dir . '/' . $file, "class {$class} << (·,Transparent) >>\n");
 		}
 	}
 
