@@ -775,7 +775,7 @@ ECHO
 	/**
 	 * @param bool $keepSources
 	 */
-	public function documentUml(bool $keepSources): void
+	public function documentUml(bool $keepSources= false): void
 	{
 		$this->delete("{$this->build}/report/uml");
 		$this->mkdir("{$this->build}/report/uml");
