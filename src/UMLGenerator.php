@@ -239,11 +239,13 @@ class UMLGenerator
 			{
 				if (file_exists($this->predefinedClasses . '/' . $file))
 				{
+					$this->log("Using predefined class diagram for {$class}");
 					copy($this->predefinedClasses . '/' . $file, $this->dir . '/' . $file);
 				}
 				else
 				{
-					touch($this->dir . '/' . $file);
+					$this->log("Generating class diagram for unknown {$class}");
+					$this->writePuml($this->dir . '/' . $file, "@startuml\nclass {$class} << (·,Transparent) >>\n@enduml\n");
 				}
 			}
 		}
