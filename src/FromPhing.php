@@ -781,10 +781,6 @@ ECHO
 		$this->mkdir("{$this->build}/report/uml");
 		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/uml/skin.puml");
 
-		$this->copy( // @todo make this version aware
-			(new Fileset("{$this->buildTemplates}/plantuml/joomla-3"))->include('*.puml'),
-			"{$this->build}/report/uml"
-		);
 
 		(new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar"))
 			->includeReferences("{$this->buildTemplates}/plantuml/joomla-3")
