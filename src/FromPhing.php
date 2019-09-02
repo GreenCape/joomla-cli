@@ -1177,7 +1177,9 @@ ECHO
 			$integrationTestFilter
 		);
 
-		$this->exec("docker exec {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
+		$user = getmyuid() . ':' . getmygid();
+
+		$this->exec("docker exec --user={$user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
 	}
 
 	/**
@@ -1284,7 +1286,9 @@ ECHO
 
 		$container = "servers_{$environment['server']['type']}_1";
 
-		$this->exec("docker exec {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
+		$user = getmyuid() . ':' . getmygid();
+
+		$this->exec("docker exec --user={$user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
 
 		$this->copy(
 			(new Fileset("{$cmsRoot}/build/logs"))
