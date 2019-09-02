@@ -41,6 +41,7 @@ class UMLGenerator
 	private $skin;
 	private $jar;
 	private $includeRef = true;
+	private $generatedFiles = [];
 
 	/**
 	 * UMLGenerator constructor.
@@ -87,8 +88,10 @@ class UMLGenerator
 	/**
 	 * @param string[] $sourceFiles
 	 * @param string   $targetDir
+	 *
+	 * @return array The names of the generated files
 	 */
-	public function generate($sourceFiles, $targetDir): void
+	public function generate($sourceFiles, $targetDir): array
 	{
 		$this->dir = $targetDir;
 		$aggregate = $this->handleFiles($sourceFiles);
@@ -102,6 +105,8 @@ class UMLGenerator
 		}
 
 		$this->render();
+
+		return $this->generatedFiles;
 	}
 
 	/**
@@ -228,7 +233,7 @@ class UMLGenerator
 
 		if ($this->includeRef)
 		{
-			$file = "{$this->dir}/class-{$class}.puml";
+			$file = "class-{$class}.puml";
 			$uml  = "!include {$file}\n";
 			touch($file);
 		}
@@ -263,6 +268,8 @@ class UMLGenerator
 	 */
 	private function writePuml($filename, $uml): void
 	{
+		$this->generatedFiles[] = $filename;
+
 		file_put_contents($filename, "@startuml\n!include skin.puml\n{$uml}@enduml\n");
 	}
 

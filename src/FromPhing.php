@@ -786,8 +786,8 @@ ECHO
 			"{$this->build}/report/uml"
 		);
 
-		$uml = new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar");
-		$uml->generate(
+		$uml   = new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar");
+		$files = $uml->generate(
 			(new Fileset($this->source))
 				->include('**/*')
 				->getFiles(),
@@ -799,6 +799,17 @@ ECHO
 			$this->delete(
 				(new Fileset("{$this->build}/report/uml"))
 					->include('*.puml')
+					->include('*.svg')
+					->exclude(array_map(function ($file) {
+							return preg_replace(
+								'~\.puml$~',
+								'.svg',
+								$file
+							);
+						},
+							$files
+						)
+					)
 			);
 		}
 	}
