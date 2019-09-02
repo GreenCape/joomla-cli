@@ -781,9 +781,19 @@ ECHO
 		$this->mkdir("{$this->build}/report/uml");
 		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/uml/skin.puml");
 
+		$predefined = $this->versionMatch(
+			'joomla-(.*)',
+			"{$this->buildTemplates}/plantuml",
+			$this->environment['joomla']['version']
+		);
+
+		if (empty($predefined))
+		{
+			$predefined = 'joomla-3.8';
+		}
 
 		(new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar"))
-			->includeReferences("{$this->buildTemplates}/plantuml/joomla-3")
+			->includeReferences("{$this->buildTemplates}/plantuml/{$predefined}")
 			->generate(
 				(new Fileset($this->source))
 					->include('**/*')
