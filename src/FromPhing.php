@@ -152,6 +152,10 @@ class FromPhing
 	 * @var OutputInterface
 	 */
 	private $output;
+	/**
+	 * @var string
+	 */
+	private $user;
 
 	/**
 	 * FromPhing constructor.
@@ -1177,9 +1181,7 @@ ECHO
 			$integrationTestFilter
 		);
 
-		$user = getmyuid() . ':' . getmygid();
-
-		$this->exec("docker exec --user={$user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
+		$this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
 	}
 
 	/**
@@ -1286,9 +1288,7 @@ ECHO
 
 		$container = "servers_{$environment['server']['type']}_1";
 
-		$user = getmyuid() . ':' . getmygid();
-
-		$this->exec("docker exec --user={$user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
+		$this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
 
 		$this->copy(
 			(new Fileset("{$cmsRoot}/build/logs"))
@@ -1432,6 +1432,7 @@ ECHO
 	private function init($dir, $projectFile): void
 	{
 		$this->basedir = $dir;
+		$this->user = getmyuid() . ':' . getmygid();
 
 		if (!file_exists($this->basedir . '/' . $projectFile))
 		{
