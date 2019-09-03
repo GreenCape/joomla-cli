@@ -756,7 +756,7 @@ ECHO
 	/**
 	 * @param bool $keepSources
 	 */
-	public function documentUml(bool $keepSources= false): void
+	public function documentUml(bool $keepSources = false): void
 	{
 		$this->delete("{$this->build}/report/uml");
 		$this->mkdir("{$this->build}/report/uml");
@@ -1457,8 +1457,9 @@ ECHO
 
 			$manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
 
-			$this->package['name'] = $manifest->getName();
-			$this->package['type'] = $manifest->getType();
+			$this->package['name']   = $manifest->getName();
+			$this->package['type']   = $manifest->getType();
+			$this->package['target'] = $manifest->getTarget();
 
 			if ($manifest->getType() === 'package')
 			{
