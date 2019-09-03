@@ -770,11 +770,18 @@ ECHO
 
 		if (empty($predefined))
 		{
-			$predefined = 'joomla-3.8';
+			$predefined = "{$this->buildTemplates}/plantuml/joomla-3.8";
 		}
 
+		$classMap = $this->versionMatch(
+			'classmap-(.*).php',
+			"{$this->buildTemplates}/joomla",
+			$this->environment['joomla']['version']
+		);
+
 		(new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar"))
-			->includeReferences("{$this->buildTemplates}/plantuml/{$predefined}")
+			->includeReferences($predefined)
+			->classMap(include $classMap)
 			->generate(
 				(new Fileset($this->source))
 					->include('**/*')

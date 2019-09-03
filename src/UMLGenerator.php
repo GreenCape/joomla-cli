@@ -42,6 +42,7 @@ class UMLGenerator
 	private $jar;
 	private $includeRef = true;
 	private $predefinedClasses;
+	private $classMap = [];
 
 	/**
 	 * UMLGenerator constructor.
@@ -84,6 +85,18 @@ class UMLGenerator
 	public function skin($skin): self
 	{
 		$this->skin = $skin;
+
+		return $this;
+	}
+
+	/**
+	 * @param array $classMap
+	 *
+	 * @return UMLGenerator
+	 */
+	public function classMap(array $classMap): self
+	{
+		$this->classMap = $classMap;
 
 		return $this;
 	}
@@ -232,13 +245,14 @@ class UMLGenerator
 
 		if ($this->includeRef)
 		{
-			$file = "class-{$class}.puml";
-			$uml  = "!include {$file}\n";
+			$file = $this->createFileName($class);
 
 			if (!file_exists($this->dir . '/' . $file))
 			{
-				$this->findOrCreateDiagram($class, $file);
+				$file = $this->findOrCreateDiagram($class);
 			}
+
+			$uml = "!include {$file}\n";
 		}
 
 		return $uml;
@@ -337,19 +351,32 @@ class UMLGenerator
 
 	/**
 	 * @param        $class
-	 * @param string $file
+	 *
+	 * @return string
 	 */
-	private function findOrCreateDiagram($class, string $file): void
+	private function findOrCreateDiagram($class): string
 	{
+		if (isset($this->classMap[$class]['name'])) {
+			$type  = $this->classMap[$class]['type'];
+			$name = $this->classMap[$class]['name'];
+
+			$this->log("Replacing class {$class} with {$type} {$name}");
+		} else {
+			$type = 'class';
+			$name = $class;
+		}
+
+		$file = $this->createFileName($name);
+
 		if (file_exists($this->predefinedClasses . '/' . $file))
 		{
-			$this->log("Using predefined class diagram for {$class}");
+			$this->log("Using predefined class diagram for {$name}");
 			$this->copyWithIncludes($file);
 		}
 		else
 		{
-			$this->log("Generating class diagram for unknown {$class}");
-			$this->writePuml($this->dir . '/' . $file, "class {$class} << (·,Transparent) >>\n");
+			$this->log("Generating class diagram for unknown {$name}");
+			$this->writePuml($this->dir . '/' . $file, "{$type} {$name}\n");
 		}
 	}
 
@@ -358,12 +385,22 @@ class UMLGenerator
 		$uml = file_get_contents($this->predefinedClasses . '/' . $file);
 		file_put_contents($this->dir . '/' . $file, $uml);
 
-		if (preg_match_all('~class-(\w+).puml~', $uml, $matches, PREG_SET_ORDER))
+		if (preg_match_all('~'.$this->createFileName('(\w+)') . '~', $uml, $matches, PREG_SET_ORDER))
 		{
 			foreach ($matches as $match)
 			{
-				$this->findOrCreateDiagram($match[1], $match[0]);
+				$this->findOrCreateDiagram($match[1]);
 			}
 		}
 	}
+
+	/**
+	 * @param $class
+	 *
+	 * @return string
+	 */
+	private function createFileName($class): string
+	{
+		return "class-{$class}.puml";
+}
 }
