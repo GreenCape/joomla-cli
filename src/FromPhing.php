@@ -206,27 +206,8 @@ class FromPhing
 	 */
 	private function phpAb(): void
 	{
-		foreach (['administrator/components', 'components'] as $target)
-		{
-			$this->createAutoloader($target);
-		}
-
-		$this->exec("{$this->bin}/phpab --tolerant --basedir . --output autoload.php .", $this->tests);
-	}
-
-	/**
-	 * @param string $target
-	 */
-	private function createAutoloader(string $target): void
-	{
-		if (!file_exists("{$this->source}/{$target}"))
-		{
-			return;
-		}
-
-		$this->echo("Creating autoloader for {$this->source}/{$target}/{$this->package['name']}", 'info');
-
-		$this->exec("{$this->bin}/phpab --tolerant --basedir . --output autoload.php --template autoload.php.in .", "{$this->source}/{$target}/{$this->package['name']}");
+		$this->exec("{$this->bin}/phpab --tolerant --basedir . --output {$this->tests}/autoload.php {$this->tests}");
+		$this->exec("{$this->bin}/phpab --tolerant --basedir {$this->source} --output {$this->source}/autoload.php {$this->source}");
 	}
 
 	/** @noinspection PhpUnused */
@@ -1003,30 +984,15 @@ ECHO
 
 	/**
 	 * Runs local unit tests
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
 	 */
 	public function testUnit(): void
 	{
-		if (!file_exists("{$this->tests}/unit/bootstrap.php"))
-		{
-			// Find bootstrap file
-			$bootstrap = $this->versionMatch(
-				'bootstrap-(.*).php',
-				"{$this->buildTemplates}/template/tests/unit",
-				$this->package['target']
-			);
+		$this->ensureBootstrapExistsForUnitTests();
 
-			if (empty($bootstrap))
-			{
-				throw new RuntimeException("No bootstrap file found for Joomla! {$this->package['target']}");
-			}
-
-			$this->copy($bootstrap, "{$this->tests}/unit/bootstrap.php");
-		}
-
-		if (!file_exists("{$this->tests}/unit/bootstrap.php"))
-		{
-			$this->copy("{$this->buildTemplates}/template/tests/unit/autoload.php", "{$this->tests}/unit/autoload.php");
-		}
+		$this->setupLocalJoomla("{$this->basedir}/joomla");
 
 		$this->phpAb();
 		$this->mkdir("{$this->build}/logs/coverage");
@@ -1955,7 +1921,7 @@ ECHO
 		$bestFile    = null;
 		foreach (glob("$path/*") as $filename)
 		{
-			if (preg_match("/{$pattern}/", $filename, $match) && version_compare($bestVersion, $match[1], '<') && version_compare($match[1], $version, '<='))
+			if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1], '<') && version_compare($match[1], $version, '<='))
 			{
 				$bestVersion = $match[1];
 				$bestFile    = $filename;
@@ -1982,5 +1948,55 @@ ECHO
 		{
 			$this->copyFile($file, $file, $filter);
 		}
+	}
+
+	private function ensureBootstrapExistsForUnitTests(): void
+	{
+		if (!file_exists("{$this->tests}/unit/bootstrap.php"))
+		{
+			// Find bootstrap file
+			$bootstrap = $this->versionMatch(
+				'bootstrap-(.*).php',
+				"{$this->buildTemplates}/template/tests/unit",
+				$this->package['target']
+			);
+
+			if (empty($bootstrap))
+			{
+				throw new RuntimeException("No bootstrap file found for Joomla! {$this->package['target']}");
+			}
+
+			$this->copy($bootstrap, "{$this->tests}/unit/bootstrap.php");
+		}
+
+		if (!file_exists("{$this->tests}/unit/autoload.php"))
+		{
+			$this->copy("{$this->buildTemplates}/template/tests/unit/autoload.php", "{$this->tests}/unit/autoload.php");
+		}
+	}
+
+	/**
+	 * @param string $target
+	 *
+	 * @throws FileExistsException
+	 * @throws FileNotFoundException
+	 */
+	private function setupLocalJoomla(string $target): void
+	{
+		$this->mkdir($target);
+
+		$tarball = $this->joomlaDownload($this->package['target'], $this->versionCache, $this->downloadCache);
+		$this->untar($target, $tarball);
+		$version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
+
+		$autoload = $this->versionMatch('autoload-(.*?)', "{$this->buildTemplates}/joomla", $version);
+		$classmap = $this->versionMatch('classmap-(.*?)', "{$this->buildTemplates}/joomla", $version);
+
+		$this->copy(
+			(new Fileset("{$this->buildTemplates}/joomla"))
+				->include($autoload)
+				->include($classmap),
+			$target
+		);
 	}
 }
