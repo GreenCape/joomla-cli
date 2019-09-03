@@ -991,7 +991,6 @@ ECHO
 	public function testUnit(): void
 	{
 		$this->ensureBootstrapExistsForUnitTests();
-
 		$this->setupLocalJoomla("{$this->basedir}/joomla");
 
 		$this->phpAb();
@@ -1984,20 +1983,21 @@ ECHO
 	 */
 	private function setupLocalJoomla(string $target): void
 	{
+		if (file_exists("{$this->basedir}/joomla/index.php"))
+		{
+			return;
+		}
+
 		$this->mkdir($target);
 
 		$tarball = $this->joomlaDownload($this->package['target'], $this->versionCache, $this->downloadCache);
 		$this->untar($target, $tarball);
 		$version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
 
-		$autoload = $this->versionMatch('autoload-(.*?)', "{$this->buildTemplates}/joomla", $version);
-		$classmap = $this->versionMatch('classmap-(.*?)', "{$this->buildTemplates}/joomla", $version);
+		$autoload = $this->versionMatch('autoload-(.*?).php', "{$this->buildTemplates}/joomla", $version);
+		$classmap = $this->versionMatch('classmap-(.*?).php', "{$this->buildTemplates}/joomla", $version);
 
-		$this->copy(
-			(new Fileset("{$this->buildTemplates}/joomla"))
-				->include($autoload)
-				->include($classmap),
-			$target
-		);
+		$this->copy($autoload, "{$target}/autoload.php");
+		$this->copy($classmap, "{$target}/classmap.php");
 	}
 }

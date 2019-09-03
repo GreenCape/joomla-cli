@@ -1945,7 +1945,7 @@ spl_autoload_register(
     }
 );
 
-$classMap = include __DIR__ . '/classmap-3.php';
+$classMap = include __DIR__ . '/classmap.php';
 
 foreach ($classMap as $alias => $realClass)
 {
