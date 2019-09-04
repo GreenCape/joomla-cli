@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Schema.ChangeItem.ChangeItem << (·,Transparent) >>
-@enduml

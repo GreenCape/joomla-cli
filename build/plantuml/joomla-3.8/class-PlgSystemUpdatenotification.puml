@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PlgSystemUpdatenotification
 JPlugin <|-- PlgSystemUpdatenotification
 !include class-JPlugin.puml

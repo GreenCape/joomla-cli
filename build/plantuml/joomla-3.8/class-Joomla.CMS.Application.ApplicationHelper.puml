@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Application.ApplicationHelper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Application\\ApplicationHelper
 @enduml

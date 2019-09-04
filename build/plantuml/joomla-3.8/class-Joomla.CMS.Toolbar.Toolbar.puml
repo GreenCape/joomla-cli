@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Toolbar.Toolbar
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Toolbar\\Toolbar
 @enduml

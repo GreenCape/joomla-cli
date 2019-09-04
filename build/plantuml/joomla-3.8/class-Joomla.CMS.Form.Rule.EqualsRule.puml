@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Rule.EqualsRule
-Joomla.CMS.Form.Rule.FormRule <|-- Joomla.CMS.Form.Rule.EqualsRule
-!include class-Joomla.CMS.Form.Rule.FormRule.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Rule\\EqualsRule
+Joomla\\CMS\\Form\\FormRule <|-- Joomla\\CMS\\Form\\Rule\\EqualsRule
+!include class-Joomla.CMS.Form.FormRule.puml
 @enduml

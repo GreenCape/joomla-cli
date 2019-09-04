@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Filesystem.Patcher
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Patcher
 @enduml

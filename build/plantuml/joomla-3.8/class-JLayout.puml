@@ -1,3 +1,9 @@
 @startuml
-interface JLayout
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLayout << alias >>
+\\Joomla\\CMS\\Layout\\LayoutInterface == JLayout
+!include class-Joomla.CMS.Layout.LayoutInterface.puml
 @enduml

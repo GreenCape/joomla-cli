@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Filesystem.Support.StringController
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Support\\StringController
 @enduml

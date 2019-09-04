@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class UsersController
 JControllerLegacy <|-- UsersController
 !include class-JControllerLegacy.puml

@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ___PHPSTORM_HELPERS\\PS_UNRESERVE_PREFIX_this
+@enduml

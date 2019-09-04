@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Table.Extension
-Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Extension
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Table\\Extension
+Joomla\\CMS\\Table\\Table <|-- Joomla\\CMS\\Table\\Extension
 !include class-Joomla.CMS.Table.Table.puml
 @enduml

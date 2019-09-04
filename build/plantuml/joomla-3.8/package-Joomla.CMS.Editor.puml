@@ -1,5 +1,0 @@
-@startuml
-class Joomla.CMS.Editor.Editor
-JObject <|-- Joomla.CMS.Editor.Editor
-
-@enduml

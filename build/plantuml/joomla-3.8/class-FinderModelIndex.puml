@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FinderModelIndex
 JModelList <|-- FinderModelIndex
 !include class-JModelList.puml

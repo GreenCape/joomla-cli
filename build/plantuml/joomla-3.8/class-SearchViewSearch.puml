@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class SearchViewSearch
 JViewLegacy <|-- SearchViewSearch
 !include class-JViewLegacy.puml

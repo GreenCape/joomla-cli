@@ -1,3 +1,0 @@
-@startuml
-class Joomla.Image.LoggerAwareInterface << (·,Transparent) >>
-@enduml

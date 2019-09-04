@@ -1,7 +1,15 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseQueryOracle
 JDatabaseQueryPdo <|-- JDatabaseQueryOracle
-!include class-JDatabaseQueryPdo.puml
+interface JDatabaseQueryPreparable
 JDatabaseQueryPreparable <|.. JDatabaseQueryOracle
+interface JDatabaseQueryLimitable
+JDatabaseQueryLimitable <|.. JDatabaseQueryOracle
+!include class-JDatabaseQueryPdo.puml
 !include class-JDatabaseQueryPreparable.puml
+!include class-JDatabaseQueryLimitable.puml
 @enduml

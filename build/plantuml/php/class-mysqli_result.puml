@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class mysqli_result
+interface Traversable
+Traversable <|.. mysqli_result
+!include class-Traversable.puml
+@enduml

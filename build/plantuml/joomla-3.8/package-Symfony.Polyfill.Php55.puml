@@ -1,5 +1,0 @@
-@startuml
-class Symfony.Polyfill.Php55.Php55
-
-class Symfony.Polyfill.Php55.Php55ArrayColumn
-@enduml

@@ -1,3 +1,0 @@
-@startuml
-class AssociationExtensionHelper << (·,Transparent) >>
-@enduml

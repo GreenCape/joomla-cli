@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\Driver\\BulkWrite << final >>
+interface Countable
+Countable <|.. MongoDB\\Driver\\BulkWrite
+!include class-Countable.puml
+@enduml

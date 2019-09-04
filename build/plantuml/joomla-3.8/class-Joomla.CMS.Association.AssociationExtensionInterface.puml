@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.CMS.Association.AssociationExtensionInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\CMS\\Association\\AssociationExtensionInterface
 @enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JComponentRouterRulesNomenu << alias >>
+\\Joomla\\CMS\\Component\\Router\\Rules\\NomenuRules == JComponentRouterRulesNomenu
+!include class-Joomla.CMS.Component.Router.Rules.NomenuRules.puml
+@enduml

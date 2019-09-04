@@ -1,9 +1,0 @@
-@startuml
-class Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
-Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.MysqlChangeItem
-
-class Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
-Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem
-class Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
-Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
-@enduml

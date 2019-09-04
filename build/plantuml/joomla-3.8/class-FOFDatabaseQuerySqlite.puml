@@ -1,7 +1,15 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFDatabaseQuerySqlite
 FOFDatabaseQueryPdo <|-- FOFDatabaseQuerySqlite
-!include class-FOFDatabaseQueryPdo.puml
+interface FOFDatabaseQueryPreparable
 FOFDatabaseQueryPreparable <|.. FOFDatabaseQuerySqlite
+interface FOFDatabaseQueryLimitable
+FOFDatabaseQueryLimitable <|.. FOFDatabaseQuerySqlite
+!include class-FOFDatabaseQueryPdo.puml
 !include class-FOFDatabaseQueryPreparable.puml
+!include class-FOFDatabaseQueryLimitable.puml
 @enduml

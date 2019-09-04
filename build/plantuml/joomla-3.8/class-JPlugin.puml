@@ -1,5 +1,9 @@
 @startuml
-abstract class JPlugin
-JEvent <|-- JPlugin
-!include class-JEvent.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JPlugin << alias >>
+\\Joomla\\CMS\\Plugin\\CMSPlugin == JPlugin
+!include class-Joomla.CMS.Plugin.CMSPlugin.puml
 @enduml

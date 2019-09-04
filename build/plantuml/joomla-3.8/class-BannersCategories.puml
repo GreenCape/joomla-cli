@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class BannersCategories
 JCategories <|-- BannersCategories
 !include class-JCategories.puml

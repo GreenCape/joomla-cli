@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormFieldAccesslevel
 JFormFieldAccessLevel <|-- FOFFormFieldAccesslevel
-!include class-JFormFieldAccessLevel.puml
+interface FOFFormField
 FOFFormField <|.. FOFFormFieldAccesslevel
+!include class-JFormFieldAccessLevel.puml
 !include class-FOFFormField.puml
 @enduml

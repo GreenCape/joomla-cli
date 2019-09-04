@@ -1,8 +1,0 @@
-@startuml
-class Joomla.CMS.Filter.Wrapper.OutputFilterWrapper
-
-class Joomla.CMS.Filter.InputFilter
-Joomla.CMS.Filter.BaseInputFilter <|-- Joomla.CMS.Filter.InputFilter
-class Joomla.CMS.Filter.OutputFilter
-Joomla.CMS.Filter.BaseOutputFilter <|-- Joomla.CMS.Filter.OutputFilter
-@enduml

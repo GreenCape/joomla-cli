@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Filesystem.Path
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Path
 @enduml

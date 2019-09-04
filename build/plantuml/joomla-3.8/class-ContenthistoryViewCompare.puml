@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ContenthistoryViewCompare
 JViewLegacy <|-- ContenthistoryViewCompare
 !include class-JViewLegacy.puml

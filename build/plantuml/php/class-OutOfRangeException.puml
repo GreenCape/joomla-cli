@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class OutOfRangeException
+LogicException <|-- OutOfRangeException
+!include class-LogicException.puml
+@enduml

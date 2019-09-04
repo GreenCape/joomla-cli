@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\PhraseSearchQuery << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\PhraseSearchQuery
+interface Couchbase\\SearchQueryPart
+Couchbase\\SearchQueryPart <|.. Couchbase\\PhraseSearchQuery
+!include class-JsonSerializable.puml
+!include class-Couchbase.SearchQueryPart.puml
+@enduml

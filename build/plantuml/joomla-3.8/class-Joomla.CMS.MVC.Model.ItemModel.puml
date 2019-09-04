@@ -1,5 +1,9 @@
 @startuml
-abstract class Joomla.CMS.MVC.Model.ItemModel
-Joomla.CMS.MVC.Model.BaseDatabaseModel <|-- Joomla.CMS.MVC.Model.ItemModel
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\CMS\\MVC\\Model\\ItemModel
+Joomla\\CMS\\MVC\\Model\\BaseDatabaseModel <|-- Joomla\\CMS\\MVC\\Model\\ItemModel
 !include class-Joomla.CMS.MVC.Model.BaseDatabaseModel.puml
 @enduml

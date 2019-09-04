@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Helper.RouteHelper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Helper\\RouteHelper
 @enduml

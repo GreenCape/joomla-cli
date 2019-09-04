@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Language.Transliterate
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Language\\Transliterate
 @enduml

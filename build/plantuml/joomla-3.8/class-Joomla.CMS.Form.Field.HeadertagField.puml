@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.HeadertagField
-JFormFieldList <|-- Joomla.CMS.Form.Field.HeadertagField
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\HeadertagField
+JFormFieldList <|-- Joomla\\CMS\\Form\\Field\\HeadertagField
 !include class-JFormFieldList.puml
 @enduml

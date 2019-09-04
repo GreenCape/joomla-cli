@@ -1,5 +1,9 @@
 @startuml
-abstract class JModelForm
-JModelLegacy <|-- JModelForm
-!include class-JModelLegacy.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JModelForm << alias >>
+\\Joomla\\CMS\\MVC\\Model\\FormModel == JModelForm
+!include class-Joomla.CMS.MVC.Model.FormModel.puml
 @enduml

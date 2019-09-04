@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHelperContenthistory << alias >>
+\\Joomla\\CMS\\Helper\\ContentHistoryHelper == JHelperContenthistory
+!include class-Joomla.CMS.Helper.ContentHistoryHelper.puml
+@enduml

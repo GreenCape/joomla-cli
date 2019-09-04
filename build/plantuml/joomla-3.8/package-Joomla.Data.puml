@@ -1,8 +1,0 @@
-@startuml
-class Joomla.Data.DataSet
-Joomla.Data.DumpableInterface <|.. Joomla.Data.DataSet
-
-interface Joomla.Data.DumpableInterface
-class Joomla.Data.DataObject
-Joomla.Data.DumpableInterface <|.. Joomla.Data.DataObject
-@enduml

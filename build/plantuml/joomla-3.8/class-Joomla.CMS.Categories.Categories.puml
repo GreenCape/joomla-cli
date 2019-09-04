@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Categories.Categories
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Categories\\Categories
 @enduml

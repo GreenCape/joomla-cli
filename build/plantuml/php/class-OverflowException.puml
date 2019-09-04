@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class OverflowException
+RuntimeException <|-- OverflowException
+!include class-RuntimeException.puml
+@enduml

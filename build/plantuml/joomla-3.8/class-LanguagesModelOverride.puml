@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class LanguagesModelOverride
 JModelAdmin <|-- LanguagesModelOverride
 !include class-JModelAdmin.puml

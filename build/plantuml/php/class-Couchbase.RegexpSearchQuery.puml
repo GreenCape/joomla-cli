@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\RegexpSearchQuery << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\RegexpSearchQuery
+interface Couchbase\\SearchQueryPart
+Couchbase\\SearchQueryPart <|.. Couchbase\\RegexpSearchQuery
+!include class-JsonSerializable.puml
+!include class-Couchbase.SearchQueryPart.puml
+@enduml

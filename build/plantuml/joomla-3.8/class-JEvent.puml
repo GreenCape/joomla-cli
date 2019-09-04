@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class JEvent
 JObject <|-- JEvent
 !include class-JObject.puml

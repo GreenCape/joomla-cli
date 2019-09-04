@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SplMaxHeap
+SplHeap <|-- SplMaxHeap
+!include class-SplHeap.puml
+@enduml

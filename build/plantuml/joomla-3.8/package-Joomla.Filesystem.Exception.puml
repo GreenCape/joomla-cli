@@ -1,5 +1,0 @@
-@startuml
-class Joomla.Filesystem.Exception.FilesystemException
-RuntimeException <|-- Joomla.Filesystem.Exception.FilesystemException
-
-@enduml

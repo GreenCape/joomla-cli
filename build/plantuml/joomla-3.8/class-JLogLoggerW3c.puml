@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLogLoggerW3c << alias >>
+\\Joomla\\CMS\\Log\\Logger\\W3cLogger == JLogLoggerW3c
+!include class-Joomla.CMS.Log.Logger.W3cLogger.puml
+@enduml

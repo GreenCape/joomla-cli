@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Generator << final >>
+interface Iterator
+Iterator <|.. Generator
+!include class-Iterator.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheControllerCallback << alias >>
+\\Joomla\\CMS\\Cache\\Controller\\CallbackController == JCacheControllerCallback
+!include class-Joomla.CMS.Cache.Controller.CallbackController.puml
+@enduml

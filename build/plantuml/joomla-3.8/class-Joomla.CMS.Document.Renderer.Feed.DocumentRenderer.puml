@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Document.Renderer.Feed.DocumentRenderer << (·,Transparent) >>
-@enduml

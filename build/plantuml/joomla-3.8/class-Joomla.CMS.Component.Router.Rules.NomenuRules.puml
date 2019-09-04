@@ -1,5 +1,10 @@
 @startuml
-class Joomla.CMS.Component.Router.Rules.NomenuRules
-Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.NomenuRules
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Component\\Router\\Rules\\NomenuRules
+interface Joomla\\CMS\\Component\\Router\\Rules\\RulesInterface
+Joomla\\CMS\\Component\\Router\\Rules\\RulesInterface <|.. Joomla\\CMS\\Component\\Router\\Rules\\NomenuRules
 !include class-Joomla.CMS.Component.Router.Rules.RulesInterface.puml
 @enduml

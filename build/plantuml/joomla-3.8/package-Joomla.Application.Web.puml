@@ -1,4 +1,0 @@
-@startuml
-class Joomla.Application.Web.WebClient
-
-@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Memcache
+MemcachePool <|-- Memcache
+!include class-MemcachePool.puml
+@enduml

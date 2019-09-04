@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMComment
+DOMCharacterData <|-- DOMComment
+!include class-DOMCharacterData.puml
+@enduml

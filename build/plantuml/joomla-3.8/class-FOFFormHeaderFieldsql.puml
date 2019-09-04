@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormHeaderFieldsql
 FOFFormHeaderFieldselectable <|-- FOFFormHeaderFieldsql
 !include class-FOFFormHeaderFieldselectable.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class SimplePie_Exception
 Exception <|-- SimplePie_Exception
 !include class-Exception.puml

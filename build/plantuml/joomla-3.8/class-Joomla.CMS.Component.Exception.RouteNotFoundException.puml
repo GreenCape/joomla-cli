@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Component.Exception.RouteNotFoundException << (·,Transparent) >>
-@enduml

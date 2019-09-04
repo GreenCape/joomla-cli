@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SplMinHeap
+SplHeap <|-- SplMinHeap
+!include class-SplHeap.puml
+@enduml

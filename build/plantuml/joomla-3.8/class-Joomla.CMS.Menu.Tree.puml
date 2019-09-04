@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Menu.Tree
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Menu\\Tree
 @enduml

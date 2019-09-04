@@ -1,3 +1,7 @@
 @startuml
-trait Joomla.DI.ContainerAwareTrait
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\DI\\ContainerAwareTrait << (T,orchid) >>
 @enduml

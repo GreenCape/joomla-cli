@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLinkedinStream
 JLinkedinObject <|-- JLinkedinStream
 !include class-JLinkedinObject.puml

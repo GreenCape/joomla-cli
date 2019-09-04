@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHelperUsergroups << alias >>
+\\Joomla\\CMS\\Helper\\UserGroupsHelper == JHelperUsergroups
+!include class-Joomla.CMS.Helper.UserGroupsHelper.puml
+@enduml

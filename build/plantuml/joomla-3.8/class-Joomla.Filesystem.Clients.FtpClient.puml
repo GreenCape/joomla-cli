@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Filesystem.Clients.FtpClient
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Clients\\FtpClient
 @enduml

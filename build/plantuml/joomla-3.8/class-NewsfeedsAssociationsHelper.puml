@@ -1,5 +1,9 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class NewsfeedsAssociationsHelper
-AssociationExtensionHelper <|-- NewsfeedsAssociationsHelper
-!include class-AssociationExtensionHelper.puml
+Joomla\\CMS\\Association\\AssociationExtensionHelper <|-- NewsfeedsAssociationsHelper
+!include class-Joomla.CMS.Association.AssociationExtensionHelper.puml
 @enduml

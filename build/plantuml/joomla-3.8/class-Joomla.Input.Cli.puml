@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Input.Cli
-Joomla.Input.Input <|-- Joomla.Input.Cli
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Input\\Cli
+Joomla\\Input\\Input <|-- Joomla\\Input\\Cli
 !include class-Joomla.Input.Input.puml
 @enduml

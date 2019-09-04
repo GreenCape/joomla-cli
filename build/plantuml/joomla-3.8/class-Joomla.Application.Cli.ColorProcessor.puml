@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Application.Cli.ColorProcessor
-Joomla.Application.Cli.RealColorProcessor <|-- Joomla.Application.Cli.ColorProcessor
-!include class-Joomla.Application.Cli.RealColorProcessor.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Application\\Cli\\ColorProcessor
+Joomla\\Application\\Cli\\Output\\Processor\\ColorProcessor <|-- Joomla\\Application\\Cli\\ColorProcessor
+!include class-Joomla.Application.Cli.Output.Processor.ColorProcessor.puml
 @enduml

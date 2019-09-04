@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class V8JsScriptException << final >>
+Exception <|-- V8JsScriptException
+!include class-Exception.puml
+@enduml

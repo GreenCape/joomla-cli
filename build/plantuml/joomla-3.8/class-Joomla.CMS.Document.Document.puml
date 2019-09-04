@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Document.Document
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Document\\Document
 @enduml

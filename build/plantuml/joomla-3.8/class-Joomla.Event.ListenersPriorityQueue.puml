@@ -1,5 +1,13 @@
 @startuml
-class Joomla.Event.ListenersPriorityQueue
-Joomla.Event.IteratorAggregate <|.. Joomla.Event.ListenersPriorityQueue
-!include class-Joomla.Event.IteratorAggregate.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\ListenersPriorityQueue
+interface IteratorAggregate
+IteratorAggregate <|.. Joomla\\Event\\ListenersPriorityQueue
+interface Countable
+Countable <|.. Joomla\\Event\\ListenersPriorityQueue
+!include class-IteratorAggregate.puml
+!include class-Countable.puml
 @enduml

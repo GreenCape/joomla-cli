@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Component.Router.RouterViewConfiguration
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Component\\Router\\RouterViewConfiguration
 @enduml

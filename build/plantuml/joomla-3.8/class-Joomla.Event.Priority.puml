@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Event.Priority
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\Priority << final >>
 @enduml

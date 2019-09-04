@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SQLiteException << final >>
+RuntimeException <|-- SQLiteException
+!include class-RuntimeException.puml
+@enduml

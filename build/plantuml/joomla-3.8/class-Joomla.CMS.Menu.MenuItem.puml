@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Menu.MenuItem
-stdClass <|-- Joomla.CMS.Menu.MenuItem
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Menu\\MenuItem
+stdClass <|-- Joomla\\CMS\\Menu\\MenuItem
 !include class-stdClass.puml
 @enduml

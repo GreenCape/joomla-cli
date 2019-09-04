@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormHeaderRowselect
 FOFFormHeader <|-- FOFFormHeaderRowselect
 !include class-FOFFormHeader.puml

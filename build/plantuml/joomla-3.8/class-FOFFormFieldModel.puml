@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormFieldModel
 FOFFormFieldList <|-- FOFFormFieldModel
-!include class-FOFFormFieldList.puml
+interface FOFFormField
 FOFFormField <|.. FOFFormFieldModel
+!include class-FOFFormFieldList.puml
 !include class-FOFFormField.puml
 @enduml

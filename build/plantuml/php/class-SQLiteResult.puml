@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SQLiteResult << final >>
+interface Iterator
+Iterator <|.. SQLiteResult
+interface Countable
+Countable <|.. SQLiteResult
+!include class-Iterator.puml
+!include class-Countable.puml
+@enduml

@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Http.Http
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Http\\Http
 @enduml

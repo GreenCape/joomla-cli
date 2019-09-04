@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class BannersControllerBanner
 JControllerForm <|-- BannersControllerBanner
 !include class-JControllerForm.puml

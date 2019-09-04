@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoGridFSException
+MongoException <|-- MongoGridFSException
+!include class-MongoException.puml
+@enduml

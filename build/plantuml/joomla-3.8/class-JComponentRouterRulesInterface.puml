@@ -1,3 +1,9 @@
 @startuml
-class JComponentRouterRulesInterface << (·,Transparent) >>
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JComponentRouterRulesInterface << alias >>
+\\Joomla\\CMS\\Component\\Router\\Rules\\RulesInterface == JComponentRouterRulesInterface
+!include class-Joomla.CMS.Component.Router.Rules.RulesInterface.puml
 @enduml

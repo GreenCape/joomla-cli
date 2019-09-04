@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Exception
+interface Throwable
+Throwable <|.. Exception
+!include class-Throwable.puml
+@enduml

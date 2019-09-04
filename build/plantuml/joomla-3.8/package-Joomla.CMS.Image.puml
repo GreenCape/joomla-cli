@@ -1,7 +1,0 @@
-@startuml
-class Joomla.CMS.Image.Image
-Joomla.Image.Image <|-- Joomla.CMS.Image.Image
-
-abstract class Joomla.CMS.Image.ImageFilter
-Joomla.Image.ImageFilter <|-- Joomla.CMS.Image.ImageFilter
-@enduml

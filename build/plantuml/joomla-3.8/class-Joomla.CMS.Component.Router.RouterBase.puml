@@ -1,5 +1,10 @@
 @startuml
-abstract class Joomla.CMS.Component.Router.RouterBase
-Joomla.CMS.Component.Router.RouterInterface <|.. Joomla.CMS.Component.Router.RouterBase
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\CMS\\Component\\Router\\RouterBase
+interface Joomla\\CMS\\Component\\Router\\RouterInterface
+Joomla\\CMS\\Component\\Router\\RouterInterface <|.. Joomla\\CMS\\Component\\Router\\RouterBase
 !include class-Joomla.CMS.Component.Router.RouterInterface.puml
 @enduml

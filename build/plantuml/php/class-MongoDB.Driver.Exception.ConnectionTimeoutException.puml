@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\Driver\\Exception\\ConnectionTimeoutException
+MongoDB\\Driver\\Exception\\ConnectionException <|-- MongoDB\\Driver\\Exception\\ConnectionTimeoutException
+interface MongoDB\\Driver\\Exception\\Exception
+MongoDB\\Driver\\Exception\\Exception <|.. MongoDB\\Driver\\Exception\\ConnectionTimeoutException
+!include class-MongoDB.Driver.Exception.ConnectionException.puml
+!include class-MongoDB.Driver.Exception.Exception.puml
+@enduml

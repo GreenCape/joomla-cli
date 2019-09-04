@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Helper.SearchHelper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Helper\\SearchHelper
 @enduml

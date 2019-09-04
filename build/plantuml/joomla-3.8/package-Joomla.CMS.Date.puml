@@ -1,5 +1,0 @@
-@startuml
-class Joomla.CMS.Date.Date
-DateTime <|-- Joomla.CMS.Date.Date
-
-@enduml

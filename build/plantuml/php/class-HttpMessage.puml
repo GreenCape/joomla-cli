@@ -1,0 +1,16 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class HttpMessage
+interface Countable
+Countable <|.. HttpMessage
+interface Serializable
+Serializable <|.. HttpMessage
+interface Iterator
+Iterator <|.. HttpMessage
+!include class-Countable.puml
+!include class-Serializable.puml
+!include class-Iterator.puml
+@enduml

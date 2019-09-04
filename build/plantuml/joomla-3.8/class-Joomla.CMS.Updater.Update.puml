@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Updater.Update
-JObject <|-- Joomla.CMS.Updater.Update
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Updater\\Update
+JObject <|-- Joomla\\CMS\\Updater\\Update
 !include class-JObject.puml
 @enduml

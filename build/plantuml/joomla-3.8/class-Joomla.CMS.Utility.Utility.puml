@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Utility.Utility
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Utility\\Utility
 @enduml

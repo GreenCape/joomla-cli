@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Language.Text
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Language\\Text
 @enduml

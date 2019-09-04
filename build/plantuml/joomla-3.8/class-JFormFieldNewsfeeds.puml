@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldNewsfeeds
 JFormFieldList <|-- JFormFieldNewsfeeds
 !include class-JFormFieldList.puml

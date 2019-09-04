@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMProcessingInstruction
+DOMNode <|-- DOMProcessingInstruction
+!include class-DOMNode.puml
+@enduml

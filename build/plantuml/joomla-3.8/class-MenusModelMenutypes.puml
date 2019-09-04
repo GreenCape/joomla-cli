@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class MenusModelMenutypes
 JModelLegacy <|-- MenusModelMenutypes
 !include class-JModelLegacy.puml

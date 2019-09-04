@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class InstallationModelConfiguration
 JModelBase <|-- InstallationModelConfiguration
 !include class-JModelBase.puml

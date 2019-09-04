@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class BannersModelDownload
 JModelForm <|-- BannersModelDownload
 !include class-JModelForm.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class MediaViewImagesList
 JViewLegacy <|-- MediaViewImagesList
 !include class-JViewLegacy.puml

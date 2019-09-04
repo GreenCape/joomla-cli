@@ -1,9 +1,0 @@
-@startuml
-class Joomla.DI.Container
-
-interface Joomla.DI.ServiceProviderInterface
-interface Joomla.DI.ContainerAwareInterface
-trait Joomla.DI.ContainerAwareTrait
-class Joomla.DI.Exception.DependencyResolutionException
-Exception <|-- Joomla.DI.Exception.DependencyResolutionException
-@enduml

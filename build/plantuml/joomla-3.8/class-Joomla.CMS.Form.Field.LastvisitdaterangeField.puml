@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.LastvisitdaterangeField
-JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.LastvisitdaterangeField
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\LastvisitdaterangeField
+JFormFieldPredefinedList <|-- Joomla\\CMS\\Form\\Field\\LastvisitdaterangeField
 !include class-JFormFieldPredefinedList.puml
 @enduml

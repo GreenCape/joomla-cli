@@ -1,5 +1,9 @@
 @startuml
-class ParagonIE.Sodium.Core.Curve25519.Ge.P2
-ParagonIE_Sodium_Core_Curve25519_Ge_P2 <|-- ParagonIE.Sodium.Core.Curve25519.Ge.P2
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE\\Sodium\\Core\\Curve25519\\Ge\\P2
+ParagonIE_Sodium_Core_Curve25519_Ge_P2 <|-- ParagonIE\\Sodium\\Core\\Curve25519\\Ge\\P2
 !include class-ParagonIE_Sodium_Core_Curve25519_Ge_P2.puml
 @enduml

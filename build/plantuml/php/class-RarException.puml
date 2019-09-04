@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class RarException << final >>
+Exception <|-- RarException
+!include class-Exception.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableUser << alias >>
+\\Joomla\\CMS\\Table\\User == JTableUser
+!include class-Joomla.CMS.Table.User.puml
+@enduml

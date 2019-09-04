@@ -1,3 +1,7 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class MailtoHelper
 @enduml

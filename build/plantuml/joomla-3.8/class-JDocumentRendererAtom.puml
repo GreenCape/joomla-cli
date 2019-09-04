@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentRendererAtom << alias >>
+\\Joomla\\CMS\\Document\\Renderer\\Feed\\AtomRenderer == JDocumentRendererAtom
+!include class-Joomla.CMS.Document.Renderer.Feed.AtomRenderer.puml
+@enduml

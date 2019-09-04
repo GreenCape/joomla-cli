@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Archive.Archive
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Archive\\Archive
 @enduml

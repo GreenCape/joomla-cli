@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Form.Rule.FormRule << (·,Transparent) >>
-@enduml

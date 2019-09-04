@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Layout.LayoutHelper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Layout\\LayoutHelper
 @enduml

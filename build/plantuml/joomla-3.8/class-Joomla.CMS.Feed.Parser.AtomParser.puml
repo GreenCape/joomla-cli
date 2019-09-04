@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Feed.Parser.AtomParser
-Joomla.CMS.Feed.Parser.FeedParser <|-- Joomla.CMS.Feed.Parser.AtomParser
-!include class-Joomla.CMS.Feed.Parser.FeedParser.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Feed\\Parser\\AtomParser
+Joomla\\CMS\\Feed\\FeedParser <|-- Joomla\\CMS\\Feed\\Parser\\AtomParser
+!include class-Joomla.CMS.Feed.FeedParser.puml
 @enduml

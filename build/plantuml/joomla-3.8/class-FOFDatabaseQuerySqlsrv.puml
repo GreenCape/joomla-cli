@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFDatabaseQuerySqlsrv
 FOFDatabaseQuery <|-- FOFDatabaseQuerySqlsrv
-!include class-FOFDatabaseQuery.puml
+interface FOFDatabaseQueryLimitable
 FOFDatabaseQueryLimitable <|.. FOFDatabaseQuerySqlsrv
+!include class-FOFDatabaseQuery.puml
 !include class-FOFDatabaseQueryLimitable.puml
 @enduml

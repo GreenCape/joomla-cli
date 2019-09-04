@@ -1,5 +1,9 @@
 @startuml
-class Symfony.Polyfill.Util.Binary
-Symfony.Polyfill.Util.BinaryNoFuncOverload <|-- Symfony.Polyfill.Util.Binary
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Polyfill\\Util\\Binary
+Symfony\\Polyfill\\Util\\BinaryNoFuncOverload <|-- Symfony\\Polyfill\\Util\\Binary
 !include class-Symfony.Polyfill.Util.BinaryNoFuncOverload.puml
 @enduml

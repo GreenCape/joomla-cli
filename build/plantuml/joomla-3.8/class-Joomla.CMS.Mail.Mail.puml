@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Mail.Mail
-PHPMailer <|-- Joomla.CMS.Mail.Mail
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Mail\\Mail
+PHPMailer <|-- Joomla\\CMS\\Mail\\Mail
 !include class-PHPMailer.puml
 @enduml

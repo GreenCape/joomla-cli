@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMNodeList
+interface Traversable
+Traversable <|.. DOMNodeList
+!include class-Traversable.puml
+@enduml

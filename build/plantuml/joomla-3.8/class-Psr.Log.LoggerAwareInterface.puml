@@ -1,3 +1,7 @@
 @startuml
-interface Psr.Log.LoggerAwareInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Psr\\Log\\LoggerAwareInterface
 @enduml

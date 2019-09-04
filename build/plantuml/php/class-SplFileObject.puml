@@ -1,0 +1,15 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SplFileObject
+SplFileInfo <|-- SplFileObject
+interface RecursiveIterator
+RecursiveIterator <|.. SplFileObject
+interface SeekableIterator
+SeekableIterator <|.. SplFileObject
+!include class-SplFileInfo.puml
+!include class-RecursiveIterator.puml
+!include class-SeekableIterator.puml
+@enduml

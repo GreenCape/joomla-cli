@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\Driver\\ReadConcern << final >>
+interface MongoDB\\BSON\\Serializable
+MongoDB\\BSON\\Serializable <|.. MongoDB\\Driver\\ReadConcern
+!include class-MongoDB.BSON.Serializable.puml
+@enduml

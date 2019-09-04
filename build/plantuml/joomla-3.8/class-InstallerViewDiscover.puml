@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class InstallerViewDiscover
 InstallerViewDefault <|-- InstallerViewDiscover
 !include class-InstallerViewDefault.puml

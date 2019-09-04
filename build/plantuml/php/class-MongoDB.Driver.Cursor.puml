@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\Driver\\Cursor << final >>
+interface Traversable
+Traversable <|.. MongoDB\\Driver\\Cursor
+!include class-Traversable.puml
+@enduml

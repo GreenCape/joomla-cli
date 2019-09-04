@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFeedEnclosure << alias >>
+\\Joomla\\CMS\\Document\\Feed\\FeedEnclosure == JFeedEnclosure
+!include class-Joomla.CMS.Document.Feed.FeedEnclosure.puml
+@enduml

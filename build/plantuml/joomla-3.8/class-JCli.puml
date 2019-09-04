@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCli << alias >>
+\\Joomla\\CMS\\Application\\CliApplication == JCli
+!include class-Joomla.CMS.Application.CliApplication.puml
+@enduml

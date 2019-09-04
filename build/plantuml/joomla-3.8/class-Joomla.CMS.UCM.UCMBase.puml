@@ -1,5 +1,10 @@
 @startuml
-class Joomla.CMS.UCM.UCMBase
-Joomla.CMS.UCM.UCM <|.. Joomla.CMS.UCM.UCMBase
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\UCM\\UCMBase
+interface Joomla\\CMS\\UCM\\UCM
+Joomla\\CMS\\UCM\\UCM <|.. Joomla\\CMS\\UCM\\UCMBase
 !include class-Joomla.CMS.UCM.UCM.puml
 @enduml

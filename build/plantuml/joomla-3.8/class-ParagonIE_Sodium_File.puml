@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ParagonIE_Sodium_File
 ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_File
 !include class-ParagonIE_Sodium_Core_Util.puml

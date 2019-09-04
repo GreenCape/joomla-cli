@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class ReflectionFunctionAbstract
+interface Reflector
+Reflector <|.. ReflectionFunctionAbstract
+!include class-Reflector.puml
+@enduml

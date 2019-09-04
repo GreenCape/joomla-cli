@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ConfigControllerComponentSave
 JControllerBase <|-- ConfigControllerComponentSave
 !include class-JControllerBase.puml

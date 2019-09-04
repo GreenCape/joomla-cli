@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class BannersControllerClients
 JControllerAdmin <|-- BannersControllerClients
 !include class-JControllerAdmin.puml

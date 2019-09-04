@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\GeoBoundingBoxSearchQuery << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\GeoBoundingBoxSearchQuery
+interface Couchbase\\SearchQueryPart
+Couchbase\\SearchQueryPart <|.. Couchbase\\GeoBoundingBoxSearchQuery
+!include class-JsonSerializable.puml
+!include class-Couchbase.SearchQueryPart.puml
+@enduml

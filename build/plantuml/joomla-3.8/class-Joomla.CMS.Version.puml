@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Version
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Version << final >>
 @enduml

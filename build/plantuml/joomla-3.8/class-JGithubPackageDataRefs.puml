@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JGithubPackageDataRefs
 JGithubPackage <|-- JGithubPackageDataRefs
 !include class-JGithubPackage.puml

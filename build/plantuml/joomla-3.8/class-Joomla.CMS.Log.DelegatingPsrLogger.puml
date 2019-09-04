@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Log.DelegatingPsrLogger
-Joomla.CMS.Log.AbstractLogger <|-- Joomla.CMS.Log.DelegatingPsrLogger
-!include class-Joomla.CMS.Log.AbstractLogger.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Log\\DelegatingPsrLogger
+Psr\\Log\\AbstractLogger <|-- Joomla\\CMS\\Log\\DelegatingPsrLogger
+!include class-Psr.Log.AbstractLogger.puml
 @enduml

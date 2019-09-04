@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFTable
 FOFUtilsObject <|-- FOFTable
-!include class-FOFUtilsObject.puml
+interface JTableInterface
 JTableInterface <|.. FOFTable
+!include class-FOFUtilsObject.puml
 !include class-JTableInterface.puml
 @enduml

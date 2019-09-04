@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JGithubPackageUsersEmails
 JGithubPackage <|-- JGithubPackageUsersEmails
 !include class-JGithubPackage.puml

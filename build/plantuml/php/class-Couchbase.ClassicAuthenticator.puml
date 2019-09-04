@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\ClassicAuthenticator << final >>
+interface Couchbase\\Authenticator
+Couchbase\\Authenticator <|.. Couchbase\\ClassicAuthenticator
+!include class-Couchbase.Authenticator.puml
+@enduml

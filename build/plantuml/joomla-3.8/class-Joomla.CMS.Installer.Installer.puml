@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Installer.Installer
-JAdapter <|-- Joomla.CMS.Installer.Installer
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Installer\\Installer
+JAdapter <|-- Joomla\\CMS\\Installer\\Installer
 !include class-JAdapter.puml
 @enduml

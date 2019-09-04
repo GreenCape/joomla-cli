@@ -1,5 +1,10 @@
 @startuml
-class Joomla.CMS.Http.Transport.CurlTransport
-Joomla.CMS.Http.Transport.TransportInterface <|.. Joomla.CMS.Http.Transport.CurlTransport
-!include class-Joomla.CMS.Http.Transport.TransportInterface.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Http\\Transport\\CurlTransport
+interface Joomla\\CMS\\Http\\TransportInterface
+Joomla\\CMS\\Http\\TransportInterface <|.. Joomla\\CMS\\Http\\Transport\\CurlTransport
+!include class-Joomla.CMS.Http.TransportInterface.puml
 @enduml

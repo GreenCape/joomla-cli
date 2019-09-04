@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class RarArchive << final >>
+interface Traversable
+Traversable <|.. RarArchive
+!include class-Traversable.puml
+@enduml

@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormFieldSpacer
 JFormFieldSpacer <|-- FOFFormFieldSpacer
-!include class-JFormFieldSpacer.puml
+interface FOFFormField
 FOFFormField <|.. FOFFormFieldSpacer
+!include class-JFormFieldSpacer.puml
 !include class-FOFFormField.puml
 @enduml

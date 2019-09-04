@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class Net_IDNA_php4
 idna_convert <|-- Net_IDNA_php4
 !include class-idna_convert.puml

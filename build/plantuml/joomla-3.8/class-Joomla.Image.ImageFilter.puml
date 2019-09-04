@@ -1,5 +1,10 @@
 @startuml
-abstract class Joomla.Image.ImageFilter
-Joomla.Image.LoggerAwareInterface <|.. Joomla.Image.ImageFilter
-!include class-Joomla.Image.LoggerAwareInterface.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Image\\ImageFilter
+interface Psr\\Log\\LoggerAwareInterface
+Psr\\Log\\LoggerAwareInterface <|.. Joomla\\Image\\ImageFilter
+!include class-Psr.Log.LoggerAwareInterface.puml
 @enduml

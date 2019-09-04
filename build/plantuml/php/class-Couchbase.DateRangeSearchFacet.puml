@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\DateRangeSearchFacet << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\DateRangeSearchFacet
+interface Couchbase\\SearchFacet
+Couchbase\\SearchFacet <|.. Couchbase\\DateRangeSearchFacet
+!include class-JsonSerializable.puml
+!include class-Couchbase.SearchFacet.puml
+@enduml

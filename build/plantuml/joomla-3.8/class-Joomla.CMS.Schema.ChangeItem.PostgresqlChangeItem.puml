@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
-Joomla.CMS.Schema.ChangeItem.ChangeItem <|-- Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem
-!include class-Joomla.CMS.Schema.ChangeItem.ChangeItem.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Schema\\ChangeItem\\PostgresqlChangeItem
+Joomla\\CMS\\Schema\\ChangeItem <|-- Joomla\\CMS\\Schema\\ChangeItem\\PostgresqlChangeItem
+!include class-Joomla.CMS.Schema.ChangeItem.puml
 @enduml

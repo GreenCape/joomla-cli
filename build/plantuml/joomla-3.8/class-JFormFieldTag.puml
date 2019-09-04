@@ -1,5 +1,9 @@
 @startuml
-class JFormFieldTag
-JFormFieldList <|-- JFormFieldTag
-!include class-JFormFieldList.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldTag << alias >>
+\\Joomla\\CMS\\Form\\Field\\TagField == JFormFieldTag
+!include class-Joomla.CMS.Form.Field.TagField.puml
 @enduml

@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Filesystem.Stream.String
-Joomla.Filesystem.Stream.StringWrapper <|-- Joomla.Filesystem.Stream.String
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Stream\\String
+Joomla\\Filesystem\\Stream\\StringWrapper <|-- Joomla\\Filesystem\\Stream\\String
 !include class-Joomla.Filesystem.Stream.StringWrapper.puml
 @enduml

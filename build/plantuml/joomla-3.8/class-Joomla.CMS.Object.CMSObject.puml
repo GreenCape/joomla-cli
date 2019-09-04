@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Object.CMSObject
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Object\\CMSObject
 @enduml

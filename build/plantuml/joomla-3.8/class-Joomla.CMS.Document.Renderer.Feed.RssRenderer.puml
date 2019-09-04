@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Document.Renderer.Feed.RssRenderer
-Joomla.CMS.Document.Renderer.Feed.DocumentRenderer <|-- Joomla.CMS.Document.Renderer.Feed.RssRenderer
-!include class-Joomla.CMS.Document.Renderer.Feed.DocumentRenderer.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Document\\Renderer\\Feed\\RssRenderer
+Joomla\\CMS\\Document\\DocumentRenderer <|-- Joomla\\CMS\\Document\\Renderer\\Feed\\RssRenderer
+!include class-Joomla.CMS.Document.DocumentRenderer.puml
 @enduml

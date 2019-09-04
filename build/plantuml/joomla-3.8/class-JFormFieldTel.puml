@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldTel
 JFormFieldText <|-- JFormFieldTel
 !include class-JFormFieldText.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JTableSession
 JTable <|-- JTableSession
 !include class-JTable.puml

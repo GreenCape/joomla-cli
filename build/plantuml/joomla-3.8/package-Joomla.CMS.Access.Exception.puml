@@ -1,5 +1,0 @@
-@startuml
-class Joomla.CMS.Access.Exception.NotAllowed
-RuntimeException <|-- Joomla.CMS.Access.Exception.NotAllowed
-
-@enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormRuleContactEmailMessage
 JFormRule <|-- JFormRuleContactEmailMessage
 !include class-JFormRule.puml

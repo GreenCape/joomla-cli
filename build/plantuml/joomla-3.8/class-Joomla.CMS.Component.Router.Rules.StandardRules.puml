@@ -1,5 +1,10 @@
 @startuml
-class Joomla.CMS.Component.Router.Rules.StandardRules
-Joomla.CMS.Component.Router.Rules.RulesInterface <|.. Joomla.CMS.Component.Router.Rules.StandardRules
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Component\\Router\\Rules\\StandardRules
+interface Joomla\\CMS\\Component\\Router\\Rules\\RulesInterface
+Joomla\\CMS\\Component\\Router\\Rules\\RulesInterface <|.. Joomla\\CMS\\Component\\Router\\Rules\\StandardRules
 !include class-Joomla.CMS.Component.Router.Rules.RulesInterface.puml
 @enduml

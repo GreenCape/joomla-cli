@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Image.Filter.Edgedetect
-Joomla.Image.Filter.ImageFilter <|-- Joomla.Image.Filter.Edgedetect
-!include class-Joomla.Image.Filter.ImageFilter.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Image\\Filter\\Edgedetect
+Joomla\\Image\\ImageFilter <|-- Joomla\\Image\\Filter\\Edgedetect
+!include class-Joomla.Image.ImageFilter.puml
 @enduml

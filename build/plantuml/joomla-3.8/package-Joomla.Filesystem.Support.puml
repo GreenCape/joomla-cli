@@ -1,4 +1,0 @@
-@startuml
-class Joomla.Filesystem.Support.StringController
-
-@enduml

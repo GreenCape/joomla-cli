@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class GlobIterator
+FilesystemIterator <|-- GlobIterator
+interface Countable
+Countable <|.. GlobIterator
+!include class-FilesystemIterator.puml
+!include class-Countable.puml
+@enduml

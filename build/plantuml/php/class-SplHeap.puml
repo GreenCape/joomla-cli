@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class SplHeap
+interface Iterator
+Iterator <|.. SplHeap
+interface Countable
+Countable <|.. SplHeap
+!include class-Iterator.puml
+!include class-Countable.puml
+@enduml

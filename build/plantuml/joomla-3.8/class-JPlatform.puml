@@ -1,3 +1,7 @@
 @startuml
-class JPlatform
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JPlatform << final >>
 @enduml

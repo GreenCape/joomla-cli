@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Access.Exception.NotAllowed
-RuntimeException <|-- Joomla.CMS.Access.Exception.NotAllowed
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Access\\Exception\\NotAllowed
+RuntimeException <|-- Joomla\\CMS\\Access\\Exception\\NotAllowed
 !include class-RuntimeException.puml
 @enduml

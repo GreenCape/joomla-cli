@@ -1,7 +1,0 @@
-@startuml
-class Joomla.CMS.Mail.Mail
-PHPMailer <|-- Joomla.CMS.Mail.Mail
-
-abstract class Joomla.CMS.Mail.MailHelper
-class Joomla.CMS.Mail.MailWrapper
-@enduml

@@ -1,3 +1,0 @@
-@startuml
-class ParagonIE_Sodium_Core_Xsalsa20 << (·,Transparent) >>
-@enduml

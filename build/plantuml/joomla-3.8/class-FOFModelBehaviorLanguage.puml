@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFModelBehaviorLanguage
 FOFModelBehavior <|-- FOFModelBehaviorLanguage
 !include class-FOFModelBehavior.puml

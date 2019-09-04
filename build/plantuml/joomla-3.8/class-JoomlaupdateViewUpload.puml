@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JoomlaupdateViewUpload
 JViewLegacy <|-- JoomlaupdateViewUpload
 !include class-JViewLegacy.puml

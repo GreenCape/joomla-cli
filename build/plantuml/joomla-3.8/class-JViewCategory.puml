@@ -1,3 +1,9 @@
 @startuml
-class JViewCategory << (·,Transparent) >>
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JViewCategory << alias >>
+\\Joomla\\CMS\\MVC\\View\\CategoryView == JViewCategory
+!include class-Joomla.CMS.MVC.View.CategoryView.puml
 @enduml

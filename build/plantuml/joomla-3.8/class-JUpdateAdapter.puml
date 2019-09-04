@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUpdateAdapter << alias >>
+\\Joomla\\CMS\\Updater\\UpdateAdapter == JUpdateAdapter
+!include class-Joomla.CMS.Updater.UpdateAdapter.puml
+@enduml

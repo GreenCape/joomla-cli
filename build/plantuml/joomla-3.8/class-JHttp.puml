@@ -1,3 +1,9 @@
 @startuml
-class JHttp
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHttp << alias >>
+\\Joomla\\CMS\\Http\\Http == JHttp
+!include class-Joomla.CMS.Http.Http.puml
 @enduml

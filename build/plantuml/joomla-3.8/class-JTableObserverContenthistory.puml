@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableObserverContenthistory << alias >>
+\\Joomla\\CMS\\Table\\Observer\\ContentHistory == JTableObserverContenthistory
+!include class-Joomla.CMS.Table.Observer.ContentHistory.puml
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class RecursiveCallbackFilterIterator
+CallbackFilterIterator <|-- RecursiveCallbackFilterIterator
+interface RecursiveIterator
+RecursiveIterator <|.. RecursiveCallbackFilterIterator
+!include class-CallbackFilterIterator.puml
+!include class-RecursiveIterator.puml
+@enduml

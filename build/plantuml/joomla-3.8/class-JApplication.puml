@@ -1,5 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JApplication
-BaseApplication <|-- JApplication
-!include class-BaseApplication.puml
+Joomla\\CMS\\Application\\BaseApplication <|-- JApplication
+interface LoggerAwareInterface
+LoggerAwareInterface <|.. JApplication
+!include class-Joomla.CMS.Application.BaseApplication.puml
+!include class-LoggerAwareInterface.puml
 @enduml

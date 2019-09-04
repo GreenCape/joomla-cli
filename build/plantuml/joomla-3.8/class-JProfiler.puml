@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JProfiler << alias >>
+\\Joomla\\CMS\\Profiler\\Profiler == JProfiler
+!include class-Joomla.CMS.Profiler.Profiler.puml
+@enduml

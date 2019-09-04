@@ -1,5 +1,0 @@
-@startuml
-class Composer.Autoload.ComposerStaticInit205c915b9c7d3e718e7c95793ee67ffe
-
-class Composer.Autoload.ClassLoader
-@enduml

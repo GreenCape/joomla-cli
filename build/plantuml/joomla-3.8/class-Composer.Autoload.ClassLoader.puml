@@ -1,3 +1,7 @@
 @startuml
-class Composer.Autoload.ClassLoader
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Composer\\Autoload\\ClassLoader
 @enduml

@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\Driver\\Exception\\RuntimeException
+RuntimeException <|-- MongoDB\\Driver\\Exception\\RuntimeException
+interface MongoDB\\Driver\\Exception\\Exception
+MongoDB\\Driver\\Exception\\Exception <|.. MongoDB\\Driver\\Exception\\RuntimeException
+!include class-RuntimeException.puml
+!include class-MongoDB.Driver.Exception.Exception.puml
+@enduml

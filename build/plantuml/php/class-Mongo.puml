@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Mongo
+MongoClient <|-- Mongo
+!include class-MongoClient.puml
+@enduml

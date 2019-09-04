@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHttpResponse << alias >>
+\\Joomla\\CMS\\Http\\Response == JHttpResponse
+!include class-Joomla.CMS.Http.Response.puml
+@enduml

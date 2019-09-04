@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFModel
 FOFUtilsObject <|-- FOFModel
 !include class-FOFUtilsObject.puml

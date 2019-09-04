@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ContentModelArticles
 JModelList <|-- ContentModelArticles
 !include class-JModelList.puml

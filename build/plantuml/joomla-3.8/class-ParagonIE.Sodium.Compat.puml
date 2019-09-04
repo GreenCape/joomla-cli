@@ -1,5 +1,9 @@
 @startuml
-class ParagonIE.Sodium.Compat
-ParagonIE_Sodium_Compat <|-- ParagonIE.Sodium.Compat
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE\\Sodium\\Compat
+ParagonIE_Sodium_Compat <|-- ParagonIE\\Sodium\\Compat
 !include class-ParagonIE_Sodium_Compat.puml
 @enduml

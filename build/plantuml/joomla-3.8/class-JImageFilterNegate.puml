@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JImageFilterNegate << alias >>
+\\Joomla\\Image\\Filter\\Negate == JImageFilterNegate
+!include class-Joomla.Image.Filter.Negate.puml
+@enduml

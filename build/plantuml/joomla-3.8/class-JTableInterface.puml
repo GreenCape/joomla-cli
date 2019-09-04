@@ -1,3 +1,9 @@
 @startuml
-interface JTableInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableInterface << alias >>
+\\Joomla\\CMS\\Table\\TableInterface == JTableInterface
+!include class-Joomla.CMS.Table.TableInterface.puml
 @enduml

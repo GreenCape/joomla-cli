@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class HttpInvalidParamException
+HttpException <|-- HttpInvalidParamException
+!include class-HttpException.puml
+@enduml

@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Input.Json
-Joomla.Input.Input <|-- Joomla.Input.Json
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Input\\Json
+Joomla\\Input\\Input <|-- Joomla\\Input\\Json
 !include class-Joomla.Input.Input.puml
 @enduml

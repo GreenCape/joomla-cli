@@ -1,5 +1,9 @@
 @startuml
-class ParagonIE.Sodium.Core.X25519
-ParagonIE_Sodium_Core_X25519 <|-- ParagonIE.Sodium.Core.X25519
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE\\Sodium\\Core\\X25519
+ParagonIE_Sodium_Core_X25519 <|-- ParagonIE\\Sodium\\Core\\X25519
 !include class-ParagonIE_Sodium_Core_X25519.puml
 @enduml

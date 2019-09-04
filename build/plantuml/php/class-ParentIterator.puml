@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParentIterator
+RecursiveFilterIterator <|-- ParentIterator
+!include class-RecursiveFilterIterator.puml
+@enduml

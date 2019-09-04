@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRegistryFormatXml << alias >>
+\\Joomla\\Registry\\Format\\Xml == JRegistryFormatXml
+!include class-Joomla.Registry.Format.Xml.puml
+@enduml

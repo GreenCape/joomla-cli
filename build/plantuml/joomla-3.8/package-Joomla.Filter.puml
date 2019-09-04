@@ -1,5 +1,0 @@
-@startuml
-class Joomla.Filter.InputFilter
-
-class Joomla.Filter.OutputFilter
-@enduml

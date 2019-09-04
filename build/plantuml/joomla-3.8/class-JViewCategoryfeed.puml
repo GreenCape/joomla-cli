@@ -1,3 +1,9 @@
 @startuml
-class JViewCategoryfeed << (·,Transparent) >>
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JViewCategoryfeed << alias >>
+\\Joomla\\CMS\\MVC\\View\\CategoryFeedView == JViewCategoryfeed
+!include class-Joomla.CMS.MVC.View.CategoryFeedView.puml
 @enduml

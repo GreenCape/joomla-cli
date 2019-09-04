@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FinderViewMaps
 JViewLegacy <|-- FinderViewMaps
 !include class-JViewLegacy.puml

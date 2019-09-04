@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Ldap.LdapClient
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Ldap\\LdapClient
 @enduml

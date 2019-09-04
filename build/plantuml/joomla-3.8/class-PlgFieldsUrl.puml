@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PlgFieldsUrl
 FieldsPlugin <|-- PlgFieldsUrl
 !include class-FieldsPlugin.puml

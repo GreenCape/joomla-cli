@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JOpenstreetmapInfo
 JOpenstreetmapObject <|-- JOpenstreetmapInfo
 !include class-JOpenstreetmapObject.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseExceptionExecuting
 RuntimeException <|-- JDatabaseExceptionExecuting
 !include class-RuntimeException.puml

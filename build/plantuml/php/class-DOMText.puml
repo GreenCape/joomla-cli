@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMText
+DOMCharacterData <|-- DOMText
+!include class-DOMCharacterData.puml
+@enduml

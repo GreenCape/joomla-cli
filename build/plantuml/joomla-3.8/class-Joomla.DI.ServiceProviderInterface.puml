@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.DI.ServiceProviderInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\DI\\ServiceProviderInterface
 @enduml

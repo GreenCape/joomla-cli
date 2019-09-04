@@ -1,5 +1,10 @@
 @startuml
-abstract class Joomla.Uri.AbstractUri
-Joomla.Uri.UriInterface <|.. Joomla.Uri.AbstractUri
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Uri\\AbstractUri
+interface Joomla\\Uri\\UriInterface
+Joomla\\Uri\\UriInterface <|.. Joomla\\Uri\\AbstractUri
 !include class-Joomla.Uri.UriInterface.puml
 @enduml

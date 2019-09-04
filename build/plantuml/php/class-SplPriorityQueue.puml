@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SplPriorityQueue
+interface Iterator
+Iterator <|.. SplPriorityQueue
+interface Countable
+Countable <|.. SplPriorityQueue
+!include class-Iterator.puml
+!include class-Countable.puml
+@enduml

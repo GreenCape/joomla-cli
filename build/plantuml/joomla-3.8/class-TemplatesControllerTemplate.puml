@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class TemplatesControllerTemplate
 JControllerLegacy <|-- TemplatesControllerTemplate
 !include class-JControllerLegacy.puml

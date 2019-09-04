@@ -1,3 +1,7 @@
 @startuml
-class Symfony.Component.Yaml.Escaper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Component\\Yaml\\Escaper
 @enduml

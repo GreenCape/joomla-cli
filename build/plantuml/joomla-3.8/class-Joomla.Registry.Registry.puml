@@ -1,5 +1,19 @@
 @startuml
-class Joomla.Registry.Registry
-JsonSerializable <|.. Joomla.Registry.Registry
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Registry\\Registry
+interface JsonSerializable
+JsonSerializable <|.. Joomla\\Registry\\Registry
+interface ArrayAccess
+ArrayAccess <|.. Joomla\\Registry\\Registry
+interface IteratorAggregate
+IteratorAggregate <|.. Joomla\\Registry\\Registry
+interface Countable
+Countable <|.. Joomla\\Registry\\Registry
 !include class-JsonSerializable.puml
+!include class-ArrayAccess.puml
+!include class-IteratorAggregate.puml
+!include class-Countable.puml
 @enduml

@@ -1,5 +1,9 @@
 @startuml
-class ParagonIE.Sodium.Core.Poly1305
-ParagonIE_Sodium_Core_Poly1305 <|-- ParagonIE.Sodium.Core.Poly1305
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE\\Sodium\\Core\\Poly1305
+ParagonIE_Sodium_Core_Poly1305 <|-- ParagonIE\\Sodium\\Core\\Poly1305
 !include class-ParagonIE_Sodium_Core_Poly1305.puml
 @enduml

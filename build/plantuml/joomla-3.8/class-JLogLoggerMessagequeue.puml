@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLogLoggerMessagequeue << alias >>
+\\Joomla\\CMS\\Log\\Logger\\MessagequeueLogger == JLogLoggerMessagequeue
+!include class-Joomla.CMS.Log.Logger.MessagequeueLogger.puml
+@enduml

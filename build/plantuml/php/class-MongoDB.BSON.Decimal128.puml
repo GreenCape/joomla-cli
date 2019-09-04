@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\BSON\\Decimal128
+interface MongoDB\\BSON\\Type
+MongoDB\\BSON\\Type <|.. MongoDB\\BSON\\Decimal128
+!include class-MongoDB.BSON.Type.puml
+@enduml

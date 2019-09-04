@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class AMQPException
+Exception <|-- AMQPException
+!include class-Exception.puml
+@enduml

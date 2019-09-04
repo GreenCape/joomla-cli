@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormFieldText
 JFormFieldText <|-- FOFFormFieldText
-!include class-JFormFieldText.puml
+interface FOFFormField
 FOFFormField <|.. FOFFormFieldText
+!include class-JFormFieldText.puml
 !include class-FOFFormField.puml
 @enduml

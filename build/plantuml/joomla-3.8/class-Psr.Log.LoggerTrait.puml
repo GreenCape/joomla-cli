@@ -1,3 +1,7 @@
 @startuml
-trait Psr.Log.LoggerTrait
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Psr\\Log\\LoggerTrait << (T,orchid) >>
 @enduml

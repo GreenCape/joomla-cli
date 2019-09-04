@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MongoDB\\BSON\\MinKey
+interface MongoDB\\BSON\\Type
+MongoDB\\BSON\\Type <|.. MongoDB\\BSON\\MinKey
+!include class-MongoDB.BSON.Type.puml
+@enduml

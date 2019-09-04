@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\ViewQuery << final >>
+interface Couchbase\\ViewQueryEncodable
+Couchbase\\ViewQueryEncodable <|.. Couchbase\\ViewQuery
+!include class-Couchbase.ViewQueryEncodable.puml
+@enduml

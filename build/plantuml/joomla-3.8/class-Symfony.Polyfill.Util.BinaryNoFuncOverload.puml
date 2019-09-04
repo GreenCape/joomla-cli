@@ -1,3 +1,7 @@
 @startuml
-class Symfony.Polyfill.Util.BinaryNoFuncOverload
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Polyfill\\Util\\BinaryNoFuncOverload
 @enduml

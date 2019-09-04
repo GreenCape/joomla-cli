@@ -1,4 +1,0 @@
-@startuml
-class Joomla.Filesystem.Clients.FtpClient
-
-@enduml

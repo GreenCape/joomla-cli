@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class mysqli_sql_exception
+RuntimeException <|-- mysqli_sql_exception
+!include class-RuntimeException.puml
+@enduml

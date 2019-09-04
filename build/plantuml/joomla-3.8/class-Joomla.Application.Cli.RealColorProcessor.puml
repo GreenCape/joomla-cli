@@ -1,3 +1,0 @@
-@startuml
-class Joomla.Application.Cli.RealColorProcessor << (·,Transparent) >>
-@enduml

@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\N1qlQuery << final >>
+@enduml

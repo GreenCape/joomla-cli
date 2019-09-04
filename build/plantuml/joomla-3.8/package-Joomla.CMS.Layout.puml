@@ -1,9 +1,0 @@
-@startuml
-class Joomla.CMS.Layout.BaseLayout
-Joomla.CMS.Layout.LayoutInterface <|.. Joomla.CMS.Layout.BaseLayout
-
-class Joomla.CMS.Layout.LayoutHelper
-interface Joomla.CMS.Layout.LayoutInterface
-class Joomla.CMS.Layout.FileLayout
-Joomla.CMS.Layout.BaseLayout <|-- Joomla.CMS.Layout.FileLayout
-@enduml

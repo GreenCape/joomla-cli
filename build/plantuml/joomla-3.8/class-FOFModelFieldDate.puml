@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFModelFieldDate
 FOFModelFieldText <|-- FOFModelFieldDate
 !include class-FOFModelFieldText.puml

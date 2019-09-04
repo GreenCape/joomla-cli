@@ -1,3 +1,9 @@
 @startuml
-class JFormRule
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormRule << alias >>
+\\Joomla\\CMS\\Form\\FormRule == JFormRule
+!include class-Joomla.CMS.Form.FormRule.puml
 @enduml

@@ -1,5 +1,0 @@
-@startuml
-class Joomla.CMS.Session.Exception.UnsupportedStorageException
-RuntimeException <|-- Joomla.CMS.Session.Exception.UnsupportedStorageException
-
-@enduml

@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Updater.Updater
-JAdapter <|-- Joomla.CMS.Updater.Updater
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Updater\\Updater
+JAdapter <|-- Joomla\\CMS\\Updater\\Updater
 !include class-JAdapter.puml
 @enduml

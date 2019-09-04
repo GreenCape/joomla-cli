@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Imagick
+interface Iterator
+Iterator <|.. Imagick
+interface Countable
+Countable <|.. Imagick
+!include class-Iterator.puml
+!include class-Countable.puml
+@enduml

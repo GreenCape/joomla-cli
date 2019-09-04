@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableUsergroup << alias >>
+\\Joomla\\CMS\\Table\\Usergroup == JTableUsergroup
+!include class-Joomla.CMS.Table.Usergroup.puml
+@enduml

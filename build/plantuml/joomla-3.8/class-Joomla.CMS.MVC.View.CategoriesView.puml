@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.MVC.View.CategoriesView
-Joomla.CMS.MVC.View.HtmlView <|-- Joomla.CMS.MVC.View.CategoriesView
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\MVC\\View\\CategoriesView
+Joomla\\CMS\\MVC\\View\\HtmlView <|-- Joomla\\CMS\\MVC\\View\\CategoriesView
 !include class-Joomla.CMS.MVC.View.HtmlView.puml
 @enduml

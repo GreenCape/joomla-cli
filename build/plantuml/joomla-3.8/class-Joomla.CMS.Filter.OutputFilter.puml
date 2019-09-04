@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Filter.OutputFilter
-Joomla.CMS.Filter.BaseOutputFilter <|-- Joomla.CMS.Filter.OutputFilter
-!include class-Joomla.CMS.Filter.BaseOutputFilter.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Filter\\OutputFilter
+Joomla\\Filter\\OutputFilter <|-- Joomla\\CMS\\Filter\\OutputFilter
+!include class-Joomla.Filter.OutputFilter.puml
 @enduml

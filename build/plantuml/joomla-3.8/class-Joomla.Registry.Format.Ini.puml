@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Registry.Format.Ini
-Joomla.Registry.Format.AbstractRegistryFormat <|-- Joomla.Registry.Format.Ini
-!include class-Joomla.Registry.Format.AbstractRegistryFormat.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Registry\\Format\\Ini
+Joomla\\Registry\\AbstractRegistryFormat <|-- Joomla\\Registry\\Format\\Ini
+!include class-Joomla.Registry.AbstractRegistryFormat.puml
 @enduml

@@ -1,6 +1,0 @@
-@startuml
-class Joomla.CMS.Client.ClientWrapper
-
-class Joomla.CMS.Client.FtpClient
-class Joomla.CMS.Client.ClientHelper
-@enduml

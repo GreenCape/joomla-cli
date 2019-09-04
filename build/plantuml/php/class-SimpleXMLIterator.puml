@@ -1,0 +1,15 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SimpleXMLIterator
+SimpleXMLElement <|-- SimpleXMLIterator
+interface RecursiveIterator
+RecursiveIterator <|.. SimpleXMLIterator
+interface Countable
+Countable <|.. SimpleXMLIterator
+!include class-SimpleXMLElement.puml
+!include class-RecursiveIterator.puml
+!include class-Countable.puml
+@enduml

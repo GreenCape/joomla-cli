@@ -1,5 +1,10 @@
 @startuml
-class Joomla.Archive.Zip
-Joomla.Archive.ExtractableInterface <|.. Joomla.Archive.Zip
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Archive\\Zip
+interface Joomla\\Archive\\ExtractableInterface
+Joomla\\Archive\\ExtractableInterface <|.. Joomla\\Archive\\Zip
 !include class-Joomla.Archive.ExtractableInterface.puml
 @enduml

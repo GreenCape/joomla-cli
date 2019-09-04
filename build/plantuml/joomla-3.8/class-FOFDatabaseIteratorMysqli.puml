@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFDatabaseIteratorMysqli
 FOFDatabaseIterator <|-- FOFDatabaseIteratorMysqli
 !include class-FOFDatabaseIterator.puml

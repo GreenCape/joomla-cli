@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class MenusControllerMenu
 JControllerForm <|-- MenusControllerMenu
 !include class-JControllerForm.puml

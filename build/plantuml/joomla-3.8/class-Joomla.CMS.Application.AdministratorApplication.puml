@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Application.AdministratorApplication
-Joomla.CMS.Application.CMSApplication <|-- Joomla.CMS.Application.AdministratorApplication
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Application\\AdministratorApplication
+Joomla\\CMS\\Application\\CMSApplication <|-- Joomla\\CMS\\Application\\AdministratorApplication
 !include class-Joomla.CMS.Application.CMSApplication.puml
 @enduml

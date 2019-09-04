@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Cache.Controller.CallbackController
-Joomla.CMS.Cache.Controller.CacheController <|-- Joomla.CMS.Cache.Controller.CallbackController
-!include class-Joomla.CMS.Cache.Controller.CacheController.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Cache\\Controller\\CallbackController
+Joomla\\CMS\\Cache\\CacheController <|-- Joomla\\CMS\\Cache\\Controller\\CallbackController
+!include class-Joomla.CMS.Cache.CacheController.puml
 @enduml

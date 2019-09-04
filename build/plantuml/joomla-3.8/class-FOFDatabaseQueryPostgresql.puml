@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFDatabaseQueryPostgresql
 FOFDatabaseQuery <|-- FOFDatabaseQueryPostgresql
-!include class-FOFDatabaseQuery.puml
+interface FOFDatabaseQueryLimitable
 FOFDatabaseQueryLimitable <|.. FOFDatabaseQueryPostgresql
+!include class-FOFDatabaseQuery.puml
 !include class-FOFDatabaseQueryLimitable.puml
 @enduml

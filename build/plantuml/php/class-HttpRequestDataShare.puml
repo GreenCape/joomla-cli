@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class HttpRequestDataShare
+interface Countable
+Countable <|.. HttpRequestDataShare
+!include class-Countable.puml
+@enduml

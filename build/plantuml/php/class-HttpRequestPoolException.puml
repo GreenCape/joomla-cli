@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class HttpRequestPoolException
+HttpException <|-- HttpRequestPoolException
+!include class-HttpException.puml
+@enduml

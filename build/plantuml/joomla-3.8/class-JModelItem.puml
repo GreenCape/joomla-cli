@@ -1,5 +1,9 @@
 @startuml
-abstract class JModelItem
-JModelLegacy <|-- JModelItem
-!include class-JModelLegacy.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JModelItem << alias >>
+\\Joomla\\CMS\\MVC\\Model\\ItemModel == JModelItem
+!include class-Joomla.CMS.MVC.Model.ItemModel.puml
 @enduml

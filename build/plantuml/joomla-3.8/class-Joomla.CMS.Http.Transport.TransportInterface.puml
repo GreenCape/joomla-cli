@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Http.Transport.TransportInterface << (·,Transparent) >>
-@enduml

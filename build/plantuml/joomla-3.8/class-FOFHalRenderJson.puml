@@ -1,5 +1,10 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFHalRenderJson
+interface FOFHalRenderInterface
 FOFHalRenderInterface <|.. FOFHalRenderJson
 !include class-FOFHalRenderInterface.puml
 @enduml

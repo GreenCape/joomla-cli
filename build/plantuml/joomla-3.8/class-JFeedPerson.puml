@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFeedPerson << alias >>
+\\Joomla\\CMS\\Feed\\FeedPerson == JFeedPerson
+!include class-Joomla.CMS.Feed.FeedPerson.puml
+@enduml

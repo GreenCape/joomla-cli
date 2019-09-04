@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Exception.ExceptionHandler
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Exception\\ExceptionHandler
 @enduml

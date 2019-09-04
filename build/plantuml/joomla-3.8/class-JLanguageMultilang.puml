@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLanguageMultilang << alias >>
+\\Joomla\\CMS\\Language\\Multilanguage == JLanguageMultilang
+!include class-Joomla.CMS.Language.Multilanguage.puml
+@enduml

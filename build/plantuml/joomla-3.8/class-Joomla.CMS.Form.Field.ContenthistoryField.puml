@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.ContenthistoryField
-Joomla.CMS.Form.Field.FormField <|-- Joomla.CMS.Form.Field.ContenthistoryField
-!include class-Joomla.CMS.Form.Field.FormField.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\ContenthistoryField
+Joomla\\CMS\\Form\\FormField <|-- Joomla\\CMS\\Form\\Field\\ContenthistoryField
+!include class-Joomla.CMS.Form.FormField.puml
 @enduml

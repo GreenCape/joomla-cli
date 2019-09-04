@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldModuletag << alias >>
+\\Joomla\\CMS\\Form\\Field\\ModuletagField == JFormFieldModuletag
+!include class-Joomla.CMS.Form.Field.ModuletagField.puml
+@enduml

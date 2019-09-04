@@ -1,5 +1,13 @@
 @startuml
-class Joomla.CMS.Feed.Feed
-ArrayAccess <|.. Joomla.CMS.Feed.Feed
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Feed\\Feed
+interface ArrayAccess
+ArrayAccess <|.. Joomla\\CMS\\Feed\\Feed
+interface Countable
+Countable <|.. Joomla\\CMS\\Feed\\Feed
 !include class-ArrayAccess.puml
+!include class-Countable.puml
 @enduml

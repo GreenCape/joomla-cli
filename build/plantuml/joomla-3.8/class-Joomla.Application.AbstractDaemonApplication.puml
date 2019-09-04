@@ -1,7 +1,12 @@
 @startuml
-abstract class Joomla.Application.AbstractDaemonApplication
-Joomla.Application.AbstractCliApplication <|-- Joomla.Application.AbstractDaemonApplication
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Application\\AbstractDaemonApplication
+Joomla\\Application\\AbstractCliApplication <|-- Joomla\\Application\\AbstractDaemonApplication
+interface Psr\\Log\\LoggerAwareInterface
+Psr\\Log\\LoggerAwareInterface <|.. Joomla\\Application\\AbstractDaemonApplication
 !include class-Joomla.Application.AbstractCliApplication.puml
-Joomla.Application.LoggerAwareInterface <|.. Joomla.Application.AbstractDaemonApplication
-!include class-Joomla.Application.LoggerAwareInterface.puml
+!include class-Psr.Log.LoggerAwareInterface.puml
 @enduml

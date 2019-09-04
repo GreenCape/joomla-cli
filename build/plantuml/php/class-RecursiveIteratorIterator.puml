@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class RecursiveIteratorIterator
+interface OuterIterator
+OuterIterator <|.. RecursiveIteratorIterator
+!include class-OuterIterator.puml
+@enduml

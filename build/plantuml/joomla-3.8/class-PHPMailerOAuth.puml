@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PHPMailerOAuth
 PHPMailer <|-- PHPMailerOAuth
 !include class-PHPMailer.puml

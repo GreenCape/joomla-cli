@@ -1,5 +1,9 @@
 @startuml
-class JInput
-Serializable <|.. JInput
-!include class-Serializable.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInput << alias >>
+\\Joomla\\CMS\\Input\\Input == JInput
+!include class-Joomla.CMS.Input.Input.puml
 @enduml

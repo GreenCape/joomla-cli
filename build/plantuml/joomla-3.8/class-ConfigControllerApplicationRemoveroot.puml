@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ConfigControllerApplicationRemoveroot
 JControllerBase <|-- ConfigControllerApplicationRemoveroot
 !include class-JControllerBase.puml

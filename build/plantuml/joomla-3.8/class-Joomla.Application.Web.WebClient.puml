@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Application.Web.WebClient
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Application\\Web\\WebClient
 @enduml

@@ -1,3 +1,0 @@
-@startuml
-class StringHelper << (·,Transparent) >>
-@enduml

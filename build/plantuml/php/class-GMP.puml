@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class GMP
+interface Serializable
+Serializable <|.. GMP
+!include class-Serializable.puml
+@enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class BannersViewBanners
 JViewLegacy <|-- BannersViewBanners
 !include class-JViewLegacy.puml

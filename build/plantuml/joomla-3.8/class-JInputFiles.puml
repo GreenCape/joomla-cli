@@ -1,5 +1,9 @@
 @startuml
-class JInputFiles
-JInput <|-- JInputFiles
-!include class-JInput.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInputFiles << alias >>
+\\Joomla\\CMS\\Input\\Files == JInputFiles
+!include class-Joomla.CMS.Input.Files.puml
 @enduml

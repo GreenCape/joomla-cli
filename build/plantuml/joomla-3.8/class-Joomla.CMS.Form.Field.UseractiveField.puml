@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.UseractiveField
-JFormFieldPredefinedList <|-- Joomla.CMS.Form.Field.UseractiveField
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\UseractiveField
+JFormFieldPredefinedList <|-- Joomla\\CMS\\Form\\Field\\UseractiveField
 !include class-JFormFieldPredefinedList.puml
 @enduml

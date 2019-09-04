@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class TemplatesModelStyle
 JModelAdmin <|-- TemplatesModelStyle
 !include class-JModelAdmin.puml

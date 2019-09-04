@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormRuleBoolean << alias >>
+\\Joomla\\CMS\\Form\\Rule\\BooleanRule == JFormRuleBoolean
+!include class-Joomla.CMS.Form.Rule.BooleanRule.puml
+@enduml

@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseQueryMysqli
 JDatabaseQuery <|-- JDatabaseQueryMysqli
-!include class-JDatabaseQuery.puml
+interface JDatabaseQueryLimitable
 JDatabaseQueryLimitable <|.. JDatabaseQueryMysqli
+!include class-JDatabaseQuery.puml
 !include class-JDatabaseQueryLimitable.puml
 @enduml

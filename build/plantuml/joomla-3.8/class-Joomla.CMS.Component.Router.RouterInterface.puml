@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.CMS.Component.Router.RouterInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\CMS\\Component\\Router\\RouterInterface
 @enduml

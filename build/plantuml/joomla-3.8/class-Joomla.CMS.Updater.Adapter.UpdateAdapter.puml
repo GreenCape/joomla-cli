@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Updater.Adapter.UpdateAdapter << (·,Transparent) >>
-@enduml

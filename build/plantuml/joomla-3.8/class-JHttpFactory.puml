@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHttpFactory << alias >>
+\\Joomla\\CMS\\Http\\HttpFactory == JHttpFactory
+!include class-Joomla.CMS.Http.HttpFactory.puml
+@enduml

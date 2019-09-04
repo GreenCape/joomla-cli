@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Toolbar.Button.StandardButton
-Joomla.CMS.Toolbar.Button.ToolbarButton <|-- Joomla.CMS.Toolbar.Button.StandardButton
-!include class-Joomla.CMS.Toolbar.Button.ToolbarButton.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Toolbar\\Button\\StandardButton
+Joomla\\CMS\\Toolbar\\ToolbarButton <|-- Joomla\\CMS\\Toolbar\\Button\\StandardButton
+!include class-Joomla.CMS.Toolbar.ToolbarButton.puml
 @enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class PharFileInfo
+SplFileInfo <|-- PharFileInfo
+!include class-SplFileInfo.puml
+@enduml

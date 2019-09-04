@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class LanguagesViewLanguages
 JViewLegacy <|-- LanguagesViewLanguages
 !include class-JViewLegacy.puml

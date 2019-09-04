@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Layout.FileLayout
-Joomla.CMS.Layout.BaseLayout <|-- Joomla.CMS.Layout.FileLayout
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Layout\\FileLayout
+Joomla\\CMS\\Layout\\BaseLayout <|-- Joomla\\CMS\\Layout\\FileLayout
 !include class-Joomla.CMS.Layout.BaseLayout.puml
 @enduml

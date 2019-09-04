@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Event.Event
-Joomla.Event.AbstractEvent <|-- Joomla.Event.Event
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\Event
+Joomla\\Event\\AbstractEvent <|-- Joomla\\Event\\Event
 !include class-Joomla.Event.AbstractEvent.puml
 @enduml

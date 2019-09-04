@@ -1,5 +1,10 @@
 @startuml
-abstract class Psr.Log.AbstractLogger
-Psr.Log.LoggerInterface <|.. Psr.Log.AbstractLogger
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Psr\\Log\\AbstractLogger
+interface Psr\\Log\\LoggerInterface
+Psr\\Log\\LoggerInterface <|.. Psr\\Log\\AbstractLogger
 !include class-Psr.Log.LoggerInterface.puml
 @enduml

@@ -1,3 +1,7 @@
 @startuml
-class Joomla.Application.Cli.CliInput
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Application\\Cli\\CliInput
 @enduml

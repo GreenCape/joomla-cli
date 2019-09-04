@@ -1,3 +1,7 @@
 @startuml
-class Psr.Log.LogLevel
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Psr\\Log\\LogLevel
 @enduml

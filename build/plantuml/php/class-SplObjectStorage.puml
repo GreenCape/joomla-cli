@@ -1,0 +1,19 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SplObjectStorage
+interface Countable
+Countable <|.. SplObjectStorage
+interface Iterator
+Iterator <|.. SplObjectStorage
+interface Serializable
+Serializable <|.. SplObjectStorage
+interface ArrayAccess
+ArrayAccess <|.. SplObjectStorage
+!include class-Countable.puml
+!include class-Iterator.puml
+!include class-Serializable.puml
+!include class-ArrayAccess.puml
+@enduml

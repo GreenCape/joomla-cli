@@ -1,3 +1,9 @@
 @startuml
-class JLayoutHelper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLayoutHelper << alias >>
+\\Joomla\\CMS\\Layout\\LayoutHelper == JLayoutHelper
+!include class-Joomla.CMS.Layout.LayoutHelper.puml
 @enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class ConfigModelCms
 JModelDatabase <|-- ConfigModelCms
 !include class-JModelDatabase.puml

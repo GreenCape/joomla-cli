@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class OpenSSL
 AKEncryptionAESAdapterAbstract <|-- OpenSSL
-!include class-AKEncryptionAESAdapterAbstract.puml
+interface AKEncryptionAESAdapterInterface
 AKEncryptionAESAdapterInterface <|.. OpenSSL
+!include class-AKEncryptionAESAdapterAbstract.puml
 !include class-AKEncryptionAESAdapterInterface.puml
 @enduml

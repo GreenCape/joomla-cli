@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class CacheViewPurge
 JViewLegacy <|-- CacheViewPurge
 !include class-JViewLegacy.puml

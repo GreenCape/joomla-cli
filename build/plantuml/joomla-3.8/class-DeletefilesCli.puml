@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class DeletefilesCli
 JApplicationCli <|-- DeletefilesCli
 !include class-JApplicationCli.puml

@@ -1,0 +1,16 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class http\\QueryString
+interface Serializable
+Serializable <|.. http\\QueryString
+interface ArrayAccess
+ArrayAccess <|.. http\\QueryString
+interface IteratorAggregate
+IteratorAggregate <|.. http\\QueryString
+!include class-Serializable.puml
+!include class-ArrayAccess.puml
+!include class-IteratorAggregate.puml
+@enduml

@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFEncryptAesOpenssl
 FOFEncryptAesAbstract <|-- FOFEncryptAesOpenssl
-!include class-FOFEncryptAesAbstract.puml
+interface FOFEncryptAesInterface
 FOFEncryptAesInterface <|.. FOFEncryptAesOpenssl
+!include class-FOFEncryptAesAbstract.puml
 !include class-FOFEncryptAesInterface.puml
 @enduml

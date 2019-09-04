@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ResourceBundle
+interface Traversable
+Traversable <|.. ResourceBundle
+!include class-Traversable.puml
+@enduml

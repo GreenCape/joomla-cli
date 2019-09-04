@@ -1,5 +1,9 @@
 @startuml
-class Symfony.Component.Yaml.Exception.ParseException
-Symfony.Component.Yaml.Exception.RuntimeException <|-- Symfony.Component.Yaml.Exception.ParseException
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Component\\Yaml\\Exception\\ParseException
+Symfony\\Component\\Yaml\\Exception\\RuntimeException <|-- Symfony\\Component\\Yaml\\Exception\\ParseException
 !include class-Symfony.Component.Yaml.Exception.RuntimeException.puml
 @enduml

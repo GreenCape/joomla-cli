@@ -1,5 +1,9 @@
 @startuml
-abstract class Joomla.String.String
-Joomla.String.StringHelper <|-- Joomla.String.String
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\String\\String
+Joomla\\String\\StringHelper <|-- Joomla\\String\\String
 !include class-Joomla.String.StringHelper.puml
 @enduml

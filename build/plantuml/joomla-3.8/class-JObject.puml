@@ -1,3 +1,9 @@
 @startuml
-class JObject
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JObject << alias >>
+\\Joomla\\CMS\\Object\\CMSObject == JObject
+!include class-Joomla.CMS.Object.CMSObject.puml
 @enduml

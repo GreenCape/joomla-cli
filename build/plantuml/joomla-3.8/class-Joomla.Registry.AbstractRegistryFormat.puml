@@ -1,5 +1,10 @@
 @startuml
-abstract class Joomla.Registry.AbstractRegistryFormat
-Joomla.Registry.FormatInterface <|.. Joomla.Registry.AbstractRegistryFormat
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Registry\\AbstractRegistryFormat
+interface Joomla\\Registry\\FormatInterface
+Joomla\\Registry\\FormatInterface <|.. Joomla\\Registry\\AbstractRegistryFormat
 !include class-Joomla.Registry.FormatInterface.puml
 @enduml

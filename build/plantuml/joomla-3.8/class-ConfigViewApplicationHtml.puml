@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ConfigViewApplicationHtml
 ConfigViewCmsHtml <|-- ConfigViewApplicationHtml
 !include class-ConfigViewCmsHtml.puml

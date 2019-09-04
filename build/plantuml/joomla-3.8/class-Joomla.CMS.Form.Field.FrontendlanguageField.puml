@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.FrontendlanguageField
-JFormFieldList <|-- Joomla.CMS.Form.Field.FrontendlanguageField
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\FrontendlanguageField
+JFormFieldList <|-- Joomla\\CMS\\Form\\Field\\FrontendlanguageField
 !include class-JFormFieldList.puml
 @enduml

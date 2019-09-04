@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseImporterMysqli
 JDatabaseImporter <|-- JDatabaseImporterMysqli
 !include class-JDatabaseImporter.puml

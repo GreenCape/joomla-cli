@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ContactModelCategory
 JModelList <|-- ContactModelCategory
 !include class-JModelList.puml

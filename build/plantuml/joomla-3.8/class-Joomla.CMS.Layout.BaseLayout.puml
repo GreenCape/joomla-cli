@@ -1,5 +1,10 @@
 @startuml
-class Joomla.CMS.Layout.BaseLayout
-Joomla.CMS.Layout.LayoutInterface <|.. Joomla.CMS.Layout.BaseLayout
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Layout\\BaseLayout
+interface Joomla\\CMS\\Layout\\LayoutInterface
+Joomla\\CMS\\Layout\\LayoutInterface <|.. Joomla\\CMS\\Layout\\BaseLayout
 !include class-Joomla.CMS.Layout.LayoutInterface.puml
 @enduml

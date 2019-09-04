@@ -1,3 +1,7 @@
 @startuml
-class Symfony.Component.Yaml.Parser
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Component\\Yaml\\Parser
 @enduml

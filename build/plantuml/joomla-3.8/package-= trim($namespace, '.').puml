@@ -1,4 +1,0 @@
-@startuml
-abstract class = trim($namespace, '..').JLoader
-
-@enduml

@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Application.WebApplication
-Joomla.CMS.Application.BaseApplication <|-- Joomla.CMS.Application.WebApplication
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Application\\WebApplication
+Joomla\\CMS\\Application\\BaseApplication <|-- Joomla\\CMS\\Application\\WebApplication
 !include class-Joomla.CMS.Application.BaseApplication.puml
 @enduml

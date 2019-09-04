@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Session.Storage.Memcached
-Joomla.Session.Storage.Storage <|-- Joomla.Session.Storage.Memcached
-!include class-Joomla.Session.Storage.Storage.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Session\\Storage\\Memcached
+Joomla\\Session\\Storage <|-- Joomla\\Session\\Storage\\Memcached
+!include class-Joomla.Session.Storage.puml
 @enduml

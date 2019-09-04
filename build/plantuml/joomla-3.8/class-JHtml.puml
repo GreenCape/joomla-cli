@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHtml << alias >>
+\\Joomla\\CMS\\HTML\\HTMLHelper == JHtml
+!include class-Joomla.CMS.HTML.HTMLHelper.puml
+@enduml

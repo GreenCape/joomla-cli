@@ -1,5 +1,9 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class JString
-StringHelper <|-- JString
-!include class-StringHelper.puml
+Joomla\\String\\StringHelper <|-- JString
+!include class-Joomla.String.StringHelper.puml
 @enduml

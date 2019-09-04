@@ -1,5 +1,10 @@
 @startuml
-class Joomla.Event.DelegatingDispatcher
-Joomla.Event.DispatcherInterface <|.. Joomla.Event.DelegatingDispatcher
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\DelegatingDispatcher << final >>
+interface Joomla\\Event\\DispatcherInterface
+Joomla\\Event\\DispatcherInterface <|.. Joomla\\Event\\DelegatingDispatcher
 !include class-Joomla.Event.DispatcherInterface.puml
 @enduml

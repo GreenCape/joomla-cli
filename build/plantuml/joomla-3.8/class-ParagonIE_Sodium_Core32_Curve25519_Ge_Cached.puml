@@ -1,3 +1,7 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class ParagonIE_Sodium_Core32_Curve25519_Ge_Cached
 @enduml

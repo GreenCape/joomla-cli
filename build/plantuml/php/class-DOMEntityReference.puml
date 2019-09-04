@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMEntityReference
+DOMNode <|-- DOMEntityReference
+!include class-DOMNode.puml
+@enduml

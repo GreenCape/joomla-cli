@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JGithubForks
 JGithubObject <|-- JGithubForks
 !include class-JGithubObject.puml

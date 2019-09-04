@@ -1,5 +1,10 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class FOFPlatform
+interface FOFPlatformInterface
 FOFPlatformInterface <|.. FOFPlatform
 !include class-FOFPlatformInterface.puml
 @enduml

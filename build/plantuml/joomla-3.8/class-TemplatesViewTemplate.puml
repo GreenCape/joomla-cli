@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class TemplatesViewTemplate
 JViewLegacy <|-- TemplatesViewTemplate
 !include class-JViewLegacy.puml

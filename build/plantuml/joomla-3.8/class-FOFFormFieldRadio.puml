@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFFormFieldRadio
 JFormFieldRadio <|-- FOFFormFieldRadio
-!include class-JFormFieldRadio.puml
+interface FOFFormField
 FOFFormField <|.. FOFFormFieldRadio
+!include class-JFormFieldRadio.puml
 !include class-FOFFormField.puml
 @enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class NewsfeedsControllerNewsfeed
 JControllerForm <|-- NewsfeedsControllerNewsfeed
 !include class-JControllerForm.puml

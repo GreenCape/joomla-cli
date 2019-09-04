@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JAccessWrapperAccess << alias >>
+\\Joomla\\CMS\\Access\\Wrapper\\Access == JAccessWrapperAccess
+!include class-Joomla.CMS.Access.Wrapper.Access.puml
+@enduml

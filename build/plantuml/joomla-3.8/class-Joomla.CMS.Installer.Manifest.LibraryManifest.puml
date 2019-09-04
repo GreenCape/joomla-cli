@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Installer.Manifest.LibraryManifest
-Joomla.CMS.Installer.Manifest.Manifest <|-- Joomla.CMS.Installer.Manifest.LibraryManifest
-!include class-Joomla.CMS.Installer.Manifest.Manifest.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Installer\\Manifest\\LibraryManifest
+Joomla\\CMS\\Installer\\Manifest <|-- Joomla\\CMS\\Installer\\Manifest\\LibraryManifest
+!include class-Joomla.CMS.Installer.Manifest.puml
 @enduml

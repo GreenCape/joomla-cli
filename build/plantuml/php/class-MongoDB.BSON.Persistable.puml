@@ -1,0 +1,11 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface MongoDB\\BSON\\Persistable
+MongoDB\\BSON\\Unserializable <|-- MongoDB\\BSON\\Persistable
+MongoDB\\BSON\\Serializable <|-- MongoDB\\BSON\\Persistable
+!include class-MongoDB.BSON.Unserializable.puml
+!include class-MongoDB.BSON.Serializable.puml
+@enduml

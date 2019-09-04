@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLanguageAssociations << alias >>
+\\Joomla\\CMS\\Language\\Associations == JLanguageAssociations
+!include class-Joomla.CMS.Language.Associations.puml
+@enduml

@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.CMS.Table.TableInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\CMS\\Table\\TableInterface
 @enduml

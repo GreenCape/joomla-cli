@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Couchbase\\SearchQuery << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\SearchQuery
+!include class-JsonSerializable.puml
+@enduml

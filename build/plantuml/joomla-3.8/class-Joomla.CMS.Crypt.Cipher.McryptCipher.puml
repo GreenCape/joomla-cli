@@ -1,5 +1,10 @@
 @startuml
-abstract class Joomla.CMS.Crypt.Cipher.McryptCipher
-Joomla.CMS.Crypt.Cipher.CipherInterface <|.. Joomla.CMS.Crypt.Cipher.McryptCipher
-!include class-Joomla.CMS.Crypt.Cipher.CipherInterface.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\CMS\\Crypt\\Cipher\\McryptCipher
+interface Joomla\\CMS\\Crypt\\CipherInterface
+Joomla\\CMS\\Crypt\\CipherInterface <|.. Joomla\\CMS\\Crypt\\Cipher\\McryptCipher
+!include class-Joomla.CMS.Crypt.CipherInterface.puml
 @enduml

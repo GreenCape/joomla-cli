@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class UsersModelLogin
 JModelForm <|-- UsersModelLogin
 !include class-JModelForm.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldMenuPreset
 JFormFieldList <|-- JFormFieldMenuPreset
 !include class-JFormFieldList.puml

@@ -1,5 +1,9 @@
 @startuml
-class JInputCli
-JInput <|-- JInputCli
-!include class-JInput.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInputCli << alias >>
+\\Joomla\\CMS\\Input\\Cli == JInputCli
+!include class-Joomla.CMS.Input.Cli.puml
 @enduml

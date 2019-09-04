@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableObserverTags << alias >>
+\\Joomla\\CMS\\Table\\Observer\\Tags == JTableObserverTags
+!include class-Joomla.CMS.Table.Observer.Tags.puml
+@enduml

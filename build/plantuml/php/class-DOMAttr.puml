@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMAttr
+DOMNode <|-- DOMAttr
+!include class-DOMNode.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class EvStat << final >>
+EvWatcher <|-- EvStat
+!include class-EvWatcher.puml
+@enduml

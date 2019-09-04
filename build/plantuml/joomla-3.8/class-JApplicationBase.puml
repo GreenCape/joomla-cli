@@ -1,3 +1,9 @@
 @startuml
-abstract class JApplicationBase
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JApplicationBase << alias >>
+\\Joomla\\CMS\\Application\\BaseApplication == JApplicationBase
+!include class-Joomla.CMS.Application.BaseApplication.puml
 @enduml

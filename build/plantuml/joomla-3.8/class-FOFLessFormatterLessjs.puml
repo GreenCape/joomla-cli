@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFLessFormatterLessjs
 FOFLessFormatterClassic <|-- FOFLessFormatterLessjs
 !include class-FOFLessFormatterClassic.puml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseImporterPostgresql
 JDatabaseImporter <|-- JDatabaseImporterPostgresql
 !include class-JDatabaseImporter.puml

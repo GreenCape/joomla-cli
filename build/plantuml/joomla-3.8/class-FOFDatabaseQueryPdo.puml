@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class FOFDatabaseQueryPdo
 FOFDatabaseQuery <|-- FOFDatabaseQueryPdo
 !include class-FOFDatabaseQuery.puml

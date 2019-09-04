@@ -1,5 +1,9 @@
 @startuml
-class Joomla.Filesystem.Exception.FilesystemException
-RuntimeException <|-- Joomla.Filesystem.Exception.FilesystemException
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Filesystem\\Exception\\FilesystemException
+RuntimeException <|-- Joomla\\Filesystem\\Exception\\FilesystemException
 !include class-RuntimeException.puml
 @enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class SimplePie_Cache_MySQL
 SimplePie_Cache_DB <|-- SimplePie_Cache_MySQL
 !include class-SimplePie_Cache_DB.puml

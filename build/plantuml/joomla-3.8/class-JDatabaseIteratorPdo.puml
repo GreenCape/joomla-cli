@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseIteratorPdo
 JDatabaseIterator <|-- JDatabaseIteratorPdo
 !include class-JDatabaseIterator.puml

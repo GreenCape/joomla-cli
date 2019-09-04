@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Form.FormRule
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\FormRule
 @enduml

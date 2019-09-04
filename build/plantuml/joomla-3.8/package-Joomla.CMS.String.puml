@@ -1,4 +1,0 @@
-@startuml
-abstract class Joomla.CMS.String.PunycodeHelper
-
-@enduml

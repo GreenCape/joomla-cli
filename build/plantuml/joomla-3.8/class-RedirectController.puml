@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class RedirectController
 JControllerLegacy <|-- RedirectController
 !include class-JControllerLegacy.puml

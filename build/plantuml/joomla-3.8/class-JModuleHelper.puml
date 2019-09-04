@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JModuleHelper << alias >>
+\\Joomla\\CMS\\Helper\\ModuleHelper == JModuleHelper
+!include class-Joomla.CMS.Helper.ModuleHelper.puml
+@enduml

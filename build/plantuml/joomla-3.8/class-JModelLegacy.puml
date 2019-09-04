@@ -1,5 +1,9 @@
 @startuml
-abstract class JModelLegacy
-JObject <|-- JModelLegacy
-!include class-JObject.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JModelLegacy << alias >>
+\\Joomla\\CMS\\MVC\\Model\\BaseDatabaseModel == JModelLegacy
+!include class-Joomla.CMS.MVC.Model.BaseDatabaseModel.puml
 @enduml

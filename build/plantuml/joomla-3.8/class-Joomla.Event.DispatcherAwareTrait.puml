@@ -1,3 +1,7 @@
 @startuml
-trait Joomla.Event.DispatcherAwareTrait
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\DispatcherAwareTrait << (T,orchid) >>
 @enduml

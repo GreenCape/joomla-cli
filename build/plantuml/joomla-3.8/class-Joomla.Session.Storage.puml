@@ -1,3 +1,7 @@
 @startuml
-abstract class Joomla.Session.Storage
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Session\\Storage
 @enduml

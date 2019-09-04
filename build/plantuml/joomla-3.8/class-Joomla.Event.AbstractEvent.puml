@@ -1,5 +1,19 @@
 @startuml
-abstract class Joomla.Event.AbstractEvent
-Joomla.Event.EventInterface <|.. Joomla.Event.AbstractEvent
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Event\\AbstractEvent
+interface Joomla\\Event\\EventInterface
+Joomla\\Event\\EventInterface <|.. Joomla\\Event\\AbstractEvent
+interface ArrayAccess
+ArrayAccess <|.. Joomla\\Event\\AbstractEvent
+interface Serializable
+Serializable <|.. Joomla\\Event\\AbstractEvent
+interface Countable
+Countable <|.. Joomla\\Event\\AbstractEvent
 !include class-Joomla.Event.EventInterface.puml
+!include class-ArrayAccess.puml
+!include class-Serializable.puml
+!include class-Countable.puml
 @enduml

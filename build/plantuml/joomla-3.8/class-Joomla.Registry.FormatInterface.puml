@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.Registry.FormatInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\Registry\\FormatInterface
 @enduml

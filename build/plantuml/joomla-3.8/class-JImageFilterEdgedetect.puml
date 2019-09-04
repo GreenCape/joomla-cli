@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JImageFilterEdgedetect << alias >>
+\\Joomla\\Image\\Filter\\Edgedetect == JImageFilterEdgedetect
+!include class-Joomla.Image.Filter.Edgedetect.puml
+@enduml

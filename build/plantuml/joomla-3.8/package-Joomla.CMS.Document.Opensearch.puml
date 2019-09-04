@@ -1,5 +1,0 @@
-@startuml
-class Joomla.CMS.Document.Opensearch.OpensearchImage
-
-class Joomla.CMS.Document.Opensearch.OpensearchUrl
-@enduml

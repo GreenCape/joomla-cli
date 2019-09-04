@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class LimitIterator
+IteratorIterator <|-- LimitIterator
+!include class-IteratorIterator.puml
+@enduml

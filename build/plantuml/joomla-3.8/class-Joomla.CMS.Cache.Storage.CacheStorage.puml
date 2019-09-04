@@ -1,3 +1,0 @@
-@startuml
-class Joomla.CMS.Cache.Storage.CacheStorage << (·,Transparent) >>
-@enduml

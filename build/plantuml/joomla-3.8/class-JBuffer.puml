@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JBuffer << alias >>
+\\Joomla\\CMS\\Utility\\BufferStreamHandler == JBuffer
+!include class-Joomla.CMS.Utility.BufferStreamHandler.puml
+@enduml

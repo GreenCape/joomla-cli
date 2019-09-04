@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.Application.Cli.Output.Processor.ProcessorInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\Application\\Cli\\Output\\Processor\\ProcessorInterface
 @enduml

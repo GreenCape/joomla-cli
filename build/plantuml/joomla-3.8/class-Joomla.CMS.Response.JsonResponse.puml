@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Response.JsonResponse
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Response\\JsonResponse
 @enduml

@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Mail.MailWrapper
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Mail\\MailWrapper
 @enduml

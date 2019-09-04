@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class RedirectControllerLinks
 JControllerAdmin <|-- RedirectControllerLinks
 !include class-JControllerAdmin.puml

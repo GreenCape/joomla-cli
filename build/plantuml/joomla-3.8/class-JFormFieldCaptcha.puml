@@ -1,3 +1,9 @@
 @startuml
-class JFormFieldCaptcha << (·,Transparent) >>
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldCaptcha << alias >>
+\\Joomla\\CMS\\Form\\Field\\CaptchaField == JFormFieldCaptcha
+!include class-Joomla.CMS.Form.Field.CaptchaField.puml
 @enduml

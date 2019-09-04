@@ -1,3 +1,7 @@
 @startuml
-interface Joomla.CMS.Layout.LayoutInterface
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Joomla\\CMS\\Layout\\LayoutInterface
 @enduml

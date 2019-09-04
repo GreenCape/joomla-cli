@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Table.Usergroup
-Joomla.CMS.Table.Table <|-- Joomla.CMS.Table.Usergroup
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Table\\Usergroup
+Joomla\\CMS\\Table\\Table <|-- Joomla\\CMS\\Table\\Usergroup
 !include class-Joomla.CMS.Table.Table.puml
 @enduml

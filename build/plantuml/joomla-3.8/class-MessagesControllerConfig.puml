@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class MessagesControllerConfig
 JControllerLegacy <|-- MessagesControllerConfig
 !include class-JControllerLegacy.puml

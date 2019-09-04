@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DirectoryIterator
+SplFileInfo <|-- DirectoryIterator
+interface SeekableIterator
+SeekableIterator <|.. DirectoryIterator
+!include class-SplFileInfo.puml
+!include class-SeekableIterator.puml
+@enduml

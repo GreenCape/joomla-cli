@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JSessionStorageNone
 JSessionStorage <|-- JSessionStorageNone
 !include class-JSessionStorage.puml

@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Microdata.Microdata
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Microdata\\Microdata
 @enduml

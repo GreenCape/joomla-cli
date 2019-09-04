@@ -1,3 +1,7 @@
 @startuml
-class Symfony.Polyfill.Php56.Php56
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Polyfill\\Php56\\Php56 << final >>
 @enduml

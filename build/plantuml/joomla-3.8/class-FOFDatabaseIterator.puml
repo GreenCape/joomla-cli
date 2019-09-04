@@ -1,5 +1,10 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class FOFDatabaseIterator
+interface Iterator
 Iterator <|.. FOFDatabaseIterator
 !include class-Iterator.puml
 @enduml

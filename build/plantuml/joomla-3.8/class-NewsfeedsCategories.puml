@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class NewsfeedsCategories
 JCategories <|-- NewsfeedsCategories
 !include class-JCategories.puml

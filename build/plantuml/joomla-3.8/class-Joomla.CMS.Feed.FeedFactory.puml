@@ -1,3 +1,7 @@
 @startuml
-class Joomla.CMS.Feed.FeedFactory
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Feed\\FeedFactory
 @enduml

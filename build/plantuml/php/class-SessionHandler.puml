@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SessionHandler
+interface SessionHandlerInterface
+SessionHandlerInterface <|.. SessionHandler
+!include class-SessionHandlerInterface.puml
+@enduml

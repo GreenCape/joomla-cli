@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldHeadertag << alias >>
+\\Joomla\\CMS\\Form\\Field\\HeadertagField == JFormFieldHeadertag
+!include class-Joomla.CMS.Form.Field.HeadertagField.puml
+@enduml

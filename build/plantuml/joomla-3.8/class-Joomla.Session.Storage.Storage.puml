@@ -1,3 +1,0 @@
-@startuml
-class Joomla.Session.Storage.Storage << (·,Transparent) >>
-@enduml

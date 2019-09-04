@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class InstallerControllerUpdatesites
 JControllerLegacy <|-- InstallerControllerUpdatesites
 !include class-JControllerLegacy.puml

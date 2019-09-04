@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DateTimeImmutable
+interface DateTimeInterface
+DateTimeInterface <|.. DateTimeImmutable
+!include class-DateTimeInterface.puml
+@enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class AdminViewSysinfo
 JViewLegacy <|-- AdminViewSysinfo
 !include class-JViewLegacy.puml

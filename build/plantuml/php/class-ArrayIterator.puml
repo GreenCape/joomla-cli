@@ -1,0 +1,19 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ArrayIterator
+interface SeekableIterator
+SeekableIterator <|.. ArrayIterator
+interface ArrayAccess
+ArrayAccess <|.. ArrayIterator
+interface Serializable
+Serializable <|.. ArrayIterator
+interface Countable
+Countable <|.. ArrayIterator
+!include class-SeekableIterator.puml
+!include class-ArrayAccess.puml
+!include class-Serializable.puml
+!include class-Countable.puml
+@enduml

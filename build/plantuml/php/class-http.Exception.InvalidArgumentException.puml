@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class http\\Exception\\InvalidArgumentException
+InvalidArgumentException <|-- http\\Exception\\InvalidArgumentException
+interface http\\Exception
+http\\Exception <|.. http\\Exception\\InvalidArgumentException
+!include class-InvalidArgumentException.puml
+!include class-http.Exception.puml
+@enduml

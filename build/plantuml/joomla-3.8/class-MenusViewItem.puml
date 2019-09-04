@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class MenusViewItem
 JViewLegacy <|-- MenusViewItem
 !include class-JViewLegacy.puml

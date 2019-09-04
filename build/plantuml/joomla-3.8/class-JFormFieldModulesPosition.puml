@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldModulesPosition
 JFormFieldList <|-- JFormFieldModulesPosition
 !include class-JFormFieldList.puml

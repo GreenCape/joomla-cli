@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class PDOStatement
+interface Traversable
+Traversable <|.. PDOStatement
+!include class-Traversable.puml
+@enduml

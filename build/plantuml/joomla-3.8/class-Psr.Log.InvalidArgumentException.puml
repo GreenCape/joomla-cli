@@ -1,5 +1,9 @@
 @startuml
-class Psr.Log.InvalidArgumentException
-InvalidArgumentException <|-- Psr.Log.InvalidArgumentException
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Psr\\Log\\InvalidArgumentException
+InvalidArgumentException <|-- Psr\\Log\\InvalidArgumentException
 !include class-InvalidArgumentException.puml
 @enduml

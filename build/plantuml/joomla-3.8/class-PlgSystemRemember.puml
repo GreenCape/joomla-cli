@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PlgSystemRemember
 JPlugin <|-- PlgSystemRemember
 !include class-JPlugin.puml

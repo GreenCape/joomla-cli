@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class JDatabaseDriver
 JDatabase <|-- JDatabaseDriver
-!include class-JDatabase.puml
+interface JDatabaseInterface
 JDatabaseInterface <|.. JDatabaseDriver
+!include class-JDatabase.puml
 !include class-JDatabaseInterface.puml
 @enduml

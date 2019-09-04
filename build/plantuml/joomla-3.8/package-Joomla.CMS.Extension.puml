@@ -1,4 +1,0 @@
-@startuml
-class Joomla.CMS.Extension.ExtensionHelper
-
-@enduml

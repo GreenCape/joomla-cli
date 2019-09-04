@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JGoogleAuthOauth2
 JGoogleAuth <|-- JGoogleAuthOauth2
 !include class-JGoogleAuth.puml

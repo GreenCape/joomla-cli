@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class HttpQueryString
+interface Serializable
+Serializable <|.. HttpQueryString
+interface ArrayAccess
+ArrayAccess <|.. HttpQueryString
+!include class-Serializable.puml
+!include class-ArrayAccess.puml
+@enduml

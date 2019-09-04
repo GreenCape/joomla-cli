@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class UsersControllerReset
 UsersController <|-- UsersControllerReset
 !include class-UsersController.puml

@@ -1,5 +1,9 @@
 @startuml
-class Joomla.CMS.Form.Field.MenuField
-JFormFieldGroupedList <|-- Joomla.CMS.Form.Field.MenuField
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\MenuField
+JFormFieldGroupedList <|-- Joomla\\CMS\\Form\\Field\\MenuField
 !include class-JFormFieldGroupedList.puml
 @enduml

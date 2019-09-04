@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldContentMap
 JFormFieldGroupedList <|-- JFormFieldContentMap
 !include class-JFormFieldGroupedList.puml
