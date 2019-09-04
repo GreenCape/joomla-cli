@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JElementSpacer
+JElement <|-- JElementSpacer
+!include class-JElement.puml
+@enduml

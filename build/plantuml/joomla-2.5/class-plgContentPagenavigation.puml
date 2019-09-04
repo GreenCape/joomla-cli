@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class plgContentPagenavigation
+JPlugin <|-- plgContentPagenavigation
+!include class-JPlugin.puml
+@enduml

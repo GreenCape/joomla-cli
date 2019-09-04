@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JXMLRPC
+JApplication <|-- JXMLRPC
+!include class-JApplication.puml
+@enduml

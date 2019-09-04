@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MediaControllerFile
+MediaController <|-- MediaControllerFile
+!include class-MediaController.puml
+@enduml

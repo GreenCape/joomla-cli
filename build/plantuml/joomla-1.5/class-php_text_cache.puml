@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class php_text_cache
+php_http_connector <|-- php_text_cache
+!include class-php_http_connector.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class patTemplate_Modifier_Surround
+patTemplate_Modifier <|-- patTemplate_Modifier_Surround
+!include class-patTemplate_Modifier.puml
+@enduml

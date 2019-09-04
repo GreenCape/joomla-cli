@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JPaneTabs
+JPane <|-- JPaneTabs
+!include class-JPane.puml
+@enduml

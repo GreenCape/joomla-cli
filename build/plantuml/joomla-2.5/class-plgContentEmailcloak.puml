@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class plgContentEmailcloak
+JPlugin <|-- plgContentEmailcloak
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMIT_NamedNodeMap_Attr
+DOMIT_NamedNodeMap <|-- DOMIT_NamedNodeMap_Attr
+!include class-DOMIT_NamedNodeMap.puml
+@enduml

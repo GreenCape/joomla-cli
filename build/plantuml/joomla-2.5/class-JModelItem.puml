@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class JModelItem
+JModel <|-- JModelItem
+!include class-JModel.puml
+@enduml

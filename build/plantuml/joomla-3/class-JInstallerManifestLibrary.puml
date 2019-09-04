@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JInstallerManifestLibrary
 JInstallerManifest <|-- JInstallerManifestLibrary
 !include class-JInstallerManifest.puml

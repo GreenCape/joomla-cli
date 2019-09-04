@@ -1,5 +1,10 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLayoutBase
+interface JLayout
 JLayout <|.. JLayoutBase
 !include class-JLayout.puml
 @enduml

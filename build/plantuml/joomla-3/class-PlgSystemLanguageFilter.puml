@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PlgSystemLanguageFilter
 JPlugin <|-- PlgSystemLanguageFilter
 !include class-JPlugin.puml

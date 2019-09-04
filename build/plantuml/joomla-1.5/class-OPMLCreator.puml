@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class OPMLCreator
+FeedCreator <|-- OPMLCreator
+!include class-FeedCreator.puml
+@enduml

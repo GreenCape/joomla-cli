@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLinkedinPeople
 JLinkedinObject <|-- JLinkedinPeople
 !include class-JLinkedinObject.puml

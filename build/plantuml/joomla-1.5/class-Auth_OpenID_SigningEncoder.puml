@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_SigningEncoder
+Auth_OpenID_Encoder <|-- Auth_OpenID_SigningEncoder
+!include class-Auth_OpenID_Encoder.puml
+@enduml

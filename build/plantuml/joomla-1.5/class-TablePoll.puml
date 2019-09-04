@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class TablePoll
+JTable <|-- TablePoll
+!include class-JTable.puml
+@enduml

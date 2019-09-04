@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class JDatabase
+interface JDatabaseInterface
+JDatabaseInterface <|.. JDatabase
+!include class-JDatabaseInterface.puml
+@enduml

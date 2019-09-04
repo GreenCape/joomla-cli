@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_SRegResponse
+Auth_OpenID_SRegBase <|-- Auth_OpenID_SRegResponse
+!include class-Auth_OpenID_SRegBase.puml
+@enduml

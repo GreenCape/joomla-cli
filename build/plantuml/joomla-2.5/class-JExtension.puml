@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JExtension
+JObject <|-- JExtension
+!include class-JObject.puml
+@enduml

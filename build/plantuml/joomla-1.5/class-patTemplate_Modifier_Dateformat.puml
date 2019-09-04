@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class patTemplate_Modifier_Dateformat
+patTemplate_Modifier <|-- patTemplate_Modifier_Dateformat
+!include class-patTemplate_Modifier.puml
+@enduml

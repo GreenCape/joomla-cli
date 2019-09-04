@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLogLoggerW3c
 JLogLoggerFormattedtext <|-- JLogLoggerW3c
 !include class-JLogLoggerFormattedtext.puml

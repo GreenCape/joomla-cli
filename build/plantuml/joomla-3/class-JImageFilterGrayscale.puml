@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JImageFilterGrayscale
 JImageFilter <|-- JImageFilterGrayscale
 !include class-JImageFilter.puml

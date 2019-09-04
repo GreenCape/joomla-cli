@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JInstallerModule
 JInstallerAdapterModule <|-- JInstallerModule
 !include class-JInstallerAdapterModule.puml

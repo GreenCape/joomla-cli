@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class patTemplate_Reader_String
+patTemplate_Reader <|-- patTemplate_Reader_String
+!include class-patTemplate_Reader.puml
+@enduml

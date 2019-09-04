@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 abstract class ContentHelperAssociation
 CategoryHelperAssociation <|-- ContentHelperAssociation
 !include class-CategoryHelperAssociation.puml

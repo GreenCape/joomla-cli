@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLinkedinOauth
 JOAuth1Client <|-- JLinkedinOauth
 !include class-JOAuth1Client.puml

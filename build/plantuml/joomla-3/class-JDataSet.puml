@@ -1,5 +1,19 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDataSet
+interface JDataDumpable
 JDataDumpable <|.. JDataSet
+interface ArrayAccess
+ArrayAccess <|.. JDataSet
+interface Countable
+Countable <|.. JDataSet
+interface Iterator
+Iterator <|.. JDataSet
 !include class-JDataDumpable.puml
+!include class-ArrayAccess.puml
+!include class-Countable.puml
+!include class-Iterator.puml
 @enduml

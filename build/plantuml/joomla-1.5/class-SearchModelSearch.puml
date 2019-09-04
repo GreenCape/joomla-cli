@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SearchModelSearch
+JModel <|-- SearchModelSearch
+!include class-JModel.puml
+@enduml

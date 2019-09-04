@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class NewsfeedsModelCategory
+JModel <|-- NewsfeedsModelCategory
+!include class-JModel.puml
+@enduml

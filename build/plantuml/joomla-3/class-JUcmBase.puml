@@ -1,5 +1,10 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JUcmBase
+interface JUcm
 JUcm <|.. JUcmBase
 !include class-JUcm.puml
 @enduml

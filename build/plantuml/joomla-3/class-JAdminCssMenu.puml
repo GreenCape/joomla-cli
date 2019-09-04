@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JAdminCssMenu
 JObject <|-- JAdminCssMenu
 !include class-JObject.puml

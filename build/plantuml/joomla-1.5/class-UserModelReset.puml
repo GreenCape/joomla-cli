@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UserModelReset
+JModel <|-- UserModelReset
+!include class-JModel.puml
+@enduml

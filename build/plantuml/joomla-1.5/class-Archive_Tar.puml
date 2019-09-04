@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Archive_Tar
+PEAR <|-- Archive_Tar
+!include class-PEAR.puml
+@enduml

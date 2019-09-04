@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class patTemplate_Function_Globalvar
+patTemplate_Function <|-- patTemplate_Function_Globalvar
+!include class-patTemplate_Function.puml
+@enduml

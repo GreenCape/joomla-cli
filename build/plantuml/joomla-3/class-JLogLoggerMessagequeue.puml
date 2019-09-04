@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLogLoggerMessagequeue
 JLogLogger <|-- JLogLoggerMessagequeue
 !include class-JLogLogger.puml

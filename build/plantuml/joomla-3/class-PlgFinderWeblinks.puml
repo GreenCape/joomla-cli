@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class PlgFinderWeblinks
 FinderIndexerAdapter <|-- PlgFinderWeblinks
 !include class-FinderIndexerAdapter.puml

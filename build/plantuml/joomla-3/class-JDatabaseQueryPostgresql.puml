@@ -1,7 +1,12 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JDatabaseQueryPostgresql
 JDatabaseQuery <|-- JDatabaseQueryPostgresql
-!include class-JDatabaseQuery.puml
+interface JDatabaseQueryLimitable
 JDatabaseQueryLimitable <|.. JDatabaseQueryPostgresql
+!include class-JDatabaseQuery.puml
 !include class-JDatabaseQueryLimitable.puml
 @enduml

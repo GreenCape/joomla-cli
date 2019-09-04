@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UserModelRemind
+JModel <|-- UserModelRemind
+!include class-JModel.puml
+@enduml

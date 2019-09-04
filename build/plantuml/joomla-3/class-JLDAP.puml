@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLDAP
 JClientLdap <|-- JLDAP
 !include class-JClientLdap.puml

@@ -1,5 +1,19 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JData
+interface JDataDumpable
 JDataDumpable <|.. JData
+interface IteratorAggregate
+IteratorAggregate <|.. JData
+interface JsonSerializable
+JsonSerializable <|.. JData
+interface Countable
+Countable <|.. JData
 !include class-JDataDumpable.puml
+!include class-IteratorAggregate.puml
+!include class-JsonSerializable.puml
+!include class-Countable.puml
 @enduml

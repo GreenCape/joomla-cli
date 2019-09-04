@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSession
+interface IteratorAggregate
+IteratorAggregate <|.. JSession
+!include class-IteratorAggregate.puml
+@enduml

@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JLayoutFile
 JLayoutBase <|-- JLayoutFile
 !include class-JLayoutBase.puml

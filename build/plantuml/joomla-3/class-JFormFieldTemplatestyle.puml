@@ -1,4 +1,8 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JFormFieldTemplatestyle
 JFormFieldGroupedList <|-- JFormFieldTemplatestyle
 !include class-JFormFieldGroupedList.puml

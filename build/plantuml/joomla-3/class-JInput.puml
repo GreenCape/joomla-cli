@@ -1,5 +1,13 @@
 @startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
 class JInput
+interface Serializable
 Serializable <|.. JInput
+interface Countable
+Countable <|.. JInput
 !include class-Serializable.puml
+!include class-Countable.puml
 @enduml
