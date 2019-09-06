@@ -84,7 +84,10 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 	{
 		foreach ($this->uml as $name => $uml)
 		{
-			file_put_contents($targetDir . '/' . $this->filename($name), $uml);
+			$filename              = $this->filename($name);
+			$this->relevantFiles[] = $filename;
+
+			file_put_contents($targetDir . '/' . $filename, $uml);
 		}
 
 		return count($this->uml);
@@ -127,12 +130,7 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 	{
 		[$class, $method] = explode('::', $name);
 
-		$class    = trim(preg_replace('~\W+~', '.', $class), '.');
-		$filename = strtolower('annotation-' . $class . '-' . $method . '.puml');
-
-		$this->relevantFiles[] = $filename;
-
-		return $filename;
+		return strtolower('annotation-' . trim(preg_replace('~\W+~', '.', $class), '.') . '-' . $method . '.puml');
 	}
 
 	/**

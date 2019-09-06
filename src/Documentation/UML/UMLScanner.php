@@ -85,8 +85,8 @@ class UMLScanner
 		foreach ($this->collectors as $collector)
 		{
 			$count += $collector->writeDiagrams($targetDir, $flags);
-			/** @noinspection AdditionOperationOnArraysInspection */
-			$this->relevantFiles += $collector->getRelevantFiles();
+			/** @noinspection SlowArrayOperationsInLoopInspection */
+			$this->relevantFiles = array_merge($this->relevantFiles, $collector->getRelevantFiles());
 		}
 
 		return $count;
