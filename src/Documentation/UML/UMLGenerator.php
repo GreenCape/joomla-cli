@@ -137,6 +137,7 @@ class UMLGenerator implements LoggerAwareInterface
 		$scanner->addCollector($annotationCollector);
 
 		$scanner->scan($source);
+
 		if (!empty($this->classMap))
 		{
 			$classNameCollector->addClassMap($this->classMap);

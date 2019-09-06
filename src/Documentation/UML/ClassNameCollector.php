@@ -237,6 +237,11 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	 */
 	private function addClass(ClassLike $node, string $type): void
 	{
+		if ($this->isAnonymous($node))
+		{
+			return;
+		}
+
 		$name                 = (string) $node->namespacedName;
 		$this->classes[$name] = [
 			'name'       => $name,
@@ -275,5 +280,15 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	private function exchangeSeparator(string $class, string $separator): string
 	{
 		return str_replace('\\', $separator, $class);
+	}
+
+	/**
+	 * @param ClassLike $node
+	 *
+	 * @return bool
+	 */
+	private function isAnonymous(ClassLike $node): bool
+	{
+		return !isset($node->namespacedName);
 	}
 }

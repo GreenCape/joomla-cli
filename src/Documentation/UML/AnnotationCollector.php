@@ -50,6 +50,11 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 	{
 		if ($node instanceof ClassLike)
 		{
+			if ($this->isAnonymous($node))
+			{
+				return;
+			}
+
 			$this->currentClass = (string) $node->namespacedName;
 		}
 		elseif ($node instanceof ClassMethod)
@@ -111,5 +116,15 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 		$class = trim(preg_replace('~\W+~', '.', $class), '.');
 
 		return strtolower('annotation-' . $class . '-' . $method . '.puml');
+	}
+
+	/**
+	 * @param ClassLike $node
+	 *
+	 * @return bool
+	 */
+	private function isAnonymous(ClassLike $node): bool
+	{
+		return !isset($node->namespacedName);
 	}
 }
