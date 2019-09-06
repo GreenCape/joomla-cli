@@ -144,8 +144,6 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 
 		$flags = 0;
-		$tmp   = trim(`mktemp -d`);
-		$this->logger->debug("Using temporary directory {$tmp}");
 
 		if ($this->includeRef === false)
 		{
@@ -153,24 +151,12 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 		elseif (!empty($this->predefinedClasses))
 		{
-			$cmd = "cp -fu {$this->predefinedClasses}/*.puml {$tmp}";
+			$cmd = "cp -fu {$this->predefinedClasses}/*.puml {$targetDir}";
 			$this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
 			shell_exec($cmd);
 		}
 
-		$count         = $scanner->writeDiagrams($tmp, $flags);
-		$relevantFiles = $scanner->getRelevantFiles();
-
-		$this->logger->debug("Moving relevant diagrams to {$targetDir}");
-		foreach ($relevantFiles as $file)
-		{
-			$cmd1 = "mv {$tmp}/{$file} {$targetDir}/";
-			$this->logger->debug("\$ {$cmd}");
-			shell_exec($cmd1);
-		}
-		$cmd = "rm -rf {$tmp}";
-		$this->logger->debug("Removing temporary directory {$tmp}\n\$ {$cmd}");
-		shell_exec($cmd);
+		$count         = $scanner->writeDiagrams($targetDir, $flags);
 
 		if (file_exists($this->skin))
 		{
@@ -179,7 +165,24 @@ class UMLGenerator implements LoggerAwareInterface
 
 		if ($this->createSvg)
 		{
-			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' && rm {$targetDir}/*.puml && rm {$targetDir}/skin.svg");
+			$relevantFiles = $scanner->getRelevantFiles();
+
+			$tmp = trim(shell_exec("mktemp -d"));
+			$this->logger->debug("Using temporary directory {$tmp} for SVG creation");
+
+			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' -o {$tmp} && rm {$targetDir}/*.puml && rm {$tmp}/skin.svg");
+
+			$this->logger->debug("Moving relevant diagrams to {$targetDir}");
+			foreach ($relevantFiles as $file)
+			{
+				$file = str_replace('.puml', '.svg', $file);
+				$cmd = "mv {$tmp}/{$file} {$targetDir}/";
+				$this->logger->debug("\$ {$cmd}");
+				shell_exec($cmd);
+			}
+			$cmd = "rm -rf {$tmp}";
+			$this->logger->debug("Removing temporary directory {$tmp}\n\$ {$cmd}");
+			shell_exec($cmd);
 		}
 
 		$this->logger->info("Created $count UML diagrams.");
