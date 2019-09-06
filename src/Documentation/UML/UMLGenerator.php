@@ -156,7 +156,7 @@ class UMLGenerator implements LoggerAwareInterface
 			shell_exec($cmd);
 		}
 
-		$count         = $scanner->writeDiagrams($targetDir, $flags);
+		$count = $scanner->writeDiagrams($targetDir, $flags);
 
 		if (file_exists($this->skin))
 		{
@@ -167,14 +167,16 @@ class UMLGenerator implements LoggerAwareInterface
 		{
 			$relevantFiles = $scanner->getRelevantFiles();
 
-			foreach ($relevantFiles as $file)
-			{
-				shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/{$file}' -o {$targetDir}");
-			}
+			$files = implode("' '", $relevantFiles);
+			$dir   = getcwd();
+			$cmd   = "cd {$targetDir} && java -jar '{$this->jar}' -tsvg -progress '{$files}' && cd {$dir}";
+			$this->logger->debug("Generating SVG files\n\$ {$cmd}");
+			shell_exec($cmd);
+			echo "\n";
 
 			$count = count($relevantFiles);
 
-			$cmd = "rm {$targetDir}/*.puml && rm {$targetDir}/skin.svg";
+			$cmd = "rm {$targetDir}/*.puml";
 			$this->logger->debug("Removing no longer needed diagram sources\n\$ {$cmd}");
 			shell_exec($cmd);
 		}
