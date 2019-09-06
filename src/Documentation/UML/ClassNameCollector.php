@@ -246,11 +246,11 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	private function filename(string $className): string
 	{
 		$className = trim(preg_replace('~\W+~', '.', $className), '.');
-		$filename  = 'class-' . $className . '.puml';
+		$filename  = strtolower('class-' . $className . '.puml');
 
 		$this->relevantFiles[] = $filename;
 
-		return strtolower($filename);
+		return $filename;
 	}
 
 	/**

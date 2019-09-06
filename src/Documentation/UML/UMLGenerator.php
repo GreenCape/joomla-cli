@@ -144,8 +144,8 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 
 		$flags = 0;
-		$tmp   = tmpfile();
-		mkdir($tmp);
+		$tmp   = trim(`mktemp -d`);
+		$this->logger->debug("Using temporary directory {$tmp}");
 
 		if ($this->includeRef === false)
 		{
@@ -153,17 +153,24 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 		elseif (!empty($this->predefinedClasses))
 		{
-			shell_exec("cp -fu {$this->predefinedClasses}/*.puml {$tmp}");
+			$cmd = "cp -fu {$this->predefinedClasses}/*.puml {$tmp}";
+			$this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
+			shell_exec($cmd);
 		}
 
 		$count         = $scanner->writeDiagrams($tmp, $flags);
 		$relevantFiles = $scanner->getRelevantFiles();
 
+		$this->logger->debug("Moving relevant diagrams to {$targetDir}");
 		foreach ($relevantFiles as $file)
 		{
-			shell_exec("mv {$tmp}/{$file} {$targetDir}/{$file}");
+			$cmd1 = "mv {$tmp}/{$file} {$targetDir}/";
+			$this->logger->debug("\$ {$cmd}");
+			shell_exec($cmd1);
 		}
-		shell_exec("rm -rf {$tmp}");
+		$cmd = "rm -rf {$tmp}";
+		$this->logger->debug("Removing temporary directory {$tmp}\n\$ {$cmd}");
+		shell_exec($cmd);
 
 		if ($this->createSvg)
 		{
