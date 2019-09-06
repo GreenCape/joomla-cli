@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class DOMEntity
-DOMNode <|-- DOMEntity
-!include class-DOMNode.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Couchbase\\Exception
-Exception <|-- Couchbase\\Exception
-!include class-Exception.puml
-@enduml

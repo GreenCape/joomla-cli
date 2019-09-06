@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MongoCursorException
-MongoException <|-- MongoCursorException
-!include class-MongoException.puml
-@enduml

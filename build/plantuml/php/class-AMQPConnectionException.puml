@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class AMQPConnectionException
-AMQPException <|-- AMQPConnectionException
-!include class-AMQPException.puml
-@enduml

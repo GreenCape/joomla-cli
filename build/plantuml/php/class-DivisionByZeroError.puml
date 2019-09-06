@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class DivisionByZeroError
-Error <|-- DivisionByZeroError
-!include class-Error.puml
-@enduml

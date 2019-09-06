@@ -1,7 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PDORow << final >>
-@enduml

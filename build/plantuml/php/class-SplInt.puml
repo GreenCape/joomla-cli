@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SplInt
-SplType <|-- SplInt
-!include class-SplType.puml
-@enduml

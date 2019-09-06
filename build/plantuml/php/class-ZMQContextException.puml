@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ZMQContextException
-ZMQException <|-- ZMQContextException
-!include class-ZMQException.puml
-@enduml

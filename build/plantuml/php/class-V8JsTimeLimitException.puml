@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class V8JsTimeLimitException << final >>
-Exception <|-- V8JsTimeLimitException
-!include class-Exception.puml
-@enduml

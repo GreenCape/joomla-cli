@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class GearmanException
-Exception <|-- GearmanException
-!include class-Exception.puml
-@enduml

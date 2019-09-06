@@ -1,0 +1,15 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class Couchbase\\TermSearchFacet << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\TermSearchFacet
+interface Couchbase\\SearchFacet
+Couchbase\\SearchFacet <|.. Couchbase\\TermSearchFacet
+!includesub class-jsonserializable.puml!INNER
+!includesub class-couchbase.searchfacet.puml!INNER
+!endsub
+@enduml

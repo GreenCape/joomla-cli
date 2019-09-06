@@ -1,3 +1,4 @@
 @startuml
 skinparam backgroundcolor White
+skinparam linetype ortho
 @enduml

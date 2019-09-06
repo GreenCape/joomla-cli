@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-interface MongoDB\\BSON\\Unserializable
-MongoDB\\BSON\\Type <|-- MongoDB\\BSON\\Unserializable
-!include class-MongoDB.BSON.Type.puml
-@enduml

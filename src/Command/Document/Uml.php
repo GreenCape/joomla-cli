@@ -31,10 +31,12 @@
 
 namespace GreenCape\JoomlaCLI\Command\Document;
 
-use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Documentation\UML\UMLGenerator;
+use GreenCape\JoomlaCLI\Fileset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -45,21 +47,58 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UmlCommand extends Command
 {
 	/**
+	 * @var string
+	 */
+	private $home;
+
+	/**
 	 * Configure the options for the install command
 	 *
 	 * @return  void
 	 */
 	protected function configure(): void
 	{
+		$this->home = dirname(__DIR__, 2);
+
 		$this
 			->setName('document:uml')
 			->setDescription('Generates UML diagrams')
 			->addOption(
-				'keep-sources',
-				'k',
-				InputOption::VALUE_NONE,
-				"Keep the PlantUML sources"
-			);
+				'jar',
+				'j',
+				InputOption::VALUE_OPTIONAL,
+				"Path to the PlantUML jar file",
+				$this->home . '/build/plantuml/plantuml.jar'
+			)
+			->addOption(
+				'classmap',
+				'c',
+				InputOption::VALUE_OPTIONAL,
+				"Path to the Joomla! classmap file",
+				'joomla/libraries/classmap.php'
+			)
+			->addOption(
+				'predefined',
+				'p',
+				InputOption::VALUE_OPTIONAL,
+				"Path to predefined diagrams",
+				'build/uml'
+			)
+			->addOption(
+				'skin',
+				's',
+				InputOption::VALUE_OPTIONAL,
+				"Name ('bw', 'bw-gradient' or 'default') of or path to the skin",
+				'default'
+			)
+			->addOption(
+				'output',
+				'o',
+				InputOption::VALUE_OPTIONAL,
+				"Output directory",
+				'build/report/uml'
+			)
+		;
 	}
 
 	/**
@@ -70,10 +109,27 @@ class UmlCommand extends Command
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
-		$basePath    = $input->getOption('basepath');
-		$keepSources = $input->getOption('basepath');
-		$project     = null;
+		$generator = new UMLGenerator($input->getOption('jar'));
+		$generator->setLogger(new ConsoleLogger($output));
 
-		(new FromPhing($output, $basePath, $project))->documentUml($keepSources);
+		$source = new Fileset($input->getOption('basepath'));
+		$source->include('**/*.php');
+
+		$generator->classMap($input->getOption('classmap'));
+
+		$predefined = $input->getOption('predefined');
+		if ($predefined === 'php')
+		{
+			$predefined = $this->home . '/build/plantuml/php';
+		}
+		$generator->includeReferences($predefined);
+
+		$skin = $input->getOption('skin');
+		if (preg_match('~^[\w-]+$~', $skin))
+		{
+			$skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
+		}
+		$generator->skin($skin);
+		$generator->generate($source, $input->getOption('output'));
 	}
 }

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-interface MongoCursorInterface
-Iterator <|-- MongoCursorInterface
-!include class-Iterator.puml
-@enduml

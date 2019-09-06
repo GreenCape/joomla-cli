@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-interface Iterator
-Traversable <|-- Iterator
-!include class-Traversable.puml
-@enduml

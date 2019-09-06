@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class Couchbase\\ViewQuery << final >>
+interface Couchbase\\ViewQueryEncodable
+Couchbase\\ViewQueryEncodable <|.. Couchbase\\ViewQuery
+!includesub class-couchbase.viewqueryencodable.puml!INNER
+!endsub
+@enduml

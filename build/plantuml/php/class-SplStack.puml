@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SplStack
-SplDoublyLinkedList <|-- SplStack
-!include class-SplDoublyLinkedList.puml
-@enduml

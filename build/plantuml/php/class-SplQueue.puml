@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SplQueue
-SplDoublyLinkedList <|-- SplQueue
-!include class-SplDoublyLinkedList.puml
-@enduml

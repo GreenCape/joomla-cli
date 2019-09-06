@@ -1,0 +1,11 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoException
+Exception <|-- MongoException
+!includesub class-exception.puml!INNER
+!endsub
+@enduml

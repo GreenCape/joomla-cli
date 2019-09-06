@@ -1,0 +1,11 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class OutOfRangeException
+LogicException <|-- OutOfRangeException
+!includesub class-logicexception.puml!INNER
+!endsub
+@enduml

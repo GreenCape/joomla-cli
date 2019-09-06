@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class EvFork << final >>
-EvWatcher <|-- EvFork
-!include class-EvWatcher.puml
-@enduml

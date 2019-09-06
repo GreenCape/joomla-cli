@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class HttpRuntimeException
-HttpException <|-- HttpRuntimeException
-!include class-HttpException.puml
-@enduml

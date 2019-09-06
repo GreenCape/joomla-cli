@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SplTempFileObject
-SplFileObject <|-- SplTempFileObject
-!include class-SplFileObject.puml
-@enduml
