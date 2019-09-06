@@ -239,6 +239,8 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 			}
 
 			$this->logger->debug("Created UML for {$class}");
+			$this->relevantFiles[] = $this->filename($class);
+
 			$this->add($class, $uml, $includes);
 		}
 	}
@@ -246,11 +248,8 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	private function filename(string $className): string
 	{
 		$className = trim(preg_replace('~\W+~', '.', $className), '.');
-		$filename  = strtolower('class-' . $className . '.puml');
 
-		$this->relevantFiles[] = $filename;
-
-		return $filename;
+		return strtolower('class-' . $className . '.puml');
 	}
 
 	/**
