@@ -158,7 +158,7 @@ class Apigen implements APIGeneratorInterface
 					return $match[0];
 				}
 
-				$filename = strtolower("annotation-{$name}.{$match[1]}.svg");
+				$filename = strtolower("annotation-{$name}-{$match[1]}.svg");
 
 				return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"{$umlPath}/{$filename}\" alt=\"UML Diagram from annotation\">";
 			},
