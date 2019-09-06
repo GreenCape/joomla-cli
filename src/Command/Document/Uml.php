@@ -117,15 +117,54 @@ class UmlCommand extends Command
 		$generator = new UMLGenerator($input->getOption('jar'));
 		$generator->setLogger(new ConsoleLogger($output));
 
-		$source = new Fileset($input->getOption('basepath'));
+		$this->setupClassMap($generator, $input, $output);
+		$this->setupPredefinedDiagrams($generator, $input, $output);
+		$this->setupSkin($generator, $input, $output);
+		$this->setupSvgCreation($generator, $input, $output);
+
+		$source = $this->setupSource($input, $output);
+		$target = $this->setupTarget($input, $output);
+		$generator->generate($source, $target);
+	}
+
+	/**
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 *
+	 * @return Fileset
+	 */
+	private function setupSource(InputInterface $input, OutputInterface $output): Fileset
+	{
+		$dir = $input->getOption('basepath');
+		$output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
+		$source = new Fileset($dir);
 		$source->include('**/*.php');
 
+		return $source;
+	}
+
+	/**
+	 * @param UMLGenerator    $generator
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 */
+	private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+	{
 		$classMapFile = $input->getOption('classmap');
 		if (!empty($classMapFile))
 		{
+			$output->writeln("Including class aliasas from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
 			$generator->classMap($classMapFile);
 		}
+	}
 
+	/**
+	 * @param UMLGenerator    $generator
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 */
+	private function setupPredefinedDiagrams(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+	{
 		$predefined = $input->getOption('predefined');
 		if (!empty($predefined))
 		{
@@ -133,16 +172,57 @@ class UmlCommand extends Command
 			{
 				$predefined = $this->home . '/build/plantuml/php';
 			}
+			$output->writeln("Including predefined diagrams from $predefined", OutputInterface::VERBOSITY_VERBOSE);
 			$generator->includeReferences($predefined);
 		}
+	}
 
+	/**
+	 * @param UMLGenerator    $generator
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 */
+	private function setupSkin(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+	{
 		$skin = $input->getOption('skin');
 		if (preg_match('~^[\w-]+$~', $skin))
 		{
 			$skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
 		}
+		$output->writeln("Using skin $skin", OutputInterface::VERBOSITY_VERBOSE);
 		$generator->skin($skin);
+	}
 
-		$generator->generate($source, $input->getOption('output'));
+	/**
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 *
+	 * @return bool|string|string[]|null
+	 */
+	protected function setupTarget(InputInterface $input, OutputInterface $output)
+	{
+		$targetDir = $input->getOption('output');
+		$output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+
+		return $targetDir;
+	}
+
+	/**
+	 * @param UMLGenerator    $generator
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 */
+	private function setupSvgCreation(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+	{
+		if ($input->getOption('no-svg'))
+		{
+			$output->writeln("Keeping UML source files, no SVGs will be created", OutputInterface::VERBOSITY_VERBOSE);
+			$generator->createSvg(false);
+		}
+		else
+		{
+			$output->writeln(" SVGs will be created, discarding UML source files", OutputInterface::VERBOSITY_VERBOSE);
+			$generator->createSvg();
+		}
 	}
 }
