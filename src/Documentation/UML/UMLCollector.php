@@ -51,4 +51,11 @@ interface UMLCollector extends NodeVisitor
 	public function add($name, $uml, $includes = []): void;
 
 	public function writeDiagrams($targetDir, $flags): int;
+
+	/**
+	 * Gets a list of relevant (generated and included) files
+	 *
+	 * @return array
+	 */
+	public function getRelevantFiles(): array;
 }

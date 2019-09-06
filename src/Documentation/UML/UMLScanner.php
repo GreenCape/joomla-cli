@@ -51,6 +51,10 @@ class UMLScanner
 	 * @var UMLCollector[]
 	 */
 	private $collectors;
+	/**
+	 * @var array
+	 */
+	private $relevantFiles;
 
 	public function __construct()
 	{
@@ -76,12 +80,25 @@ class UMLScanner
 	public function writeDiagrams($targetDir, $flags = 0): int
 	{
 		$count = 0;
+		$this->relevantFiles = [];
 
 		foreach ($this->collectors as $collector)
 		{
 			$count += $collector->writeDiagrams($targetDir, $flags);
+			/** @noinspection AdditionOperationOnArraysInspection */
+			$this->relevantFiles += $collector->getRelevantFiles();
 		}
 
 		return $count;
+	}
+
+	/**
+	 * Gets a list of relevant (generated and included) files
+	 *
+	 * @return array
+	 */
+	public function getRelevantFiles(): array
+	{
+		return $this->relevantFiles;
 	}
 }

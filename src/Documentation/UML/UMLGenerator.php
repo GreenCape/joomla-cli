@@ -144,6 +144,8 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 
 		$flags = 0;
+		$tmp   = tmpfile();
+		mkdir($tmp);
 
 		if ($this->includeRef === false)
 		{
@@ -151,10 +153,17 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 		elseif (!empty($this->predefinedClasses))
 		{
-			shell_exec("cp -fu {$this->predefinedClasses}/*.puml {$targetDir}");
+			shell_exec("cp -fu {$this->predefinedClasses}/*.puml {$tmp}");
 		}
 
-		$count = $scanner->writeDiagrams($targetDir, $flags);
+		$count         = $scanner->writeDiagrams($tmp, $flags);
+		$relevantFiles = $scanner->getRelevantFiles();
+
+		foreach ($relevantFiles as $file)
+		{
+			shell_exec("mv {$tmp}/{$file} {$targetDir}/{$file}");
+		}
+		shell_exec("rm -rf {$tmp}");
 
 		if ($this->createSvg)
 		{

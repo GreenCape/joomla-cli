@@ -43,6 +43,10 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 	private $currentClass;
 
 	private $uml = [];
+	/**
+	 * @var array
+	 */
+	private $relevantFiles;
 
 	use LoggerAwareTrait;
 
@@ -87,6 +91,16 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 	}
 
 	/**
+	 * Gets a list of relevant (generated and included) files
+	 *
+	 * @return array
+	 */
+	public function getRelevantFiles(): array
+	{
+		return $this->relevantFiles;
+	}
+
+	/**
 	 * @param string $name
 	 * @param string $comment
 	 */
@@ -114,8 +128,11 @@ class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, L
 		[$class, $method] = explode('::', $name);
 
 		$class = trim(preg_replace('~\W+~', '.', $class), '.');
+		$filename = strtolower('annotation-' . $class . '-' . $method . '.puml');
 
-		return strtolower('annotation-' . $class . '-' . $method . '.puml');
+		$this->relevantFiles[] = $filename;
+
+		return $filename;
 	}
 
 	/**

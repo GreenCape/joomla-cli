@@ -49,13 +49,17 @@ use Psr\Log\NullLogger;
  */
 class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
 {
-	public $classes = [];
-	public $uml = [];
+	private $classes = [];
+	private $uml = [];
 	private $currentClass;
 	/**
 	 * @var string
 	 */
 	private $separator = '\\\\';
+	/**
+	 * @var array
+	 */
+	private $relevantFiles;
 
 	use LoggerAwareTrait;
 
@@ -129,6 +133,16 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 		}
 
 		return $count;
+	}
+
+	/**
+	 * Gets a list of relevant (generated and included) files
+	 *
+	 * @return array
+	 */
+	public function getRelevantFiles(): array
+	{
+		return $this->relevantFiles;
 	}
 
 	private function render($namespace, $flags = 0): string
@@ -232,8 +246,11 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	private function filename(string $className): string
 	{
 		$className = trim(preg_replace('~\W+~', '.', $className), '.');
+		$filename  = 'class-' . $className . '.puml';
 
-		return strtolower('class-' . $className . '.puml');
+		$this->relevantFiles[] = $filename;
+
+		return strtolower($filename);
 	}
 
 	/**
