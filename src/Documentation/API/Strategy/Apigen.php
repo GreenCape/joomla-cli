@@ -46,6 +46,7 @@ class Apigen implements APIGeneratorInterface
 	 * @var string
 	 */
 	private $target;
+	private $classTreePattern = '~<dl class="tree well">.*?</dl>~sm';
 
 	/**
 	 * Generate the API documentation
@@ -118,11 +119,23 @@ class Apigen implements APIGeneratorInterface
 
 		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
 		{
+			if (!$this->hasClassTree($content))
+			{
+				$content = preg_replace(
+					'~(<div class="description">.*?</div>)~sm',
+					"\$1\n\t<dl class=\"tree well\"><dd></dd></dl>",
+					$content
+				);
+
+			}
+
 			$content = preg_replace(
-				'~<dl class="tree well">.*?</dl>~sm',
+				$this->classTreePattern,
 				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$filename}\" alt='Class Diagram'></dd></dl>",
 				$content
 			);
+
+			//<dl class="tree well"><dd><img src="../uml/class-exampleadmincontroller.svg" alt='Class Diagram'></dd></dl>
 		}
 
 		return $content;
@@ -197,4 +210,14 @@ class Apigen implements APIGeneratorInterface
 			file_put_contents($toFile, $filter(file_get_contents($file)));
 		}
 	}
+
+	/**
+	 * @param $content
+	 *
+	 * @return false|int
+	 */
+	private function hasClassTree($content)
+	{
+		return preg_match($this->classTreePattern, $content);
+}
 }
