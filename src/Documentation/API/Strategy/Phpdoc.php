@@ -115,7 +115,9 @@ class Phpdoc implements APIGeneratorInterface
 	 */
 	private function replaceClassUML($content, string $type, string $name, string $umlPath): string
 	{
-		if (file_exists("{$this->target}/{$umlPath}/{$type}-{$name}.svg"))
+		$filename = strtolower("{$type}-{$name}.svg");
+
+		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
 		{
 			$content = preg_replace(
 				'~<h1><small>(.*?)</small>(.*?)</h1>\s+<p><em>.*?</em></p>~sm',
@@ -146,6 +148,8 @@ class Phpdoc implements APIGeneratorInterface
 					return $match[0];
 				}
 
+				$filename = strtolower("seq-{$name}.{$match[1]}.svg");
+
 				return str_replace(
 					[
 						$m[0],
@@ -153,7 +157,7 @@ class Phpdoc implements APIGeneratorInterface
 					],
 					[
 						'<tr><th>startuml/enduml</th><td>see left</td></tr>',
-						"<h4>UML</h4><img src=\"../{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\"></article>"
+						"<h4>UML</h4><img src=\"../{$umlPath}/{$filename}\" alt=\"UML Diagram (from annotation)\"></article>"
 					],
 					$match[0]);
 			},

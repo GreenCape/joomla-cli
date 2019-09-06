@@ -114,11 +114,13 @@ class Apigen implements APIGeneratorInterface
 	 */
 	private function replaceClassUML($content, string $type, string $name, string $umlPath): string
 	{
-		if (file_exists("{$this->target}/{$umlPath}/{$type}-{$name}.svg"))
+		$filename = strtolower("{$type}-{$name}.svg");
+
+		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
 		{
 			$content = preg_replace(
 				'~<dl class="tree well">.*?</dl>~sm',
-				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'></dd></dl>",
+				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$filename}\" alt='Class Diagram'></dd></dl>",
 				$content
 			);
 		}
@@ -143,7 +145,9 @@ class Apigen implements APIGeneratorInterface
 					return $match[0];
 				}
 
-				return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"{$umlPath}/seq-{$name}.{$match[1]}.svg\" alt=\"Sequence Diagram\">";
+				$filename = strtolower("annotation-{$name}.{$match[1]}.svg");
+
+				return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"{$umlPath}/{$filename}\" alt=\"Sequence Diagram\">";
 			},
 			$content
 		);
