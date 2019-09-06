@@ -43,11 +43,12 @@ use Psr\Log\NullLogger;
 class UMLGenerator implements LoggerAwareInterface
 {
 	private $dir;
-	private $skin = 'build/config/plantuml/skin-default.puml';
+	private $skin;
 	private $jar;
 	private $includeRef = true;
 	private $predefinedClasses;
 	private $classMap;
+	private $createSvg = true;
 
 	use LoggerAwareTrait;
 
@@ -85,6 +86,11 @@ class UMLGenerator implements LoggerAwareInterface
 		return $this;
 	}
 
+	public function createSvg($create = true)
+	{
+		$this->createSvg = $create;
+	}
+
 	/**
 	 * @param $skin
 	 *
@@ -115,7 +121,10 @@ class UMLGenerator implements LoggerAwareInterface
 	 */
 	public function generate(Fileset $source, $targetDir): void
 	{
-		copy($this->skin, $targetDir . '/skin.puml');
+		if (!file_exists($targetDir))
+		{
+			mkdir($targetDir, 0777, true);
+		}
 
 		$classNameCollector = new ClassNameCollector;
 		$classNameCollector->setLogger($this->logger);
@@ -145,7 +154,16 @@ class UMLGenerator implements LoggerAwareInterface
 		}
 
 		$count = $scanner->writeDiagrams($targetDir, $flags);
-		shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' && rm '{$targetDir}/*.puml'");
+
+		if ($this->createSvg)
+		{
+			if (file_exists($this->skin))
+			{
+				copy($this->skin, $targetDir . '/skin.puml');
+			}
+
+			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' && rm {$targetDir}/*.puml && rm {$targetDir}/skin.svg");
+		}
 
 		$this->logger->info("Created $count UML diagrams.");
 	}

@@ -58,7 +58,7 @@ class UmlCommand extends Command
 	 */
 	protected function configure(): void
 	{
-		$this->home = dirname(__DIR__, 2);
+		$this->home = dirname(__DIR__, 3);
 
 		$this
 			->setName('document:uml')
@@ -66,7 +66,7 @@ class UmlCommand extends Command
 			->addOption(
 				'jar',
 				'j',
-				InputOption::VALUE_OPTIONAL,
+				InputOption::VALUE_REQUIRED,
 				"Path to the PlantUML jar file",
 				$this->home . '/build/plantuml/plantuml.jar'
 			)
@@ -87,18 +87,23 @@ class UmlCommand extends Command
 			->addOption(
 				'skin',
 				's',
-				InputOption::VALUE_OPTIONAL,
+				InputOption::VALUE_REQUIRED,
 				"Name ('bw', 'bw-gradient' or 'default') of or path to the skin",
 				'default'
 			)
 			->addOption(
 				'output',
 				'o',
-				InputOption::VALUE_OPTIONAL,
+				InputOption::VALUE_REQUIRED,
 				"Output directory",
 				'build/report/uml'
 			)
-		;
+			->addOption(
+				'no-svg',
+				null,
+				InputOption::VALUE_NONE,
+				"Do not create .svg files, keep .puml files instead"
+			);
 	}
 
 	/**
@@ -115,14 +120,21 @@ class UmlCommand extends Command
 		$source = new Fileset($input->getOption('basepath'));
 		$source->include('**/*.php');
 
-		$generator->classMap($input->getOption('classmap'));
+		$classMapFile = $input->getOption('classmap');
+		if (!empty($classMapFile))
+		{
+			$generator->classMap($classMapFile);
+		}
 
 		$predefined = $input->getOption('predefined');
-		if ($predefined === 'php')
+		if (!empty($predefined))
 		{
-			$predefined = $this->home . '/build/plantuml/php';
+			if ($predefined === 'php')
+			{
+				$predefined = $this->home . '/build/plantuml/php';
+			}
+			$generator->includeReferences($predefined);
 		}
-		$generator->includeReferences($predefined);
 
 		$skin = $input->getOption('skin');
 		if (preg_match('~^[\w-]+$~', $skin))
@@ -130,6 +142,7 @@ class UmlCommand extends Command
 			$skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
 		}
 		$generator->skin($skin);
+
 		$generator->generate($source, $input->getOption('output'));
 	}
 }
