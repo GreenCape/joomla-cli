@@ -68,6 +68,11 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	{
 		if ($node instanceof Class_)
 		{
+			if ($this->isAnonymous($node))
+			{
+				return;
+			}
+
 			$this->addClass($node, 'class');
 			$this->currentClass = (string) $node->namespacedName;
 		}
@@ -237,11 +242,6 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 	 */
 	private function addClass(ClassLike $node, string $type): void
 	{
-		if ($this->isAnonymous($node))
-		{
-			return;
-		}
-
 		$name                 = (string) $node->namespacedName;
 		$this->classes[$name] = [
 			'name'       => $name,
