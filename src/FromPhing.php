@@ -1,17 +1,18 @@
 <?php
 
 use GreenCape\JoomlaCLI\Command\Docker;
+use GreenCape\JoomlaCLI\Command\Document\UmlCommand;
 use GreenCape\JoomlaCLI\CoverageMerger;
 use GreenCape\JoomlaCLI\Documentation\API\APIGenerator;
 use GreenCape\JoomlaCLI\Fileset;
 use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Repository\VersionList;
-use GreenCape\JoomlaCLI\UMLGenerator;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FromPhing
@@ -175,6 +176,7 @@ class FromPhing
 	 *
 	 * @throws FileExistsException
 	 * @throws FileNotFoundException
+	 * @throws Exception
 	 */
 	public function build(): void
 	{
@@ -712,6 +714,8 @@ ECHO
 	 * Generates API documentation using the specified generator.
 	 *
 	 * @param $apidocGenerator
+	 *
+	 * @throws Exception
 	 */
 	public function document($apidocGenerator = null): void
 	{
@@ -755,47 +759,20 @@ ECHO
 
 	/**
 	 * @param bool $keepSources
+	 *
+	 * @throws Exception
 	 */
 	public function documentUml(bool $keepSources = false): void
 	{
-		$this->delete("{$this->build}/report/uml");
-		$this->mkdir("{$this->build}/report/uml");
-		$this->copy("{$this->buildTemplates}/config/plantuml/skin-bw-gradient.puml", "{$this->build}/report/uml/skin.puml");
+		$basepath = $this->source;
+		$skin     = 'bw-gradient';
+		$target   = "{$this->build}/report/uml";
+		$svg      = $keepSources ? '--no-svg' : '';
 
-		$predefined = $this->versionMatch(
-			'joomla-(.*)',
-			"{$this->buildTemplates}/plantuml",
-			$this->environment['joomla']['version']
-		);
+		$input = new StringInput("--basepath={$basepath} --skin={$skin} --output={$target} {$svg}");
 
-		if (empty($predefined))
-		{
-			$predefined = "{$this->buildTemplates}/plantuml/joomla-3.8";
-		}
-
-		$classMap = $this->versionMatch(
-			'classmap-(.*).php',
-			"{$this->buildTemplates}/joomla",
-			$this->environment['joomla']['version']
-		);
-
-		(new UMLGenerator("{$this->buildTemplates}/plantuml/plantuml.jar"))
-			->includeReferences($predefined)
-			->classMap(include $classMap)
-			->generate(
-				(new Fileset($this->source))
-					->include('**/*')
-					->getFiles(),
-				"{$this->build}/report/uml"
-			);
-
-		if (!$keepSources)
-		{
-			$this->delete(
-				(new Fileset("{$this->build}/report/uml"))
-					->include('*.puml')
-			);
-		}
+		$command = new UmlCommand();
+		$command->run($input, $this->output);
 	}
 
 	/** @noinspection PhpUnusedPrivateMethodInspection */
