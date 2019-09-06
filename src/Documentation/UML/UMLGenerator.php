@@ -172,13 +172,13 @@ class UMLGenerator implements LoggerAwareInterface
 		$this->logger->debug("Removing temporary directory {$tmp}\n\$ {$cmd}");
 		shell_exec($cmd);
 
+		if (file_exists($this->skin))
+		{
+			copy($this->skin, $targetDir . '/skin.puml');
+		}
+
 		if ($this->createSvg)
 		{
-			if (file_exists($this->skin))
-			{
-				copy($this->skin, $targetDir . '/skin.puml');
-			}
-
 			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' && rm {$targetDir}/*.puml && rm {$targetDir}/skin.svg");
 		}
 
