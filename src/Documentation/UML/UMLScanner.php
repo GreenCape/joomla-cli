@@ -99,6 +99,6 @@ class UMLScanner
 	 */
 	public function getRelevantFiles(): array
 	{
-		return $this->relevantFiles;
+		return array_unique($this->relevantFiles);
 	}
 }
