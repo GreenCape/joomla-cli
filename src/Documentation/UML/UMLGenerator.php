@@ -170,7 +170,7 @@ class UMLGenerator implements LoggerAwareInterface
 			$tmp = trim(shell_exec("mktemp -d"));
 			$this->logger->debug("Using temporary directory {$tmp} for SVG creation");
 
-			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' -o {$tmp} && rm {$targetDir}/*.puml && rm {$tmp}/skin.svg");
+			shell_exec("java -jar '{$this->jar}' -tsvg '{$targetDir}/*.puml' -o {$tmp} -progress && rm {$targetDir}/*.puml && rm {$tmp}/skin.svg");
 
 			$this->logger->debug("Moving relevant diagrams to {$targetDir}");
 			foreach ($relevantFiles as $file)
