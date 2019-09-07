@@ -86,7 +86,7 @@ class UMLGenerator implements LoggerAwareInterface
 		return $this;
 	}
 
-	public function createSvg($create = true)
+	public function createSvg($create = true): void
 	{
 		$this->createSvg = $create;
 	}

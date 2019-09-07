@@ -33,9 +33,9 @@ namespace GreenCape\JoomlaCLI\Command\Distribution;
 
 use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 /**
  * @package     GreenCape\JoomlaCLI
@@ -61,6 +61,8 @@ class DistCommand extends Command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
+	 *
+	 * @throws FileNotFoundException
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{

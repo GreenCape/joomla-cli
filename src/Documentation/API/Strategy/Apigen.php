@@ -126,7 +126,6 @@ class Apigen implements APIGeneratorInterface
 					"\$1\n\t<dl class=\"tree well\"><dd></dd></dl>",
 					$content
 				);
-
 			}
 
 			$content = preg_replace(
@@ -134,8 +133,6 @@ class Apigen implements APIGeneratorInterface
 				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$filename}\" alt='Class Diagram'></dd></dl>",
 				$content
 			);
-
-			//<dl class="tree well"><dd><img src="../uml/class-exampleadmincontroller.svg" alt='Class Diagram'></dd></dl>
 		}
 
 		return $content;
@@ -160,7 +157,13 @@ class Apigen implements APIGeneratorInterface
 
 				$filename = strtolower("annotation-{$name}-{$match[1]}.svg");
 
-				return "<tr data-order=\"{$match[1]}\"{$match[2]}<h4>UML</h4><div class=\"list\"><img src=\"{$umlPath}/{$filename}\" alt=\"UML Diagram from annotation\"></div>";
+				return sprintf(
+					/** @lang text */ '<tr data-order="%s"%s<h4>UML</h4><div class="list"><img src="%s/%s" alt="UML Diagram from annotation"></div>',
+					$match[1],
+					$match[2],
+					$umlPath,
+					$filename
+				);
 			},
 			$content
 		);
@@ -219,5 +222,5 @@ class Apigen implements APIGeneratorInterface
 	private function hasClassTree($content)
 	{
 		return preg_match($this->classTreePattern, $content);
-}
+	}
 }

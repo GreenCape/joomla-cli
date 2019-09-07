@@ -134,7 +134,6 @@ abstract class Command extends BaseCommand
 	 */
 	protected function loadDriver(InputInterface $input, OutputInterface $output): void
 	{
-		$this->basePath = $this->handleBasePath($input, $output);
 		$this->joomla   = (new DriverFactory)->create($this->joomlaFilesystem);
 	}
 }

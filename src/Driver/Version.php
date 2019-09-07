@@ -108,7 +108,7 @@ class Version
 	/**
 	 * @return string Long format version
 	 */
-	public function getLongVersion()
+	public function getLongVersion(): string
 	{
 		return $this->data['PRODUCT'] . ' ' . $this->data['RELEASE'] . '.' . $this->data['DEV_LEVEL'] . ' '
 		       . $this->data['DEV_STATUS']
@@ -129,6 +129,7 @@ class Version
 				return $this->filesystem->read($location);
 			}
 		}
+
 		return null;
 	}
 }

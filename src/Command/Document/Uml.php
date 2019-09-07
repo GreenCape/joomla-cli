@@ -153,7 +153,7 @@ class UmlCommand extends Command
 		$classMapFile = $input->getOption('classmap');
 		if (!empty($classMapFile))
 		{
-			$output->writeln("Including class aliasas from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
+			$output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
 			$generator->classMap($classMapFile);
 		}
 	}

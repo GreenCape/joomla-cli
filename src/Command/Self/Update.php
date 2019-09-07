@@ -35,7 +35,6 @@ use FromPhing;
 use GreenCape\JoomlaCLI\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 /**
  * @package     GreenCape\JoomlaCLI
@@ -67,6 +66,6 @@ class UpdateCommand extends Command
 		$basePath = $input->getOption('basepath');
 		$project  = null;
 
-		(new FromPhing($output, $basePath, $project))->build();
+		(new FromPhing($output, $basePath, $project))->selfUpdate();
 	}
 }

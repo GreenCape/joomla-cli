@@ -34,6 +34,7 @@ namespace GreenCape\JoomlaCLI;
 use DirectoryIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SplFileInfo;
 
 /**
  * @package     GreenCape\JoomlaCLI
@@ -172,7 +173,7 @@ class Fileset
 			);
 		$len      = strlen($dir) + 1;
 
-		/** @var \SplFileInfo $file */
+		/** @var SplFileInfo $file */
 		foreach ($iterator as $file)
 		{
 			if (($flags & self::ONLY_DIRS) === self::ONLY_DIRS && !$file->isDir())

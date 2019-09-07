@@ -33,9 +33,9 @@ namespace GreenCape\JoomlaCLI\Command\Build;
 
 use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 /**
  * The Build command Performs all tests and generates documentation and the quality report.
@@ -63,6 +63,8 @@ class BuildCommand extends Command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
+	 *
+	 * @throws FileNotFoundException
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{

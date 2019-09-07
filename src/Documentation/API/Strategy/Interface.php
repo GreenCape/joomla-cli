@@ -31,15 +31,6 @@
 
 namespace GreenCape\JoomlaCLI\Documentation\API\Strategy;
 
-use Exception;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem;
-use Symfony\Component\Console\Command\Command as BaseCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
-
 /**
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Command
@@ -48,7 +39,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 interface APIGeneratorInterface
 {
 	/**
-	 * @param string $title The title for the documentation
+	 * @param string $title  The title for the documentation
 	 * @param string $source The directory containing the source files
 	 * @param string $target The target directory for the documentation
 	 *

@@ -68,7 +68,7 @@ class Docker
 	 */
 	public function dockerDef(): array
 	{
-		preg_match_all('~^(\w+):~sm', file_get_contents($this->dir . '/' . $this->configFile), $match);
+		preg_match_all('~^(\w+):~m', file_get_contents($this->dir . '/' . $this->configFile), $match);
 
 		return $match[1];
 	}
@@ -158,8 +158,8 @@ class Docker
 	 * @param string $message
 	 * @param string $level
 	 */
-	private function log(string $message, string $level = 'debug'): void
+	private function log(string $message, string $level = 'info'): void
 	{
-		echo $message;
+		echo $message . "\n";
 	}
 }

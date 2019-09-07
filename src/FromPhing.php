@@ -9,7 +9,6 @@ use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
-use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Input\StringInput;
@@ -45,7 +44,7 @@ class FromPhing
 	 *
 	 * [name]       => The name of the extension, e.g., pkg_example
 	 * [manifest]   => The path to the manifest file relative to <source>
-	 * [extensions] => Optional list of extensions for packages, indexed by name (inclo. type prefix)
+	 * [extensions] => Optional list of extensions for packages, indexed by name (incl. type prefix)
 	 *     [<name>] => Array (
 	 *         [name]     => The name of the extension, e.g., com_example
 	 *         [type]     => Type of extension, e.g., component
@@ -174,7 +173,6 @@ class FromPhing
 	/**
 	 * Performs all tests and generates documentation and the quality report.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 * @throws Exception
 	 */
@@ -229,7 +227,6 @@ class FromPhing
 	/**
 	 * Generates the contents and prepares the test containers.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function dockerBuild(): void
@@ -318,7 +315,6 @@ class FromPhing
 	/**
 	 * Starts the test containers, building them only if not existing.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function dockerStart(): void
@@ -395,7 +391,6 @@ class FromPhing
 	/**
 	 * @param $environmentDefinition
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	private function dockerBuildSystem($environmentDefinition): void
@@ -800,7 +795,11 @@ ECHO
 				->include('*.html'),
 			static function ($content) {
 				$content = str_replace('</head>', '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>', $content);
-				$content = preg_replace("~<th>startuml</th>(\n)<td>(.+?)</td>~sm", "<th>UML</th><td><img uml=\"\\1!include {$this->build}/report/api/uml/skin.puml\\1\\2\\1\" alt=''/></td>", $content);
+				$content = preg_replace(
+					"~<th>startuml</th>(\n)<td>(.+?)</td>~sm",
+					/** @lang text */ '<th>UML</th><td><img uml="\\1!include ' . $this->build . '/report/api/uml/skin.puml\\1\\2\\1" alt=""/></td>',
+					$content
+				);
 				$content = preg_replace("~<tr>\s*<th>enduml</th>\s*<td></td>\s*</tr>~m", '', $content);
 
 				return $content;
@@ -955,7 +954,6 @@ ECHO
 	/**
 	 * Runs all tests locally and in the test containers.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function test(): void
@@ -969,7 +967,6 @@ ECHO
 	/**
 	 * Runs local unit tests
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function testUnit(): void
@@ -997,7 +994,6 @@ ECHO
 	/**
 	 * Runs integration tests on all test installations.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function testIntegration(): void
@@ -1152,7 +1148,6 @@ ECHO
 	/**
 	 * Runs system tests on all test installations.
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function testSystem(): void
@@ -1307,7 +1302,6 @@ ECHO
 	/**
 	 * Generate the distribution
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function dist(): void
@@ -1622,7 +1616,6 @@ ECHO
 	 * @param $versionCache
 	 *
 	 * @return VersionList
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	private function joomlaVersions($versionCache): VersionList
@@ -1809,7 +1802,6 @@ ECHO
 	 * @param string $downloadCache
 	 *
 	 * @return string
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	private function joomlaDownload($version, string $versionCache, string $downloadCache): string
@@ -1962,7 +1954,6 @@ ECHO
 	/**
 	 * @param string $target
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	private function setupLocalJoomla(string $target): void

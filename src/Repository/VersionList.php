@@ -31,7 +31,6 @@
 
 namespace GreenCape\JoomlaCLI\Repository;
 
-use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 
@@ -66,7 +65,6 @@ class VersionList
 	 * @param string     $cacheFile
 	 *
 	 * @throws FileNotFoundException
-	 * @throws FileExistsException
 	 */
 	public function __construct(Filesystem $filesystem, string $cacheFile)
 	{

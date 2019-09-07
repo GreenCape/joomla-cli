@@ -91,13 +91,13 @@ class Phpdoc implements APIGeneratorInterface
 			(new Fileset($this->target . '/classes'))
 				->include('**.html'),
 			function ($content) use ($umlPath) {
-				if (preg_match('~<h1><small>(.*?)</small>(.*?)</h1>~', $content, $match))
+				if (preg_match('~<h1>(?:<small>(.*?)</small>)?(.*?)</h1>~', $content, $match))
 				{
-					$namespace = $match[1];
-					$classname = $match[2];
+					$namespace = str_replace('\\', '.', $match[1]);
+					$classname = trim($namespace . '.' . $match[2], '.');
 
-					$content = $this->replaceClassUML($content, 'class', $match[2], $umlPath);
-					$content = $this->replaceMethodUML($content, $match[2], $umlPath);
+					$content = $this->replaceClassUML($content, 'class', $classname, $umlPath);
+					$content = $this->replaceMethodUML($content, $classname, $umlPath);
 				}
 
 				return $content;
@@ -120,7 +120,7 @@ class Phpdoc implements APIGeneratorInterface
 		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
 		{
 			$content = preg_replace(
-				'~<h1><small>(.*?)</small>(.*?)</h1>\s+<p><em>.*?</em></p>~sm',
+				'~<h1>(?:<small>.*?</small>)?.*?</h1>\s+<p><em>.*?</em></p>~sm',
 				"\$0<img src=\"../{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'>",
 				$content
 			);

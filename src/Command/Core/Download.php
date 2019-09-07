@@ -34,7 +34,6 @@ namespace GreenCape\JoomlaCLI\Command\Core;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use League\Flysystem\Adapter\Local;
-use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
@@ -110,7 +109,6 @@ class DownloadCommand extends Command
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 *
-	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
@@ -188,7 +186,6 @@ class DownloadCommand extends Command
 	/**
 	 * @return VersionList
 	 * @throws FileNotFoundException
-	 * @throws FileExistsException
 	 */
 	private function getAvailableVersions(): VersionList
 	{

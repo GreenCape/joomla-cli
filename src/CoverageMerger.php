@@ -9,7 +9,6 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
-use GreenCape\JoomlaCLI\CoverageCollector;
 
 class CoverageMerger
 {
