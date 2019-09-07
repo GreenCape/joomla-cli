@@ -746,11 +746,11 @@ ECHO
 		$this->reflexive(
 			(new Fileset($this->basedir))
 				->include('CHANGELOG.md'),
-			static function ($content) {
-				$content = preg_replace("~(\n)\s*\(([^)]+)\)~", "\1\1 Version \2\1------\1\1", $content);
-				$content = preg_replace("~(\n) +~", "\1", $content);
-				$content = preg_replace("~(\n)(\d)~", "\1    \2", $content);
-				$content = preg_replace("~^(\n)~", "Changelog\1=========\1", $content);
+			function ($content) {
+				$content = preg_replace("~\n\s*\(([^)]+)\)~", "\n\n## Version $1\n\n", $content);
+				$content = preg_replace("~\n +~", "\n", $content);
+				$content = preg_replace("~\n(\d)~", "\n    $1", $content);
+				$content = preg_replace("~^\n~", "# {$this->project['name']} Changelog\n", $content);
 
 				return $content;
 			}

@@ -14,3 +14,4 @@ data/*
 .cache
 .phpunit.result.cache
 tests/tmp/
+/project.json
