@@ -15,4 +15,4 @@ data/*
 .phpunit.result.cache
 tests/tmp/
 /project.json
-/test.php
+/test.*
