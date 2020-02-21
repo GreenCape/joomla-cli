@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Form\\Field\\RegistrationdaterangeField
-JFormFieldPredefinedList <|-- Joomla\\CMS\\Form\\Field\\RegistrationdaterangeField
-!include class-JFormFieldPredefinedList.puml
-@enduml

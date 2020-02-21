@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInstallerAdapterTemplate << alias >>
-\\Joomla\\CMS\\Installer\\Adapter\\TemplateAdapter == JInstallerAdapterTemplate
-!include class-Joomla.CMS.Installer.Adapter.TemplateAdapter.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JImageFilterSmooth << alias >>
-\\Joomla\\Image\\Filter\\Smooth == JImageFilterSmooth
-!include class-Joomla.Image.Filter.Smooth.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInstallerManifestLibrary << alias >>
-\\Joomla\\CMS\\Installer\\Manifest\\LibraryManifest == JInstallerManifestLibrary
-!include class-Joomla.CMS.Installer.Manifest.LibraryManifest.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Input\\Cookie
-Joomla\\CMS\\Input\\Input <|-- Joomla\\CMS\\Input\\Cookie
-!include class-Joomla.CMS.Input.Input.puml
-@enduml

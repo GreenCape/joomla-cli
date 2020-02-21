@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JElementSQL
-JElement <|-- JElementSQL
-!include class-JElement.puml
-@enduml

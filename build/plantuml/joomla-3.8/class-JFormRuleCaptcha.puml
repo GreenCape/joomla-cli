@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleCaptcha << alias >>
-\\Joomla\\CMS\\Form\\Rule\\CaptchaRule == JFormRuleCaptcha
-!include class-Joomla.CMS.Form.Rule.CaptchaRule.puml
-@enduml

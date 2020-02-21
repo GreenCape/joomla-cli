@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocument << alias >>
-\\Joomla\\CMS\\Document\\Document == JDocument
-!include class-Joomla.CMS.Document.Document.puml
-@enduml

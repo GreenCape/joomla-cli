@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JException
-JObject <|-- JException
-!include class-JObject.puml
-@enduml

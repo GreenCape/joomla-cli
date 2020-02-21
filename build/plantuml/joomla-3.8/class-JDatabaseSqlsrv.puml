@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDatabaseSqlsrv
-JDatabaseDriverSqlsrv <|-- JDatabaseSqlsrv
-!include class-JDatabaseDriverSqlsrv.puml
-@enduml

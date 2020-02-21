@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class AssociationsModelAssociation
-JModelList <|-- AssociationsModelAssociation
-!include class-JModelList.puml
-@enduml

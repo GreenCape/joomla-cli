@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JHttpTransportCurl << alias >>
-\\Joomla\\CMS\\Http\\Transport\\CurlTransport == JHttpTransportCurl
-!include class-Joomla.CMS.Http.Transport.CurlTransport.puml
-@enduml

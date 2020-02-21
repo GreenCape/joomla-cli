@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldOrdering << alias >>
-\\Joomla\\CMS\\Form\\Field\\OrderingField == JFormFieldOrdering
-!include class-Joomla.CMS.Form.Field.OrderingField.puml
-@enduml

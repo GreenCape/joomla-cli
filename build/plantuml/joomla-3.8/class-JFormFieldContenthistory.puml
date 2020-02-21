@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldContenthistory << alias >>
-\\Joomla\\CMS\\Form\\Field\\ContenthistoryField == JFormFieldContenthistory
-!include class-Joomla.CMS.Form.Field.ContenthistoryField.puml
-@enduml

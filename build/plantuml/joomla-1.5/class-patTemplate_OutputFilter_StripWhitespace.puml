@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_OutputFilter_StripWhitespace
-patTemplate_OutputFilter <|-- patTemplate_OutputFilter_StripWhitespace
-!include class-patTemplate_OutputFilter.puml
-@enduml

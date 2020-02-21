@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFeedParserRssMedia << alias >>
-\\Joomla\\CMS\\Feed\\Parser\\Rss\\MediaRssParser == JFeedParserRssMedia
-!include class-Joomla.CMS.Feed.Parser.Rss.MediaRssParser.puml
-@enduml

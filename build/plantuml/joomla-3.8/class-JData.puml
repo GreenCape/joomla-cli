@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JData << alias >>
-\\Joomla\\Data\\DataObject == JData
-!include class-Joomla.Data.DataObject.puml
-@enduml

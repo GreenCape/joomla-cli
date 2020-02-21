@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JGithubHttp
-JHttp <|-- JGithubHttp
-!include class-JHttp.puml
-@enduml

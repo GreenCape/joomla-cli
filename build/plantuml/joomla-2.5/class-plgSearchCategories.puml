@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgSearchCategories
-JPlugin <|-- plgSearchCategories
-!include class-JPlugin.puml
-@enduml

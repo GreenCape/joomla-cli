@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JElementFolderlist
-JElement <|-- JElementFolderlist
-!include class-JElement.puml
-@enduml

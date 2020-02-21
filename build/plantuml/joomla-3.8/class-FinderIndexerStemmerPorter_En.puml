@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FinderIndexerStemmerPorter_En
-FinderIndexerStemmer <|-- FinderIndexerStemmerPorter_En
-!include class-FinderIndexerStemmer.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSchemaChangeset
-JObject <|-- JSchemaChangeset
-!include class-JObject.puml
-@enduml

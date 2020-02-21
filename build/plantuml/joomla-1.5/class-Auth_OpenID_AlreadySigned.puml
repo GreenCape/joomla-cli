@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_AlreadySigned
-Auth_OpenID_EncodingError <|-- Auth_OpenID_AlreadySigned
-!include class-Auth_OpenID_EncodingError.puml
-@enduml

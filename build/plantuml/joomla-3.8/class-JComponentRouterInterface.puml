@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JComponentRouterInterface << alias >>
-\\Joomla\\CMS\\Component\\Router\\RouterInterface == JComponentRouterInterface
-!include class-Joomla.CMS.Component.Router.RouterInterface.puml
-@enduml

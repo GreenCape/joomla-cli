@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFUtilsUpdate
-FOFModel <|-- FOFUtilsUpdate
-!include class-FOFModel.puml
-@enduml

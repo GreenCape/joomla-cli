@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFeedEntry << alias >>
-\\Joomla\\CMS\\Feed\\FeedEntry == JFeedEntry
-!include class-Joomla.CMS.Feed.FeedEntry.puml
-@enduml

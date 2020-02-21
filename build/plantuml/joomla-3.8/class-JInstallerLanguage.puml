@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInstallerLanguage << alias >>
-\\Joomla\\CMS\\Installer\\Adapter\\LanguageAdapter == JInstallerLanguage
-!include class-Joomla.CMS.Installer.Adapter.LanguageAdapter.puml
-@enduml

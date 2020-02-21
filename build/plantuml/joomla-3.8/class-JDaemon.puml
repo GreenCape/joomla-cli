@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDaemon << alias >>
-\\Joomla\\CMS\\Application\\DaemonApplication == JDaemon
-!include class-Joomla.CMS.Application.DaemonApplication.puml
-@enduml

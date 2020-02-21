@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JGoogleDataPicasaPhoto
-JGoogleData <|-- JGoogleDataPicasaPhoto
-!include class-JGoogleData.puml
-@enduml

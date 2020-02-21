@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocumentImage << alias >>
-\\Joomla\\CMS\\Document\\ImageDocument == JDocumentImage
-!include class-Joomla.CMS.Document.ImageDocument.puml
-@enduml

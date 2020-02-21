@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JRegistryFormatJson << alias >>
-\\Joomla\\Registry\\Format\\Json == JRegistryFormatJson
-!include class-Joomla.Registry.Format.Json.puml
-@enduml

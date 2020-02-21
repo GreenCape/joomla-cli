@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SearchController
-JController <|-- SearchController
-!include class-JController.puml
-@enduml

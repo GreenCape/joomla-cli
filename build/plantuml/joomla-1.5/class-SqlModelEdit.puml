@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SqlModelEdit
-SqlModel <|-- SqlModelEdit
-!include class-SqlModel.puml
-@enduml

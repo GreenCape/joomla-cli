@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFactory << alias >>
-\\Joomla\\CMS\\Factory == JFactory
-!include class-Joomla.CMS.Factory.puml
-@enduml

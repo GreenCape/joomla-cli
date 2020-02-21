@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JPlugin
-JEvent <|-- JPlugin
-!include class-JEvent.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldUserActive << alias >>
-\\Joomla\\CMS\\Form\\Field\\UseractiveField == JFormFieldUserActive
-!include class-Joomla.CMS.Form.Field.UseractiveField.puml
-@enduml

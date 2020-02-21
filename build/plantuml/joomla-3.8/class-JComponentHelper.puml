@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JComponentHelper << alias >>
-\\Joomla\\CMS\\Component\\ComponentHelper == JComponentHelper
-!include class-Joomla.CMS.Component.ComponentHelper.puml
-@enduml

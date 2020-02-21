@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class InstallationControllerInstallLanguages
-JControllerBase <|-- InstallationControllerInstallLanguages
-!include class-JControllerBase.puml
-@enduml

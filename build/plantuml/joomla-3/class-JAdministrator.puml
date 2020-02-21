@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAdministrator
-JApplication <|-- JAdministrator
-!include class-JApplication.puml
-@enduml

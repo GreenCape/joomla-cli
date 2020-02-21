@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocumentError << alias >>
-\\Joomla\\CMS\\Document\\ErrorDocument == JDocumentError
-!include class-Joomla.CMS.Document.ErrorDocument.puml
-@enduml

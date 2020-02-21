@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JRouterAdministrator << alias >>
-\\Joomla\\CMS\\Router\\AdministratorRouter == JRouterAdministrator
-!include class-Joomla.CMS.Router.AdministratorRouter.puml
-@enduml

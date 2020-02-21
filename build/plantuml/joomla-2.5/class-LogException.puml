@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class LogException
-Exception <|-- LogException
-!include class-Exception.puml
-@enduml

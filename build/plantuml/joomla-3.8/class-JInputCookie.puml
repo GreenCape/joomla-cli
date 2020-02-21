@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInputCookie << alias >>
-\\Joomla\\CMS\\Input\\Cookie == JInputCookie
-!include class-Joomla.CMS.Input.Cookie.puml
-@enduml

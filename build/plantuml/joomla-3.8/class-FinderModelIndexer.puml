@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FinderModelIndexer
-JModelLegacy <|-- FinderModelIndexer
-!include class-JModelLegacy.puml
-@enduml

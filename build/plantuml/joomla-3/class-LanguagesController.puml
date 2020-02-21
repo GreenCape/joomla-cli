@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class LanguagesController
-JControllerLegacy <|-- LanguagesController
-!include class-JControllerLegacy.puml
-@enduml

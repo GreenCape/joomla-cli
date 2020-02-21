@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgSearchNewsfeeds
-JPlugin <|-- plgSearchNewsfeeds
-!include class-JPlugin.puml
-@enduml

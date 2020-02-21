@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JOpenSearchUrl << alias >>
-\\Joomla\\CMS\\Document\\Opensearch\\OpensearchUrl == JOpenSearchUrl
-!include class-Joomla.CMS.Document.Opensearch.OpensearchUrl.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgQuickiconJoomlaupdate
-JPlugin <|-- plgQuickiconJoomlaupdate
-!include class-JPlugin.puml
-@enduml

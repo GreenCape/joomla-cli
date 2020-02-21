@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MenusViewList
-JView <|-- MenusViewList
-!include class-JView.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class lessc_formatter_compressed
-lessc_formatter_classic <|-- lessc_formatter_compressed
-!include class-lessc_formatter_classic.puml
-@enduml

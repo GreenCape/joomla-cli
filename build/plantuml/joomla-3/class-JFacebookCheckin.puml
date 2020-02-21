@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFacebookCheckin
-JFacebookObject <|-- JFacebookCheckin
-!include class-JFacebookObject.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableARO
-JTable <|-- JTableARO
-!include class-JTable.puml
-@enduml

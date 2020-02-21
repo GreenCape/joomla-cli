@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\Application\\Cli\\ColorProcessor
-Joomla\\Application\\Cli\\Output\\Processor\\ColorProcessor <|-- Joomla\\Application\\Cli\\ColorProcessor
-!include class-Joomla.Application.Cli.Output.Processor.ColorProcessor.puml
-@enduml

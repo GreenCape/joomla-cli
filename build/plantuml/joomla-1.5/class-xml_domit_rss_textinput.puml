@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class xml_domit_rss_textinput
-xml_domit_rss_elementindexer <|-- xml_domit_rss_textinput
-!include class-xml_domit_rss_elementindexer.puml
-@enduml

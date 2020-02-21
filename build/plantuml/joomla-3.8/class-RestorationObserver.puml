@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class RestorationObserver
-AKAbstractPartObserver <|-- RestorationObserver
-!include class-AKAbstractPartObserver.puml
-@enduml

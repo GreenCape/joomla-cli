@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ParagonIE_Sodium_Core32_Curve25519_H
-ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_Curve25519_H
-!include class-ParagonIE_Sodium_Core32_Util.puml
-@enduml

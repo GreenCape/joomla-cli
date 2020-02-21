@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCacheStorageFile << alias >>
-\\Joomla\\CMS\\Cache\\Storage\\FileStorage == JCacheStorageFile
-!include class-Joomla.CMS.Cache.Storage.FileStorage.puml
-@enduml

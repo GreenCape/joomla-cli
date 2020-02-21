@@ -34,6 +34,7 @@ namespace GreenCape\JoomlaCLI\Command\Core;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
@@ -109,26 +110,37 @@ class DownloadCommand extends Command
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
 	 *
-	 * @throws FileNotFoundException
+	 * @return  integer  0 if everything went fine, 1 on error
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->output      = $output;
 		$this->version     = $input->getArgument('version');
 		$this->versionFile = $input->getOption('file');
 		$this->cachePath   = $input->getOption('cache');
 
-		$basePath = $input->getOption('basepath');
+		try
+		{
+			$basePath = $input->getOption('basepath');
 
-		$versionList = $this->getAvailableVersions();
-		$this->createPath($this->cachePath);
+			$versionList = $this->getAvailableVersions();
+			$this->createPath($this->cachePath);
 
-		$tarball = $this->getTarball($versionList);
-		$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+			$tarball = $this->getTarball($versionList);
+			$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-		$this->unpack($basePath, $tarball);
+			$this->unpack($basePath, $tarball);
 
-		$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+			$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+
+			return 0;
+		}
+		catch (Throwable $e)
+		{
+			$this->output->writeln($e->getMessage());
+
+			return 1;
+		}
 	}
 
 	/**
@@ -186,6 +198,7 @@ class DownloadCommand extends Command
 	/**
 	 * @return VersionList
 	 * @throws FileNotFoundException
+	 * @throws FileExistsException
 	 */
 	private function getAvailableVersions(): VersionList
 	{

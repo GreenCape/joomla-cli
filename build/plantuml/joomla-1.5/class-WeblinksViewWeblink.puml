@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class WeblinksViewWeblink
-JView <|-- WeblinksViewWeblink
-!include class-JView.puml
-@enduml

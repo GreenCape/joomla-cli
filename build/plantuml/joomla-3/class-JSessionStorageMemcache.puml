@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSessionStorageMemcache
-JSessionStorage <|-- JSessionStorageMemcache
-!include class-JSessionStorage.puml
-@enduml

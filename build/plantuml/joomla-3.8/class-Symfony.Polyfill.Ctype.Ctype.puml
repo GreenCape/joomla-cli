@@ -1,7 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Symfony\\Polyfill\\Ctype\\Ctype << final >>
-@enduml

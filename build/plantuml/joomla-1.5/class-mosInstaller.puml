@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class mosInstaller
-JInstaller <|-- mosInstaller
-!include class-JInstaller.puml
-@enduml

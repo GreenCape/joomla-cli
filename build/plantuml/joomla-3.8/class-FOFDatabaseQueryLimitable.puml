@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-interface FOFDatabaseQueryLimitable
-JDatabaseQueryLimitable <|-- FOFDatabaseQueryLimitable
-!include class-JDatabaseQueryLimitable.puml
-@enduml

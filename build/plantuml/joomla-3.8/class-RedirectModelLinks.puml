@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class RedirectModelLinks
-JModelList <|-- RedirectModelLinks
-!include class-JModelList.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgSystemStatsFormFieldData
-PlgSystemStatsFormFieldBase <|-- PlgSystemStatsFormFieldData
-!include class-PlgSystemStatsFormFieldBase.puml
-@enduml

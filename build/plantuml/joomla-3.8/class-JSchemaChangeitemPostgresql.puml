@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSchemaChangeitemPostgresql << alias >>
-\\Joomla\\CMS\\Schema\\ChangeItem\\PostgresqlChangeItem == JSchemaChangeitemPostgresql
-!include class-Joomla.CMS.Schema.ChangeItem.PostgresqlChangeItem.puml
-@enduml

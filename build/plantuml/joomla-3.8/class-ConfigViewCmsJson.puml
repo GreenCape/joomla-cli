@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class ConfigViewCmsJson
-ConfigViewCmsHtml <|-- ConfigViewCmsJson
-!include class-ConfigViewCmsHtml.puml
-@enduml

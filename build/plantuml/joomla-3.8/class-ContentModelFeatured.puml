@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ContentModelFeatured
-ContentModelArticles <|-- ContentModelFeatured
-!include class-ContentModelArticles.puml
-@enduml

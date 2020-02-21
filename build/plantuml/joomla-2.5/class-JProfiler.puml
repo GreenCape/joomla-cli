@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JProfiler
-JObject <|-- JProfiler
-!include class-JObject.puml
-@enduml

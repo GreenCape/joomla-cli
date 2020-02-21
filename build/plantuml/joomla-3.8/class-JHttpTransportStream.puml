@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JHttpTransportStream << alias >>
-\\Joomla\\CMS\\Http\\Transport\\StreamTransport == JHttpTransportStream
-!include class-Joomla.CMS.Http.Transport.StreamTransport.puml
-@enduml

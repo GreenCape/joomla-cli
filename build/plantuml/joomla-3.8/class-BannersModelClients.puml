@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class BannersModelClients
-JModelList <|-- BannersModelClients
-!include class-JModelList.puml
-@enduml

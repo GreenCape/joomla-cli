@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFTP
-JClientFtp <|-- JFTP
-!include class-JClientFtp.puml
-@enduml

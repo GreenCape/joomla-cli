@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldContenttype << alias >>
-\\Joomla\\CMS\\Form\\Field\\ContenttypeField == JFormFieldContenttype
-!include class-Joomla.CMS.Form.Field.ContenttypeField.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgSystemSessionGc
-Joomla\\CMS\\Plugin\\CMSPlugin <|-- PlgSystemSessionGc
-!include class-Joomla.CMS.Plugin.CMSPlugin.puml
-@enduml

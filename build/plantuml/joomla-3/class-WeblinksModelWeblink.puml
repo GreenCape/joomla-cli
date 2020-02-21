@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class WeblinksModelWeblink
-JModelAdmin <|-- WeblinksModelWeblink
-!include class-JModelAdmin.puml
-@enduml

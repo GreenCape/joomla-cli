@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCacheStorageApc << alias >>
-\\Joomla\\CMS\\Cache\\Storage\\ApcStorage == JCacheStorageApc
-!include class-Joomla.CMS.Cache.Storage.ApcStorage.puml
-@enduml

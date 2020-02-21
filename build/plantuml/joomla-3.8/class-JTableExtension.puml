@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableExtension << alias >>
-\\Joomla\\CMS\\Table\\Extension == JTableExtension
-!include class-Joomla.CMS.Table.Extension.puml
-@enduml

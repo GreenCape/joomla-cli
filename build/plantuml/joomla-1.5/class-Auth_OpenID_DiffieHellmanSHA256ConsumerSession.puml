@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_DiffieHellmanSHA256ConsumerSession
-Auth_OpenID_DiffieHellmanSHA1ConsumerSession <|-- Auth_OpenID_DiffieHellmanSHA256ConsumerSession
-!include class-Auth_OpenID_DiffieHellmanSHA1ConsumerSession.puml
-@enduml

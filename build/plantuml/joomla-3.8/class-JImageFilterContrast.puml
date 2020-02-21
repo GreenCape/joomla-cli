@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JImageFilterContrast << alias >>
-\\Joomla\\Image\\Filter\\Contrast == JImageFilterContrast
-!include class-Joomla.Image.Filter.Contrast.puml
-@enduml

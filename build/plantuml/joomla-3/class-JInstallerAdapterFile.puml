@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInstallerAdapterFile
-JAdapterInstance <|-- JInstallerAdapterFile
-!include class-JAdapterInstance.puml
-@enduml

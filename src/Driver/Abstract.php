@@ -35,6 +35,7 @@ use Exception;
 use GreenCape\JoomlaCLI\Driver\Version;
 use JFactory;
 use JText;
+use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 
@@ -157,6 +158,9 @@ abstract class JoomlaDriver
 	 */
 	public function getVersion(): Version
 	{
-		return new Version($this->filesystem);
+		$adapter    = new Local($this->basePath);
+		$filesystem = new Filesystem($adapter);
+
+		return new Version($filesystem);
 	}
 }

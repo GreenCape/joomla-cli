@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_MalformedReturnURL
-Auth_OpenID_ServerError <|-- Auth_OpenID_MalformedReturnURL
-!include class-Auth_OpenID_ServerError.puml
-@enduml

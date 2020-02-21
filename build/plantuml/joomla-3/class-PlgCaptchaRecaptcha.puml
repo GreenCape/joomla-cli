@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgCaptchaRecaptcha
-JPlugin <|-- PlgCaptchaRecaptcha
-!include class-JPlugin.puml
-@enduml

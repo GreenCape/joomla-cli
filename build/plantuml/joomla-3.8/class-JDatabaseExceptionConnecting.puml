@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDatabaseExceptionConnecting
-RuntimeException <|-- JDatabaseExceptionConnecting
-!include class-RuntimeException.puml
-@enduml

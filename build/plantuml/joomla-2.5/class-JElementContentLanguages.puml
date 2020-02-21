@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JElementContentLanguages
-JElementList <|-- JElementContentLanguages
-!include class-JElementList.puml
-@enduml

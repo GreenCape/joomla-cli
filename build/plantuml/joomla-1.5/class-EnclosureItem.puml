@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class EnclosureItem
-HtmlDescribable <|-- EnclosureItem
-!include class-HtmlDescribable.puml
-@enduml

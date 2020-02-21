@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldMedia << alias >>
-\\Joomla\\CMS\\Form\\Field\\MediaField == JFormFieldMedia
-!include class-Joomla.CMS.Form.Field.MediaField.puml
-@enduml

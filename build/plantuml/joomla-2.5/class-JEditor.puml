@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JEditor
-JObject <|-- JEditor
-!include class-JObject.puml
-@enduml

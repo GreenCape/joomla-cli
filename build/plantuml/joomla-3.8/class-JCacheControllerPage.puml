@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCacheControllerPage << alias >>
-\\Joomla\\CMS\\Cache\\Controller\\PageController == JCacheControllerPage
-!include class-Joomla.CMS.Cache.Controller.PageController.puml
-@enduml

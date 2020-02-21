@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_DumbStore
-Auth_OpenID_OpenIDStore <|-- Auth_OpenID_DumbStore
-!include class-Auth_OpenID_OpenIDStore.puml
-@enduml

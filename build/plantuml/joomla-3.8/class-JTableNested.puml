@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableNested << alias >>
-\\Joomla\\CMS\\Table\\Nested == JTableNested
-!include class-Joomla.CMS.Table.Nested.puml
-@enduml

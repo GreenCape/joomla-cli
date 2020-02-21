@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_SRegBase
-Auth_OpenID_Extension <|-- Auth_OpenID_SRegBase
-!include class-Auth_OpenID_Extension.puml
-@enduml

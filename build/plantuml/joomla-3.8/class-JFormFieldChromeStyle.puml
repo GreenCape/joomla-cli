@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldChromeStyle << alias >>
-\\Joomla\\CMS\\Form\\Field\\ChromestyleField == JFormFieldChromeStyle
-!include class-Joomla.CMS.Form.Field.ChromestyleField.puml
-@enduml

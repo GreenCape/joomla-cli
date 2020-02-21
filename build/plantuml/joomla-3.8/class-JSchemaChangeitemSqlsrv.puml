@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSchemaChangeitemSqlsrv << alias >>
-\\Joomla\\CMS\\Schema\\ChangeItem\\SqlsrvChangeItem == JSchemaChangeitemSqlsrv
-!include class-Joomla.CMS.Schema.ChangeItem.SqlsrvChangeItem.puml
-@enduml

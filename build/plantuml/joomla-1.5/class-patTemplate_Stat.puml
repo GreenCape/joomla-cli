@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_Stat
-patTemplate_Module <|-- patTemplate_Stat
-!include class-patTemplate_Module.puml
-@enduml

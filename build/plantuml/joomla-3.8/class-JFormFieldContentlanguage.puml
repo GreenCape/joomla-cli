@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldContentlanguage << alias >>
-\\Joomla\\CMS\\Form\\Field\\ContentlanguageField == JFormFieldContentlanguage
-!include class-Joomla.CMS.Form.Field.ContentlanguageField.puml
-@enduml

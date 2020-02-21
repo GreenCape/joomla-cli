@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableCorecontent
-JTable <|-- JTableCorecontent
-!include class-JTable.puml
-@enduml

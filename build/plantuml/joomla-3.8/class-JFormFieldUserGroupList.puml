@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldUserGroupList << alias >>
-\\Joomla\\CMS\\Form\\Field\\UsergrouplistField == JFormFieldUserGroupList
-!include class-Joomla.CMS.Form.Field.UsergrouplistField.puml
-@enduml

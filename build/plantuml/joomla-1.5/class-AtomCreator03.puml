@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class AtomCreator03
-FeedCreator <|-- AtomCreator03
-!include class-FeedCreator.puml
-@enduml

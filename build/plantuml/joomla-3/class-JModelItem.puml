@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class JModelItem
-JModelLegacy <|-- JModelItem
-!include class-JModelLegacy.puml
-@enduml

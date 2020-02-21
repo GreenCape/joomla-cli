@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PostinstallControllerMessage
-FOFController <|-- PostinstallControllerMessage
-!include class-FOFController.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInstaller << alias >>
-\\Joomla\\CMS\\Installer\\Installer == JInstaller
-!include class-Joomla.CMS.Installer.Installer.puml
-@enduml

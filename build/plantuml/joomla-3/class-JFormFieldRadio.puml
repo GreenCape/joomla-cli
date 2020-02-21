@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldRadio
-JFormField <|-- JFormFieldRadio
-!include class-JFormField.puml
-@enduml

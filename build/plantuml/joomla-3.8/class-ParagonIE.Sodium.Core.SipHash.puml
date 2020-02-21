@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ParagonIE\\Sodium\\Core\\SipHash
-ParagonIE_Sodium_Core_SipHash <|-- ParagonIE\\Sodium\\Core\\SipHash
-!include class-ParagonIE_Sodium_Core_SipHash.puml
-@enduml

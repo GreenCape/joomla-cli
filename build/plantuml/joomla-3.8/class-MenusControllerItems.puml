@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MenusControllerItems
-JControllerAdmin <|-- MenusControllerItems
-!include class-JControllerAdmin.puml
-@enduml

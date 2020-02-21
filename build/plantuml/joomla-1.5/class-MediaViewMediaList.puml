@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MediaViewMediaList
-JView <|-- MediaViewMediaList
-!include class-JView.puml
-@enduml

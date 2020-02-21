@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAccess << alias >>
-\\Joomla\\CMS\\Access\\Access == JAccess
-!include class-Joomla.CMS.Access.Access.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Input\\Files
-Joomla\\CMS\\Input\\Input <|-- Joomla\\CMS\\Input\\Files
-!include class-Joomla.CMS.Input.Input.puml
-@enduml

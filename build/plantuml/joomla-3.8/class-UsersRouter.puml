@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class UsersRouter
-JComponentRouterView <|-- UsersRouter
-!include class-JComponentRouterView.puml
-@enduml

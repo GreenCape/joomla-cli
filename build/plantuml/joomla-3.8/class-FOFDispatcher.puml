@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFDispatcher
-FOFUtilsObject <|-- FOFDispatcher
-!include class-FOFUtilsObject.puml
-@enduml

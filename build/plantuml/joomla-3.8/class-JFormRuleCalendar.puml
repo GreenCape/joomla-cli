@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleCalendar << alias >>
-\\Joomla\\CMS\\Form\\Rule\\CalendarRule == JFormRuleCalendar
-!include class-Joomla.CMS.Form.Rule.CalendarRule.puml
-@enduml

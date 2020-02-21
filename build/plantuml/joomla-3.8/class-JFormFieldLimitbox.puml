@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldLimitbox << alias >>
-\\Joomla\\CMS\\Form\\Field\\LimitboxField == JFormFieldLimitbox
-!include class-Joomla.CMS.Form.Field.LimitboxField.puml
-@enduml

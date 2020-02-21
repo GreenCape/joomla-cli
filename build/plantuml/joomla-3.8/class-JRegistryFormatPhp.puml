@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JRegistryFormatPhp << alias >>
-\\Joomla\\Registry\\Format\\Php == JRegistryFormatPhp
-!include class-Joomla.Registry.Format.Php.puml
-@enduml

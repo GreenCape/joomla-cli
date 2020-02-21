@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFTableBehaviorContenthistory
-FOFTableBehavior <|-- FOFTableBehaviorContenthistory
-!include class-FOFTableBehavior.puml
-@enduml

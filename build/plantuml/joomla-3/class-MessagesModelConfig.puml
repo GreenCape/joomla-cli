@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MessagesModelConfig
-JModelForm <|-- MessagesModelConfig
-!include class-JModelForm.puml
-@enduml

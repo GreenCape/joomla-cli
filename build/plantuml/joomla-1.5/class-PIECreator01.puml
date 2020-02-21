@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PIECreator01
-FeedCreator <|-- PIECreator01
-!include class-FeedCreator.puml
-@enduml

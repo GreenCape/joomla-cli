@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\MVC\\Controller\\BaseController
-JObject <|-- Joomla\\CMS\\MVC\\Controller\\BaseController
-!include class-JObject.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JViewLegacy << alias >>
-\\Joomla\\CMS\\MVC\\View\\HtmlView == JViewLegacy
-!include class-Joomla.CMS.MVC.View.HtmlView.puml
-@enduml

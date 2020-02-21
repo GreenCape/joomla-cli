@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class NewsfeedsViewCategory
-JView <|-- NewsfeedsViewCategory
-!include class-JView.puml
-@enduml

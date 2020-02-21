@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JMenuAdministrator << alias >>
-\\Joomla\\CMS\\Menu\\AdministratorMenu == JMenuAdministrator
-!include class-Joomla.CMS.Menu.AdministratorMenu.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class BannersTableClient
-JTable <|-- BannersTableClient
-!include class-JTable.puml
-@enduml

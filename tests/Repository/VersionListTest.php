@@ -32,6 +32,7 @@
 namespace GreenCapeTest\Repository;
 
 use GreenCape\JoomlaCLI\Repository\VersionList;
+use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Memory\MemoryAdapter;
@@ -56,11 +57,12 @@ class VersionListTest extends TestCase
 	 */
 	public static function setUpBeforeClass(): void
 	{
-		self::$filesystem = new Filesystem(new MemoryAdapter());
-		self::$cacheFile  = 'versions.json';
+		self::$filesystem  = new Filesystem(new MemoryAdapter());
+		self::$cacheFile   = 'versions.json';
 	}
 
 	/**
+	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 */
 	public function setUp(): void
@@ -111,13 +113,13 @@ class VersionListTest extends TestCase
 	}
 
 	/**
+	 * @throws FileExistsException
 	 * @throws FileNotFoundException
 	 * @testdox The version list is cached
 	 */
 	public function testReuse(): void
 	{
-		$time1 = self::$filesystem->getTimestamp(self::$cacheFile);
-		/** @noinspection PhpUnusedLocalVariableInspection */
+		$time1       = self::$filesystem->getTimestamp(self::$cacheFile);
 		$versionList = new VersionList(self::$filesystem, self::$cacheFile);
 		$time2       = self::$filesystem->getTimestamp(self::$cacheFile);
 

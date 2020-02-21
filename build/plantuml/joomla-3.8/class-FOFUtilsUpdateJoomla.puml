@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFUtilsUpdateJoomla
-FOFUtilsUpdateExtension <|-- FOFUtilsUpdateJoomla
-!include class-FOFUtilsUpdateExtension.puml
-@enduml

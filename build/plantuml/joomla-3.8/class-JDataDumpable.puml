@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDataDumpable << alias >>
-\\Joomla\\Data\\DumpableInterface == JDataDumpable
-!include class-Joomla.Data.DumpableInterface.puml
-@enduml

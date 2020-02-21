@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JMicrodata << alias >>
-\\Joomla\\CMS\\Microdata\\Microdata == JMicrodata
-!include class-Joomla.CMS.Microdata.Microdata.puml
-@enduml

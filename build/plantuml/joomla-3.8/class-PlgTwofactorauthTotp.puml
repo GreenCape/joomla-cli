@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgTwofactorauthTotp
-JPlugin <|-- PlgTwofactorauthTotp
-!include class-JPlugin.puml
-@enduml

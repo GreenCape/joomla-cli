@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCryptCipher3Des << alias >>
-\\Joomla\\CMS\\Crypt\\Cipher\\TripleDesCipher == JCryptCipher3Des
-!include class-Joomla.CMS.Crypt.Cipher.TripleDesCipher.puml
-@enduml

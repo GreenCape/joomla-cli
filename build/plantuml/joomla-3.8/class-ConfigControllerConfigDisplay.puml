@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ConfigControllerConfigDisplay
-ConfigControllerDisplay <|-- ConfigControllerConfigDisplay
-!include class-ConfigControllerDisplay.puml
-@enduml

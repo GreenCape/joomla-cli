@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JImageFilterSmooth
-JImageFilter <|-- JImageFilterSmooth
-!include class-JImageFilter.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JModelAdmin << alias >>
-\\Joomla\\CMS\\MVC\\Model\\AdminModel == JModelAdmin
-!include class-Joomla.CMS.MVC.Model.AdminModel.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Helper\\ContentHistoryHelper
-Joomla\\CMS\\Helper\\CMSHelper <|-- Joomla\\CMS\\Helper\\ContentHistoryHelper
-!include class-Joomla.CMS.Helper.CMSHelper.puml
-@enduml

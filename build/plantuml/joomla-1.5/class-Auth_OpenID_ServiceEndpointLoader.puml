@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_OpenID_ServiceEndpointLoader
-Auth_Yadis_SessionLoader <|-- Auth_OpenID_ServiceEndpointLoader
-!include class-Auth_Yadis_SessionLoader.puml
-@enduml

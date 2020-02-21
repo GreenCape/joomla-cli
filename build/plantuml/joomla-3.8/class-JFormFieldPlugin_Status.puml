@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldPlugin_Status << alias >>
-\\Joomla\\CMS\\Form\\Field\\PluginstatusField == JFormFieldPlugin_Status
-!include class-Joomla.CMS.Form.Field.PluginstatusField.puml
-@enduml

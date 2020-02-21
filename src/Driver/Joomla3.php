@@ -31,6 +31,7 @@
 
 namespace GreenCape\JoomlaCLI;
 
+use Exception;
 use JFactory;
 
 /**
@@ -42,6 +43,19 @@ use JFactory;
  */
 class Joomla3Driver extends JoomlaDriver
 {
+	/**
+	 * Setup the environment
+	 *
+	 * @param string $application The application, eg., 'site' or 'administration'
+	 *
+	 * @return  void
+	 * @throws Exception
+	 */
+	public function setupEnvironment($application = 'site'): void
+	{
+		parent::setupEnvironment($application);
+	}
+
 	/**
 	 * Set a configuration value.
 	 *

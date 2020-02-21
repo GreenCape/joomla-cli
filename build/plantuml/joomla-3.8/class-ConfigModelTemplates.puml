@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ConfigModelTemplates
-ConfigModelForm <|-- ConfigModelTemplates
-!include class-ConfigModelForm.puml
-@enduml

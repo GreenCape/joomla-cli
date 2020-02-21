@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JToolbarButtonSeparator << alias >>
-\\Joomla\\CMS\\Toolbar\\Button\\SeparatorButton == JToolbarButtonSeparator
-!include class-Joomla.CMS.Toolbar.Button.SeparatorButton.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFeedImage << alias >>
-\\Joomla\\CMS\\Document\\Feed\\FeedImage == JFeedImage
-!include class-Joomla.CMS.Document.Feed.FeedImage.puml
-@enduml

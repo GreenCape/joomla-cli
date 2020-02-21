@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAuthenticationResponse << alias >>
-\\Joomla\\CMS\\Authentication\\AuthenticationResponse == JAuthenticationResponse
-!include class-Joomla.CMS.Authentication.AuthenticationResponse.puml
-@enduml

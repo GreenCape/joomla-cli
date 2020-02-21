@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableAsset << alias >>
-\\Joomla\\CMS\\Table\\Asset == JTableAsset
-!include class-Joomla.CMS.Table.Asset.puml
-@enduml

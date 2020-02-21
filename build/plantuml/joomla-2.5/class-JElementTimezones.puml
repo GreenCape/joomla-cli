@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JElementTimezones
-JElement <|-- JElementTimezones
-!include class-JElement.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JButton
-JObject <|-- JButton
-!include class-JObject.puml
-@enduml

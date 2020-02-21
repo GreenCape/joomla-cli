@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class FOFView
-FOFUtilsObject <|-- FOFView
-!include class-FOFUtilsObject.puml
-@enduml

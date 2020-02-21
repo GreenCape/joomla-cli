@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class InstallerModelUpdate
-JModelList <|-- InstallerModelUpdate
-!include class-JModelList.puml
-@enduml

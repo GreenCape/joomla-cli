@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCacheControllerOutput << alias >>
-\\Joomla\\CMS\\Cache\\Controller\\OutputController == JCacheControllerOutput
-!include class-Joomla.CMS.Cache.Controller.OutputController.puml
-@enduml

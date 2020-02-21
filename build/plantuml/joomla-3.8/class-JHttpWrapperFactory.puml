@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JHttpWrapperFactory << alias >>
-\\Joomla\\CMS\\Http\\Wrapper\\FactoryWrapper == JHttpWrapperFactory
-!include class-Joomla.CMS.Http.Wrapper.FactoryWrapper.puml
-@enduml

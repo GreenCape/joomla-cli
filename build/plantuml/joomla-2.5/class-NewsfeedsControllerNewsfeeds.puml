@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class NewsfeedsControllerNewsfeeds
-JControllerAdmin <|-- NewsfeedsControllerNewsfeeds
-!include class-JControllerAdmin.puml
-@enduml

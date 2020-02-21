@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldRegistrationDateRange << alias >>
-\\Joomla\\CMS\\Form\\Field\\RegistrationdaterangeField == JFormFieldRegistrationDateRange
-!include class-Joomla.CMS.Form.Field.RegistrationdaterangeField.puml
-@enduml

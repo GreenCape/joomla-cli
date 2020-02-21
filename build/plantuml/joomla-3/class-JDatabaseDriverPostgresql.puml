@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDatabaseDriverPostgresql
-JDatabaseDriver <|-- JDatabaseDriverPostgresql
-!include class-JDatabaseDriver.puml
-@enduml
