@@ -38,14 +38,14 @@
     "league/flysystem-memory": "^1.0"
   },
   "autoload": {
-    "classmap": [
-      "src"
-    ]
+    "psr-4": {
+      "GreenCape\\JoomlaCLI\\": "src"
+    }
   },
   "autoload-dev": {
-    "classmap": [
-      "tests"
-    ]
+    "psr-4": {
+      "GreenCapeTest\\": "tests"
+    }
   },
   "bin": [
     "joomla"

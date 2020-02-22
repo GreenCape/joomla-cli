@@ -101,7 +101,7 @@ class Application extends BaseApplication
         foreach (glob($path . '/**/*.php') as $filename) {
             $filename     = str_replace($path, '', $filename);
             $namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
-            $commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php') . 'Command';
+			$commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
             $command      = new $commandClass;
             $this->add($command);
         }
