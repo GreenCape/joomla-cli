@@ -1,5 +1,7 @@
 <?php
 
+namespace GreenCape\JoomlaCLI;
+
 use GreenCape\JoomlaCLI\Command\Docker;
 use GreenCape\JoomlaCLI\Command\Document\UmlCommand;
 use GreenCape\JoomlaCLI\CoverageMerger;

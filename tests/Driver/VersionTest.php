@@ -32,7 +32,6 @@
 namespace GreenCapeTest\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Version;
-use GreenCapeTest\JoomlaPackagesTrait;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
@@ -42,20 +41,20 @@ class VersionTest extends TestCase
 {
     use JoomlaPackagesTrait;
 
-    /**
-     * @param  string  $path
-     * @param  string  $release
-     * @param  string  $short
-     * @param  string  $long
-     *
-     * @throws FileNotFoundException
-     * @dataProvider joomlaPackages
-     * @testdox      Version driver detects the correct version
-     */
-    public function testVersion($path, $release, $short, $long): void
-    {
-        $adapter    = new Local('tests/fixtures/' . $path);
-        $filesystem = new Filesystem($adapter);
+	/**
+	 * @param string $path
+	 * @param string $release
+	 * @param string $short
+	 * @param string $long
+	 *
+	 * @throws FileNotFoundException
+	 * @dataProvider joomlaPackages
+	 * @testdox      Version driver detects the correct version
+	 */
+	public function testVersion($path, $release, $short, $long): void
+	{
+		$adapter    = new Local('tests/fixtures/' . $path);
+		$filesystem = new Filesystem($adapter);
 
         $joomlaVersion = new Version($filesystem);
 

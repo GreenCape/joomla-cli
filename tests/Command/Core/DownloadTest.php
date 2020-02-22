@@ -33,7 +33,7 @@ namespace GreenCapeTest\Command;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use GreenCapeTest\JoomlaPackagesTrait;
+use GreenCapeTest\Driver\JoomlaPackagesTrait;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;

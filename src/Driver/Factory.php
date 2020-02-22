@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Version;
 use League\Flysystem\FileNotFoundException;
@@ -43,7 +43,7 @@ use RuntimeException;
  * @subpackage  Driver
  * @since       Class available since Release 0.1.0
  */
-class DriverFactory
+class Factory
 {
     /**
      * Create a version specific driver to Joomla
