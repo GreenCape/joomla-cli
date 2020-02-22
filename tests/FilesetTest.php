@@ -51,7 +51,7 @@ class FilesetTest extends TestCase
 		sort($files);
 
 		$expected  = [
-			'test_42.xml'
+			$this->dir . '/test_42.xml'
 		];
 
 		$this->assertEquals($expected, $files);
@@ -70,8 +70,8 @@ class FilesetTest extends TestCase
 		sort($files);
 
 		$expected = [
-			'test/some.xml',
-			'test_42.xml',
+			$this->dir . '/test/some.xml',
+			$this->dir . '/test_42.xml',
 		];
 
 		$this->assertEquals($expected, $files);
@@ -87,7 +87,7 @@ class FilesetTest extends TestCase
 		sort($files);
 
 		$expected = [
-			'test/test.ent.xml'
+			$this->dir . '/test/test.ent.xml'
 		];
 
 		$this->assertEquals($expected, $files);

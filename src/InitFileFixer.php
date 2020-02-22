@@ -33,7 +33,7 @@ namespace GreenCape\JoomlaCLI;
 
 /**
  * @package     GreenCape\JoomlaCLI
- * @since       Class available since Release 0.2.0
+ * @since       Class available since Release 0.3.0
  */
 class InitFileFixer
 {
