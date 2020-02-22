@@ -89,8 +89,7 @@ class InstallCommand extends Command
 				InputOption::VALUE_REQUIRED,
 				'The table prefix',
 				'jos_'
-			)
-		;
+			);
 	}
 
 	/**
