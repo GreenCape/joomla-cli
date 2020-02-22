@@ -72,7 +72,7 @@ class DownloadCommand extends Command
 	private $output;
 
 	/**
-	 * Configure the options for the install command
+	 * Configure the options for the command
 	 *
 	 * @return  void
 	 */
@@ -104,7 +104,7 @@ class DownloadCommand extends Command
 	}
 
 	/**
-	 * Execute the setup command
+	 * Execute the command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance

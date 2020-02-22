@@ -48,7 +48,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class VersionCommand extends Command
 {
 	/**
-	 * Configure the options for the version command
+	 * Configure the options for the command
 	 *
 	 * @return  void
 	 */
@@ -78,7 +78,7 @@ class VersionCommand extends Command
 	}
 
 	/**
-	 * Execute the version command
+	 * Execute the command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance

@@ -44,7 +44,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RemoveCommand extends Command
 {
 	/**
-	 * Configure the options for the install command
+	 * Configure the options for the command
 	 *
 	 * @return  void
 	 */

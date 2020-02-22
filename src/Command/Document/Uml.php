@@ -52,7 +52,7 @@ class UmlCommand extends Command
 	private $home;
 
 	/**
-	 * Configure the options for the install command
+	 * Configure the options for the command
 	 *
 	 * @return  void
 	 */

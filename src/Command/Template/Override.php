@@ -53,7 +53,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class OverrideCommand extends Command
 {
 	/**
-	 * Configure the options for the overrides command
+	 * Configure the options for the command
 	 *
 	 * @return  void
 	 */
@@ -76,7 +76,7 @@ class OverrideCommand extends Command
 	}
 
 	/**
-	 * Execute the overrides command
+	 * Execute the command
 	 *
 	 * @param InputInterface  $input  An InputInterface instance
 	 * @param OutputInterface $output An OutputInterface instance
