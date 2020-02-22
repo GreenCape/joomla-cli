@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInstallerAdapterPlugin << alias >>
+\\Joomla\\CMS\\Installer\\Adapter\\PluginAdapter == JInstallerAdapterPlugin
+!include class-Joomla.CMS.Installer.Adapter.PluginAdapter.puml
+@enduml

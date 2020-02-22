@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableObserver << alias >>
+\\Joomla\\CMS\\Table\\Observer\\AbstractObserver == JTableObserver
+!include class-Joomla.CMS.Table.Observer.AbstractObserver.puml
+@enduml

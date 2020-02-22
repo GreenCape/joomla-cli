@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class BannersHelper
+JHelperContent <|-- BannersHelper
+!include class-JHelperContent.puml
+@enduml

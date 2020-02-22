@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheStorageRedis << alias >>
+\\Joomla\\CMS\\Cache\\Storage\\RedisStorage == JCacheStorageRedis
+!include class-Joomla.CMS.Cache.Storage.RedisStorage.puml
+@enduml

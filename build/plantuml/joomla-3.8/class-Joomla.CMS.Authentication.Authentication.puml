@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Authentication\\Authentication
+JObject <|-- Joomla\\CMS\\Authentication\\Authentication
+!include class-JObject.puml
+@enduml

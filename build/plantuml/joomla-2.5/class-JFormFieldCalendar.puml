@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldCalendar
+JFormField <|-- JFormFieldCalendar
+!include class-JFormField.puml
+@enduml

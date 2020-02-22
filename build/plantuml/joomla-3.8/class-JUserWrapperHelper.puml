@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUserWrapperHelper << alias >>
+\\Joomla\\CMS\\User\\UserWrapper == JUserWrapperHelper
+!include class-Joomla.CMS.User.UserWrapper.puml
+@enduml

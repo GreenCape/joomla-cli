@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class LanguagesControllerOverride
+JControllerForm <|-- LanguagesControllerOverride
+!include class-JControllerForm.puml
+@enduml

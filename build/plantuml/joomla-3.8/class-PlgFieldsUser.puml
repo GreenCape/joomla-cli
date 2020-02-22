@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class PlgFieldsUser
+FieldsPlugin <|-- PlgFieldsUser
+!include class-FieldsPlugin.puml
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class SplDoublyLinkedList
+interface Iterator
+Iterator <|.. SplDoublyLinkedList
+interface Countable
+Countable <|.. SplDoublyLinkedList
+interface ArrayAccess
+ArrayAccess <|.. SplDoublyLinkedList
+!includesub class-iterator.puml!INNER
+!includesub class-countable.puml!INNER
+!includesub class-arrayaccess.puml!INNER
+!endsub
+@enduml

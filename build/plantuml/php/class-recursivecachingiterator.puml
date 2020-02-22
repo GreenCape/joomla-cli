@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class RecursiveCachingIterator
+CachingIterator <|-- RecursiveCachingIterator
+interface RecursiveIterator
+RecursiveIterator <|.. RecursiveCachingIterator
+!includesub class-cachingiterator.puml!INNER
+!includesub class-recursiveiterator.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSessionHandlerNative
+interface JSessionHandlerInterface
+JSessionHandlerInterface <|.. JSessionHandlerNative
+!include class-JSessionHandlerInterface.puml
+@enduml

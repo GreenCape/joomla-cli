@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Component\\Exception\\MissingComponentException
+Joomla\\CMS\\Router\\Exception\\RouteNotFoundException <|-- Joomla\\CMS\\Component\\Exception\\MissingComponentException
+!include class-Joomla.CMS.Router.Exception.RouteNotFoundException.puml
+@enduml

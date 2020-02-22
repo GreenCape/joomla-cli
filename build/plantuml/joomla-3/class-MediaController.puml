@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MediaController
+JControllerLegacy <|-- MediaController
+!include class-JControllerLegacy.puml
+@enduml

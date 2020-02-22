@@ -1,0 +1,11 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class SplStack
+SplDoublyLinkedList <|-- SplStack
+!includesub class-spldoublylinkedlist.puml!INNER
+!endsub
+@enduml

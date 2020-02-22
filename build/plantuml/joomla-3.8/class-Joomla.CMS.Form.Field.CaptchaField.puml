@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\CaptchaField
+Joomla\\CMS\\Form\\FormField <|-- Joomla\\CMS\\Form\\Field\\CaptchaField
+!include class-Joomla.CMS.Form.FormField.puml
+@enduml

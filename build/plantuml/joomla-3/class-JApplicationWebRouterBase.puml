@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JApplicationWebRouterBase
+JApplicationWebRouter <|-- JApplicationWebRouterBase
+!include class-JApplicationWebRouter.puml
+@enduml

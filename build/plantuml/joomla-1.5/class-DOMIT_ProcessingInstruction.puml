@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMIT_ProcessingInstruction
+DOMIT_Node <|-- DOMIT_ProcessingInstruction
+!include class-DOMIT_Node.puml
+@enduml

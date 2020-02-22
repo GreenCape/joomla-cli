@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Table\\Update
+Joomla\\CMS\\Table\\Table <|-- Joomla\\CMS\\Table\\Update
+!include class-Joomla.CMS.Table.Table.puml
+@enduml

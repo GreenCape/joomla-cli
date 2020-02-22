@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class SimpleXMLElement
+interface Traversable
+Traversable <|.. SimpleXMLElement
+!includesub class-traversable.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInstallerManifestPackage << alias >>
+\\Joomla\\CMS\\Installer\\Manifest\\PackageManifest == JInstallerManifestPackage
+!include class-Joomla.CMS.Installer.Manifest.PackageManifest.puml
+@enduml

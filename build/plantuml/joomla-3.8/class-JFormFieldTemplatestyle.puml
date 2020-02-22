@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldTemplatestyle << alias >>
+\\Joomla\\CMS\\Form\\Field\\TemplatestyleField == JFormFieldTemplatestyle
+!include class-Joomla.CMS.Form.Field.TemplatestyleField.puml
+@enduml

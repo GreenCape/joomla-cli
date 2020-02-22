@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE_Sodium_Core32_ChaCha20
+ParagonIE_Sodium_Core32_Util <|-- ParagonIE_Sodium_Core32_ChaCha20
+!include class-ParagonIE_Sodium_Core32_Util.puml
+@enduml

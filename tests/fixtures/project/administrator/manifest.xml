@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Aelterwerden Install Package Description
+ *
+ * PHP version 5.3
+ *
+ * @version    2.2.0 (Joomla 2.5) [AB0179] Commit-Id: $Id$
+ * @package    Aelterwerden
+ * @author     Niels Braczek <nbraczek@bsds.de>
+ * @copyright  Copyright (C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ */
+-->
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>Aelterwerden</name>
+	<author>Niels Braczek</author>
+	<creationDate>2013-01-03</creationDate>
+	<copyright>(C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>nbraczek@bsds.de</authorEmail>
+	<authorUrl>www.bsds.de</authorUrl>
+	<version>2.2.0</version>
+	<description>COM_AELTERWERDEN_XML_DESCRIPTION</description>
+
+	<scriptfile>install.php</scriptfile>
+
+	<install>
+		<sql><file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file></sql>
+		<sql><file driver="mysqli" charset="utf8">sql/install.mysql.utf8.sql</file></sql>
+	</install>
+
+	<uninstall>
+		<sql><file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file></sql>
+		<sql><file driver="mysqli" charset="utf8">sql/uninstall.mysql.utf8.sql</file></sql>
+	</uninstall>
+
+	<files folder="site">
+		<filename>aelterwerden.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>metadata.xml</filename>
+		<filename>router.php</filename>
+		<folder>assets</folder>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.com_aelterwerden.ini</language>
+		<language tag="de-DE">de-DE/de-DE.com_aelterwerden.ini</language>
+	</languages>
+
+	<administration>
+
+		<menu img="class:aelterwerden"
+			  alt="Aelterwerden">COM_AELTERWERDEN</menu>
+
+		<submenu>
+			<menu link="option=com_aelterwerden&amp;view=events" view="events"
+				  img="class:event"
+				  alt="Aelterwerden/Events">COM_AELTERWERDEN_EVENT</menu>
+			<menu link="option=com_categories&amp;extension=com_aelterwerden"
+				  img="class:event-category"
+				  alt="Aelterwerden/categories">COM_AELTERWERDEN_EVENT_CATEGORIES</menu>
+			<menu link="option=com_aelterwerden&amp;view=organizers" view="organizers"
+				  img="class:organizer"
+				  alt="Aelterwerden/Organizers">COM_AELTERWERDEN_ORGANIZER</menu>
+			<menu link="option=com_aelterwerden&amp;view=venues" view="venues"
+				  img="class:venue"
+				  alt="Aelterwerden/Venues">COM_AELTERWERDEN_VENUE</menu>[[tables]]
+		</submenu>
+
+		<files folder="administrator">
+			<filename>aelterwerden.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="language">
+			<language tag="en-GB">en-GB/en-GB.com_aelterwerden.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_aelterwerden.sys.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_aelterwerden.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_aelterwerden.sys.ini</language>
+		</languages>
+
+	</administration>
+</extension>

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTwittersearch
+JTwitterObject <|-- JTwittersearch
+!include class-JTwitterObject.puml
+@enduml

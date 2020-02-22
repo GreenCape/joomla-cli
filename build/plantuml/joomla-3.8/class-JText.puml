@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JText << alias >>
+\\Joomla\\CMS\\Language\\Text == JText
+!include class-Joomla.CMS.Language.Text.puml
+@enduml

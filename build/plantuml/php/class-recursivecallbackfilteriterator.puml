@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class RecursiveCallbackFilterIterator
+CallbackFilterIterator <|-- RecursiveCallbackFilterIterator
+interface RecursiveIterator
+RecursiveIterator <|.. RecursiveCallbackFilterIterator
+!includesub class-callbackfilteriterator.puml!INNER
+!includesub class-recursiveiterator.puml!INNER
+!endsub
+@enduml

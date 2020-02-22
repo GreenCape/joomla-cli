@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ConfigModelApplication
+JModelForm <|-- ConfigModelApplication
+!include class-JModelForm.puml
+@enduml

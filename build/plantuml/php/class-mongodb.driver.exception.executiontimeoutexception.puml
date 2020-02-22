@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoDB\\Driver\\Exception\\ExecutionTimeoutException
+MongoDB\\Driver\\Exception\\RuntimeException <|-- MongoDB\\Driver\\Exception\\ExecutionTimeoutException
+interface MongoDB\\Driver\\Exception\\Exception
+MongoDB\\Driver\\Exception\\Exception <|.. MongoDB\\Driver\\Exception\\ExecutionTimeoutException
+!includesub class-mongodb.driver.exception.runtimeexception.puml!INNER
+!includesub class-mongodb.driver.exception.exception.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheStorageCachelite << alias >>
+\\Joomla\\CMS\\Cache\\Storage\\CacheliteStorage == JCacheStorageCachelite
+!include class-Joomla.CMS.Cache.Storage.CacheliteStorage.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Image\\Filter\\Contrast
+Joomla\\Image\\ImageFilter <|-- Joomla\\Image\\Filter\\Contrast
+!include class-Joomla.Image.ImageFilter.puml
+@enduml

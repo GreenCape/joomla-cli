@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE\\Sodium\\Crypto
+ParagonIE_Sodium_Crypto <|-- ParagonIE\\Sodium\\Crypto
+!include class-ParagonIE_Sodium_Crypto.puml
+@enduml

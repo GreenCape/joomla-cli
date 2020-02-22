@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_Yadis_PlainHTTPFetcher
+Auth_Yadis_HTTPFetcher <|-- Auth_Yadis_PlainHTTPFetcher
+!include class-Auth_Yadis_HTTPFetcher.puml
+@enduml

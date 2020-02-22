@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FinderTableMap
+JTable <|-- FinderTableMap
+!include class-JTable.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_NoReturnToError
+Auth_OpenID_ServerError <|-- Auth_OpenID_NoReturnToError
+!include class-Auth_OpenID_ServerError.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheControllerOutput
+JCacheController <|-- JCacheControllerOutput
+!include class-JCacheController.puml
+@enduml

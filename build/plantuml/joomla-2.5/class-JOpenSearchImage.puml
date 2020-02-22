@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JOpenSearchImage
+JObject <|-- JOpenSearchImage
+!include class-JObject.puml
+@enduml

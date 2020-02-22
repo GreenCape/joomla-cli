@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheExceptionUnsupported << alias >>
+\\Joomla\\CMS\\Cache\\Exception\\UnsupportedCacheException == JCacheExceptionUnsupported
+!include class-Joomla.CMS.Cache.Exception.UnsupportedCacheException.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldFrontend_Language << alias >>
+\\Joomla\\CMS\\Form\\Field\\FrontendlanguageField == JFormFieldFrontend_Language
+!include class-Joomla.CMS.Form.Field.FrontendlanguageField.puml
+@enduml

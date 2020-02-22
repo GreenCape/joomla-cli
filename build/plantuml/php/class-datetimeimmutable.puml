@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class DateTimeImmutable
+interface DateTimeInterface
+DateTimeInterface <|.. DateTimeImmutable
+!includesub class-datetimeinterface.puml!INNER
+!endsub
+@enduml

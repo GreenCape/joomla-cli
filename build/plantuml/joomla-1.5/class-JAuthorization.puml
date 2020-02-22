@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JAuthorization
+gacl_api <|-- JAuthorization
+!include class-gacl_api.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCryptCipherSodium << alias >>
+\\Joomla\\CMS\\Crypt\\Cipher\\SodiumCipher == JCryptCipherSodium
+!include class-Joomla.CMS.Crypt.Cipher.SodiumCipher.puml
+@enduml

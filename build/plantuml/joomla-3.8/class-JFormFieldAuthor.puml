@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldAuthor << alias >>
+\\Joomla\\CMS\\Form\\Field\\AuthorField == JFormFieldAuthor
+!include class-Joomla.CMS.Form.Field.AuthorField.puml
+@enduml

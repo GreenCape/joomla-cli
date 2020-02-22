@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JEditor << alias >>
+\\Joomla\\CMS\\Editor\\Editor == JEditor
+!include class-Joomla.CMS.Editor.Editor.puml
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class http\\Exception\\BadUrlException
+DomainException <|-- http\\Exception\\BadUrlException
+interface http\\Exception
+http\\Exception <|.. http\\Exception\\BadUrlException
+!includesub class-domainexception.puml!INNER
+!includesub class-http.exception.puml!INNER
+!endsub
+@enduml

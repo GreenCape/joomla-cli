@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class TagsModelTags
+JModelList <|-- TagsModelTags
+!include class-JModelList.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class WrapperViewWrapper
+JView <|-- WrapperViewWrapper
+!include class-JView.puml
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Component\\Yaml\\Exception\\RuntimeException
+RuntimeException <|-- Symfony\\Component\\Yaml\\Exception\\RuntimeException
+interface Symfony\\Component\\Yaml\\Exception\\ExceptionInterface
+Symfony\\Component\\Yaml\\Exception\\ExceptionInterface <|.. Symfony\\Component\\Yaml\\Exception\\RuntimeException
+!include class-RuntimeException.puml
+!include class-Symfony.Component.Yaml.Exception.ExceptionInterface.puml
+@enduml

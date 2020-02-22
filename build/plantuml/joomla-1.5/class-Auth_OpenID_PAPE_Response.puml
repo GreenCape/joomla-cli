@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_PAPE_Response
+Auth_OpenID_Extension <|-- Auth_OpenID_PAPE_Response
+!include class-Auth_OpenID_Extension.puml
+@enduml

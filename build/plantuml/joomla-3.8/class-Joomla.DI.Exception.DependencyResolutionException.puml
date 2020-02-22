@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\DI\\Exception\\DependencyResolutionException
+RuntimeException <|-- Joomla\\DI\\Exception\\DependencyResolutionException
+interface Psr\\Container\\ContainerExceptionInterface
+Psr\\Container\\ContainerExceptionInterface <|.. Joomla\\DI\\Exception\\DependencyResolutionException
+!include class-RuntimeException.puml
+!include class-Psr.Container.ContainerExceptionInterface.puml
+@enduml

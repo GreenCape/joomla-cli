@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface JController
+Serializable <|-- JController
+!include class-Serializable.puml
+@enduml

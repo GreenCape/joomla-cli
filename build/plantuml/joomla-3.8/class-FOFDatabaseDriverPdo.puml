@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class FOFDatabaseDriverPdo
+FOFDatabaseDriver <|-- FOFDatabaseDriverPdo
+!include class-FOFDatabaseDriver.puml
+@enduml

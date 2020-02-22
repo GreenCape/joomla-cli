@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JWebClient
+JApplicationWebClient <|-- JWebClient
+!include class-JApplicationWebClient.puml
+@enduml

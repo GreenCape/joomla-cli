@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JToolbarButtonStandard << alias >>
+\\Joomla\\CMS\\Toolbar\\Button\\StandardButton == JToolbarButtonStandard
+!include class-Joomla.CMS.Toolbar.Button.StandardButton.puml
+@enduml

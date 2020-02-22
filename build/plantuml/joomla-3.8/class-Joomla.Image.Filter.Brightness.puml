@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Image\\Filter\\Brightness
+Joomla\\Image\\ImageFilter <|-- Joomla\\Image\\Filter\\Brightness
+!include class-Joomla.Image.ImageFilter.puml
+@enduml

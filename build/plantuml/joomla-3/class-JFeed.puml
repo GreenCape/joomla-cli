@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFeed
+interface ArrayAccess
+ArrayAccess <|.. JFeed
+!include class-ArrayAccess.puml
+@enduml

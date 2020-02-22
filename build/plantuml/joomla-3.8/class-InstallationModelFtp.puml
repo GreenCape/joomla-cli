@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class InstallationModelFtp
+JModelBase <|-- InstallationModelFtp
+!include class-JModelBase.puml
+@enduml

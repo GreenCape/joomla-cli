@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MenusAssociationsHelper
+Joomla\\CMS\\Association\\AssociationExtensionHelper <|-- MenusAssociationsHelper
+!include class-Joomla.CMS.Association.AssociationExtensionHelper.puml
+@enduml

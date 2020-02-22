@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRegistryFormatIni << alias >>
+\\Joomla\\Registry\\Format\\Ini == JRegistryFormatIni
+!include class-Joomla.Registry.Format.Ini.puml
+@enduml

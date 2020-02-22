@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ContentModelForm
+ContentModelArticle <|-- ContentModelForm
+!include class-ContentModelArticle.puml
+@enduml

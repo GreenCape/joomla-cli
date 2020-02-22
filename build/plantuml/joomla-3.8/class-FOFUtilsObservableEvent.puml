@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class FOFUtilsObservableEvent
+FOFUtilsObject <|-- FOFUtilsObservableEvent
+!include class-FOFUtilsObject.puml
+@enduml

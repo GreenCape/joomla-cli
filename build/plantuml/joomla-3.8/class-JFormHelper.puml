@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormHelper << alias >>
+\\Joomla\\CMS\\Form\\FormHelper == JFormHelper
+!include class-Joomla.CMS.Form.FormHelper.puml
+@enduml

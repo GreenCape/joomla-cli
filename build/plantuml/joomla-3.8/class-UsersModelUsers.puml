@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UsersModelUsers
+JModelList <|-- UsersModelUsers
+!include class-JModelList.puml
+@enduml

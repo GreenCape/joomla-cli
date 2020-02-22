@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldMenuitem << alias >>
+\\Joomla\\CMS\\Form\\Field\\MenuitemField == JFormFieldMenuitem
+!include class-Joomla.CMS.Form.Field.MenuitemField.puml
+@enduml

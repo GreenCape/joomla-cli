@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JApplicationWeb << alias >>
+\\Joomla\\CMS\\Application\\WebApplication == JApplicationWeb
+!include class-Joomla.CMS.Application.WebApplication.puml
+@enduml

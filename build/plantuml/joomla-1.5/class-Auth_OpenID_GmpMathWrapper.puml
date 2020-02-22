@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_GmpMathWrapper
+Auth_OpenID_MathLibrary <|-- Auth_OpenID_GmpMathWrapper
+!include class-Auth_OpenID_MathLibrary.puml
+@enduml

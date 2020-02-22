@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JGoogleDataCalendar
+JGoogleData <|-- JGoogleDataCalendar
+!include class-JGoogleData.puml
+@enduml

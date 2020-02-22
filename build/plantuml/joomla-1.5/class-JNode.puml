@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JNode
+JObject <|-- JNode
+!include class-JObject.puml
+@enduml

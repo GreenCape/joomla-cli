@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHelperTags << alias >>
+\\Joomla\\CMS\\Helper\\TagsHelper == JHelperTags
+!include class-Joomla.CMS.Helper.TagsHelper.puml
+@enduml

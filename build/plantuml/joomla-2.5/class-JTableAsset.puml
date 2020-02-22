@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableAsset
+JTableNested <|-- JTableAsset
+!include class-JTableNested.puml
+@enduml

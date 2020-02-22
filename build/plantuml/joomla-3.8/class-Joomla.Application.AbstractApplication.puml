@@ -1,0 +1,16 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Application\\AbstractApplication
+interface Psr\\Log\\LoggerAwareInterface
+Psr\\Log\\LoggerAwareInterface <|.. Joomla\\Application\\AbstractApplication
+class Joomla\\DI\\ContainerAwareTrait  << (T, orchid) >>
+Joomla\\DI\\ContainerAwareTrait - Joomla\\Application\\AbstractApplication
+class Joomla\\Event\\DispatcherAwareTrait  << (T, orchid) >>
+Joomla\\Event\\DispatcherAwareTrait - Joomla\\Application\\AbstractApplication
+!include class-Psr.Log.LoggerAwareInterface.puml
+!include class-Joomla.DI.ContainerAwareTrait.puml
+!include class-Joomla.Event.DispatcherAwareTrait.puml
+@enduml

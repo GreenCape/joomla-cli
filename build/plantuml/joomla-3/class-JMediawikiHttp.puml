@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMediawikiHttp
+JHttp <|-- JMediawikiHttp
+!include class-JHttp.puml
+@enduml

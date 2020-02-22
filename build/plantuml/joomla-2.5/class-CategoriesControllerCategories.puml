@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class CategoriesControllerCategories
+JControllerAdmin <|-- CategoriesControllerCategories
+!include class-JControllerAdmin.puml
+@enduml

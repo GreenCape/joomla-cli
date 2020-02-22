@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFModelFieldBoolean
+FOFModelFieldNumber <|-- FOFModelFieldBoolean
+!include class-FOFModelFieldNumber.puml
+@enduml

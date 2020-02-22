@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFacebookStatus
+JFacebookObject <|-- JFacebookStatus
+!include class-JFacebookObject.puml
+@enduml

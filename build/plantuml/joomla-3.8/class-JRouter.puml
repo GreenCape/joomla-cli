@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRouter << alias >>
+\\Joomla\\CMS\\Router\\Router == JRouter
+!include class-Joomla.CMS.Router.Router.puml
+@enduml

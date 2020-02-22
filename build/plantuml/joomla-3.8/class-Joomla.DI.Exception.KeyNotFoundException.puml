@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\DI\\Exception\\KeyNotFoundException
+InvalidArgumentException <|-- Joomla\\DI\\Exception\\KeyNotFoundException
+interface Psr\\Container\\NotFoundExceptionInterface
+Psr\\Container\\NotFoundExceptionInterface <|.. Joomla\\DI\\Exception\\KeyNotFoundException
+!include class-InvalidArgumentException.puml
+!include class-Psr.Container.NotFoundExceptionInterface.puml
+@enduml

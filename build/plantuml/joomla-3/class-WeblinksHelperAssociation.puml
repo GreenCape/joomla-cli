@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class WeblinksHelperAssociation
+CategoryHelperAssociation <|-- WeblinksHelperAssociation
+!include class-CategoryHelperAssociation.puml
+@enduml

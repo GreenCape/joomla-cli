@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class WeblinksModelCategory
+JModel <|-- WeblinksModelCategory
+!include class-JModel.puml
+@enduml

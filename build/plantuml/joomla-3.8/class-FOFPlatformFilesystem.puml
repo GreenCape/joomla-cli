@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class FOFPlatformFilesystem
+interface FOFPlatformFilesystemInterface
+FOFPlatformFilesystemInterface <|.. FOFPlatformFilesystem
+!include class-FOFPlatformFilesystemInterface.puml
+@enduml

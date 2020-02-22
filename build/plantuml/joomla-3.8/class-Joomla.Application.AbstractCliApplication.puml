@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\Application\\AbstractCliApplication
+Joomla\\Application\\AbstractApplication <|-- Joomla\\Application\\AbstractCliApplication
+!include class-Joomla.Application.AbstractApplication.puml
+@enduml

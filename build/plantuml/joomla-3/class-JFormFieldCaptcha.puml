@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldCaptcha
+JFormField <|-- JFormFieldCaptcha
+!include class-JFormField.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class RSSCreator20
+RSSCreator091 <|-- RSSCreator20
+!include class-RSSCreator091.puml
+@enduml

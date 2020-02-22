@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Application\\Cli\\Output\\Stdout
+Joomla\\Application\\Cli\\CliOutput <|-- Joomla\\Application\\Cli\\Output\\Stdout
+!include class-Joomla.Application.Cli.CliOutput.puml
+@enduml

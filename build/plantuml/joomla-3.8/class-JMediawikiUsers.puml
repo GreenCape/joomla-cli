@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMediawikiUsers
+JMediawikiObject <|-- JMediawikiUsers
+!include class-JMediawikiObject.puml
+@enduml

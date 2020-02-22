@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class RecursiveIteratorIterator
+interface OuterIterator
+OuterIterator <|.. RecursiveIteratorIterator
+!includesub class-outeriterator.puml!INNER
+!endsub
+@enduml

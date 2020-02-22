@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Registry\\Format\\Yaml
+Joomla\\Registry\\AbstractRegistryFormat <|-- Joomla\\Registry\\Format\\Yaml
+!include class-Joomla.Registry.AbstractRegistryFormat.puml
+@enduml

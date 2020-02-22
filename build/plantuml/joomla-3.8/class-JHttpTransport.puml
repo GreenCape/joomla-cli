@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHttpTransport << alias >>
+\\Joomla\\CMS\\Http\\TransportInterface == JHttpTransport
+!include class-Joomla.CMS.Http.TransportInterface.puml
+@enduml

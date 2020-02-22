@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Document\\RawDocument
+Joomla\\CMS\\Document\\Document <|-- Joomla\\CMS\\Document\\RawDocument
+!include class-Joomla.CMS.Document.Document.puml
+@enduml

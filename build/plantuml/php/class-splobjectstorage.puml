@@ -1,0 +1,21 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class SplObjectStorage
+interface Countable
+Countable <|.. SplObjectStorage
+interface Iterator
+Iterator <|.. SplObjectStorage
+interface Serializable
+Serializable <|.. SplObjectStorage
+interface ArrayAccess
+ArrayAccess <|.. SplObjectStorage
+!includesub class-countable.puml!INNER
+!includesub class-iterator.puml!INNER
+!includesub class-serializable.puml!INNER
+!includesub class-arrayaccess.puml!INNER
+!endsub
+@enduml

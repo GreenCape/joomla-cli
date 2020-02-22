@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInputJSON
+JInput <|-- JInputJSON
+!include class-JInput.puml
+@enduml

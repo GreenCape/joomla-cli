@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JComponentExceptionMissing << alias >>
+\\Joomla\\CMS\\Component\\Exception\\MissingComponentException == JComponentExceptionMissing
+!include class-Joomla.CMS.Component.Exception.MissingComponentException.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ContactControllerContacts
+JControllerAdmin <|-- ContactControllerContacts
+!include class-JControllerAdmin.puml
+@enduml

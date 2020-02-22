@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableLanguage << alias >>
+\\Joomla\\CMS\\Table\\Language == JTableLanguage
+!include class-Joomla.CMS.Table.Language.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\UserstateField
+JFormFieldPredefinedList <|-- Joomla\\CMS\\Form\\Field\\UserstateField
+!include class-JFormFieldPredefinedList.puml
+@enduml

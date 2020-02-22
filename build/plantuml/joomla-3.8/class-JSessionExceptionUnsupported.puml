@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSessionExceptionUnsupported << alias >>
+\\Joomla\\CMS\\Session\\Exception\\UnsupportedStorageException == JSessionExceptionUnsupported
+!include class-Joomla.CMS.Session.Exception.UnsupportedStorageException.puml
+@enduml

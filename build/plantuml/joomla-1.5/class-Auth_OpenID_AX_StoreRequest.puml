@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_AX_StoreRequest
+Auth_OpenID_AX_KeyValueMessage <|-- Auth_OpenID_AX_StoreRequest
+!include class-Auth_OpenID_AX_KeyValueMessage.puml
+@enduml

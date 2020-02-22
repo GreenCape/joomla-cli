@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormRuleEquals << alias >>
+\\Joomla\\CMS\\Form\\Rule\\EqualsRule == JFormRuleEquals
+!include class-Joomla.CMS.Form.Rule.EqualsRule.puml
+@enduml

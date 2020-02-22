@@ -1,0 +1,19 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Data\\DataObject
+interface Joomla\\Data\\DumpableInterface
+Joomla\\Data\\DumpableInterface <|.. Joomla\\Data\\DataObject
+interface IteratorAggregate
+IteratorAggregate <|.. Joomla\\Data\\DataObject
+interface JsonSerializable
+JsonSerializable <|.. Joomla\\Data\\DataObject
+interface Countable
+Countable <|.. Joomla\\Data\\DataObject
+!include class-Joomla.Data.DumpableInterface.puml
+!include class-IteratorAggregate.puml
+!include class-JsonSerializable.puml
+!include class-Countable.puml
+@enduml

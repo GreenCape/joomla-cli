@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JButtonConfirm
+JButton <|-- JButtonConfirm
+!include class-JButton.puml
+@enduml

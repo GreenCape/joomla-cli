@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLogLoggerDatabase << alias >>
+\\Joomla\\CMS\\Log\\Logger\\DatabaseLogger == JLogLoggerDatabase
+!include class-Joomla.CMS.Log.Logger.DatabaseLogger.puml
+@enduml

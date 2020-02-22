@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFilterWrapperOutput << alias >>
+\\Joomla\\CMS\\Filter\\Wrapper\\OutputFilterWrapper == JFilterWrapperOutput
+!include class-Joomla.CMS.Filter.Wrapper.OutputFilterWrapper.puml
+@enduml

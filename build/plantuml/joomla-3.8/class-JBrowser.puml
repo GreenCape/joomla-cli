@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JBrowser << alias >>
+\\Joomla\\CMS\\Environment\\Browser == JBrowser
+!include class-Joomla.CMS.Environment.Browser.puml
+@enduml

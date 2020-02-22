@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JGithubRefs
+JGithubObject <|-- JGithubRefs
+!include class-JGithubObject.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentRendererHtmlModule << alias >>
+\\Joomla\\CMS\\Document\\Renderer\\Html\\ModuleRenderer == JDocumentRendererHtmlModule
+!include class-Joomla.CMS.Document.Renderer.Html.ModuleRenderer.puml
+@enduml

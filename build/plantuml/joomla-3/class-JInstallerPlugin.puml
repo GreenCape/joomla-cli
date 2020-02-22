@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInstallerPlugin
+JInstallerAdapterPlugin <|-- JInstallerPlugin
+!include class-JInstallerAdapterPlugin.puml
+@enduml

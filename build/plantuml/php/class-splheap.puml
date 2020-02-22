@@ -1,0 +1,15 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+abstract class SplHeap
+interface Iterator
+Iterator <|.. SplHeap
+interface Countable
+Countable <|.. SplHeap
+!includesub class-iterator.puml!INNER
+!includesub class-countable.puml!INNER
+!endsub
+@enduml

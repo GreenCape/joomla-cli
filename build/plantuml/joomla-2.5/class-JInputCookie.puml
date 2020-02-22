@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInputCookie
+JInput <|-- JInputCookie
+!include class-JInput.puml
+@enduml

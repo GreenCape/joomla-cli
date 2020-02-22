@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UsersRouterRulesLegacy
+interface JComponentRouterRulesInterface
+JComponentRouterRulesInterface <|.. UsersRouterRulesLegacy
+!include class-JComponentRouterRulesInterface.puml
+@enduml

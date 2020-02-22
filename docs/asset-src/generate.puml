@@ -1,0 +1,88 @@
+@startuml
+!unquoted function SALT($x)
+"{{
+salt
+%invoke_void_func("_"+$x)
+}}" as $x
+!endfunction
+
+!function _choose()
+{+
+**Generate Code **
+---
+{Target: | ^Joomla! 3.8      ^}
+---
+{[ <&x> Cancel ] | [ <&code> Generate ] }
+}
+!endfunction
+
+!function _wait()
+{+
+**Generating ...**
+---
+>>>>>
+---
+[<&x> Cancel]
+}
+!endfunction
+
+!function _success()
+{+
+**Generated Code**
+---
+12,345 LOC in 234 files
+saving 123 hrs of work
+---
+{ [<&x> Close ] | [<&bug> Explore ] | [<&data-transfer-download> Download]}
+}
+!endfunction
+
+!function _error()
+{+
+**Error**
+---
+Could not generate code
+---
+{[<&x> Close ] | [<&copywriting> Show Logs ]}
+}
+!endfunction
+
+!function _explore()
+{+
+**Exploration**
+---
+You can now explore the application
+at __http://j38-mysqli.dev__.
+---
+{[<&check> Done ]}
+}
+!endfunction
+
+!function _download()
+{+
+**Download**
+---
+Download file <package>.zip
+---
+{ [<&x> Cancel ] | [<&data-transfer-download> Download]}
+}
+!endfunction
+
+(*) --> SALT(choose)
+choose-->['Generate'] SALT(wait)
+choose-->['Cancel'] (*)
+wait ->[«success»] SALT(success)
+wait -->[«failure»] SALT(error)
+success -->['Close'] (*)
+success -->['Explore'] Start Container
+--> SALT(explore)
+--->['Done'] Stop Container
+-left-> (*)
+success -->['Download'] Prepare Package
+--> SALT(download)
+--> (*)
+error -->['Close'] (*)
+error -->['Show Logs'] Show Logs
+--> (*)
+
+@enduml

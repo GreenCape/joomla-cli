@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLayoutFile << alias >>
+\\Joomla\\CMS\\Layout\\FileLayout == JLayoutFile
+!include class-Joomla.CMS.Layout.FileLayout.puml
+@enduml

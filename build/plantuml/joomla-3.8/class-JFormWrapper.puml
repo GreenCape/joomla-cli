@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormWrapper << alias >>
+\\Joomla\\CMS\\Form\\FormWrapper == JFormWrapper
+!include class-Joomla.CMS.Form.FormWrapper.puml
+@enduml

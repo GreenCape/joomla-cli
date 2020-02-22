@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ModulesModelModule
+JModel <|-- ModulesModelModule
+!include class-JModel.puml
+@enduml

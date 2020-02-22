@@ -51,7 +51,7 @@ class Application extends BaseApplication
 	 */
 	public function __construct()
 	{
-		parent::__construct('Joomla CLI', '0.1.1');
+		parent::__construct('Joomla CLI', '0.2.0');
 		$this->setCatchExceptions(false);
 		$this->addPlugins(__DIR__ . '/Command');
 	}
@@ -85,6 +85,7 @@ class Application extends BaseApplication
 				''
 			);
 			$output->writeln($message);
+			$output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
 
 			return 1;
 		}

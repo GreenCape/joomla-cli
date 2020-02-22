@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Schema\\ChangeItem\\MysqlChangeItem
+Joomla\\CMS\\Schema\\ChangeItem <|-- Joomla\\CMS\\Schema\\ChangeItem\\MysqlChangeItem
+!include class-Joomla.CMS.Schema.ChangeItem.puml
+@enduml

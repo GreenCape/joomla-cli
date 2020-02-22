@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheExceptionConnecting << alias >>
+\\Joomla\\CMS\\Cache\\Exception\\CacheConnectingException == JCacheExceptionConnecting
+!include class-Joomla.CMS.Cache.Exception.CacheConnectingException.puml
+@enduml

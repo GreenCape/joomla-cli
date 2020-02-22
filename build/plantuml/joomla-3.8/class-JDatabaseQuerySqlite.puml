@@ -1,0 +1,15 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseQuerySqlite
+JDatabaseQueryPdo <|-- JDatabaseQuerySqlite
+interface JDatabaseQueryPreparable
+JDatabaseQueryPreparable <|.. JDatabaseQuerySqlite
+interface JDatabaseQueryLimitable
+JDatabaseQueryLimitable <|.. JDatabaseQuerySqlite
+!include class-JDatabaseQueryPdo.puml
+!include class-JDatabaseQueryPreparable.puml
+!include class-JDatabaseQueryLimitable.puml
+@enduml

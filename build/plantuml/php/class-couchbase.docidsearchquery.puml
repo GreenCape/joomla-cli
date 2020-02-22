@@ -1,0 +1,15 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class Couchbase\\DocIdSearchQuery << final >>
+interface JsonSerializable
+JsonSerializable <|.. Couchbase\\DocIdSearchQuery
+interface Couchbase\\SearchQueryPart
+Couchbase\\SearchQueryPart <|.. Couchbase\\DocIdSearchQuery
+!includesub class-jsonserializable.puml!INNER
+!includesub class-couchbase.searchquerypart.puml!INNER
+!endsub
+@enduml

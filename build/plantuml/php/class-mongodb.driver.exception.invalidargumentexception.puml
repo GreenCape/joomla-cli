@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoDB\\Driver\\Exception\\InvalidArgumentException
+InvalidArgumentException <|-- MongoDB\\Driver\\Exception\\InvalidArgumentException
+interface MongoDB\\Driver\\Exception\\Exception
+MongoDB\\Driver\\Exception\\Exception <|.. MongoDB\\Driver\\Exception\\InvalidArgumentException
+!includesub class-invalidargumentexception.puml!INNER
+!includesub class-mongodb.driver.exception.exception.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSessionStorageApc
+JSessionStorage <|-- JSessionStorageApc
+!include class-JSessionStorage.puml
+@enduml

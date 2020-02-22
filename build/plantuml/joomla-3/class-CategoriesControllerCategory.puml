@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class CategoriesControllerCategory
+JControllerForm <|-- CategoriesControllerCategory
+!include class-JControllerForm.puml
+@enduml

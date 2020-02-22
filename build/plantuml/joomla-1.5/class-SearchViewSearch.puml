@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SearchViewSearch
+JView <|-- SearchViewSearch
+!include class-JView.puml
+@enduml

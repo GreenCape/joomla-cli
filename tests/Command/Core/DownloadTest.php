@@ -105,9 +105,9 @@ class DownloadTest extends TestCase
 		$command = new DownloadCommand();
 		$output  = new BufferedOutput();
 
-		$command->run(new StringInput('-b tests/tmp/nx nx'), $output);
+		$this->expectExceptionMessage('nx: Version is unknown');
 
-		$this->assertEquals('nx: Version is unknown', trim($output->fetch()));
+		$command->run(new StringInput('-b tests/tmp/nx nx'), $output);
 	}
 
 	protected function tearDown(): void

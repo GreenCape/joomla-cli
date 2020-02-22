@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+abstract class MongoDB\\Driver\\Exception\\WriteException
+MongoDB\\Driver\\Exception\\RuntimeException <|-- MongoDB\\Driver\\Exception\\WriteException
+interface MongoDB\\Driver\\Exception\\Exception
+MongoDB\\Driver\\Exception\\Exception <|.. MongoDB\\Driver\\Exception\\WriteException
+!includesub class-mongodb.driver.exception.runtimeexception.puml!INNER
+!includesub class-mongodb.driver.exception.exception.puml!INNER
+!endsub
+@enduml

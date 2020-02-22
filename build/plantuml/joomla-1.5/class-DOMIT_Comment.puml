@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMIT_Comment
+DOMIT_CharacterData <|-- DOMIT_Comment
+!include class-DOMIT_CharacterData.puml
+@enduml

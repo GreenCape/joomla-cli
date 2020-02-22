@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ParagonIE_Sodium_Core_ChaCha20_Ctx
+ParagonIE_Sodium_Core_Util <|-- ParagonIE_Sodium_Core_ChaCha20_Ctx
+interface ArrayAccess
+ArrayAccess <|.. ParagonIE_Sodium_Core_ChaCha20_Ctx
+!include class-ParagonIE_Sodium_Core_Util.puml
+!include class-ArrayAccess.puml
+@enduml

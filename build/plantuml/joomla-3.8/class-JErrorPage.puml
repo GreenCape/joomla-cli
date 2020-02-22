@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JErrorPage << alias >>
+\\Joomla\\CMS\\Exception\\ExceptionHandler == JErrorPage
+!include class-Joomla.CMS.Exception.ExceptionHandler.puml
+@enduml

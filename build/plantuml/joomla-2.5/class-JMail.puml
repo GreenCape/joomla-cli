@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMail
+PHPMailer <|-- JMail
+!include class-PHPMailer.puml
+@enduml

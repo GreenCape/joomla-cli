@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormHeaderFilterfilterable
+FOFFormHeaderFieldfilterable <|-- FOFFormHeaderFilterfilterable
+!include class-FOFFormHeaderFieldfilterable.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMIT_Lite_CDATASection
+DOMIT_Lite_TextNode <|-- DOMIT_Lite_CDATASection
+!include class-DOMIT_Lite_TextNode.puml
+@enduml

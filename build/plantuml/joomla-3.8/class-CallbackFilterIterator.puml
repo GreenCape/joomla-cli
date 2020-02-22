@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class CallbackFilterIterator
+FilterIterator <|-- CallbackFilterIterator
+!include class-FilterIterator.puml
+@enduml

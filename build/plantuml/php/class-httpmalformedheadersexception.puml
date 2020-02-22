@@ -1,0 +1,11 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class HttpMalformedHeadersException
+HttpException <|-- HttpMalformedHeadersException
+!includesub class-httpexception.puml!INNER
+!endsub
+@enduml

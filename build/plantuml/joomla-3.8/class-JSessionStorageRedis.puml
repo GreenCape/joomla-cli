@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSessionStorageRedis
+JSessionStorage <|-- JSessionStorageRedis
+!include class-JSessionStorage.puml
+@enduml

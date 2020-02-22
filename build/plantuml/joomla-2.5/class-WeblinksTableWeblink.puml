@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class WeblinksTableWeblink
+JTable <|-- WeblinksTableWeblink
+!include class-JTable.puml
+@enduml

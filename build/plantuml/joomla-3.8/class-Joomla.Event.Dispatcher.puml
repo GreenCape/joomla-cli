@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Event\\Dispatcher
+interface Joomla\\Event\\DispatcherInterface
+Joomla\\Event\\DispatcherInterface <|.. Joomla\\Event\\Dispatcher
+!include class-Joomla.Event.DispatcherInterface.puml
+@enduml

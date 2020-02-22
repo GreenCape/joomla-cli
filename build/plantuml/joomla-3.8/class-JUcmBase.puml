@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUcmBase << alias >>
+\\Joomla\\CMS\\UCM\\UCMBase == JUcmBase
+!include class-Joomla.CMS.UCM.UCMBase.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JImageFilterSketchy << alias >>
+\\Joomla\\Image\\Filter\\Sketchy == JImageFilterSketchy
+!include class-Joomla.Image.Filter.Sketchy.puml
+@enduml

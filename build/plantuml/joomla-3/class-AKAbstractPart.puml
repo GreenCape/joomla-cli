@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class AKAbstractPart
+AKAbstractObject <|-- AKAbstractPart
+!include class-AKAbstractObject.puml
+@enduml

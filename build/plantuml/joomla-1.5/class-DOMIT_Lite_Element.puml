@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class DOMIT_Lite_Element
+DOMIT_Lite_ChildNodes_Interface <|-- DOMIT_Lite_Element
+!include class-DOMIT_Lite_ChildNodes_Interface.puml
+@enduml

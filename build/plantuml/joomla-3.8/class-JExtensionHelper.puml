@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JExtensionHelper << alias >>
+\\Joomla\\CMS\\Extension\\ExtensionHelper == JExtensionHelper
+!include class-Joomla.CMS.Extension.ExtensionHelper.puml
+@enduml

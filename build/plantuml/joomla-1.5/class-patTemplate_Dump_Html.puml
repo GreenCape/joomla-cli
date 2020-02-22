@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class patTemplate_Dump_Html
+patTemplate_Dump <|-- patTemplate_Dump_Html
+!include class-patTemplate_Dump.puml
+@enduml

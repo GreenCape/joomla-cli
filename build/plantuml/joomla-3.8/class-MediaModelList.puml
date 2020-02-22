@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MediaModelList
+JModelLegacy <|-- MediaModelList
+!include class-JModelLegacy.puml
+@enduml

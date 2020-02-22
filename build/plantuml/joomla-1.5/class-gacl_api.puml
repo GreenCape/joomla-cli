@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class gacl_api
+gacl <|-- gacl_api
+!include class-gacl.puml
+@enduml

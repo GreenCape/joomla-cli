@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JControllerAdmin
+JControllerLegacy <|-- JControllerAdmin
+!include class-JControllerLegacy.puml
+@enduml
