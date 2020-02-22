@@ -13,24 +13,18 @@
   "support": {
     "issues": "https://github.com/GreenCape/joomla-cli/issues"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "/home/nibra/Development/GreenCape/joomla-manifest"
-    }
-  ],
   "require": {
     "php": ">=7.2",
+    "ext-json": "*",
+    "ext-dom": "*",
     "sebastian/finder-facade": "*",
     "sebastian/git": "*",
     "symfony/console": "~2",
-    "ext-json": "*",
     "league/flysystem": "^1.0",
     "league/flysystem-ziparchive": "^1.0",
-    "ext-dom": "*",
     "theseer/autoload": "^1.25",
     "phpunit/phpunit": "^8.3",
-    "greencape/joomla-manifest": "@dev",
+    "greencape/joomla-manifest": "^0.4",
     "pdepend/pdepend": "^2.5",
     "phpmd/phpmd": "^2.7",
     "sebastian/phpcpd": "^4.1",
