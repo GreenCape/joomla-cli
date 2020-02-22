@@ -35,7 +35,7 @@ use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
 use GreenCape\JoomlaCLI\Command\Core\InstallCommand;
 use GreenCape\JoomlaCLI\DataSource;
-use GreenCapeTest\JoomlaPackagesTrait;
+use GreenCapeTest\Driver\JoomlaPackagesTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;

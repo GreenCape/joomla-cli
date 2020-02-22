@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.1
  */
 
-namespace GreenCapeTest;
+namespace GreenCapeTest\Driver;
 
 trait JoomlaPackagesTrait
 {

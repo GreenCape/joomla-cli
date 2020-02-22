@@ -33,7 +33,7 @@ namespace GreenCapeTest\Command\Core;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\VersionCommand;
-use GreenCapeTest\JoomlaPackagesTrait;
+use GreenCapeTest\Driver\JoomlaPackagesTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;

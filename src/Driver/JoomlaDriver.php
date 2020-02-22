@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
 use GreenCape\JoomlaCLI\Driver\Version;

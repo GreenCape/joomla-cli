@@ -33,12 +33,28 @@ namespace GreenCapeTest;
 
 use Exception;
 use GreenCape\JoomlaCLI\Application;
-use GreenCape\JoomlaCLI\DriverFactory;
+use GreenCape\JoomlaCLI\Driver\Factory;
 use phpDocumentor\Reflection\DocBlock;
 use PHPUnit\Framework\TestCase;
 
 class AutoloadTest extends TestCase
 {
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 */
+	protected function setUp(): void
+	{
+	}
+
+	/**
+	 * Tears down the fixture, for example, closes a network connection.
+	 * This method is called after a test is executed.
+	 */
+	protected function tearDown(): void
+	{
+	}
+
 	public function testVendorClassesAreFoundByAutoloader(): void
 	{
 		try
@@ -56,27 +72,11 @@ class AutoloadTest extends TestCase
 		try
 		{
 			$this->assertInstanceOf(Application::class, new Application());
-			$this->assertInstanceOf(DriverFactory::class, new DriverFactory());
+			$this->assertInstanceOf(Factory::class, new Factory());
 		}
 		catch (Exception $e)
 		{
 			$this->fail($e->getMessage());
 		}
-	}
-
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
 	}
 }
