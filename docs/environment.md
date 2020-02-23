@@ -2,7 +2,7 @@
 
 Using the `Environment` tab, you can define the test environments.
 
-Although it seems to be very important to test as much as possible, there are way too much combinations of the selections shown in the images above.
+Although it seems to be very important to test as much as possible, there are way too many combinations of the selections shown in the images above.
 2 Joomla! versions combined with 2 databases, 3 web servers and 5 PHP versions define 60 different test environments. Adding one more Joomla version would increase the number to 90(!).
 
 Fortunately, this problem is well known, and there is a solution for it, called [all-pairs testing](https://en.wikipedia.org/wiki/All-pairs_testing).
