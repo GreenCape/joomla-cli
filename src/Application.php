@@ -57,6 +57,24 @@ class Application extends BaseApplication
     }
 
     /**
+     * Dynamically add all commands from a path
+     *
+     * @param  string  $path  The directory with the plugins
+     *
+     * @return  void
+     */
+    private function addPlugins($path): void
+    {
+        foreach (glob($path . '/**/*.php') as $filename) {
+            $filename     = str_replace($path, '', $filename);
+            $namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
+            $commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
+            $command      = new $commandClass;
+            $this->add($command);
+        }
+    }
+
+    /**
      * Runs the current application.
      *
      * @param  InputInterface   $input   An InputInterface instance
@@ -87,23 +105,5 @@ class Application extends BaseApplication
         }
 
         return 0;
-    }
-
-    /**
-     * Dynamically add all commands from a path
-     *
-     * @param  string  $path  The directory with the plugins
-     *
-     * @return  void
-     */
-    private function addPlugins($path): void
-    {
-        foreach (glob($path . '/**/*.php') as $filename) {
-            $filename     = str_replace($path, '', $filename);
-            $namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
-			$commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
-            $command      = new $commandClass;
-            $this->add($command);
-        }
     }
 }
