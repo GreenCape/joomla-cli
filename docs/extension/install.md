@@ -1,4 +1,4 @@
-Extension
+[Joomla! CLI](../index.md) > [Extension](extension.md)
 # Install
 
 Install a Joomla! extension.

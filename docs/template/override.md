@@ -1,4 +1,4 @@
-Template
+[Joomla! CLI](../index.md) > [Template](template.md)
 # Override
 
 The override command creates a set of template and layout overrides for a Joomla! installation.

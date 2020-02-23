@@ -1,4 +1,4 @@
-Core
+[Joomla! CLI](../index.md) > [Core](core.md)
 # Version
 
 The version command reports the version of the Joomla! installation at the base path.

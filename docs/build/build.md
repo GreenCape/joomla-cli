@@ -1,4 +1,4 @@
-Build
+[Joomla! CLI](../index.md)
 # Build
 
 Perform all tests and generate documentation and the quality report.

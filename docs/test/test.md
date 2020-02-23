@@ -1,4 +1,4 @@
-Test
+[Joomla! CLI](../index.md)
 # Test
 
 A consolidated code coverage report in HTML format is generated at `/build/reports/coverage/index.php`.

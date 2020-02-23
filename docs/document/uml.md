@@ -1,4 +1,4 @@
-Document
+[Joomla! CLI](../index.md) > [Document](document.md)
 # UML
 
 Joomla! CLI can produce UML diagrams using [PlantUML](http://plantuml.com).

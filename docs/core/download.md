@@ -1,4 +1,4 @@
-Core
+[Joomla! CLI](../index.md) > [Core](core.md)
 # Download
 
 Download a Joomla! version and unpack it to the base path.

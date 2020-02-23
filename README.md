@@ -27,3 +27,7 @@ For a system-wide installation via Composer, you can run:
     composer global require 'greencape/joomla-cli=*'
 
 Make sure you have `~/.composer/vendor/bin/` in your path.
+
+## Documentation
+
+The [documentation](docs/index.md) for the available commands can be found in the [`docs` directory](docs).
