@@ -1,9 +1,41 @@
 <?php
+/**
+ * GreenCape Joomla Command Line Interface
+ *
+ * MIT License
+ *
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+ * to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions
+ * of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @author          Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
+ * @link            http://greencape.github.io
+ * @since           Class available since Release __DEPLOY_VERSION__
+ */
 
 namespace GreenCape\JoomlaCLI\Command;
 
 use RuntimeException;
 
+/**
+ * Class Docker
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
+ */
 class Docker
 {
     private $container = '*';
@@ -23,54 +55,6 @@ class Docker
     {
         $this->dir = $dir;
         $this->getContainerInfo();
-    }
-
-    /**
-     * @param  string  $state
-     *
-     * @return Docker
-     */
-    public function state(string $state): self
-    {
-        $this->state = strtolower($state);
-
-        return $this;
-    }
-
-    /**
-     * @param  string  $container
-     *
-     * @return Docker
-     */
-    public function container(string $container): self
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * Get an array of all containers matching the conditions, i.e.,
-     *   - name matches the pattern given in 'container'
-     *   - state equals the value given in 'state'
-     *
-     * @return array
-     */
-    public function dockerList(): array
-    {
-        return array_keys($this->filterContainers($this->containerList));
-    }
-
-    /**
-     * Get an array of all servers defined in the docker-compose (formerly called fig) configuration file
-     *
-     * @throws RuntimeException
-     */
-    public function dockerDef(): array
-    {
-        preg_match_all('~^(\w+):~m', file_get_contents($this->dir . '/' . $this->configFile), $match);
-
-        return $match[1];
     }
 
     /**
@@ -124,6 +108,51 @@ class Docker
     }
 
     /**
+     * @param  string  $message
+     * @param  string  $level
+     */
+    private function log(string $message, string $level = 'info'): void
+    {
+        echo $message . "\n";
+    }
+
+    /**
+     * @param  string  $state
+     *
+     * @return Docker
+     */
+    public function state(string $state): self
+    {
+        $this->state = strtolower($state);
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $container
+     *
+     * @return Docker
+     */
+    public function container(string $container): self
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * Get an array of all containers matching the conditions, i.e.,
+     *   - name matches the pattern given in 'container'
+     *   - state equals the value given in 'state'
+     *
+     * @return array
+     */
+    public function dockerList(): array
+    {
+        return array_keys($this->filterContainers($this->containerList));
+    }
+
+    /**
      * @param $availableContainers
      *
      * @return array
@@ -145,11 +174,14 @@ class Docker
     }
 
     /**
-     * @param  string  $message
-     * @param  string  $level
+     * Get an array of all servers defined in the docker-compose (formerly called fig) configuration file
+     *
+     * @throws RuntimeException
      */
-    private function log(string $message, string $level = 'info'): void
+    public function dockerDef(): array
     {
-        echo $message . "\n";
+        preg_match_all('~^(\w+):~m', file_get_contents($this->dir . '/' . $this->configFile), $match);
+
+        return $match[1];
     }
 }

@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -37,9 +35,7 @@ use League\Flysystem\Filesystem;
 /**
  * The abstract command provides common methods for most JoomlaCLI commands.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Repository
- * @since       Class available since Release 0.1.1
+ * @since  Class available since Release 0.1.1
  */
 class VersionList
 {

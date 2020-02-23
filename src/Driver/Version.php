@@ -21,8 +21,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -38,9 +36,7 @@ use League\Flysystem\Filesystem;
 /**
  * Version specific methods
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.1
+ * @since  Class available since Release 0.1.1
  */
 class Version
 {

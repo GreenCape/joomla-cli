@@ -10,6 +10,11 @@ use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
 
+/**
+ * Class CoverageMerger
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
+ */
 class CoverageMerger
 {
     /**

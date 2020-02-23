@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -43,8 +41,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Joomla introduced template / layout overrides in version 1.5 (components and modules),
  * and extended it in version 2.5 (plugins) and in version 3 (layouts).
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
  * @since       Class available since Release 0.1.0
  * @see         http://docs.joomla.org/Understanding_Output_Overrides for version 1.5+
  * @see         http://docs.joomla.org/Layout_Overrides_in_Joomla for version 2.5+

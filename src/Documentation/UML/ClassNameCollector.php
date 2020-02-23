@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -46,6 +44,8 @@ use Psr\Log\NullLogger;
  * Class ClassNameCollector
  *
  * The ClassNameCollector collects interfaces, classes and traits.
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
 {

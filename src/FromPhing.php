@@ -18,6 +18,15 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
+/**
+ * Class FromPhing
+ *
+ * This class is an intermediate class providing the code used in the phing tasks
+ * of GreenCape/build. The code will be distributed to appropriate command classes
+ * as development goes on.
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
+ */
 class FromPhing
 {
     /**

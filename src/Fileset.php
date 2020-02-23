@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -37,8 +35,9 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @since       Class available since Release 0.3.0
+ * Class Fileset
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class Fileset
 {
@@ -72,27 +71,6 @@ class Fileset
 
     /**
      * @param  string|array  $patterns
-     * @param  int           $flags
-     *
-     * @return Fileset
-     */
-    public function include($patterns, $flags = 0): self
-    {
-        foreach ((array)$patterns as $pattern) {
-            $pattern     = $this->convertPattern($pattern);
-            $this->files = array_unique(
-                array_merge(
-                    $this->files,
-                    $this->collectFiles($this->dir, $pattern, $flags)
-                )
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param  string|array  $patterns
      *
      * @return Fileset
      */
@@ -103,6 +81,27 @@ class Fileset
         }
 
         return $this;
+    }
+
+    /**
+     * @param  string  $pattern
+     *
+     * @return mixed|string
+     */
+    private function convertPattern(string $pattern)
+    {
+        $pattern = str_replace(
+            [
+                '\\*\\*',
+                '\\*',
+            ],
+            [
+                '.*',
+                '[^/]*',
+            ],
+            preg_quote($pattern, '~'));
+
+        return "~^{$pattern}\$~";
     }
 
     /**
@@ -144,6 +143,27 @@ class Fileset
     }
 
     /**
+     * @param  string|array  $patterns
+     * @param  int           $flags
+     *
+     * @return Fileset
+     */
+    public function include($patterns, $flags = 0): self
+    {
+        foreach ((array)$patterns as $pattern) {
+            $pattern     = $this->convertPattern($pattern);
+            $this->files = array_unique(
+                array_merge(
+                    $this->files,
+                    $this->collectFiles($this->dir, $pattern, $flags)
+                )
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * @param  string  $dir
      * @param  string  $pattern
      *
@@ -181,26 +201,5 @@ class Fileset
         }
 
         return $files;
-    }
-
-    /**
-     * @param  string  $pattern
-     *
-     * @return mixed|string
-     */
-    private function convertPattern(string $pattern)
-    {
-        $pattern = str_replace(
-            [
-                '\\*\\*',
-                '\\*',
-            ],
-            [
-                '.*',
-                '[^/]*',
-            ],
-            preg_quote($pattern, '~'));
-
-        return "~^{$pattern}\$~";
     }
 }
