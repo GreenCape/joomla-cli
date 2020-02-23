@@ -46,183 +46,185 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class UmlCommand extends Command
 {
-	/**
-	 * @var string
-	 */
-	private $home;
+    /**
+     * @var string
+     */
+    private $home;
 
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this->home = dirname(__DIR__, 3);
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this->home = dirname(__DIR__, 3);
 
-		$this
-			->setName('document:uml')
-			->setDescription('Generates UML diagrams')
-			->addOption(
-				'jar',
-				'j',
-				InputOption::VALUE_REQUIRED,
-				"Path to the PlantUML jar file",
-				$this->home . '/build/plantuml/plantuml.jar'
-			)
-			->addOption(
-				'classmap',
-				'c',
-				InputOption::VALUE_OPTIONAL,
-				"Path to the Joomla! classmap file",
-				'joomla/libraries/classmap.php'
-			)
-			->addOption(
-				'predefined',
-				'p',
-				InputOption::VALUE_OPTIONAL,
-				"Path to predefined diagrams",
-				'build/uml'
-			)
-			->addOption(
-				'skin',
-				's',
-				InputOption::VALUE_REQUIRED,
-				"Name ('bw', 'bw-gradient' or 'default') of or path to the skin",
-				'default'
-			)
-			->addOption(
-				'output',
-				'o',
-				InputOption::VALUE_REQUIRED,
-				"Output directory",
-				'build/report/uml'
-			)
-			->addOption(
-				'no-svg',
-				null,
-				InputOption::VALUE_NONE,
-				"Do not create .svg files, keep .puml files instead"
-			);
-	}
+        $this
+            ->setName('document:uml')
+            ->setDescription('Generates UML diagrams')
+            ->addOption(
+                'jar',
+                'j',
+                InputOption::VALUE_REQUIRED,
+                "Path to the PlantUML jar file",
+                $this->home . '/build/plantuml/plantuml.jar'
+            )
+            ->addOption(
+                'classmap',
+                'c',
+                InputOption::VALUE_OPTIONAL,
+                "Path to the Joomla! classmap file",
+                'joomla/libraries/classmap.php'
+            )
+            ->addOption(
+                'predefined',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                "Path to predefined diagrams",
+                'build/uml'
+            )
+            ->addOption(
+                'skin',
+                's',
+                InputOption::VALUE_REQUIRED,
+                "Name ('bw', 'bw-gradient' or 'default') of or path to the skin",
+                'default'
+            )
+            ->addOption(
+                'output',
+                'o',
+                InputOption::VALUE_REQUIRED,
+                "Output directory",
+                'build/report/uml'
+            )
+            ->addOption(
+                'no-svg',
+                null,
+                InputOption::VALUE_NONE,
+                "Do not create .svg files, keep .puml files instead"
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$generator = new UMLGenerator($input->getOption('jar'));
-		$generator->setLogger(new ConsoleLogger($output));
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $generator = new UMLGenerator($input->getOption('jar'));
+        $generator->setLogger(new ConsoleLogger($output));
 
-		$this->setupClassMap($generator, $input, $output);
-		$this->setupPredefinedDiagrams($generator, $input, $output);
-		$this->setupSkin($generator, $input, $output);
-		$this->setupSvgCreation($generator, $input, $output);
+        $this->setupClassMap($generator, $input, $output);
+        $this->setupPredefinedDiagrams($generator, $input, $output);
+        $this->setupSkin($generator, $input, $output);
+        $this->setupSvgCreation($generator, $input, $output);
 
-		$source = $this->setupSource($input, $output);
-		$target = $this->setupTarget($input, $output);
-		$generator->generate($source, $target);
-	}
+        $source = $this->setupSource($input, $output);
+        $target = $this->setupTarget($input, $output);
+        $generator->generate($source, $target);
+    }
 
-	/**
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return Fileset
-	 */
-	private function setupSource(InputInterface $input, OutputInterface $output): Fileset
-	{
-		$dir = $input->getOption('basepath');
-		$output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
-		$source = new Fileset($dir);
-		$source->include('**/*.php');
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return Fileset
+     */
+    private function setupSource(InputInterface $input, OutputInterface $output): Fileset
+    {
+        $dir = $input->getOption('basepath');
+        $output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
+        $source = new Fileset($dir);
+        $source->include('**/*.php');
 
-		return $source;
-	}
+        return $source;
+    }
 
-	/**
-	 * @param UMLGenerator    $generator
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 */
-	private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
-	{
-		$classMapFile = $input->getOption('classmap');
-		if (!empty($classMapFile))
-		{
-			$output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
-			$generator->classMap($classMapFile);
-		}
-	}
+    /**
+     * @param  UMLGenerator     $generator
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     */
+    private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+    {
+        $classMapFile = $input->getOption('classmap');
 
-	/**
-	 * @param UMLGenerator    $generator
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 */
-	private function setupPredefinedDiagrams(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
-	{
-		$predefined = $input->getOption('predefined');
-		if (!empty($predefined))
-		{
-			if ($predefined === 'php')
-			{
-				$predefined = $this->home . '/build/plantuml/php';
-			}
-			$output->writeln("Including predefined diagrams from $predefined", OutputInterface::VERBOSITY_VERBOSE);
-			$generator->includeReferences($predefined);
-		}
-	}
+        if (!empty($classMapFile)) {
+            $output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
+            $generator->classMap($classMapFile);
+        }
+    }
 
-	/**
-	 * @param UMLGenerator    $generator
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 */
-	private function setupSkin(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
-	{
-		$skin = $input->getOption('skin');
-		if (preg_match('~^[\w-]+$~', $skin))
-		{
-			$skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
-		}
-		$output->writeln("Using skin $skin", OutputInterface::VERBOSITY_VERBOSE);
-		$generator->skin($skin);
-	}
+    /**
+     * @param  UMLGenerator     $generator
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     */
+    private function setupPredefinedDiagrams(
+        UMLGenerator $generator,
+        InputInterface $input,
+        OutputInterface $output
+    ): void {
+        $predefined = $input->getOption('predefined');
 
-	/**
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return bool|string|string[]|null
-	 */
-	protected function setupTarget(InputInterface $input, OutputInterface $output)
-	{
-		$targetDir = $input->getOption('output');
-		$output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+        if (!empty($predefined)) {
+            if ($predefined === 'php') {
+                $predefined = $this->home . '/build/plantuml/php';
+            }
 
-		return $targetDir;
-	}
+            $output->writeln("Including predefined diagrams from $predefined", OutputInterface::VERBOSITY_VERBOSE);
+            $generator->includeReferences($predefined);
+        }
+    }
 
-	/**
-	 * @param UMLGenerator    $generator
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 */
-	private function setupSvgCreation(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
-	{
-		if ($input->getOption('no-svg'))
-		{
-			$output->writeln("Keeping UML source files, no SVGs will be created", OutputInterface::VERBOSITY_VERBOSE);
-			$generator->createSvg(false);
-		}
-		else
-		{
-			$output->writeln(" SVGs will be created, discarding UML source files", OutputInterface::VERBOSITY_VERBOSE);
-			$generator->createSvg();
-		}
-	}
+    /**
+     * @param  UMLGenerator     $generator
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     */
+    private function setupSkin(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+    {
+        $skin = $input->getOption('skin');
+
+        if (preg_match('~^[\w-]+$~', $skin)) {
+            $skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
+        }
+
+        $output->writeln("Using skin $skin", OutputInterface::VERBOSITY_VERBOSE);
+        $generator->skin($skin);
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return bool|string|string[]|null
+     */
+    protected function setupTarget(InputInterface $input, OutputInterface $output)
+    {
+        $targetDir = $input->getOption('output');
+        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+
+        return $targetDir;
+    }
+
+    /**
+     * @param  UMLGenerator     $generator
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     */
+    private function setupSvgCreation(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+    {
+        if ($input->getOption('no-svg')) {
+            $output->writeln("Keeping UML source files, no SVGs will be created", OutputInterface::VERBOSITY_VERBOSE);
+            $generator->createSvg(false);
+        } else {
+            $output->writeln(" SVGs will be created, discarding UML source files", OutputInterface::VERBOSITY_VERBOSE);
+            $generator->createSvg();
+        }
+    }
 }

@@ -45,39 +45,40 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DocumentCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('document')
-			->setAliases(['document:api'])
-			->setDescription('Generates API documentation using the specified generator')
-			->addOption(
-				'generator',
-				'g',
-				InputArgument::OPTIONAL,
-				'The API documentation generator to use (`apigen` or `phpdoc`)',
-				'apigen'
-			);
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('document')
+            ->setAliases(['document:api'])
+            ->setDescription('Generates API documentation using the specified generator')
+            ->addOption(
+                'generator',
+                'g',
+                InputArgument::OPTIONAL,
+                'The API documentation generator to use (`apigen` or `phpdoc`)',
+                'apigen'
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @throws Exception
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->document($input->getOption('generator'));
-	}
+        (new FromPhing($output, $basePath, $project))->document($input->getOption('generator'));
+    }
 }

@@ -42,28 +42,28 @@ use JFactory;
  */
 class Joomla3Driver extends JoomlaDriver
 {
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return JFactory::getConfig()->set($key, $value);
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return JFactory::getConfig()->set($key, $value);
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return JFactory::getConfig()->get($key);
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return JFactory::getConfig()->get($key);
+    }
 }

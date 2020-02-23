@@ -43,29 +43,30 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DependCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('quality:depend')
-			->setDescription('Generates depend.xml and software metrics charts using PHP Depend');
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('quality:depend')
+            ->setDescription('Generates depend.xml and software metrics charts using PHP Depend')
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->qualityDepend();
-	}
+        (new FromPhing($output, $basePath, $project))->qualityDepend();
+    }
 }

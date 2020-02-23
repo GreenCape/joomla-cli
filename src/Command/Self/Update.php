@@ -43,29 +43,30 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class UpdateCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('self:update')
-			->setDescription('Updates the build environment');
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('self:update')
+            ->setDescription('Updates the build environment')
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->selfUpdate();
-	}
+        (new FromPhing($output, $basePath, $project))->selfUpdate();
+    }
 }

@@ -40,33 +40,33 @@ use GreenCape\JoomlaCLI\Documentation\API\Strategy\APIGeneratorInterface;
  */
 class APIGenerator
 {
-	/**
-	 * @var APIGeneratorInterface
-	 */
-	private $generator;
+    /**
+     * @var APIGeneratorInterface
+     */
+    private $generator;
 
-	/**
-	 * APIGenerator constructor.
-	 *
-	 * @param string $generator
-	 */
-	public function __construct(string $generator)
-	{
-		$classname       = 'GreenCape\\JoomlaCLI\\Documentation\\API\\Strategy\\' . ucfirst($generator);
-		$this->generator = new $classname;
-	}
+    /**
+     * APIGenerator constructor.
+     *
+     * @param  string  $generator
+     */
+    public function __construct(string $generator)
+    {
+        $classname       = 'GreenCape\\JoomlaCLI\\Documentation\\API\\Strategy\\' . ucfirst($generator);
+        $this->generator = new $classname;
+    }
 
-	/**
-	 * Generate API documentation using the selected tool
-	 *
-	 * @param string $title   The title for the documentation
-	 * @param string $source  The directory containing the source files
-	 * @param string $target  The target directory for the documentation
-	 * @param string $umlPath The path to the UML diagrams relative to `$target`
-	 */
-	public function run(string $title, string $source, string $target, string $umlPath): void
-	{
-		$this->generator->generate($title, $source, $target);
-		$this->generator->embedUml($umlPath);
-	}
+    /**
+     * Generate API documentation using the selected tool
+     *
+     * @param  string  $title    The title for the documentation
+     * @param  string  $source   The directory containing the source files
+     * @param  string  $target   The target directory for the documentation
+     * @param  string  $umlPath  The path to the UML diagrams relative to `$target`
+     */
+    public function run(string $title, string $source, string $target, string $umlPath): void
+    {
+        $this->generator->generate($title, $source, $target);
+        $this->generator->embedUml($umlPath);
+    }
 }

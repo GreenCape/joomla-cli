@@ -45,96 +45,94 @@ use JText;
  */
 class Joomla1Dot5Driver extends JoomlaDriver
 {
-	/**
-	 * Setup the environment
-	 *
-	 * @param string $application The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 * @throws Exception
-	 */
-	public function setupEnvironment($application = 'site'): void
-	{
-		if ($application !== 'site')
-		{
-			$this->basePath .= '/' . $application;
-		}
+    /**
+     * Setup the environment
+     *
+     * @param  string  $application  The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     * @throws Exception
+     */
+    public function setupEnvironment($application = 'site'): void
+    {
+        if ($application !== 'site') {
+            $this->basePath .= '/' . $application;
+        }
 
-		$server  = array(
-			'HTTP_HOST'       => 'undefined',
-			'HTTP_USER_AGENT' => 'undefined',
-			'REQUEST_METHOD'  => 'GET',
-		);
-		$_SERVER = array_merge($_SERVER, $server);
+        $server  = [
+            'HTTP_HOST'       => 'undefined',
+            'HTTP_USER_AGENT' => 'undefined',
+            'REQUEST_METHOD'  => 'GET',
+        ];
+        $_SERVER = array_merge($_SERVER, $server);
 
-		define('JPATH_BASE', $this->basePath);
-		define('DS', DIRECTORY_SEPARATOR);
+        define('JPATH_BASE', $this->basePath);
+        define('DS', DIRECTORY_SEPARATOR);
 
-		require_once JPATH_BASE . '/includes/defines.php';
-		/** @noinspection PhpUndefinedConstantInspection - defined in defines.php */
-		require_once JPATH_LIBRARIES . '/loader.php';
+        require_once JPATH_BASE . '/includes/defines.php';
+        /** @noinspection PhpUndefinedConstantInspection - defined in defines.php */
+        require_once JPATH_LIBRARIES . '/loader.php';
 
-		spl_autoload_register('__autoload');
+        spl_autoload_register('__autoload');
 
-		require_once JPATH_BASE . '/includes/framework.php';
+        require_once JPATH_BASE . '/includes/framework.php';
 
-		if ($application === 'administrator')
-		{
-			require_once JPATH_BASE . '/includes/helper.php';
-			require_once JPATH_BASE . '/includes/toolbar.php';
+        if ($application === 'administrator') {
+            require_once JPATH_BASE . '/includes/helper.php';
+            require_once JPATH_BASE . '/includes/toolbar.php';
 
-			// JUri uses $_SERVER['HTTP_HOST'] without check
-			$_SERVER['HTTP_HOST'] = 'CLI';
-		}
+            // JUri uses $_SERVER['HTTP_HOST'] without check
+            $_SERVER['HTTP_HOST'] = 'CLI';
+        }
 
-		jimport('joomla.installer.installer');
-		jimport('joomla.installer.helper');
+        jimport('joomla.installer.installer');
+        jimport('joomla.installer.helper');
 
-		$mainframe = JFactory::getApplication($application);
-		$mainframe->initialise();
-	}
+        $mainframe = JFactory::getApplication($application);
+        $mainframe->initialise();
+    }
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return JFactory::getConfig()->setValue('config.' . $key, $value);
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return JFactory::getConfig()->setValue('config.' . $key, $value);
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return JFactory::getConfig()->getValue('config.' . $key);
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return JFactory::getConfig()->getValue('config.' . $key);
+    }
 
-	/**
-	 *
-	 * @param object $manifest
-	 *
-	 * @return array
-	 */
-	public function getExtensionInfo($manifest): array
-	{
-		$data                = array();
-		$manifest            = $manifest->document;
-		$data['type']        = (string) $manifest->attributes('type');
-		$data['extension']   = (string) $manifest->name[0]->data();
-		$data['name']        = JText::_($manifest->name[0]->data());
-		$data['version']     = (string) $manifest->version[0]->data();
-		$data['description'] = JText::_($manifest->description[0]->data());
+    /**
+     *
+     * @param  object  $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest): array
+    {
+        $data                = [];
+        $manifest            = $manifest->document;
+        $data['type']        = (string)$manifest->attributes('type');
+        $data['extension']   = (string)$manifest->name[0]->data();
+        $data['name']        = JText::_($manifest->name[0]->data());
+        $data['version']     = (string)$manifest->version[0]->data();
+        $data['description'] = JText::_($manifest->description[0]->data());
 
-		return $data;
-	}
+        return $data;
+    }
 }

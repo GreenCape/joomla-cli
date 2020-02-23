@@ -43,30 +43,31 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CheckStyleCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('quality:check-style')
-			->setAliases(['quality:cs'])
-			->setDescription('Generates checkstyle.xml using PHP CodeSniffer');
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('quality:check-style')
+            ->setAliases(['quality:cs'])
+            ->setDescription('Generates checkstyle.xml using PHP CodeSniffer')
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->qualityCheckStyle();
-	}
+        (new FromPhing($output, $basePath, $project))->qualityCheckStyle();
+    }
 }

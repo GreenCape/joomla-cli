@@ -36,46 +36,46 @@ use PHPUnit\Framework\TestCase;
 
 class ApplicationTest extends TestCase
 {
-	/** @var  Application */
-	private $console;
+    /** @var  Application */
+    private $console;
 
-	/**
-	 * @return array
-	 */
-	public function commandNameProvider(): array
-	{
-		return [
-			'version'  => ['core:version'],
-			'download' => ['core:download'],
-			'install'  => ['extension:install'],
-			'override' => ['template:override'],
-		];
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+        $this->console = new Application();
+    }
 
-	/**
-	 * @dataProvider commandNameProvider
-	 *
-	 * @param string $command
-	 */
-	public function testCommandIsDefined($command): void
-	{
-		$this->assertTrue($this->console->has($command));
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+    }
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-		$this->console = new Application();
-	}
+    /**
+     * @return array
+     */
+    public function commandNameProvider(): array
+    {
+        return [
+            'version'  => ['core:version'],
+            'download' => ['core:download'],
+            'install'  => ['extension:install'],
+            'override' => ['template:override'],
+        ];
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
+    /**
+     * @dataProvider commandNameProvider
+     *
+     * @param  string  $command
+     */
+    public function testCommandIsDefined($command): void
+    {
+        $this->assertTrue($this->console->has($command));
+    }
 }

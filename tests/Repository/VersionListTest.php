@@ -39,88 +39,88 @@ use PHPUnit\Framework\TestCase;
 
 class VersionListTest extends TestCase
 {
-	/**
-	 * @var Filesystem
-	 */
-	private static $filesystem;
-	/**
-	 * @var string
-	 */
-	private static $cacheFile;
-	/**
-	 * @var VersionList
-	 */
-	private static $versionList;
+    /**
+     * @var Filesystem
+     */
+    private static $filesystem;
+    /**
+     * @var string
+     */
+    private static $cacheFile;
+    /**
+     * @var VersionList
+     */
+    private static $versionList;
 
-	/**
-	 */
-	public static function setUpBeforeClass(): void
-	{
-		self::$filesystem = new Filesystem(new MemoryAdapter());
-		self::$cacheFile  = 'versions.json';
-	}
+    /**
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$filesystem = new Filesystem(new MemoryAdapter());
+        self::$cacheFile  = 'versions.json';
+    }
 
-	/**
-	 * @throws FileNotFoundException
-	 */
-	public function setUp(): void
-	{
-		self::$versionList = new VersionList(self::$filesystem, self::$cacheFile);
-	}
+    /**
+     * @throws FileNotFoundException
+     */
+    public function setUp(): void
+    {
+        self::$versionList = new VersionList(self::$filesystem, self::$cacheFile);
+    }
 
-	/**
-	 * @throws FileNotFoundException
-	 * @testdox Version list contains branches, tags and aliases
-	 */
-	public function testALot(): void
-	{
-		$list = json_decode(self::$filesystem->read(self::$cacheFile), true);
-		$this->assertArrayHasKey('heads', $list);
-		$this->assertArrayHasKey('tags', $list);
-		$this->assertArrayHasKey('alias', $list);
-	}
+    /**
+     * @throws FileNotFoundException
+     * @testdox Version list contains branches, tags and aliases
+     */
+    public function testALot(): void
+    {
+        $list = json_decode(self::$filesystem->read(self::$cacheFile), true);
+        $this->assertArrayHasKey('heads', $list);
+        $this->assertArrayHasKey('tags', $list);
+        $this->assertArrayHasKey('alias', $list);
+    }
 
-	/**
-	 * @testdox Incomplete versions are resolved correctly
-	 */
-	public function testALot2(): void
-	{
-		$this->assertEquals('1.5.26', self::$versionList->resolve('1'));
-		$this->assertEquals('1.5.26', self::$versionList->resolve('1.5'));
-	}
+    /**
+     * @testdox Incomplete versions are resolved correctly
+     */
+    public function testALot2(): void
+    {
+        $this->assertEquals('1.5.26', self::$versionList->resolve('1'));
+        $this->assertEquals('1.5.26', self::$versionList->resolve('1.5'));
+    }
 
-	/**
-	 * @testdox Branches and tags are recognised and distinguished
-	 */
-	public function testALot3(): void
-	{
-		$this->assertFalse(self::$versionList->isBranch('3.5.0'), 'Tag `3.5.0` is not a branch name');
-		$this->assertTrue(self::$versionList->isBranch('staging'), '`Branch `staging` should be recognised');
+    /**
+     * @testdox Branches and tags are recognised and distinguished
+     */
+    public function testALot3(): void
+    {
+        $this->assertFalse(self::$versionList->isBranch('3.5.0'), 'Tag `3.5.0` is not a branch name');
+        $this->assertTrue(self::$versionList->isBranch('staging'), '`Branch `staging` should be recognised');
 
-		$this->assertTrue(self::$versionList->isTag('3.5.0'), 'Tag `3.5.0` should be recognised');
-		$this->assertFalse(self::$versionList->isTag('staging'), '`Branch `staging` is not a tag');
-	}
+        $this->assertTrue(self::$versionList->isTag('3.5.0'), 'Tag `3.5.0` should be recognised');
+        $this->assertFalse(self::$versionList->isTag('staging'), '`Branch `staging` is not a tag');
+    }
 
-	/**
-	 * @testdox The right repository for a version is provided
-	 */
-	public function testALot4(): void
-	{
-		$this->assertEquals('greencape/joomla-legacy', self::$versionList->getRepository('1.0.0'));
-		$this->assertEquals('joomla/joomla-cms', self::$versionList->getRepository('3.5.0'));
-	}
+    /**
+     * @testdox The right repository for a version is provided
+     */
+    public function testALot4(): void
+    {
+        $this->assertEquals('greencape/joomla-legacy', self::$versionList->getRepository('1.0.0'));
+        $this->assertEquals('joomla/joomla-cms', self::$versionList->getRepository('3.5.0'));
+    }
 
-	/**
-	 * @throws FileNotFoundException
-	 * @testdox The version list is cached
-	 */
-	public function testReuse(): void
-	{
-		$time1 = self::$filesystem->getTimestamp(self::$cacheFile);
-		/** @noinspection PhpUnusedLocalVariableInspection */
-		$versionList = new VersionList(self::$filesystem, self::$cacheFile);
-		$time2       = self::$filesystem->getTimestamp(self::$cacheFile);
+    /**
+     * @throws FileNotFoundException
+     * @testdox The version list is cached
+     */
+    public function testReuse(): void
+    {
+        $time1 = self::$filesystem->getTimestamp(self::$cacheFile);
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $versionList = new VersionList(self::$filesystem, self::$cacheFile);
+        $time2       = self::$filesystem->getTimestamp(self::$cacheFile);
 
-		$this->assertEquals($time1, $time2);
-	}
+        $this->assertEquals($time1, $time2);
+    }
 }

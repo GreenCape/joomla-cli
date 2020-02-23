@@ -43,29 +43,30 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class UpCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('docker:up')
-			->setDescription('Starts the test containers after rebuilding them');
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('docker:up')
+            ->setDescription('Starts the test containers after rebuilding them')
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->dockerUp();
-	}
+        (new FromPhing($output, $basePath, $project))->dockerUp();
+    }
 }

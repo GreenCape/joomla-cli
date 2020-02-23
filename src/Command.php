@@ -49,91 +49,91 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class Command extends BaseCommand
 {
-	/** @var JoomlaDriver */
-	protected $joomla;
+    /** @var JoomlaDriver */
+    protected $joomla;
 
-	/**
-	 * @var string
-	 * @deprecated Use Command::$joomlaFilesystem instead
-	 */
-	protected $basePath;
+    /**
+     * @var string
+     * @deprecated Use Command::$joomlaFilesystem instead
+     */
+    protected $basePath;
 
-	/** @var Filesystem */
-	protected $joomlaFilesystem;
+    /** @var Filesystem */
+    protected $joomlaFilesystem;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param string $name The name of the command
-	 */
-	public function __construct($name = null)
-	{
-		parent::__construct($name);
-		$this->addGlobalOptions();
-	}
+    /**
+     * Constructor.
+     *
+     * @param  string  $name  The name of the command
+     */
+    public function __construct($name = null)
+    {
+        parent::__construct($name);
+        $this->addGlobalOptions();
+    }
 
-	/**
-	 * Add options common to all commands
-	 *
-	 * @return  void
-	 */
-	protected function addGlobalOptions(): void
-	{
-		$this
-			->addOption(
-				'basepath',
-				'b',
-				InputOption::VALUE_REQUIRED,
-				'The root of the Joomla! installation. Defaults to the current working directory.',
-				'.'
-			);
-	}
+    /**
+     * Add options common to all commands
+     *
+     * @return  void
+     */
+    protected function addGlobalOptions(): void
+    {
+        $this
+            ->addOption(
+                'basepath',
+                'b',
+                InputOption::VALUE_REQUIRED,
+                'The root of the Joomla! installation. Defaults to the current working directory.',
+                '.'
+            );
+    }
 
-	/**
-	 * Setup the environment
-	 *
-	 * @param string          $application The application, eg., 'site' or 'administration'
-	 * @param InputInterface  $input       An InputInterface instance
-	 * @param OutputInterface $output      An OutputInterface instance
-	 *
-	 * @return  void
-	 * @throws Exception
-	 */
-	protected function setupEnvironment($application, InputInterface $input, OutputInterface $output): void
-	{
-		$this->loadDriver($input, $output);
+    /**
+     * Setup the environment
+     *
+     * @param  string           $application  The application, eg., 'site' or 'administration'
+     * @param  InputInterface   $input        An InputInterface instance
+     * @param  OutputInterface  $output       An OutputInterface instance
+     *
+     * @return  void
+     * @throws Exception
+     */
+    protected function setupEnvironment($application, InputInterface $input, OutputInterface $output): void
+    {
+        $this->loadDriver($input, $output);
 
-		$this->joomla->setupEnvironment($application);
-	}
+        $this->joomla->setupEnvironment($application);
+    }
 
-	/**
-	 * Read the base path from the options
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  string  The base path
-	 */
-	protected function handleBasePath(InputInterface $input, OutputInterface $output): string
-	{
-		$path                   = realpath($input->getOption('basepath'));
-		$adapter                = new Local($path);
-		$this->joomlaFilesystem = new Filesystem($adapter);
+    /**
+     * Read the base path from the options
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  string  The base path
+     */
+    protected function handleBasePath(InputInterface $input, OutputInterface $output): string
+    {
+        $path                   = realpath($input->getOption('basepath'));
+        $adapter                = new Local($path);
+        $this->joomlaFilesystem = new Filesystem($adapter);
 
-		$output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
+        $output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
-		return $path;
-	}
+        return $path;
+    }
 
-	/**
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return void
-	 * @throws FileNotFoundException
-	 */
-	protected function loadDriver(InputInterface $input, OutputInterface $output): void
-	{
-		$this->joomla   = (new DriverFactory)->create($this->joomlaFilesystem);
-	}
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     * @throws FileNotFoundException
+     */
+    protected function loadDriver(InputInterface $input, OutputInterface $output): void
+    {
+        $this->joomla = (new DriverFactory)->create($this->joomlaFilesystem);
+    }
 }

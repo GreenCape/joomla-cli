@@ -39,44 +39,38 @@ use PHPUnit\Framework\TestCase;
 
 class AutoloadTest extends TestCase
 {
-	public function testVendorClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(DocBlock::class, new DocBlock(''));
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+    }
 
-	public function testSourceClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(Application::class, new Application());
-			$this->assertInstanceOf(DriverFactory::class, new DriverFactory());
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+    }
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-	}
+    public function testVendorClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(DocBlock::class, new DocBlock(''));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
+    public function testSourceClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(Application::class, new Application());
+            $this->assertInstanceOf(DriverFactory::class, new DriverFactory());
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 }

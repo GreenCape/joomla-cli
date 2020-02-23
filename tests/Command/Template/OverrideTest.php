@@ -43,54 +43,55 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class OverrideTest extends TestCase
 {
-	/**
-	 * @var Filesystem
-	 */
-	private static $filesystem;
+    /**
+     * @var Filesystem
+     */
+    private static $filesystem;
 
-	use JoomlaPackagesTrait;
+    use JoomlaPackagesTrait;
 
-	/**
-	 */
-	public static function setUpBeforeClass(): void
-	{
-		self::$filesystem = new Filesystem(new Local('tests'));
-	}
+    /**
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$filesystem = new Filesystem(new Local('tests'));
+    }
 
-	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
-	 */
-	public function testOverride($path, $release, $short, $long): void
-	{
-		$command = new DownloadCommand();
-		$output  = new NullOutput();
+    protected function tearDown(): void
+    {
+        self::$filesystem->deleteDir('tmp');
+    }
 
-		$command->run(new StringInput("-b tests/tmp/$path $short"), $output);
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws Exception
+     * @dataProvider joomlaPackages
+     */
+    public function testOverride($path, $release, $short, $long): void
+    {
+        $command = new DownloadCommand();
+        $output  = new NullOutput();
 
-		$command = new OverrideCommand();
-		$output  = new NullOutput();
+        $command->run(new StringInput("-b tests/tmp/$path $short"), $output);
 
-		$command->run(new StringInput("-b tests/tmp/$path system"), $output);
+        $command = new OverrideCommand();
+        $output  = new NullOutput();
 
-		$contents = array_reduce(
-			self::$filesystem->listContents("tmp/$path/templates/system/html"),
-			static function ($carry, $item) {
-				$carry[] = $item['basename'];
-				return $carry;
-			},
-			[]
-		);
-		$this->assertTrue($release === '1.0' || count($contents) > 2);
-	}
+        $command->run(new StringInput("-b tests/tmp/$path system"), $output);
 
-	protected function tearDown(): void
-	{
-		self::$filesystem->deleteDir('tmp');
-	}
+        $contents = array_reduce(
+            self::$filesystem->listContents("tmp/$path/templates/system/html"),
+            static function ($carry, $item) {
+                $carry[] = $item['basename'];
+
+                return $carry;
+            },
+            []
+        );
+        $this->assertTrue($release === '1.0' || count($contents) > 2);
+    }
 }

@@ -43,75 +43,77 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class DownloadTest extends TestCase
 {
-	/**
-	 * @var Filesystem
-	 */
-	private static $filesystem;
+    /**
+     * @var Filesystem
+     */
+    private static $filesystem;
 
-	use JoomlaPackagesTrait;
+    use JoomlaPackagesTrait;
 
-	/**
-	 */
-	public static function setUpBeforeClass(): void
-	{
-		self::$filesystem = new Filesystem(new Local('tests'));
-	}
+    /**
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$filesystem = new Filesystem(new Local('tests'));
+    }
 
-	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
-	 * @testdox      Command `download` finds the correct source for different versions
-	 */
-	public function testDownload($path, $release, $short, $long): void
-	{
-		$command = new DownloadCommand();
-		$output  = new BufferedOutput();
+    protected function tearDown(): void
+    {
+        self::$filesystem->deleteDir('tmp');
+    }
 
-		$command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws Exception
+     * @dataProvider joomlaPackages
+     * @testdox      Command `download` finds the correct source for different versions
+     */
+    public function testDownload($path, $release, $short, $long): void
+    {
+        $command = new DownloadCommand();
+        $output  = new BufferedOutput();
 
-		$this->assertFileExists("tests/tmp/$path/index.php", "Expected files in tests/tmp/$path, but mandatory index.php was not found");
+        $command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
 
-		$time1 = filemtime("tests/tmp/cache/{$short}.tar.gz");
-		$command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
-		$time2 = filemtime("tests/tmp/cache/{$short}.tar.gz");
+        $this->assertFileExists("tests/tmp/$path/index.php",
+            "Expected files in tests/tmp/$path, but mandatory index.php was not found");
 
-		$this->assertEquals($time1, $time2, 'Second call should have been served from the cache');
-	}
+        $time1 = filemtime("tests/tmp/cache/{$short}.tar.gz");
+        $command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
+        $time2 = filemtime("tests/tmp/cache/{$short}.tar.gz");
 
-	/**
-	 * @throws Exception
-	 * @testdox Command `download` finds the correct source for branches
-	 */
-	public function testDownload2(): void
-	{
-		$command = new DownloadCommand();
-		$output  = new NullOutput();
+        $this->assertEquals($time1, $time2, 'Second call should have been served from the cache');
+    }
 
-		$command->run(new StringInput('-b tests/tmp/staging staging'), $output);
-		$this->assertFileExists('tests/tmp/staging/index.php', 'Expected files in tests/tmp/staging, but mandatory index.php was not found');
-	}
+    /**
+     * @throws Exception
+     * @testdox Command `download` finds the correct source for branches
+     */
+    public function testDownload2(): void
+    {
+        $command = new DownloadCommand();
+        $output  = new NullOutput();
 
-	/**
-	 * @throws Exception
-	 * @testdox Trying to download a non-existent version causes a message
-	 */
-	public function testDownload3(): void
-	{
-		$command = new DownloadCommand();
-		$output  = new BufferedOutput();
+        $command->run(new StringInput('-b tests/tmp/staging staging'), $output);
+        $this->assertFileExists('tests/tmp/staging/index.php',
+            'Expected files in tests/tmp/staging, but mandatory index.php was not found');
+    }
 
-		$this->expectExceptionMessage('nx: Version is unknown');
+    /**
+     * @throws Exception
+     * @testdox Trying to download a non-existent version causes a message
+     */
+    public function testDownload3(): void
+    {
+        $command = new DownloadCommand();
+        $output  = new BufferedOutput();
 
-		$command->run(new StringInput('-b tests/tmp/nx nx'), $output);
-	}
+        $this->expectExceptionMessage('nx: Version is unknown');
 
-	protected function tearDown(): void
-	{
-		self::$filesystem->deleteDir('tmp');
-	}
+        $command->run(new StringInput('-b tests/tmp/nx nx'), $output);
+    }
 }

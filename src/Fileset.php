@@ -42,174 +42,167 @@ use SplFileInfo;
  */
 class Fileset
 {
-	public const NO_RECURSE = 1;
-	public const ONLY_DIRS = 2;
+    public const NO_RECURSE = 1;
+    public const ONLY_DIRS  = 2;
 
-	/**
-	 * @var string
-	 */
-	private $dir;
-	/**
-	 * @var array
-	 */
-	private $files = [];
-	/**
-	 * @var array
-	 */
-	private $excludes = [
-		'~(^|/)\.\.?$~'
-	];
+    /**
+     * @var string
+     */
+    private $dir;
 
-	/**
-	 * Fileset constructor.
-	 *
-	 * @param string $dir
-	 */
-	public function __construct(string $dir)
-	{
-		$this->dir = $dir;
-	}
+    /**
+     * @var array
+     */
+    private $files = [];
 
-	/**
-	 * @param string|array $patterns
-	 * @param int          $flags
-	 *
-	 * @return Fileset
-	 */
-	public function include($patterns, $flags = 0): self
-	{
-		foreach ((array) $patterns as $pattern)
-		{
-			$pattern     = $this->convertPattern($pattern);
-			$this->files = array_unique(
-				array_merge(
-					$this->files,
-					$this->collectFiles($this->dir, $pattern, $flags)
-				)
-			);
-		}
+    /**
+     * @var array
+     */
+    private $excludes = [
+        '~(^|/)\.\.?$~',
+    ];
 
-		return $this;
-	}
+    /**
+     * Fileset constructor.
+     *
+     * @param  string  $dir
+     */
+    public function __construct(string $dir)
+    {
+        $this->dir = $dir;
+    }
 
-	/**
-	 * @param string|array $patterns
-	 *
-	 * @return Fileset
-	 */
-	public function exclude(string $patterns): self
-	{
-		foreach ((array) $patterns as $pattern)
-		{
-			$this->excludes[] = $this->convertPattern($pattern);
-		}
+    /**
+     * @param  string|array  $patterns
+     * @param  int           $flags
+     *
+     * @return Fileset
+     */
+    public function include($patterns, $flags = 0): self
+    {
+        foreach ((array)$patterns as $pattern) {
+            $pattern     = $this->convertPattern($pattern);
+            $this->files = array_unique(
+                array_merge(
+                    $this->files,
+                    $this->collectFiles($this->dir, $pattern, $flags)
+                )
+            );
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getDir(): string
-	{
-		return $this->dir;
-	}
+    /**
+     * @param  string|array  $patterns
+     *
+     * @return Fileset
+     */
+    public function exclude(string $patterns): self
+    {
+        foreach ((array)$patterns as $pattern) {
+            $this->excludes[] = $this->convertPattern($pattern);
+        }
 
-	/**
-	 * @return array
-	 */
-	public function getFiles(): array
-	{
-		if (empty($this->files))
-		{
-			$this->include('**');
-		}
+        return $this;
+    }
 
-		return array_map(
-			function ($file) {
-				return "{$this->dir}/$file";
-			},
-			array_values(
-				array_filter(
-					$this->files,
-					function ($file) {
-						foreach ($this->excludes as $pattern)
-						{
-							if (preg_match($pattern, $file))
-							{
-								return false;
-							}
-						}
+    /**
+     * @return string
+     */
+    public function getDir(): string
+    {
+        return $this->dir;
+    }
 
-						return true;
-					}
-				)
-			)
-		);
-	}
+    /**
+     * @return array
+     */
+    public function getFiles(): array
+    {
+        if (empty($this->files)) {
+            $this->include('**');
+        }
 
-	/**
-	 * @param string $dir
-	 * @param string $pattern
-	 *
-	 * @param int    $flags
-	 *
-	 * @return array
-	 */
-	private function collectFiles(string $dir, string $pattern, int $flags = 0): array
-	{
-		$files = [];
+        return array_map(
+            function ($file) {
+                return "{$this->dir}/$file";
+            },
+            array_values(
+                array_filter(
+                    $this->files,
+                    function ($file) {
+                        foreach ($this->excludes as $pattern) {
+                            if (preg_match($pattern, $file)) {
+                                return false;
+                            }
+                        }
 
-		if (!is_dir($dir))
-		{
-			return $files;
-		}
+                        return true;
+                    }
+                )
+            )
+        );
+    }
 
-		$iterator = ($flags & self::NO_RECURSE) === self::NO_RECURSE
-			? new DirectoryIterator($dir)
-			: new RecursiveIteratorIterator(
-				new RecursiveDirectoryIterator($dir),
-				RecursiveIteratorIterator::SELF_FIRST
-			);
-		$len      = strlen($dir) + 1;
+    /**
+     * @param  string  $dir
+     * @param  string  $pattern
+     *
+     * @param  int     $flags
+     *
+     * @return array
+     */
+    private function collectFiles(string $dir, string $pattern, int $flags = 0): array
+    {
+        $files = [];
 
-		/** @var SplFileInfo $file */
-		foreach ($iterator as $file)
-		{
-			if (($flags & self::ONLY_DIRS) === self::ONLY_DIRS && !$file->isDir())
-			{
-				continue;
-			}
+        if (!is_dir($dir)) {
+            return $files;
+        }
 
-			$pathname = substr($file->getPathname(), $len);
+        $iterator = ($flags & self::NO_RECURSE) === self::NO_RECURSE
+            ? new DirectoryIterator($dir)
+            : new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($dir),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+        $len      = strlen($dir) + 1;
 
-			if (preg_match($pattern, $pathname))
-			{
-				$files[] = $pathname;
-			}
-		}
+        /** @var SplFileInfo $file */
+        foreach ($iterator as $file) {
+            if (($flags & self::ONLY_DIRS) === self::ONLY_DIRS && !$file->isDir()) {
+                continue;
+            }
 
-		return $files;
-	}
+            $pathname = substr($file->getPathname(), $len);
 
-	/**
-	 * @param string $pattern
-	 *
-	 * @return mixed|string
-	 */
-	private function convertPattern(string $pattern)
-	{
-		$pattern = str_replace(
-			[
-				'\\*\\*',
-				'\\*'
-			],
-			[
-				'.*',
-				'[^/]*'
-			],
-			preg_quote($pattern, '~'));
+            if (preg_match($pattern, $pathname)) {
+                $files[] = $pathname;
+            }
+        }
 
-		return "~^{$pattern}\$~";
-	}
+        return $files;
+    }
+
+    /**
+     * @param  string  $pattern
+     *
+     * @return mixed|string
+     */
+    private function convertPattern(string $pattern)
+    {
+        $pattern = str_replace(
+            [
+                '\\*\\*',
+                '\\*',
+            ],
+            [
+                '.*',
+                '[^/]*',
+            ],
+            preg_quote($pattern, '~'));
+
+        return "~^{$pattern}\$~";
+    }
 }
