@@ -1,0 +1,246 @@
+@startuml
+!unquoted function SALT($x)
+"{{
+salt
+%invoke_void_func("_"+$x)
+}}" as $x
+!endfunction
+
+!function _chooseJ()
+{+
+**Test Environments**
+---
+    {/ <b>Joomla | Database | Web Server | PHP }
+    {
+        {SI
+            [] Joomla! 3.7
+            [] <back:lightblue>Joomla! 3.8                                        <&blank>
+            [X] Joomla! 3.9
+            [X] Joomla! latest
+            [] Joomla! staging
+        }|
+        {[<&plus> Add]
+        [<&pencil>Edit]
+        [<&minus>Remove]}
+    }
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _addJ()
+{+
+**Joomla**
+---
+{SI
+Title:     | "                 "
+Version:   | ^latest          ^
+Superuser: | "                 "
+Password:  | "                 "
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _editJ()
+{+
+**Joomla**
+---
+{SI
+Title:     | "Joomla 3.8       "
+Version:   | ^3.8             ^
+Superuser: | "admin            "
+Password:  | "admin            "
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _chooseD()
+{+
+**Test Environments**
+---
+    {/ Joomla | <b>Database | Web Server | PHP }
+    {
+        {SI
+            [] MySQL
+            [X] MariaDB
+            [X] <back:lightblue>PostGreSQL                                      <&blank>
+            [] MS SQL Server
+            <&blank>
+        }|
+        {[<&plus> Add]
+        [<&pencil>Edit]
+        [<&minus>Remove]}
+    }
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _addD()
+{+
+**Database**
+---
+{SI
+Title:     | "                 "
+Database:  | ^MySQL           ^
+Version:   | ^latest          ^
+User:      | "                 "
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _editD()
+{+
+**Database**
+---
+{SI
+Title:     | "PostGreSQL       "
+Database:  | ^PostGreSQL      ^
+Version:   | ^latest          ^
+User:      | "sqladmin         "
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _chooseW()
+{+
+**Test Environments**
+---
+    {/ Joomla | Database | <b>Web Server | PHP }
+    {
+        {SI
+            [X] Apache2 w/ mod_php
+            [X] Apache2 w/ PHP-FPM
+            [X] <back:lightblue>NginX                                                 <&blank>
+            [] LigHTTPd
+            <&blank>
+        }|
+        {[<&plus> Add]
+        [<&pencil>Edit]
+        [<&minus>Remove]}
+    }
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _addW()
+{+
+**Web Server**
+---
+{SI
+Title:     | "                 "
+Server:    | ^Apache2+mod_php ^
+Version:   | ^latest          ^
+<&blank>
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _editW()
+{+
+**Web Server**
+---
+{SI
+Title:     | "NginX            "
+Server:    | ^NginX           ^
+Version:   | ^1.9             ^
+<&blank>
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _chooseP()
+{+
+**Test Environments**
+---
+    {/ Joomla | Database | Web Server | <b>PHP }
+    {
+        {SI
+            [X] PHP 7.0
+            [X] PHP 7.1
+            [X] PHP 7.2
+            [X] PHP 7.3
+            [X] <back:lightblue>PHP latest                                        <&blank>
+        }|
+        {[<&plus> Add]
+        [<&pencil>Edit]
+        [<&minus>Remove]}
+    }
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _addP()
+{+
+**PHP**
+---
+{SI
+Title:     | "                 "
+Version:   | ^latest          ^
+<&blank>
+<&blank>
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+!function _editP()
+{+
+**PHP**
+---
+{SI
+Title:     | "PHP latest        "
+Version:   | ^latest           ^
+<&blank>
+<&blank>
+}
+---
+{[ <&x> Cancel ] | [ <&check> Save ]}
+}
+!endfunction
+
+(*) --> SALT(chooseJ)
+-->['Remove'] chooseJ
+-->['Add'] SALT(addJ)
+--> chooseJ
+-->['Edit'] SALT(editJ)
+--> chooseJ
+--->['Cancel'] (*)
+(*) --> SALT(chooseD)
+-->['Remove'] chooseD
+-->['Add'] SALT(addD)
+--> chooseD
+-->['Edit'] SALT(editD)
+--> chooseD
+--->['Cancel'] (*)
+(*) --> SALT(chooseW)
+-->['Remove'] chooseW
+-->['Add'] SALT(addW)
+--> chooseW
+-->['Edit'] SALT(editW)
+--> chooseW
+--->['Cancel'] (*)
+(*) --> SALT(chooseP)
+-->['Remove'] chooseP
+-->['Add'] SALT(addP)
+--> chooseP
+-->['Edit'] SALT(editP)
+--> chooseP
+--->['Cancel'] (*)
+
+@enduml
