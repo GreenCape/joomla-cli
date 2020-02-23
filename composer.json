@@ -40,7 +40,10 @@
   "autoload": {
     "psr-4": {
       "GreenCape\\JoomlaCLI\\": "src"
-    }
+    },
+    "classmap": [
+      "src/Driver"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
