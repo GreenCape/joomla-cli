@@ -74,7 +74,6 @@ class Application extends BaseApplication
             if (null === $output) {
                 $output = new ConsoleOutput();
             }
-
             $message = [
                 $this->getLongVersion(),
                 '',

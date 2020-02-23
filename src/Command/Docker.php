@@ -91,7 +91,6 @@ class Docker
         $this->log("Searching containers matching '{$this->container}'", 'debug');
 
         $this->containerList = [];
-
         foreach (explode("\n", shell_exec('docker-compose ps')) as $line) {
             if (preg_match('~^(' . $container . ')\s+(.*?)\s+(\S+)\s+(\d.*)$~', $line, $match)) {
                 $this->containerList[$match[1]] = [
@@ -102,7 +101,6 @@ class Docker
                 ];
             }
         }
-
         chdir($oldDir);
         $this->log(" - Found " . count($this->containerList) . ' containers', 'debug');
     }
@@ -113,14 +111,12 @@ class Docker
     private function checkConfigurationFile(): void
     {
         $this->configFile = null;
-
         foreach ($this->supportedFileNames as $filename) {
             if (file_exists($filename)) {
                 $this->configFile = $filename;
                 break;
             }
         }
-
         if (empty($this->configFile)) {
             throw new RuntimeException("Can't find a suitable configuration file. Are you in the right directory?\n\nSupported filenames: " . implode(', ',
                     $$this->supportedFileNames));
@@ -136,7 +132,6 @@ class Docker
     {
         if ($this->state !== null) {
             $filteredContainers = [];
-
             foreach ($availableContainers as $container) {
                 if ($container['state'] === $this->state) {
                     $filteredContainers[$container['name']] = $container;

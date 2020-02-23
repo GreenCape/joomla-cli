@@ -56,18 +56,14 @@ class DriverFactory
     public function create(Filesystem $filesystem): JoomlaDriver
     {
         $parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
-
         while (!empty($parts)) {
             $version   = implode('Dot', $parts);
             $classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
-
             if (class_exists($classname)) {
                 return new $classname($filesystem);
             }
-
             array_pop($parts);
         }
-
         throw new RuntimeException('No driver found');
     }
 

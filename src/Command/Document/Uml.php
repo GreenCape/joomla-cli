@@ -152,7 +152,6 @@ class UmlCommand extends Command
     private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
     {
         $classMapFile = $input->getOption('classmap');
-
         if (!empty($classMapFile)) {
             $output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
             $generator->classMap($classMapFile);
@@ -170,12 +169,10 @@ class UmlCommand extends Command
         OutputInterface $output
     ): void {
         $predefined = $input->getOption('predefined');
-
         if (!empty($predefined)) {
             if ($predefined === 'php') {
                 $predefined = $this->home . '/build/plantuml/php';
             }
-
             $output->writeln("Including predefined diagrams from $predefined", OutputInterface::VERBOSITY_VERBOSE);
             $generator->includeReferences($predefined);
         }
@@ -189,11 +186,9 @@ class UmlCommand extends Command
     private function setupSkin(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
     {
         $skin = $input->getOption('skin');
-
         if (preg_match('~^[\w-]+$~', $skin)) {
             $skin = $this->home . "/build/config/plantuml/skin-{$skin}.puml";
         }
-
         $output->writeln("Using skin $skin", OutputInterface::VERBOSITY_VERBOSE);
         $generator->skin($skin);
     }

@@ -139,11 +139,9 @@ class CoverageMerger
             $coverage = null;
             $code     = file_get_contents($file);
             $code     = str_replace(CodeCoverage::class, CoverageCollector::class, $code);
-
             if (!empty($this->pattern)) {
                 $code = preg_replace($this->pattern, $this->replace, $code);
             }
-
             eval('?>' . $code);
             $collection->merge($coverage);
         }
@@ -220,7 +218,6 @@ class CoverageMerger
         }
 
         $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
-
         if (file_exists($pharLocation)) {
             ob_start();
             include $pharLocation;

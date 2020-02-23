@@ -85,7 +85,6 @@ class Version
         $pattern = '~' . $prefix . '\s*' . $var . '\s*=\s*' . $value . '~';
 
         preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
-
         foreach ($matches as $match) {
             $this->data[$match[1]] = $match[2];
         }

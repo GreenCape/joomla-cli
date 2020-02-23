@@ -48,15 +48,12 @@ class InitFileFixer
         $tmp = tempnam(dirname($file), 'tmp');
 
         $src = fopen($file, 'rb');
-
         if (!$src) {
             $this->log("Unable to open {$file}", 'warning');
 
             return 1;
         }
-
         $dst = fopen($tmp, 'wb');
-
         if (!$dst) {
             $this->log("Unable to open {$tmp}", 'warning');
             fclose($src);
@@ -69,10 +66,8 @@ class InitFileFixer
         $insidePara = false;
         $insideStat = false;
         $incomplete = false;
-
         do {
             $line = trim(fgets($src));
-
             if (empty($line)) {
                 $this->dump('Skipping empty line', $line);
             } elseif (preg_match('~^(#|--)~', $line)) {

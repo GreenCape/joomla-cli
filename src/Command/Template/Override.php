@@ -110,7 +110,6 @@ class OverrideCommand extends Command
             if (!is_dir($component . '/views')) {
                 continue;
             }
-
             $componentDir = basename($component);
             $output->writeln($componentDir, OutputInterface::VERBOSITY_VERY_VERBOSE);
             $this->safeCopyViews($component . '/views/*', $templateDir . '/' . $componentDir, $force, $output);
@@ -141,7 +140,6 @@ class OverrideCommand extends Command
                 if (!is_dir($container . '/tmpl')) {
                     continue;
                 }
-
                 $dir        = 'plg_' . basename($pluginType) . '_' . basename($container);
                 $overlayDir = $templateDir . '/' . $dir;
                 $this->safeMakeDir($overlayDir, $output);
@@ -189,7 +187,6 @@ class OverrideCommand extends Command
     {
         $filename = basename($source);
         $target   = $toDir . '/' . $filename;
-
         if ($force || !file_exists($target)) {
             $output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
             copy($source, $target);
@@ -238,7 +235,6 @@ class OverrideCommand extends Command
             if (!is_dir($container . '/tmpl')) {
                 continue;
             }
-
             $dir = basename($container);
             $output->writeln($dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
             $overlayDir = $toDir . '/' . $dir;

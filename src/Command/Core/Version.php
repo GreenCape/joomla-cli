@@ -47,64 +47,59 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class VersionCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('core:version')
-			->setDescription('Shows the Joomla! version')
-			->addOption(
-				'long',
-				'l',
-				InputOption::VALUE_NONE,
-				'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
-			)
-			->addOption(
-				'short',
-				's',
-				InputOption::VALUE_NONE,
-				'The short version info, eg. x.y.z'
-			)
-			->addOption(
-				'release',
-				'r',
-				InputOption::VALUE_NONE,
-				'The release info, eg. x.y'
-			);
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('core:version')
+            ->setDescription('Shows the Joomla! version')
+            ->addOption(
+                'long',
+                'l',
+                InputOption::VALUE_NONE,
+                'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
+            )
+            ->addOption(
+                'short',
+                's',
+                InputOption::VALUE_NONE,
+                'The short version info, eg. x.y.z'
+            )
+            ->addOption(
+                'release',
+                'r',
+                InputOption::VALUE_NONE,
+                'The release info, eg. x.y'
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  void
-	 * @throws Exception
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$this->handleBasePath($input, $output);
-		$version = new Version($this->joomlaFilesystem);
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  void
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $this->handleBasePath($input, $output);
+        $version = new Version($this->joomlaFilesystem);
 
-		if ($input->getOption('short'))
-		{
-			/** @noinspection PhpUndefinedMethodInspection */
-			$result = $version->getShortVersion();
-		}
-		elseif ($input->getOption('release'))
-		{
-			$result = $version->getRelease();
-		}
-		else
-		{
-			/** @noinspection PhpUndefinedMethodInspection */
-			$result = $version->getLongVersion();
-		}
-		$output->writeln($result);
-	}
+        if ($input->getOption('short')) {
+            $result = $version->getShortVersion();
+        } elseif ($input->getOption('release')) {
+            $result = $version->getRelease();
+        } else {
+            $result = $version->getLongVersion();
+        }
+
+        $output->writeln($result);
+    }
 }

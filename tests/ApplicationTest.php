@@ -40,23 +40,6 @@ class ApplicationTest extends TestCase
     private $console;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp(): void
-    {
-        $this->console = new Application();
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
      * @return array
      */
     public function commandNameProvider(): array
@@ -77,5 +60,22 @@ class ApplicationTest extends TestCase
     public function testCommandIsDefined($command): void
     {
         $this->assertTrue($this->console->has($command));
+    }
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+        $this->console = new Application();
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
     }
 }

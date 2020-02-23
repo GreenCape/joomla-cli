@@ -173,7 +173,6 @@ class InstallCommand extends Command
         if (!mkdir($tmpPath) && !is_dir($tmpPath)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $tmpPath));
         }
-
         copy($source, $tmpPath);
 
         return $tmpPath;

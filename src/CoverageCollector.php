@@ -54,11 +54,9 @@ class CoverageCollector
                 if (!is_array($tests)) {
                     continue;
                 }
-
                 if (!isset($this->data[$file][$line])) {
                     $this->data[$file][$line] = [];
                 }
-
                 $this->data[$file][$line] = array_unique(array_merge($this->data[$file][$line], $tests));
             }
         }

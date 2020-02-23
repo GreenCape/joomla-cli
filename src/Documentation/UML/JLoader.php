@@ -39,25 +39,25 @@ use Psr\Log\LoggerInterface;
  */
 class JLoader
 {
-	/** @var string */
-	public static $separator;
+    /** @var string */
+    public static $separator;
 
-	/** @var ClassNameCollector */
-	public static $collector;
+    /** @var ClassNameCollector */
+    public static $collector;
 
-	/** @var LoggerInterface */
-	public static $logger;
+    /** @var LoggerInterface */
+    public static $logger;
 
-	public static function registerAlias($alias, $original, $version): void
-	{
-		self::$logger->debug("Registering alias {$alias} for {$original}");
-		$original = str_replace('\\', self::$separator, $original);
-		self::$collector->add(
-			$alias,
-			"class {$alias} << alias >>\n{$original} == {$alias}\n",
-			[
-				$original
-			]
-		);
-	}
+    public static function registerAlias($alias, $original, $version): void
+    {
+        self::$logger->debug("Registering alias {$alias} for {$original}");
+        $original = str_replace('\\', self::$separator, $original);
+        self::$collector->add(
+            $alias,
+            "class {$alias} << alias >>\n{$original} == {$alias}\n",
+            [
+                $original,
+            ]
+        );
+    }
 }

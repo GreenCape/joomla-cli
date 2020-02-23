@@ -38,21 +38,21 @@ namespace GreenCape\JoomlaCLI\Documentation\API\Strategy;
  */
 interface APIGeneratorInterface
 {
-	/**
-	 * @param string $title  The title for the documentation
-	 * @param string $source The directory containing the source files
-	 * @param string $target The target directory for the documentation
-	 *
-	 * @return void
-	 */
-	public function generate(string $title, string $source, string $target): void;
+    /**
+     * @param  string  $title   The title for the documentation
+     * @param  string  $source  The directory containing the source files
+     * @param  string  $target  The target directory for the documentation
+     *
+     * @return void
+     */
+    public function generate(string $title, string $source, string $target): void;
 
-	/**
-	 * Embed the UML diagrams
-	 *
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return void
-	 */
-	public function embedUml(string $umlPath): void;
+    /**
+     * Embed the UML diagrams
+     *
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return void
+     */
+    public function embedUml(string $umlPath): void;
 }

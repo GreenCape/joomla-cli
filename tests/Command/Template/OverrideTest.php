@@ -57,11 +57,6 @@ class OverrideTest extends TestCase
         self::$filesystem = new Filesystem(new Local('tests'));
     }
 
-    protected function tearDown(): void
-    {
-        self::$filesystem->deleteDir('tmp');
-    }
-
     /**
      * @param  string  $path
      * @param  string  $release
@@ -93,5 +88,10 @@ class OverrideTest extends TestCase
             []
         );
         $this->assertTrue($release === '1.0' || count($contents) > 2);
+    }
+
+    protected function tearDown(): void
+    {
+        self::$filesystem->deleteDir('tmp');
     }
 }

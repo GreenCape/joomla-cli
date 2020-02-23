@@ -39,23 +39,23 @@ use PhpParser\NodeVisitor;
  */
 interface UMLCollector extends NodeVisitor
 {
-	/** @var int Do not generate include statements for referenced classes */
-	public const NO_INCLUDES = 1;
+    /** @var int Do not generate include statements for referenced classes */
+    public const NO_INCLUDES = 1;
 
-	/** @var int Parameter denotes a namespace, not just a class name */
-	public const NAMESPACE = 2;
+    /** @var int Parameter denotes a namespace, not just a class name */
+    public const NAMESPACE   = 2;
 
-	/** @var int Ignore word boundaries (only in conjunction with NAMESPACE) */
-	public const GREEDY = 4;
+    /** @var int Ignore word boundaries (only in conjunction with NAMESPACE) */
+    public const GREEDY = 4;
 
-	public function add($name, $uml, $includes = []): void;
+    public function add($name, $uml, $includes = []): void;
 
-	public function writeDiagrams($targetDir, $flags): int;
+    public function writeDiagrams($targetDir, $flags): int;
 
-	/**
-	 * Gets a list of relevant (generated and included) files
-	 *
-	 * @return array
-	 */
-	public function getRelevantFiles(): array;
+    /**
+     * Gets a list of relevant (generated and included) files
+     *
+     * @return array
+     */
+    public function getRelevantFiles(): array;
 }

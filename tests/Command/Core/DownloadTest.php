@@ -57,11 +57,6 @@ class DownloadTest extends TestCase
         self::$filesystem = new Filesystem(new Local('tests'));
     }
 
-    protected function tearDown(): void
-    {
-        self::$filesystem->deleteDir('tmp');
-    }
-
     /**
      * @param  string  $path
      * @param  string  $release
@@ -115,5 +110,10 @@ class DownloadTest extends TestCase
         $this->expectExceptionMessage('nx: Version is unknown');
 
         $command->run(new StringInput('-b tests/tmp/nx nx'), $output);
+    }
+
+    protected function tearDown(): void
+    {
+        self::$filesystem->deleteDir('tmp');
     }
 }

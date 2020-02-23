@@ -39,66 +39,64 @@ use PhpParser\ParserFactory;
 
 class UMLScanner
 {
-	/**
-	 * @var Parser
-	 */
-	private $parser;
-	/**
-	 * @var NodeTraverser
-	 */
-	private $traverser;
-	/**
-	 * @var UMLCollector[]
-	 */
-	private $collectors;
-	/**
-	 * @var array
-	 */
-	private $relevantFiles;
+    /**
+     * @var Parser
+     */
+    private $parser;
+    /**
+     * @var NodeTraverser
+     */
+    private $traverser;
+    /**
+     * @var UMLCollector[]
+     */
+    private $collectors;
+    /**
+     * @var array
+     */
+    private $relevantFiles;
 
-	public function __construct()
-	{
-		$this->parser    = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-		$this->traverser = new NodeTraverser();
-		$this->traverser->addVisitor(new NameResolver);
-	}
+    public function __construct()
+    {
+        $this->parser    = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+        $this->traverser = new NodeTraverser();
+        $this->traverser->addVisitor(new NameResolver);
+    }
 
-	public function addCollector(UMLCollector $collector): void
-	{
-		$this->collectors[] = $collector;
-		$this->traverser->addVisitor($collector);
-	}
+    public function addCollector(UMLCollector $collector): void
+    {
+        $this->collectors[] = $collector;
+        $this->traverser->addVisitor($collector);
+    }
 
-	public function scan(Fileset $source): void
-	{
-		foreach ($source->getFiles() as $file)
-		{
-			$this->traverser->traverse($this->parser->parse(file_get_contents($file)));
-		}
-	}
+    public function scan(Fileset $source): void
+    {
+        foreach ($source->getFiles() as $file) {
+            $this->traverser->traverse($this->parser->parse(file_get_contents($file)));
+        }
+    }
 
-	public function writeDiagrams($targetDir, $flags = 0): int
-	{
-		$count = 0;
-		$this->relevantFiles = [];
+    public function writeDiagrams($targetDir, $flags = 0): int
+    {
+        $count               = 0;
+        $this->relevantFiles = [];
 
-		foreach ($this->collectors as $collector)
-		{
-			$count += $collector->writeDiagrams($targetDir, $flags);
-			/** @noinspection SlowArrayOperationsInLoopInspection */
-			$this->relevantFiles = array_merge($this->relevantFiles, $collector->getRelevantFiles());
-		}
+        foreach ($this->collectors as $collector) {
+            $count += $collector->writeDiagrams($targetDir, $flags);
+            /** @noinspection SlowArrayOperationsInLoopInspection */
+            $this->relevantFiles = array_merge($this->relevantFiles, $collector->getRelevantFiles());
+        }
 
-		return $count;
-	}
+        return $count;
+    }
 
-	/**
-	 * Gets a list of relevant (generated and included) files
-	 *
-	 * @return array
-	 */
-	public function getRelevantFiles(): array
-	{
-		return array_unique($this->relevantFiles);
-	}
+    /**
+     * Gets a list of relevant (generated and included) files
+     *
+     * @return array
+     */
+    public function getRelevantFiles(): array
+    {
+        return array_unique($this->relevantFiles);
+    }
 }

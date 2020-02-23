@@ -43,143 +43,136 @@ use League\Flysystem\Filesystem;
  */
 class VersionList
 {
-	/**
-	 * @var Filesystem
-	 */
-	private $filesystem;
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
 
-	/**
-	 * @var string
-	 */
-	private $versionFile;
+    /**
+     * @var string
+     */
+    private $versionFile;
 
-	/**
-	 * @var array
-	 */
-	private $versions = [];
+    /**
+     * @var array
+     */
+    private $versions = [];
 
-	/**
-	 * VersionList constructor.
-	 *
-	 * @param Filesystem $filesystem
-	 * @param string     $cacheFile
-	 *
-	 * @throws FileNotFoundException
-	 */
-	public function __construct(Filesystem $filesystem, string $cacheFile)
-	{
-		$this->filesystem  = $filesystem;
-		$this->versionFile = $cacheFile;
+    /**
+     * VersionList constructor.
+     *
+     * @param  Filesystem  $filesystem
+     * @param  string      $cacheFile
+     *
+     * @throws FileNotFoundException
+     */
+    public function __construct(Filesystem $filesystem, string $cacheFile)
+    {
+        $this->filesystem  = $filesystem;
+        $this->versionFile = $cacheFile;
 
-		$this->init();
-	}
+        $this->init();
+    }
 
-	/**
-	 * @param string $version
-	 *
-	 * @return string
-	 */
-	public function resolve(string $version): string
-	{
-		if (isset($this->versions['alias'][$version]))
-		{
-			$version = $this->versions['alias'][$version];
-		}
+    /**
+     * @param  string  $version
+     *
+     * @return string
+     */
+    public function resolve(string $version): string
+    {
+        if (isset($this->versions['alias'][$version])) {
+            $version = $this->versions['alias'][$version];
+        }
 
-		return $version;
-	}
+        return $version;
+    }
 
-	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	public function isBranch(string $version): bool
-	{
-		return isset($this->versions['heads'][$version]);
-	}
+    /**
+     * @param  string  $version
+     *
+     * @return bool
+     */
+    public function isBranch(string $version): bool
+    {
+        return isset($this->versions['heads'][$version]);
+    }
 
-	/**
-	 * @param string $version
-	 *
-	 * @return bool
-	 */
-	public function isTag(string $version): bool
-	{
-		return isset($this->versions['tags'][$version]);
-	}
+    /**
+     * @param  string  $version
+     *
+     * @return bool
+     */
+    public function isTag(string $version): bool
+    {
+        return isset($this->versions['tags'][$version]);
+    }
 
-	public function getRepository(string $version)
-	{
-		return $this->versions['tags'][$version];
-	}
+    public function getRepository(string $version)
+    {
+        return $this->versions['tags'][$version];
+    }
 
-	/**
-	 * @return void
-	 * @throws FileNotFoundException
-	 */
-	private function init(): void
-	{
-		// GreenCape first, so entries get overwritten if provided by Joomla
-		$repos = array(
-			'greencape/joomla-legacy',
-			'joomla/joomla-cms',
-		);
+    /**
+     * @return void
+     * @throws FileNotFoundException
+     */
+    private function init(): void
+    {
+        // GreenCape first, so entries get overwritten if provided by Joomla
+        $repos = [
+            'greencape/joomla-legacy',
+            'joomla/joomla-cms',
+        ];
 
-		if ($this->filesystem->has($this->versionFile) && (time() - $this->filesystem->getTimestamp($this->versionFile) < 86400))
-		{
-			$this->versions = json_decode($this->filesystem->read($this->versionFile), true);
+        if ($this->filesystem->has($this->versionFile) && (time() - $this->filesystem->getTimestamp($this->versionFile) < 86400)) {
+            $this->versions = json_decode($this->filesystem->read($this->versionFile), true);
 
-			return;
-		}
+            return;
+        }
 
-		$versions = array();
-		foreach ($repos as $repo)
-		{
-			$command = "git ls-remote https://github.com/{$repo}.git | grep -E 'refs/(tags|heads)' | grep -v '{}'";
-			$result  = shell_exec($command);
-			$refs    = explode(PHP_EOL, $result);
-			$pattern = '/^[0-9a-f]+\s+refs\/(heads|tags)\/([a-z0-9\.\-_]+)$/im';
-			foreach ($refs as $ref)
-			{
-				if (preg_match($pattern, $ref, $match))
-				{
-					if ($match[1] === 'tags')
-					{
-						if (!preg_match('/^\d+\.\d+\.\d+$/m', $match[2]))
-						{
-							continue;
-						}
-						$parts = explode('.', $match[2]);
-						$this->checkAlias($versions, $parts[0], $match[2]);
-						$this->checkAlias($versions, $parts[0] . '.' . $parts[1], $match[2]);
-						$this->checkAlias($versions, 'latest', $match[2]);
-					}
-					$versions[$match[1]][$match[2]] = $repo;
-				}
-			}
-		}
+        $versions = [];
+        foreach ($repos as $repo) {
+            $command = "git ls-remote https://github.com/{$repo}.git | grep -E 'refs/(tags|heads)' | grep -v '{}'";
+            $result  = shell_exec($command);
+            $refs    = explode(PHP_EOL, $result);
+            $pattern = '/^[0-9a-f]+\s+refs\/(heads|tags)\/([a-z0-9\.\-_]+)$/im';
 
-		// Special case: 1.6 and 1.7 belong to 2.x
-		$versions['alias']['1'] = $versions['alias']['1.5'];
+            foreach ($refs as $ref) {
+                if (preg_match($pattern, $ref, $match)) {
+                    if ($match[1] === 'tags') {
+                        if (!preg_match('/^\d+\.\d+\.\d+$/m', $match[2])) {
+                            continue;
+                        }
+                        $parts = explode('.', $match[2]);
+                        $this->checkAlias($versions, $parts[0], $match[2]);
+                        $this->checkAlias($versions, $parts[0] . '.' . $parts[1], $match[2]);
+                        $this->checkAlias($versions, 'latest', $match[2]);
+                    }
+                    $versions[$match[1]][$match[2]] = $repo;
+                }
+            }
+        }
 
-		$this->versions = $versions;
+        // Special case: 1.6 and 1.7 belong to 2.x
+        $versions['alias']['1'] = $versions['alias']['1.5'];
 
-		$this->filesystem->put($this->versionFile, json_encode($versions, JSON_PRETTY_PRINT));
-	}
+        $this->versions = $versions;
 
-	/**
-	 * @param $versions
-	 * @param $alias
-	 * @param $version
-	 *
-	 * @return void
-	 */
-	private function checkAlias(&$versions, $alias, $version): void
-	{
-		if (!isset($versions['alias'][$alias]) || version_compare($versions['alias'][$alias], $version, '<'))
-		{
-			$versions['alias'][$alias] = $version;
-		}
-	}
+        $this->filesystem->put($this->versionFile, json_encode($versions, JSON_PRETTY_PRINT));
+    }
+
+    /**
+     * @param $versions
+     * @param $alias
+     * @param $version
+     *
+     * @return void
+     */
+    private function checkAlias(&$versions, $alias, $version): void
+    {
+        if (!isset($versions['alias'][$alias]) || version_compare($versions['alias'][$alias], $version, '<')) {
+            $versions['alias'][$alias] = $version;
+        }
+    }
 }

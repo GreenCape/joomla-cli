@@ -49,12 +49,10 @@ class Fileset
      * @var string
      */
     private $dir;
-
     /**
      * @var array
      */
     private $files = [];
-
     /**
      * @var array
      */

@@ -40,106 +40,98 @@ use Psr\Log\LoggerAwareTrait;
 
 class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
 {
-	private $currentClass;
+    private $currentClass;
 
-	private $uml = [];
-	/**
-	 * @var array
-	 */
-	private $relevantFiles = [];
+    private $uml = [];
+    /**
+     * @var array
+     */
+    private $relevantFiles = [];
 
-	use LoggerAwareTrait;
+    use LoggerAwareTrait;
 
-	public function enterNode(Node $node)
-	{
-		if ($node instanceof ClassLike)
-		{
-			if ($this->isAnonymous($node))
-			{
-				return;
-			}
+    public function enterNode(Node $node)
+    {
+        if ($node instanceof ClassLike) {
+            if ($this->isAnonymous($node)) {
+                return;
+            }
 
-			$this->currentClass = (string) $node->namespacedName;
-		}
-		elseif ($node instanceof ClassMethod)
-		{
-			$this->createUml((string) $node->name, (string) $node->getDocComment());
-		}
-	}
+            $this->currentClass = (string)$node->namespacedName;
+        } elseif ($node instanceof ClassMethod) {
+            $this->createUml((string)$node->name, (string)$node->getDocComment());
+        }
+    }
 
-	public function leaveNode(Node $node)
-	{
-		if ($node instanceof ClassLike)
-		{
-			$this->currentClass = null;
-		}
-	}
+    public function leaveNode(Node $node)
+    {
+        if ($node instanceof ClassLike) {
+            $this->currentClass = null;
+        }
+    }
 
-	public function add($name, $uml, $includes = []): void
-	{
-		$this->uml[strtolower($name)] = $uml;
-	}
+    public function add($name, $uml, $includes = []): void
+    {
+        $this->uml[strtolower($name)] = $uml;
+    }
 
-	public function writeDiagrams($targetDir, $flags): int
-	{
-		foreach ($this->uml as $name => $uml)
-		{
-			$filename              = $this->filename($name);
-			$this->relevantFiles[] = $filename;
+    public function writeDiagrams($targetDir, $flags): int
+    {
+        foreach ($this->uml as $name => $uml) {
+            $filename              = $this->filename($name);
+            $this->relevantFiles[] = $filename;
 
-			file_put_contents($targetDir . '/' . $filename, $uml);
-		}
+            file_put_contents($targetDir . '/' . $filename, $uml);
+        }
 
-		return count($this->uml);
-	}
+        return count($this->uml);
+    }
 
-	/**
-	 * Gets a list of relevant (generated and included) files
-	 *
-	 * @return array
-	 */
-	public function getRelevantFiles(): array
-	{
-		return $this->relevantFiles;
-	}
+    /**
+     * Gets a list of relevant (generated and included) files
+     *
+     * @return array
+     */
+    public function getRelevantFiles(): array
+    {
+        return $this->relevantFiles;
+    }
 
-	/**
-	 * @param string $name
-	 * @param string $comment
-	 */
-	private function createUml(string $name, string $comment): void
-	{
-		if (preg_match_all('~@startuml(.*?)@enduml~sm', $comment, $matches, PREG_SET_ORDER) === 0)
-		{
-			return;
-		}
+    /**
+     * @param  string  $name
+     * @param  string  $comment
+     */
+    private function createUml(string $name, string $comment): void
+    {
+        if (preg_match_all('~@startuml(.*?)@enduml~sm', $comment, $matches, PREG_SET_ORDER) === 0) {
+            return;
+        }
 
-		$uml = "@startuml\n!include skin.puml\n!startsub INNER\n";
+        $uml = "@startuml\n!include skin.puml\n!startsub INNER\n";
 
-		foreach ($matches as $match)
-		{
-			$uml .= preg_replace("~\n\s*\*\s*~", "\n", $match[1]);
-		}
+        foreach ($matches as $match) {
+            $uml .= preg_replace("~\n\s*\*\s*~", "\n", $match[1]);
+        }
 
-		$uml .= "!endsub\n@enduml\n";
+        $uml .= "!endsub\n@enduml\n";
 
-		$this->add($this->currentClass . '::' . $name, $uml);
-	}
+        $this->add($this->currentClass . '::' . $name, $uml);
+    }
 
-	private function filename(string $name): string
-	{
-		[$class, $method] = explode('::', $name);
+    private function filename(string $name): string
+    {
+        [$class, $method] = explode('::', $name);
 
-		return strtolower('annotation-' . trim(preg_replace('~\W+~', '.', $class), '.') . '-' . $method . '.puml');
-	}
+        return strtolower('annotation-' . trim(preg_replace('~\W+~', '.', $class), '.') . '-' . $method . '.puml');
+    }
 
-	/**
-	 * @param ClassLike $node
-	 *
-	 * @return bool
-	 */
-	private function isAnonymous(ClassLike $node): bool
-	{
-		return !isset($node->namespacedName);
-	}
+    /**
+     * @param  ClassLike  $node
+     *
+     * @return bool
+     */
+    private function isAnonymous(ClassLike $node): bool
+    {
+        return !isset($node->namespacedName);
+    }
 }

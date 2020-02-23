@@ -133,25 +133,6 @@ class DownloadCommand extends Command
     }
 
     /**
-     * @return VersionList
-     * @throws FileNotFoundException
-     */
-    private function getAvailableVersions(): VersionList
-    {
-        $filesystem = new Filesystem(new Local(dirname($this->versionFile)));
-        $cacheFile  = basename($this->versionFile);
-
-        return new VersionList($filesystem, $cacheFile);
-    }
-
-    private function createPath(string $path): void
-    {
-        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
-            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
-        }
-    }
-
-    /**
      * @param  VersionList  $versions
      *
      * @return string
@@ -183,14 +164,14 @@ class DownloadCommand extends Command
         if ($versions->isTag($version)) {
             $this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
 
-            try {
-                // to get the official release for that version
+            try // to get the official release for that version
+            {
                 $this->output->writeln('Trying release channel', OutputInterface::VERBOSITY_VERY_VERBOSE);
                 $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
 
                 return $this->download($tarball, $url);
-            } catch (Throwable $exception) {
-                // else get it from the archive
+            } catch (Throwable $exception) // else get it from the archive
+            {
                 $repository = $versions->getRepository($version);
                 $this->output->writeln("Trying {$repository} archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
                 $url = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
@@ -199,6 +180,42 @@ class DownloadCommand extends Command
             }
         }
         throw new RuntimeException("$requested: Version is unknown");
+    }
+
+    /**
+     * @return VersionList
+     * @throws FileNotFoundException
+     */
+    private function getAvailableVersions(): VersionList
+    {
+        $filesystem = new Filesystem(new Local(dirname($this->versionFile)));
+        $cacheFile  = basename($this->versionFile);
+
+        return new VersionList($filesystem, $cacheFile);
+    }
+
+    private function createPath(string $path): void
+    {
+        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
+            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
+        }
+    }
+
+    /**
+     * @param  string  $filename
+     * @param  string  $url
+     *
+     * @return string
+     */
+    private function download(string $filename, string $url): string
+    {
+        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
+
+        if ($bytes === false || $bytes === 0) {
+            throw new RuntimeException("Failed to download $url");
+        }
+
+        return $filename;
     }
 
     /**
@@ -223,29 +240,10 @@ class DownloadCommand extends Command
                     return ($basename !== '.' && $basename !== '..');
                 }
             );
-
             foreach ($dirList as $item) {
                 shell_exec("mv {$item} {$basePath}");
             }
-
             shell_exec("rm -d {$subDir}");
         }
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
     }
 }

@@ -40,187 +40,179 @@ use GreenCape\JoomlaCLI\Fileset;
  */
 class Apigen implements APIGeneratorInterface
 {
-	/**
-	 * The target directory for the documentation
-	 *
-	 * @var string
-	 */
-	private $target;
-	private $classTreePattern = '~<dl class="tree well">.*?</dl>~sm';
+    /**
+     * The target directory for the documentation
+     *
+     * @var string
+     */
+    private $target;
+    private $classTreePattern = '~<dl class="tree well">.*?</dl>~sm';
 
-	/**
-	 * Generate the API documentation
-	 *
-	 * @param string $title  The title for the documentation
-	 * @param string $source The directory containing the source files
-	 * @param string $target The target directory for the documentation
-	 *
-	 * @return mixed
-	 */
-	public function generate(string $title, string $source, string $target): void
-	{
-		$this->target = $target;
+    /**
+     * Generate the API documentation
+     *
+     * @param  string  $title   The title for the documentation
+     * @param  string  $source  The directory containing the source files
+     * @param  string  $target  The target directory for the documentation
+     *
+     * @return mixed
+     */
+    public function generate(string $title, string $source, string $target): void
+    {
+        $this->target = $target;
 
-		$user = getmyuid() . ':' . getmygid();
+        $user = getmyuid() . ':' . getmygid();
 
-		$command = "docker run"
-		           . " --rm"
-		           . " --user={$user}"
-		           . " --volume={$source}:/app/io/source"
-		           . " --volume={$target}:/app/io/target"
-		           . " uniplug/apigen"
+        $command = "docker run"
+                   . " --rm"
+                   . " --user={$user}"
+                   . " --volume={$source}:/app/io/source"
+                   . " --volume={$target}:/app/io/target"
+                   . " uniplug/apigen"
 
-		           . " apigen generate"
-		           . " --source=/app/io/source"
-		           . " --destination=/app/io/target"
-		           . " --title=\"{$title}\""
-		           . " --template-theme=bootstrap"
-		           . " --annotation-groups=todo,deprecated"
-		           . " --tree";
+                   . " apigen generate"
+                   . " --source=/app/io/source"
+                   . " --destination=/app/io/target"
+                   . " --title=\"{$title}\""
+                   . " --template-theme=bootstrap"
+                   . " --annotation-groups=todo,deprecated"
+                   . " --tree";
 
-		passthru($command . ' 2>&1');
-	}
+        passthru($command . ' 2>&1');
+    }
 
-	/**
-	 * Embed the UML diagrams
-	 *
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return void
-	 */
-	public function embedUml(string $umlPath): void
-	{
-		$this->reflexive(
-			(new Fileset($this->target))
-				->include('**.html'),
-			function ($content) use ($umlPath) {
-				if (preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match))
-				{
-					$content = $this->replaceClassUML($content, lcfirst($match[1]), $match[2], $umlPath);
-					$content = $this->replaceMethodUML($content, $match[2], $umlPath);
-				}
+    /**
+     * Embed the UML diagrams
+     *
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return void
+     */
+    public function embedUml(string $umlPath): void
+    {
+        $this->reflexive(
+            (new Fileset($this->target))
+                ->include('**.html'),
+            function ($content) use ($umlPath) {
+                if (preg_match('~<h1>(.*?) (.+?)</h1>~', $content, $match)) {
+                    $content = $this->replaceClassUML($content, lcfirst($match[1]), $match[2], $umlPath);
+                    $content = $this->replaceMethodUML($content, $match[2], $umlPath);
+                }
 
-				return $content;
-			}
-		);
-	}
+                return $content;
+            }
+        );
+    }
 
-	/**
-	 * @param string $content The file content
-	 * @param string $type    The unit type
-	 * @param string $name    The unit name
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return string
-	 */
-	private function replaceClassUML($content, string $type, string $name, string $umlPath): string
-	{
-		$filename = strtolower("{$type}-{$name}.svg");
+    /**
+     * @param  string  $content  The file content
+     * @param  string  $type     The unit type
+     * @param  string  $name     The unit name
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return string
+     */
+    private function replaceClassUML($content, string $type, string $name, string $umlPath): string
+    {
+        $filename = strtolower("{$type}-{$name}.svg");
 
-		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
-		{
-			if (!$this->hasClassTree($content))
-			{
-				$content = preg_replace(
-					'~(<div class="description">.*?</div>)~sm',
-					"\$1\n\t<dl class=\"tree well\"><dd></dd></dl>",
-					$content
-				);
-			}
+        if (file_exists("{$this->target}/{$umlPath}/{$filename}")) {
+            if (!$this->hasClassTree($content)) {
+                $content = preg_replace(
+                    '~(<div class="description">.*?</div>)~sm',
+                    "\$1\n\t<dl class=\"tree well\"><dd></dd></dl>",
+                    $content
+                );
+            }
 
-			$content = preg_replace(
-				$this->classTreePattern,
-				"<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$filename}\" alt='Class Diagram'></dd></dl>",
-				$content
-			);
-		}
+            $content = preg_replace(
+                $this->classTreePattern,
+                "<dl class=\"tree well\"><dd><img src=\"{$umlPath}/{$filename}\" alt='Class Diagram'></dd></dl>",
+                $content
+            );
+        }
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * @param string $content The file content
-	 * @param string $name    The unit name
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return string
-	 */
-	private function replaceMethodUML($content, string $name, string $umlPath): string
-	{
-		$content = preg_replace_callback(
-			"~<tr data-order=\"(.+?)\"(.*?)(?:</tr>|<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>)~sm",
-			static function ($match) use ($name, $umlPath) {
-				if (!isset($match[3]))
-				{
-					return $match[0];
-				}
+    /**
+     * @param  string  $content  The file content
+     * @param  string  $name     The unit name
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return string
+     */
+    private function replaceMethodUML($content, string $name, string $umlPath): string
+    {
+        $content = preg_replace_callback(
+            "~<tr data-order=\"(.+?)\"(.*?)(?:</tr>|<h4>Startuml</h4>\s*<div class=\"list\">\s*(.+?)\s*</div>)~sm",
+            static function ($match) use ($name, $umlPath) {
+                if (!isset($match[3])) {
+                    return $match[0];
+                }
 
-				$filename = strtolower("annotation-{$name}-{$match[1]}.svg");
+                $filename = strtolower("annotation-{$name}-{$match[1]}.svg");
 
-				return sprintf(
-					/** @lang text */ '<tr data-order="%s"%s<h4>UML</h4><div class="list"><img src="%s/%s" alt="UML Diagram from annotation"></div>',
-					$match[1],
-					$match[2],
-					$umlPath,
-					$filename
-				);
-			},
-			$content
-		);
+                return sprintf(
+                /** @lang text */ '<tr data-order="%s"%s<h4>UML</h4><div class="list"><img src="%s/%s" alt="UML Diagram from annotation"></div>',
+                    $match[1],
+                    $match[2],
+                    $umlPath,
+                    $filename
+                );
+            },
+            $content
+        );
 
-		$content = preg_replace(
-			"~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m",
-			'',
-			$content
-		);
+        $content = preg_replace(
+            "~<h4>Enduml</h4>\s*<div class=\"list\">\s*</div>~m",
+            '',
+            $content
+        );
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * @param Fileset|string $fileset
-	 * @param callable       $filter
-	 */
-	private function reflexive($fileset, callable $filter): void
-	{
-		if (is_string($fileset))
-		{
-			$this->copyFile($fileset, $fileset, $filter);
+    /**
+     * @param  Fileset|string  $fileset
+     * @param  callable        $filter
+     */
+    private function reflexive($fileset, callable $filter): void
+    {
+        if (is_string($fileset)) {
+            $this->copyFile($fileset, $fileset, $filter);
 
-			return;
-		}
+            return;
+        }
 
-		foreach ($fileset->getFiles() as $file)
-		{
-			$this->copyFile($file, $file, $filter);
-		}
-	}
+        foreach ($fileset->getFiles() as $file) {
+            $this->copyFile($file, $file, $filter);
+        }
+    }
 
-	/**
-	 * @param string        $file
-	 * @param string        $toFile
-	 * @param callable|null $filter
-	 */
-	private function copyFile(string $file, string $toFile, callable $filter = null): void
-	{
-		if (is_dir($file))
-		{
-			return;
-		}
+    /**
+     * @param  string         $file
+     * @param  string         $toFile
+     * @param  callable|null  $filter
+     */
+    private function copyFile(string $file, string $toFile, callable $filter = null): void
+    {
+        if (is_dir($file)) {
+            return;
+        }
 
-		if (is_callable($filter))
-		{
-			file_put_contents($toFile, $filter(file_get_contents($file)));
-		}
-	}
+        if (is_callable($filter)) {
+            file_put_contents($toFile, $filter(file_get_contents($file)));
+        }
+    }
 
-	/**
-	 * @param $content
-	 *
-	 * @return false|int
-	 */
-	private function hasClassTree($content)
-	{
-		return preg_match($this->classTreePattern, $content);
-	}
+    /**
+     * @param $content
+     *
+     * @return false|int
+     */
+    private function hasClassTree($content)
+    {
+        return preg_match($this->classTreePattern, $content);
+    }
 }
