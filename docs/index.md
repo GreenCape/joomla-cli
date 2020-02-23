@@ -10,7 +10,7 @@ Available commands are
 - [document]() - generate API documentation using the specified generator
 - [help]() - display help for a command
 - [list]() - list all available commands
-- [quality]() - generate a quality report using CodeBrowser
+- [quality](quality/quality.md) - generate a quality report using CodeBrowser
 - [test](test/test.md) - run all tests locally and in the test containers
 
 **Core**
