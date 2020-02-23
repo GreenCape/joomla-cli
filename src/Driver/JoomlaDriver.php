@@ -32,7 +32,6 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
-use GreenCape\JoomlaCLI\Driver\Version;
 use JFactory;
 use JText;
 use League\Flysystem\FileNotFoundException;

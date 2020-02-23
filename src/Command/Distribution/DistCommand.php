@@ -31,8 +31,8 @@
 
 namespace GreenCape\JoomlaCLI\Command\Distribution;
 
-use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\FromPhing;
 use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

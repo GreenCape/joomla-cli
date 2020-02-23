@@ -32,8 +32,8 @@
 namespace GreenCape\JoomlaCLI\Command\Document;
 
 use Exception;
-use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

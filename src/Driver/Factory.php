@@ -31,7 +31,6 @@
 
 namespace GreenCape\JoomlaCLI\Driver;
 
-use GreenCape\JoomlaCLI\Driver\Version;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
