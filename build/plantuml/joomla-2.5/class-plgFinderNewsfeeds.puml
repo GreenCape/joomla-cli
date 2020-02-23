@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgFinderNewsfeeds
-FinderIndexerAdapter <|-- plgFinderNewsfeeds
-!include class-FinderIndexerAdapter.puml
-@enduml

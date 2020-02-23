@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgFieldsRadio
-FieldsListPlugin <|-- PlgFieldsRadio
-!include class-FieldsListPlugin.puml
-@enduml

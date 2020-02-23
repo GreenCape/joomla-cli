@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgFinderContacts
-FinderIndexerAdapter <|-- plgFinderContacts
-!include class-FinderIndexerAdapter.puml
-@enduml

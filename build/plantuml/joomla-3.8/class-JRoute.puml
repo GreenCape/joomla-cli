@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JRoute << alias >>
-\\Joomla\\CMS\\Router\\Route == JRoute
-!include class-Joomla.CMS.Router.Route.puml
-@enduml

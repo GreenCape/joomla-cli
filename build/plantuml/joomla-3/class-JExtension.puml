@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JExtension
-JInstallerExtension <|-- JExtension
-!include class-JInstallerExtension.puml
-@enduml

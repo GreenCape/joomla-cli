@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Language\\Stemmer\\Porteren
-Joomla\\CMS\\Language\\LanguageStemmer <|-- Joomla\\CMS\\Language\\Stemmer\\Porteren
-!include class-Joomla.CMS.Language.LanguageStemmer.puml
-@enduml

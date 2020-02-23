@@ -1,7 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class ParagonIE_Sodium_Core_Util
-@enduml

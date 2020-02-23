@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Log\\Logger\\W3cLogger
-Joomla\\CMS\\Log\\Logger\\FormattedtextLogger <|-- Joomla\\CMS\\Log\\Logger\\W3cLogger
-!include class-Joomla.CMS.Log.Logger.FormattedtextLogger.puml
-@enduml

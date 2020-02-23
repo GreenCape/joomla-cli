@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class AKPostprocHybrid
-AKAbstractPostproc <|-- AKPostprocHybrid
-!include class-AKAbstractPostproc.puml
-@enduml

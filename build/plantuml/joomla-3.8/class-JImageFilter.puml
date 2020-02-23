@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JImageFilter << alias >>
-\\Joomla\\CMS\\Image\\ImageFilter == JImageFilter
-!include class-Joomla.CMS.Image.ImageFilter.puml
-@enduml

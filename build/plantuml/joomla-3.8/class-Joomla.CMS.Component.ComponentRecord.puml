@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Component\\ComponentRecord
-JObject <|-- Joomla\\CMS\\Component\\ComponentRecord
-!include class-JObject.puml
-@enduml

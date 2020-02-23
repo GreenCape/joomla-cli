@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FinderIndexerParserRtf
-FinderIndexerParser <|-- FinderIndexerParserRtf
-!include class-FinderIndexerParser.puml
-@enduml

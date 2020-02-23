@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableContenthistory << alias >>
-\\Joomla\\CMS\\Table\\ContentHistory == JTableContenthistory
-!include class-Joomla.CMS.Table.ContentHistory.puml
-@enduml

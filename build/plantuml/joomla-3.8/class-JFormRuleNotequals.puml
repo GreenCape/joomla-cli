@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleNotequals << alias >>
-\\Joomla\\CMS\\Form\\Rule\\NotequalsRule == JFormRuleNotequals
-!include class-Joomla.CMS.Form.Rule.NotequalsRule.puml
-@enduml

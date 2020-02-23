@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\Image\\Filter\\Sketchy
-Joomla\\Image\\ImageFilter <|-- Joomla\\Image\\Filter\\Sketchy
-!include class-Joomla.Image.ImageFilter.puml
-@enduml

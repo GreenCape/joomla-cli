@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLogLoggerEcho << alias >>
-\\Joomla\\CMS\\Log\\Logger\\EchoLogger == JLogLoggerEcho
-!include class-Joomla.CMS.Log.Logger.EchoLogger.puml
-@enduml

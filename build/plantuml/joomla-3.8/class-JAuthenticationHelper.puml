@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAuthenticationHelper << alias >>
-\\Joomla\\CMS\\Helper\\AuthenticationHelper == JAuthenticationHelper
-!include class-Joomla.CMS.Helper.AuthenticationHelper.puml
-@enduml

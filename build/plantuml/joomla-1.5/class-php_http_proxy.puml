@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class php_http_proxy
-php_http_client_generic <|-- php_http_proxy
-!include class-php_http_client_generic.puml
-@enduml

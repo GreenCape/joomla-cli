@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JMenuNode
-JNode <|-- JMenuNode
-!include class-JNode.puml
-@enduml

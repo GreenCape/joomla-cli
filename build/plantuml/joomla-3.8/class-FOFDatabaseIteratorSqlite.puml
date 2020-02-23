@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFDatabaseIteratorSqlite
-FOFDatabaseIteratorPdo <|-- FOFDatabaseIteratorSqlite
-!include class-FOFDatabaseIteratorPdo.puml
-@enduml

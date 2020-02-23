@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class InstallerModelLanguages
-InstallerModel <|-- InstallerModelLanguages
-!include class-InstallerModel.puml
-@enduml

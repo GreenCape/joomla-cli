@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCategories << alias >>
-\\Joomla\\CMS\\Categories\\Categories == JCategories
-!include class-Joomla.CMS.Categories.Categories.puml
-@enduml

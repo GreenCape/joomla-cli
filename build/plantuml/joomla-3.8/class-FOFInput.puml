@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFInput
-JInput <|-- FOFInput
-!include class-JInput.puml
-@enduml

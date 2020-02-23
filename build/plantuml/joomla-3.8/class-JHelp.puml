@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JHelp << alias >>
-\\Joomla\\CMS\\Help\\Help == JHelp
-!include class-Joomla.CMS.Help.Help.puml
-@enduml

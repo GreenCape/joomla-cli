@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDatabaseDriverMysqli
-JDatabaseDriver <|-- JDatabaseDriverMysqli
-!include class-JDatabaseDriver.puml
-@enduml

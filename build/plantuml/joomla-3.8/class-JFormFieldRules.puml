@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldRules
-JFormField <|-- JFormFieldRules
-!include class-JFormField.puml
-@enduml

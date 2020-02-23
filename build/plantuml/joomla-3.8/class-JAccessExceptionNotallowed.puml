@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAccessExceptionNotallowed << alias >>
-\\Joomla\\CMS\\Access\\Exception\\NotAllowed == JAccessExceptionNotallowed
-!include class-Joomla.CMS.Access.Exception.NotAllowed.puml
-@enduml

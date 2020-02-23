@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Form\\Field\\OrderingField
-Joomla\\CMS\\Form\\FormField <|-- Joomla\\CMS\\Form\\Field\\OrderingField
-!include class-Joomla.CMS.Form.FormField.puml
-@enduml

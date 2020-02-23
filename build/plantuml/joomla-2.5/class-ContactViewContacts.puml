@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ContactViewContacts
-JViewLegacy <|-- ContactViewContacts
-!include class-JViewLegacy.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_OutputFilter_BBCode
-patTemplate_OutputFilter <|-- patTemplate_OutputFilter_BBCode
-!include class-patTemplate_OutputFilter.puml
-@enduml

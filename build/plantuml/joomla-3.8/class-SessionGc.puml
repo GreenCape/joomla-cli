@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SessionGc
-JApplicationCli <|-- SessionGc
-!include class-JApplicationCli.puml
-@enduml

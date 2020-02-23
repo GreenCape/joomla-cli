@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ContactCategories
-JCategories <|-- ContactCategories
-!include class-JCategories.puml
-@enduml

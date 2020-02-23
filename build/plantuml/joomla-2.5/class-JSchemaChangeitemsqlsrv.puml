@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSchemaChangeitemsqlsrv
-JSchemaChangeitem <|-- JSchemaChangeitemsqlsrv
-!include class-JSchemaChangeitem.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PollViewPoll
-JView <|-- PollViewPoll
-!include class-JView.puml
-@enduml

@@ -1,7 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_Yadis_XRDS
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JController
-JObject <|-- JController
-!include class-JObject.puml
-@enduml

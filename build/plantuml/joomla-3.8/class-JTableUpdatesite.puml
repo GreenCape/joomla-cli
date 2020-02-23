@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableUpdatesite << alias >>
-\\Joomla\\CMS\\Table\\UpdateSite == JTableUpdatesite
-!include class-Joomla.CMS.Table.UpdateSite.puml
-@enduml

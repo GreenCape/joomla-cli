@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Form\\Field\\PluginstatusField
-JFormFieldPredefinedList <|-- Joomla\\CMS\\Form\\Field\\PluginstatusField
-!include class-JFormFieldPredefinedList.puml
-@enduml

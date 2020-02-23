@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JPagination
-JObject <|-- JPagination
-!include class-JObject.puml
-@enduml

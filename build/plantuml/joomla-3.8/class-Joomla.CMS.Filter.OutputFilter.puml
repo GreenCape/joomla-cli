@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Filter\\OutputFilter
-Joomla\\Filter\\OutputFilter <|-- Joomla\\CMS\\Filter\\OutputFilter
-!include class-Joomla.Filter.OutputFilter.puml
-@enduml

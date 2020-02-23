@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgAuthenticationLdap
-JPlugin <|-- plgAuthenticationLdap
-!include class-JPlugin.puml
-@enduml

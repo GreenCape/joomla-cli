@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Error
-Exception <|-- Error
-!include class-Exception.puml
-@enduml

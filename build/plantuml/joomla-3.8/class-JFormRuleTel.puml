@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleTel << alias >>
-\\Joomla\\CMS\\Form\\Rule\\TelRule == JFormRuleTel
-!include class-Joomla.CMS.Form.Rule.TelRule.puml
-@enduml

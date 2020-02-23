@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTwitterStatuses
-JTwitterObject <|-- JTwitterStatuses
-!include class-JTwitterObject.puml
-@enduml

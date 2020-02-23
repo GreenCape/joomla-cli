@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-interface FOFDatabaseInterface
-JDatabaseInterface <|-- FOFDatabaseInterface
-!include class-JDatabaseInterface.puml
-@enduml

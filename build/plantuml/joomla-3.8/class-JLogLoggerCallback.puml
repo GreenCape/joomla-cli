@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLogLoggerCallback << alias >>
-\\Joomla\\CMS\\Log\\Logger\\CallbackLogger == JLogLoggerCallback
-!include class-Joomla.CMS.Log.Logger.CallbackLogger.puml
-@enduml

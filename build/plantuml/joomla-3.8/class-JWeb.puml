@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JWeb << alias >>
-\\Joomla\\CMS\\Application\\WebApplication == JWeb
-!include class-Joomla.CMS.Application.WebApplication.puml
-@enduml

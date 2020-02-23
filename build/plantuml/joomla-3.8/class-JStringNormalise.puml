@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JStringNormalise << alias >>
-\\Joomla\\String\\Normalise == JStringNormalise
-!include class-Joomla.String.Normalise.puml
-@enduml

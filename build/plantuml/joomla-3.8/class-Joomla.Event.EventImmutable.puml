@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\Event\\EventImmutable << final >>
-Joomla\\Event\\AbstractEvent <|-- Joomla\\Event\\EventImmutable
-!include class-Joomla.Event.AbstractEvent.puml
-@enduml

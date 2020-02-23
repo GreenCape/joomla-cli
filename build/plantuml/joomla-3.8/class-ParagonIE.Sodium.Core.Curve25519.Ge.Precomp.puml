@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ParagonIE\\Sodium\\Core\\Curve25519\\Ge\\Precomp
-ParagonIE_Sodium_Core_Curve25519_Ge_Precomp <|-- ParagonIE\\Sodium\\Core\\Curve25519\\Ge\\Precomp
-!include class-ParagonIE_Sodium_Core_Curve25519_Ge_Precomp.puml
-@enduml

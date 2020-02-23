@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class InstallationControllerSite
-JControllerBase <|-- InstallationControllerSite
-!include class-JControllerBase.puml
-@enduml

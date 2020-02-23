@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Form\\Field\\EditorField
-JFormFieldTextarea <|-- Joomla\\CMS\\Form\\Field\\EditorField
-!include class-JFormFieldTextarea.puml
-@enduml

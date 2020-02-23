@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class InstallerModelUpdatesites
-InstallerModel <|-- InstallerModelUpdatesites
-!include class-InstallerModel.puml
-@enduml

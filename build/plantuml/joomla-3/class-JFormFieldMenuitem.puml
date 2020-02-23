@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldMenuitem
-JFormFieldGroupedList <|-- JFormFieldMenuitem
-!include class-JFormFieldGroupedList.puml
-@enduml

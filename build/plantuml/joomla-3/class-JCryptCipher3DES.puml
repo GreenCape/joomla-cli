@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCryptCipher3DES
-JCryptCipherMcrypt <|-- JCryptCipher3DES
-!include class-JCryptCipherMcrypt.puml
-@enduml

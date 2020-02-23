@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class MenusModelItem
-JModel <|-- MenusModelItem
-!include class-JModel.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgFinderCategories
-FinderIndexerAdapter <|-- PlgFinderCategories
-!include class-FinderIndexerAdapter.puml
-@enduml

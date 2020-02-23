@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_Function_Strip
-patTemplate_Function <|-- patTemplate_Function_Strip
-!include class-patTemplate_Function.puml
-@enduml

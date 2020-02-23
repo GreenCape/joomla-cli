@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JRule << alias >>
-\\Joomla\\CMS\\Access\\Rule == JRule
-!include class-Joomla.CMS.Access.Rule.puml
-@enduml

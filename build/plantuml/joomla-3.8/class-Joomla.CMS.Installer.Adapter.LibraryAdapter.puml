@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Installer\\Adapter\\LibraryAdapter
-Joomla\\CMS\\Installer\\InstallerAdapter <|-- Joomla\\CMS\\Installer\\Adapter\\LibraryAdapter
-!include class-Joomla.CMS.Installer.InstallerAdapter.puml
-@enduml

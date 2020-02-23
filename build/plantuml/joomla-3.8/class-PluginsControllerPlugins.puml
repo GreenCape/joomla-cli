@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PluginsControllerPlugins
-JControllerAdmin <|-- PluginsControllerPlugins
-!include class-JControllerAdmin.puml
-@enduml

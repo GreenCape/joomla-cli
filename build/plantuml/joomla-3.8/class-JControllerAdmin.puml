@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JControllerAdmin << alias >>
-\\Joomla\\CMS\\MVC\\Controller\\AdminController == JControllerAdmin
-!include class-Joomla.CMS.MVC.Controller.AdminController.puml
-@enduml

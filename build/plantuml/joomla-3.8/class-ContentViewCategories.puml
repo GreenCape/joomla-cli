@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ContentViewCategories
-JViewCategories <|-- ContentViewCategories
-!include class-JViewCategories.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class Joomla\\CMS\\Component\\Router\\RouterView
-Joomla\\CMS\\Component\\Router\\RouterBase <|-- Joomla\\CMS\\Component\\Router\\RouterView
-!include class-Joomla.CMS.Component.Router.RouterBase.puml
-@enduml

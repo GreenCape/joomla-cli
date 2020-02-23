@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFilterInput << alias >>
-\\Joomla\\CMS\\Filter\\InputFilter == JFilterInput
-!include class-Joomla.CMS.Filter.InputFilter.puml
-@enduml

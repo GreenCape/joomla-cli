@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JMailHelper << alias >>
-\\Joomla\\CMS\\Mail\\MailHelper == JMailHelper
-!include class-Joomla.CMS.Mail.MailHelper.puml
-@enduml

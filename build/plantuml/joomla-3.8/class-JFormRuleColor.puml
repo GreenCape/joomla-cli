@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleColor << alias >>
-\\Joomla\\CMS\\Form\\Rule\\ColorRule == JFormRuleColor
-!include class-Joomla.CMS.Form.Rule.ColorRule.puml
-@enduml

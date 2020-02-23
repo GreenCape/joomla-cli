@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JUcmContent
-JUcmBase <|-- JUcmContent
-!include class-JUcmBase.puml
-@enduml

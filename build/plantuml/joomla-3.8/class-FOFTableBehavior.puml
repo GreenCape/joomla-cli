@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class FOFTableBehavior
-FOFUtilsObservableEvent <|-- FOFTableBehavior
-!include class-FOFUtilsObservableEvent.puml
-@enduml

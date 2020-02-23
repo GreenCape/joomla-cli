@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFeedParserNamespace << alias >>
-\\Joomla\\CMS\\Feed\\Parser\\NamespaceParserInterface == JFeedParserNamespace
-!include class-Joomla.CMS.Feed.Parser.NamespaceParserInterface.puml
-@enduml

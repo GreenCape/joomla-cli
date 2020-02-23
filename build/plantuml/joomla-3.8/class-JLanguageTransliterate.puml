@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLanguageTransliterate << alias >>
-\\Joomla\\CMS\\Language\\Transliterate == JLanguageTransliterate
-!include class-Joomla.CMS.Language.Transliterate.puml
-@enduml

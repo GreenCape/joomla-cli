@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class mosMambotHandler
-JDispatcher <|-- mosMambotHandler
-!include class-JDispatcher.puml
-@enduml

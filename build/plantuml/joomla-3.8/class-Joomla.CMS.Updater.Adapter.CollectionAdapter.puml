@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Updater\\Adapter\\CollectionAdapter
-Joomla\\CMS\\Updater\\UpdateAdapter <|-- Joomla\\CMS\\Updater\\Adapter\\CollectionAdapter
-!include class-Joomla.CMS.Updater.UpdateAdapter.puml
-@enduml

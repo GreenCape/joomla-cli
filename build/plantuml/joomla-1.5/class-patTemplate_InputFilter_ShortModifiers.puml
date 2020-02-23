@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_InputFilter_ShortModifiers
-patTemplate_InputFilter <|-- patTemplate_InputFilter_ShortModifiers
-!include class-patTemplate_InputFilter.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ConfigModelComponent
-JModel <|-- ConfigModelComponent
-!include class-JModel.puml
-@enduml

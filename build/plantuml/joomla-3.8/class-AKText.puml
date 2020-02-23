@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class AKText
-AKAbstractObject <|-- AKText
-!include class-AKAbstractObject.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Auth_Yadis_domxml
-Auth_Yadis_XMLParser <|-- Auth_Yadis_domxml
-!include class-Auth_Yadis_XMLParser.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JInputJSON << alias >>
-\\Joomla\\CMS\\Input\\Json == JInputJSON
-!include class-Joomla.CMS.Input.Json.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDataSet << alias >>
-\\Joomla\\Data\\DataSet == JDataSet
-!include class-Joomla.Data.DataSet.puml
-@enduml

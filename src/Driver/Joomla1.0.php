@@ -33,6 +33,7 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
+use joomlaVersion;
 use JText;
 
 /**

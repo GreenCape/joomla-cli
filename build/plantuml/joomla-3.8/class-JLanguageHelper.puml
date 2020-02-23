@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLanguageHelper << alias >>
-\\Joomla\\CMS\\Language\\LanguageHelper == JLanguageHelper
-!include class-Joomla.CMS.Language.LanguageHelper.puml
-@enduml

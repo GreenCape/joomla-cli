@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgFieldsEditor
-FieldsPlugin <|-- PlgFieldsEditor
-!include class-FieldsPlugin.puml
-@enduml

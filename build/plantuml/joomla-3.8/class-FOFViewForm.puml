@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFViewForm
-FOFViewHtml <|-- FOFViewForm
-!include class-FOFViewHtml.puml
-@enduml

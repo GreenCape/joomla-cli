@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JApplication
-JObject <|-- JApplication
-!include class-JObject.puml
-@enduml

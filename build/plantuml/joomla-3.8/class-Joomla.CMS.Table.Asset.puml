@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Table\\Asset
-Joomla\\CMS\\Table\\Nested <|-- Joomla\\CMS\\Table\\Asset
-!include class-Joomla.CMS.Table.Nested.puml
-@enduml

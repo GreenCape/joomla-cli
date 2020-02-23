@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ConfigControllerComponent
-JControllerLegacy <|-- ConfigControllerComponent
-!include class-JControllerLegacy.puml
-@enduml

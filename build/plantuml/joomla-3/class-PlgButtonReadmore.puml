@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgButtonReadmore
-JPlugin <|-- PlgButtonReadmore
-!include class-JPlugin.puml
-@enduml

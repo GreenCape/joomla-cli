@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgEditorCodemirror
-JPlugin <|-- plgEditorCodemirror
-!include class-JPlugin.puml
-@enduml

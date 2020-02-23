@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFRenderStrapper
-FOFRenderAbstract <|-- FOFRenderStrapper
-!include class-FOFRenderAbstract.puml
-@enduml

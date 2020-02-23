@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFFormFieldImage
-FOFFormFieldMedia <|-- FOFFormFieldImage
-!include class-FOFFormFieldMedia.puml
-@enduml

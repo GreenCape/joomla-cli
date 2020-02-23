@@ -1,7 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JOAuth2Client
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDatabaseExporterMySQLi
-JDatabaseExporterMySQL <|-- JDatabaseExporterMySQLi
-!include class-JDatabaseExporterMySQL.puml
-@enduml

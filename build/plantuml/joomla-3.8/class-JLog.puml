@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLog << alias >>
-\\Joomla\\CMS\\Log\\Log == JLog
-!include class-Joomla.CMS.Log.Log.puml
-@enduml

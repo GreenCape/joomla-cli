@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class JFormFieldPredefinedList
-JFormFieldList <|-- JFormFieldPredefinedList
-!include class-JFormFieldList.puml
-@enduml

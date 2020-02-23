@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class DOMIT_TextNode
-DOMIT_CharacterData <|-- DOMIT_TextNode
-!include class-DOMIT_CharacterData.puml
-@enduml

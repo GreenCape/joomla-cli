@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldModal_Newsfeed
-JFormField <|-- JFormFieldModal_Newsfeed
-!include class-JFormField.puml
-@enduml

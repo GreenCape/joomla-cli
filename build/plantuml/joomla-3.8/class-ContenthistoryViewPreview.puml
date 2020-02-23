@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class ContenthistoryViewPreview
-JViewLegacy <|-- ContenthistoryViewPreview
-!include class-JViewLegacy.puml
-@enduml

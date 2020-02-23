@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableCorecontent << alias >>
-\\Joomla\\CMS\\Table\\CoreContent == JTableCorecontent
-!include class-Joomla.CMS.Table.CoreContent.puml
-@enduml

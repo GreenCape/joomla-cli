@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class DOMIT_Attr
-DOMIT_Node <|-- DOMIT_Attr
-!include class-DOMIT_Node.puml
-@enduml

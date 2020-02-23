@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLoggerSysLog
-JLogger <|-- JLoggerSysLog
-!include class-JLogger.puml
-@enduml

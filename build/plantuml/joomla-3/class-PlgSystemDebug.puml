@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgSystemDebug
-JPlugin <|-- PlgSystemDebug
-!include class-JPlugin.puml
-@enduml

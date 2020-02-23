@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Table\\Ucm
-Joomla\\CMS\\Table\\Table <|-- Joomla\\CMS\\Table\\Ucm
-!include class-Joomla.CMS.Table.Table.puml
-@enduml

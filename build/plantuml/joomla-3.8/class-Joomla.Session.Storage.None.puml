@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\Session\\Storage\\None
-Joomla\\Session\\Storage <|-- Joomla\\Session\\Storage\\None
-!include class-Joomla.Session.Storage.puml
-@enduml

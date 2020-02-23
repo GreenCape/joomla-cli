@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldMeter
-JFormFieldNumber <|-- JFormFieldMeter
-!include class-JFormFieldNumber.puml
-@enduml

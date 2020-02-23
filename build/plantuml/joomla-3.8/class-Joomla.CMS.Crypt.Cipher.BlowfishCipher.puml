@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Crypt\\Cipher\\BlowfishCipher
-Joomla\\CMS\\Crypt\\Cipher\\McryptCipher <|-- Joomla\\CMS\\Crypt\\Cipher\\BlowfishCipher
-!include class-Joomla.CMS.Crypt.Cipher.McryptCipher.puml
-@enduml

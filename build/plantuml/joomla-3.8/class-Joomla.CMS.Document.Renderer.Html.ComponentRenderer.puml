@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Document\\Renderer\\Html\\ComponentRenderer
-Joomla\\CMS\\Document\\DocumentRenderer <|-- Joomla\\CMS\\Document\\Renderer\\Html\\ComponentRenderer
-!include class-Joomla.CMS.Document.DocumentRenderer.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSession
-JObject <|-- JSession
-!include class-JObject.puml
-@enduml

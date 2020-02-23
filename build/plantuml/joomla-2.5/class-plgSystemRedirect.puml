@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class plgSystemRedirect
-JPlugin <|-- plgSystemRedirect
-!include class-JPlugin.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JGithubPackageUsersFollowers
-JGithubPackage <|-- JGithubPackageUsersFollowers
-!include class-JGithubPackage.puml
-@enduml

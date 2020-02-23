@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class mosTabs
-JPaneTabs <|-- mosTabs
-!include class-JPaneTabs.puml
-@enduml

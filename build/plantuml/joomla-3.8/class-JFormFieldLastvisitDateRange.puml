@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormFieldLastvisitDateRange << alias >>
-\\Joomla\\CMS\\Form\\Field\\LastvisitdaterangeField == JFormFieldLastvisitDateRange
-!include class-Joomla.CMS.Form.Field.LastvisitdaterangeField.puml
-@enduml

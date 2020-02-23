@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class UsersViewGroups
-JViewLegacy <|-- UsersViewGroups
-!include class-JViewLegacy.puml
-@enduml

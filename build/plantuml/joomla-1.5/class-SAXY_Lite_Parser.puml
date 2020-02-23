@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SAXY_Lite_Parser
-SAXY_Parser_Base <|-- SAXY_Lite_Parser
-!include class-SAXY_Parser_Base.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocumentError
-JDocument <|-- JDocumentError
-!include class-JDocument.puml
-@enduml

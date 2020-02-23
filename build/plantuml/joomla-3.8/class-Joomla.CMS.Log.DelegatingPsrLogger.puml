@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Log\\DelegatingPsrLogger
-Psr\\Log\\AbstractLogger <|-- Joomla\\CMS\\Log\\DelegatingPsrLogger
-!include class-Psr.Log.AbstractLogger.puml
-@enduml

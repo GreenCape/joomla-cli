@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTwitterOAuth
-JOAuth1Client <|-- JTwitterOAuth
-!include class-JOAuth1Client.puml
-@enduml

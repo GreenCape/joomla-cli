@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class Joomla\\CMS\\Updater\\UpdateAdapter
-JAdapterInstance <|-- Joomla\\CMS\\Updater\\UpdateAdapter
-!include class-JAdapterInstance.puml
-@enduml

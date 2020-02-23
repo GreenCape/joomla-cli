@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JGoogleDataPlusActivities
-JGoogleData <|-- JGoogleDataPlusActivities
-!include class-JGoogleData.puml
-@enduml

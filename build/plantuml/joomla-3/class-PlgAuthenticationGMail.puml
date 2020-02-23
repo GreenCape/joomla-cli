@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class PlgAuthenticationGMail
-JPlugin <|-- PlgAuthenticationGMail
-!include class-JPlugin.puml
-@enduml

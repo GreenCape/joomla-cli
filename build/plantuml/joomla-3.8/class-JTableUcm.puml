@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JTableUcm << alias >>
-\\Joomla\\CMS\\Table\\Ucm == JTableUcm
-!include class-Joomla.CMS.Table.Ucm.puml
-@enduml

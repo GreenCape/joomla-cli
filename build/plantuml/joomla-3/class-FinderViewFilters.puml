@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FinderViewFilters
-JViewLegacy <|-- FinderViewFilters
-!include class-JViewLegacy.puml
-@enduml

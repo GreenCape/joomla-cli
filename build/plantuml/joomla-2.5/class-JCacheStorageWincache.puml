@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCacheStorageWincache
-JCacheStorage <|-- JCacheStorageWincache
-!include class-JCacheStorage.puml
-@enduml

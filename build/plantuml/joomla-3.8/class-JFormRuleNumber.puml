@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JFormRuleNumber << alias >>
-\\Joomla\\CMS\\Form\\Rule\\NumberRule == JFormRuleNumber
-!include class-Joomla.CMS.Form.Rule.NumberRule.puml
-@enduml

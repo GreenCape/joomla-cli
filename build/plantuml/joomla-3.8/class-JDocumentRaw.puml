@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocumentRaw << alias >>
-\\Joomla\\CMS\\Document\\RawDocument == JDocumentRaw
-!include class-Joomla.CMS.Document.RawDocument.puml
-@enduml

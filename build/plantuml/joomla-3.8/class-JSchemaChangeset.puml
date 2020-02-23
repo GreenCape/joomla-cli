@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JSchemaChangeset << alias >>
-\\Joomla\\CMS\\Schema\\ChangeSet == JSchemaChangeset
-!include class-Joomla.CMS.Schema.ChangeSet.puml
-@enduml

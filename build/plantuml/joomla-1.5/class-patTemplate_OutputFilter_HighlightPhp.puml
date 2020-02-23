@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class patTemplate_OutputFilter_HighlightPhp
-patTemplate_OutputFilter <|-- patTemplate_OutputFilter_HighlightPhp
-!include class-patTemplate_OutputFilter.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JCryptCipherCrypto << alias >>
-\\Joomla\\CMS\\Crypt\\Cipher\\CryptoCipher == JCryptCipherCrypto
-!include class-Joomla.CMS.Crypt.Cipher.CryptoCipher.puml
-@enduml

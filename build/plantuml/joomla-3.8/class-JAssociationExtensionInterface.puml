@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JAssociationExtensionInterface << alias >>
-\\Joomla\\CMS\\Association\\AssociationExtensionInterface == JAssociationExtensionInterface
-!include class-Joomla.CMS.Association.AssociationExtensionInterface.puml
-@enduml

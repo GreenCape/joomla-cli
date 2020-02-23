@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class CheckinController
-JControllerLegacy <|-- CheckinController
-!include class-JControllerLegacy.puml
-@enduml

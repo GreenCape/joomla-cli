@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class SqlView
-AbstractedBaseView <|-- SqlView
-!include class-AbstractedBaseView.puml
-@enduml

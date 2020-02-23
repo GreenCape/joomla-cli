@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFLayoutHelper
-JLayoutHelper <|-- FOFLayoutHelper
-!include class-JLayoutHelper.puml
-@enduml

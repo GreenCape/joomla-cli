@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JApplicationCms << alias >>
-\\Joomla\\CMS\\Application\\CMSApplication == JApplicationCms
-!include class-Joomla.CMS.Application.CMSApplication.puml
-@enduml

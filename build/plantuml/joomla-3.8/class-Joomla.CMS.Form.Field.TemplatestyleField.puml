@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Form\\Field\\TemplatestyleField
-JFormFieldGroupedList <|-- Joomla\\CMS\\Form\\Field\\TemplatestyleField
-!include class-JFormFieldGroupedList.puml
-@enduml

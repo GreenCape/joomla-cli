@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JExtension << alias >>
-\\Joomla\\CMS\\Installer\\InstallerExtension == JExtension
-!include class-Joomla.CMS.Installer.InstallerExtension.puml
-@enduml

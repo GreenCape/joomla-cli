@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JToolbarButtonConfirm
-JToolbarButton <|-- JToolbarButtonConfirm
-!include class-JToolbarButton.puml
-@enduml

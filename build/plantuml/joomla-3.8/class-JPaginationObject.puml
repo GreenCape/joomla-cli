@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JPaginationObject << alias >>
-\\Joomla\\CMS\\Pagination\\PaginationObject == JPaginationObject
-!include class-Joomla.CMS.Pagination.PaginationObject.puml
-@enduml

@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JClientHelper << alias >>
-\\Joomla\\CMS\\Client\\ClientHelper == JClientHelper
-!include class-Joomla.CMS.Client.ClientHelper.puml
-@enduml

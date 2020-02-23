@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JWebClient << alias >>
-\\Joomla\\Application\\Web\\WebClient == JWebClient
-!include class-Joomla.Application.Web.WebClient.puml
-@enduml

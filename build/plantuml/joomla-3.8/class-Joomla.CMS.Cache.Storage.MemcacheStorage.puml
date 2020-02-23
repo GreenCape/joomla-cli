@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Cache\\Storage\\MemcacheStorage
-Joomla\\CMS\\Cache\\CacheStorage <|-- Joomla\\CMS\\Cache\\Storage\\MemcacheStorage
-!include class-Joomla.CMS.Cache.CacheStorage.puml
-@enduml

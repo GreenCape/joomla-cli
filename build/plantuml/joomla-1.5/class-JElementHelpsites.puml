@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JElementHelpsites
-JElement <|-- JElementHelpsites
-!include class-JElement.puml
-@enduml

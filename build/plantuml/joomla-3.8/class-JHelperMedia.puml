@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JHelperMedia << alias >>
-\\Joomla\\CMS\\Helper\\MediaHelper == JHelperMedia
-!include class-Joomla.CMS.Helper.MediaHelper.puml
-@enduml

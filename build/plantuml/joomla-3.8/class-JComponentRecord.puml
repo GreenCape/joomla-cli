@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JComponentRecord << alias >>
-\\Joomla\\CMS\\Component\\ComponentRecord == JComponentRecord
-!include class-Joomla.CMS.Component.ComponentRecord.puml
-@enduml

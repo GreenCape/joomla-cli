@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-abstract class FinderIndexerAdapter
-JPlugin <|-- FinderIndexerAdapter
-!include class-JPlugin.puml
-@enduml

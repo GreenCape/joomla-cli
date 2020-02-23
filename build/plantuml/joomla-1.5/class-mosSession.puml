@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class mosSession
-JTableSession <|-- mosSession
-!include class-JTableSession.puml
-@enduml

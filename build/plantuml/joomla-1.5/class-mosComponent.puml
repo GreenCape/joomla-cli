@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class mosComponent
-JTableComponent <|-- mosComponent
-!include class-JTableComponent.puml
-@enduml

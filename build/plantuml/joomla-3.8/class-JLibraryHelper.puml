@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JLibraryHelper << alias >>
-\\Joomla\\CMS\\Helper\\LibraryHelper == JLibraryHelper
-!include class-Joomla.CMS.Helper.LibraryHelper.puml
-@enduml

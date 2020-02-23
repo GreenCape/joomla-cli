@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Document\\ImageDocument
-Joomla\\CMS\\Document\\Document <|-- Joomla\\CMS\\Document\\ImageDocument
-!include class-Joomla.CMS.Document.Document.puml
-@enduml

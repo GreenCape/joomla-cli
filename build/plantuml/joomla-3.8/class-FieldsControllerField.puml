@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FieldsControllerField
-JControllerForm <|-- FieldsControllerField
-!include class-JControllerForm.puml
-@enduml

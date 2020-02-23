@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JVersion << alias >>
-\\Joomla\\CMS\\Version == JVersion
-!include class-Joomla.CMS.Version.puml
-@enduml

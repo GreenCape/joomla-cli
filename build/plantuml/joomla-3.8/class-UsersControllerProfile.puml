@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class UsersControllerProfile
-UsersControllerProfile_Base_Json <|-- UsersControllerProfile
-!include class-UsersControllerProfile_Base_Json.puml
-@enduml

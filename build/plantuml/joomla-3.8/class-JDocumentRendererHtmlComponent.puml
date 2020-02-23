@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JDocumentRendererHtmlComponent << alias >>
-\\Joomla\\CMS\\Document\\Renderer\\Html\\ComponentRenderer == JDocumentRendererHtmlComponent
-!include class-Joomla.CMS.Document.Renderer.Html.ComponentRenderer.puml
-@enduml

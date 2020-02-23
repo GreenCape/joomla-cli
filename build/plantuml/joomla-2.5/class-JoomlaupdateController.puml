@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class JoomlaupdateController
-JControllerLegacy <|-- JoomlaupdateController
-!include class-JControllerLegacy.puml
-@enduml

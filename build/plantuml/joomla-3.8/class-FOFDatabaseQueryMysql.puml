@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class FOFDatabaseQueryMysql
-FOFDatabaseQueryMysqli <|-- FOFDatabaseQueryMysql
-!include class-FOFDatabaseQueryMysqli.puml
-@enduml

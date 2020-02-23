@@ -1,9 +1,0 @@
-@startuml
-set namespaceSeparator \\
-hide members
-hide << alias >> circle
-
-class Joomla\\CMS\\Date\\Date
-DateTime <|-- Joomla\\CMS\\Date\\Date
-!include class-DateTime.puml
-@enduml
