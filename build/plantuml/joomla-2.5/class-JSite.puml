@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSite
+JObject <|-- JSite
+!include class-JObject.puml
+@enduml

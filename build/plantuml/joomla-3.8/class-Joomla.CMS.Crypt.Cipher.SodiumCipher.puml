@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Crypt\\Cipher\\SodiumCipher
+interface Joomla\\CMS\\Crypt\\CipherInterface
+Joomla\\CMS\\Crypt\\CipherInterface <|.. Joomla\\CMS\\Crypt\\Cipher\\SodiumCipher
+!include class-Joomla.CMS.Crypt.CipherInterface.puml
+@enduml

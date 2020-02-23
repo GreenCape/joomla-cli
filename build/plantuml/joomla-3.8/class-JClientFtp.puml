@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JClientFtp << alias >>
+\\Joomla\\CMS\\Client\\FtpClient == JClientFtp
+!include class-Joomla.CMS.Client.FtpClient.puml
+@enduml

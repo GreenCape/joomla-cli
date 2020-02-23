@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormFieldMedia
+JFormFieldMedia <|-- FOFFormFieldMedia
+interface FOFFormField
+FOFFormField <|.. FOFFormFieldMedia
+!include class-JFormFieldMedia.puml
+!include class-FOFFormField.puml
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SimplePie_Cache_File
+interface SimplePie_Cache_Base
+SimplePie_Cache_Base <|.. SimplePie_Cache_File
+!include class-SimplePie_Cache_Base.puml
+@enduml

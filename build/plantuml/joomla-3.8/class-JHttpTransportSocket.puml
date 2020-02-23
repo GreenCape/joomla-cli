@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JHttpTransportSocket << alias >>
+\\Joomla\\CMS\\Http\\Transport\\SocketTransport == JHttpTransportSocket
+!include class-Joomla.CMS.Http.Transport.SocketTransport.puml
+@enduml

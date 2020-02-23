@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Symfony\\Polyfill\\Php55\\Php55ArrayColumn << final >>
+@enduml

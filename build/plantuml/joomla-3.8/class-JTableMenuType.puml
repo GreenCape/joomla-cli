@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableMenuType << alias >>
+\\Joomla\\CMS\\Table\\MenuType == JTableMenuType
+!include class-Joomla.CMS.Table.MenuType.puml
+@enduml

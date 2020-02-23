@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUser << alias >>
+\\Joomla\\CMS\\User\\User == JUser
+!include class-Joomla.CMS.User.User.puml
+@enduml

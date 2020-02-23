@@ -1,0 +1,17 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoGridFSCursor
+MongoCursor <|-- MongoGridFSCursor
+interface Traversable
+Traversable <|.. MongoGridFSCursor
+interface Iterator
+Iterator <|.. MongoGridFSCursor
+!includesub class-mongocursor.puml!INNER
+!includesub class-traversable.puml!INNER
+!includesub class-iterator.puml!INNER
+!endsub
+@enduml

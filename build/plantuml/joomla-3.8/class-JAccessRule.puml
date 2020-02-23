@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JAccessRule << alias >>
+\\Joomla\\CMS\\Access\\Rule == JAccessRule
+!include class-Joomla.CMS.Access.Rule.puml
+@enduml

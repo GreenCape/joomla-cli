@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentJSON
+JDocument <|-- JDocumentJSON
+!include class-JDocument.puml
+@enduml

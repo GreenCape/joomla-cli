@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormRuleEmail << alias >>
+\\Joomla\\CMS\\Form\\Rule\\EmailRule == JFormRuleEmail
+!include class-Joomla.CMS.Form.Rule.EmailRule.puml
+@enduml

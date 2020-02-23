@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class php_http_client_generic
+php_http_request <|-- php_http_client_generic
+!include class-php_http_request.puml
+@enduml

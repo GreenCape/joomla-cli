@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormHeaderFiltersql
+FOFFormHeaderFieldsql <|-- FOFFormHeaderFiltersql
+!include class-FOFFormHeaderFieldsql.puml
+@enduml

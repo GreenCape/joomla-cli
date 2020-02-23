@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheControllerView << alias >>
+\\Joomla\\CMS\\Cache\\Controller\\ViewController == JCacheControllerView
+!include class-Joomla.CMS.Cache.Controller.ViewController.puml
+@enduml

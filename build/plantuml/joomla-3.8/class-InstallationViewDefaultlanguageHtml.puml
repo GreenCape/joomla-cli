@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class InstallationViewDefaultlanguageHtml
+JViewHtml <|-- InstallationViewDefaultlanguageHtml
+!include class-JViewHtml.puml
+@enduml

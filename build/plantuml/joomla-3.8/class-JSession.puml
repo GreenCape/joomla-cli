@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSession << alias >>
+\\Joomla\\CMS\\Session\\Session == JSession
+!include class-Joomla.CMS.Session.Session.puml
+@enduml

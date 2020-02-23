@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableContenttype << alias >>
+\\Joomla\\CMS\\Table\\ContentType == JTableContenttype
+!include class-Joomla.CMS.Table.ContentType.puml
+@enduml

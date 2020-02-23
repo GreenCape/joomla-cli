@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class ReflectionFunction
+ReflectionFunctionAbstract <|-- ReflectionFunction
+interface Reflector
+Reflector <|.. ReflectionFunction
+!includesub class-reflectionfunctionabstract.puml!INNER
+!includesub class-reflector.puml!INNER
+!endsub
+@enduml

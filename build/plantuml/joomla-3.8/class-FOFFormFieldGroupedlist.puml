@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormFieldGroupedlist
+JFormFieldGroupedList <|-- FOFFormFieldGroupedlist
+interface FOFFormField
+FOFFormField <|.. FOFFormFieldGroupedlist
+!include class-JFormFieldGroupedList.puml
+!include class-FOFFormField.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_CancelResponse
+Auth_OpenID_ConsumerResponse <|-- Auth_OpenID_CancelResponse
+!include class-Auth_OpenID_ConsumerResponse.puml
+@enduml

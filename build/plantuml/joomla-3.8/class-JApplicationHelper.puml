@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JApplicationHelper << alias >>
+\\Joomla\\CMS\\Application\\ApplicationHelper == JApplicationHelper
+!include class-Joomla.CMS.Application.ApplicationHelper.puml
+@enduml

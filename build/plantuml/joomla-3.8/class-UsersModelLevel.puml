@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UsersModelLevel
+Joomla\\CMS\\MVC\\Model\\AdminModel <|-- UsersModelLevel
+!include class-Joomla.CMS.MVC.Model.AdminModel.puml
+@enduml

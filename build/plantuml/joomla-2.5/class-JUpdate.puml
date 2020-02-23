@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUpdate
+JObject <|-- JUpdate
+!include class-JObject.puml
+@enduml

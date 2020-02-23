@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\MVC\\View\\CategoryFeedView
+Joomla\\CMS\\MVC\\View\\HtmlView <|-- Joomla\\CMS\\MVC\\View\\CategoryFeedView
+!include class-Joomla.CMS.MVC.View.HtmlView.puml
+@enduml

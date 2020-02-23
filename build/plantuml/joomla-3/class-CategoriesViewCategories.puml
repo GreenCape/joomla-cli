@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class CategoriesViewCategories
+JViewLegacy <|-- CategoriesViewCategories
+!include class-JViewLegacy.puml
+@enduml

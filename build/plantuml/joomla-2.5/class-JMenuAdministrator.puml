@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMenuAdministrator
+JMenu <|-- JMenuAdministrator
+!include class-JMenu.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SqlViewHtmlQueries
+SqlView <|-- SqlViewHtmlQueries
+!include class-SqlView.puml
+@enduml

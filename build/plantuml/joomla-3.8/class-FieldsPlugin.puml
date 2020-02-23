@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class FieldsPlugin
+JPlugin <|-- FieldsPlugin
+!include class-JPlugin.puml
+@enduml

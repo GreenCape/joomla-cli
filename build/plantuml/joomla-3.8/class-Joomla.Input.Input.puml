@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Input\\Input
+interface Serializable
+Serializable <|.. Joomla\\Input\\Input
+interface Countable
+Countable <|.. Joomla\\Input\\Input
+!include class-Serializable.puml
+!include class-Countable.puml
+@enduml

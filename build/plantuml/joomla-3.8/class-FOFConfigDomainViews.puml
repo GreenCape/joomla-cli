@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFConfigDomainViews
+interface FOFConfigDomainInterface
+FOFConfigDomainInterface <|.. FOFConfigDomainViews
+!include class-FOFConfigDomainInterface.puml
+@enduml

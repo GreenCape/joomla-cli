@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoDB\\BSON\\Regex
+interface MongoDB\\BSON\\Type
+MongoDB\\BSON\\Type <|.. MongoDB\\BSON\\Regex
+!includesub class-mongodb.bson.type.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormFieldCachehandler
+JFormFieldCacheHandler <|-- FOFFormFieldCachehandler
+interface FOFFormField
+FOFFormField <|.. FOFFormFieldCachehandler
+!include class-JFormFieldCacheHandler.puml
+!include class-FOFFormField.puml
+@enduml

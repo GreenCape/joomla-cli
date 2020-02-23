@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInstaller
+JObject <|-- JInstaller
+!include class-JObject.puml
+@enduml

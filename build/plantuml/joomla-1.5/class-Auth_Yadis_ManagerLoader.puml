@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_Yadis_ManagerLoader
+Auth_Yadis_SessionLoader <|-- Auth_Yadis_ManagerLoader
+!include class-Auth_Yadis_SessionLoader.puml
+@enduml

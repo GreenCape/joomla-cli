@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseMySQLi
+JDatabaseMySQL <|-- JDatabaseMySQLi
+!include class-JDatabaseMySQL.puml
+@enduml

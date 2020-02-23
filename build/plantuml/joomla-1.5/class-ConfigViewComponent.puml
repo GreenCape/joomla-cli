@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ConfigViewComponent
+JView <|-- ConfigViewComponent
+!include class-JView.puml
+@enduml

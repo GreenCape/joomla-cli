@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormFieldCheckboxes
+JFormFieldCheckboxes <|-- FOFFormFieldCheckboxes
+interface FOFFormField
+FOFFormField <|.. FOFFormFieldCheckboxes
+!include class-JFormFieldCheckboxes.puml
+!include class-FOFFormField.puml
+@enduml

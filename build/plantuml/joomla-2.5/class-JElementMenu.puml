@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JElementMenu
+JElement <|-- JElementMenu
+!include class-JElement.puml
+@enduml

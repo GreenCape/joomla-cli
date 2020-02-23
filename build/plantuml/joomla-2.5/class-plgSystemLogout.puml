@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class plgSystemLogout
+JPlugin <|-- plgSystemLogout
+!include class-JPlugin.puml
+@enduml

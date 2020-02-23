@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMenuSite << alias >>
+\\Joomla\\CMS\\Menu\\SiteMenu == JMenuSite
+!include class-Joomla.CMS.Menu.SiteMenu.puml
+@enduml

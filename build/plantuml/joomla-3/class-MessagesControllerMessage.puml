@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MessagesControllerMessage
+JControllerForm <|-- MessagesControllerMessage
+!include class-JControllerForm.puml
+@enduml

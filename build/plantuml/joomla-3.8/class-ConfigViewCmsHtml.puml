@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class ConfigViewCmsHtml
+JViewHtml <|-- ConfigViewCmsHtml
+!include class-JViewHtml.puml
+@enduml

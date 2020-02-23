@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Rule\\CalendarRule
+Joomla\\CMS\\Form\\FormRule <|-- Joomla\\CMS\\Form\\Rule\\CalendarRule
+!include class-Joomla.CMS.Form.FormRule.puml
+@enduml

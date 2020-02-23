@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableCategory << alias >>
+\\Joomla\\CMS\\Table\\Category == JTableCategory
+!include class-Joomla.CMS.Table.Category.puml
+@enduml

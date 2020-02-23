@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSchemaChangeitemMysql << alias >>
+\\Joomla\\CMS\\Schema\\ChangeItem\\MysqlChangeItem == JSchemaChangeitemMysql
+!include class-Joomla.CMS.Schema.ChangeItem.MysqlChangeItem.puml
+@enduml

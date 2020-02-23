@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseSQLAzure
+JDatabaseSQLSrv <|-- JDatabaseSQLAzure
+!include class-JDatabaseSQLSrv.puml
+@enduml

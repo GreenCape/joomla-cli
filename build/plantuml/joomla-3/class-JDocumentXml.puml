@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentXml
+JDocument <|-- JDocumentXml
+!include class-JDocument.puml
+@enduml

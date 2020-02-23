@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLanguageStemmer << alias >>
+\\Joomla\\CMS\\Language\\LanguageStemmer == JLanguageStemmer
+!include class-Joomla.CMS.Language.LanguageStemmer.puml
+@enduml

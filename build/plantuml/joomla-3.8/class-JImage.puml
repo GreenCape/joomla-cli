@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JImage << alias >>
+\\Joomla\\CMS\\Image\\Image == JImage
+!include class-Joomla.CMS.Image.Image.puml
+@enduml

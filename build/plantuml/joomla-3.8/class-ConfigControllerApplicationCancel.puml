@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ConfigControllerApplicationCancel
+ConfigControllerCanceladmin <|-- ConfigControllerApplicationCancel
+!include class-ConfigControllerCanceladmin.puml
+@enduml

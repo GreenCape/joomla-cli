@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MenusControllerMenus
+JControllerLegacy <|-- MenusControllerMenus
+!include class-JControllerLegacy.puml
+@enduml

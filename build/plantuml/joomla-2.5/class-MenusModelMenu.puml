@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MenusModelMenu
+JModelForm <|-- MenusModelMenu
+!include class-JModelForm.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+interface Symfony\\Component\\Yaml\\Exception\\ExceptionInterface
+@enduml

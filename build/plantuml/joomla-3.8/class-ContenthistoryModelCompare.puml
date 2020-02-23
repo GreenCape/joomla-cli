@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ContenthistoryModelCompare
+JModelItem <|-- ContenthistoryModelCompare
+!include class-JModelItem.puml
+@enduml

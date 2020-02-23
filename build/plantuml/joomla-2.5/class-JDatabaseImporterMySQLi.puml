@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseImporterMySQLi
+JDatabaseImporterMySQL <|-- JDatabaseImporterMySQLi
+!include class-JDatabaseImporterMySQL.puml
+@enduml

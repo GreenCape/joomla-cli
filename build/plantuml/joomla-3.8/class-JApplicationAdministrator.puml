@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JApplicationAdministrator << alias >>
+\\Joomla\\CMS\\Application\\AdministratorApplication == JApplicationAdministrator
+!include class-Joomla.CMS.Application.AdministratorApplication.puml
+@enduml

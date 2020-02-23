@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Form\\Field\\UserField
+Joomla\\CMS\\Form\\FormField <|-- Joomla\\CMS\\Form\\Field\\UserField
+!include class-Joomla.CMS.Form.FormField.puml
+@enduml

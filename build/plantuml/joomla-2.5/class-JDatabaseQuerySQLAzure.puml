@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseQuerySQLAzure
+JDatabaseQuerySQLSrv <|-- JDatabaseQuerySQLAzure
+!include class-JDatabaseQuerySQLSrv.puml
+@enduml

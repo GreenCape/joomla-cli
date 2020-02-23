@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class plgXMLRPCJoomla
+JPlugin <|-- plgXMLRPCJoomla
+!include class-JPlugin.puml
+@enduml

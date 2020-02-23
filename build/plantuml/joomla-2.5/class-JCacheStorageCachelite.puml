@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheStorageCachelite
+JCacheStorage <|-- JCacheStorageCachelite
+!include class-JCacheStorage.puml
+@enduml

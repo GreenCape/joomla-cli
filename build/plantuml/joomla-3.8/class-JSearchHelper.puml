@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSearchHelper << alias >>
+\\Joomla\\CMS\\Helper\\SearchHelper == JSearchHelper
+!include class-Joomla.CMS.Helper.SearchHelper.puml
+@enduml

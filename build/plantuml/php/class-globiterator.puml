@@ -1,0 +1,14 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class GlobIterator
+FilesystemIterator <|-- GlobIterator
+interface Countable
+Countable <|.. GlobIterator
+!includesub class-filesystemiterator.puml!INNER
+!includesub class-countable.puml!INNER
+!endsub
+@enduml

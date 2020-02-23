@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFLessFormatterJoomla
+FOFLessFormatterClassic <|-- FOFLessFormatterJoomla
+!include class-FOFLessFormatterClassic.puml
+@enduml

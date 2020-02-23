@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class UsersModelGroup
+JModelAdmin <|-- UsersModelGroup
+!include class-JModelAdmin.puml
+@enduml

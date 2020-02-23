@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentRendererRSS
+JDocumentRenderer <|-- JDocumentRendererRSS
+!include class-JDocumentRenderer.puml
+@enduml

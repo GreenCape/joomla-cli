@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JControllerForm << alias >>
+\\Joomla\\CMS\\MVC\\Controller\\FormController == JControllerForm
+!include class-Joomla.CMS.MVC.Controller.FormController.puml
+@enduml

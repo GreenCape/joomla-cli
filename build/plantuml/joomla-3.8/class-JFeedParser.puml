@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFeedParser << alias >>
+\\Joomla\\CMS\\Feed\\FeedParser == JFeedParser
+!include class-Joomla.CMS.Feed.FeedParser.puml
+@enduml

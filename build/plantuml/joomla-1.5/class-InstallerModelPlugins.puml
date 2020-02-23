@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class InstallerModelPlugins
+InstallerModel <|-- InstallerModelPlugins
+!include class-InstallerModel.puml
+@enduml

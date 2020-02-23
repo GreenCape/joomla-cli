@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Session\\Exception\\UnsupportedStorageException
+RuntimeException <|-- Joomla\\CMS\\Session\\Exception\\UnsupportedStorageException
+!include class-RuntimeException.puml
+@enduml

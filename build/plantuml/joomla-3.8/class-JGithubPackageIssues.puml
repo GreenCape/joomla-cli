@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JGithubPackageIssues
+JGithubPackage <|-- JGithubPackageIssues
+!include class-JGithubPackage.puml
+@enduml

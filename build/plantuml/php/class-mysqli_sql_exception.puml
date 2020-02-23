@@ -1,0 +1,11 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class mysqli_sql_exception
+RuntimeException <|-- mysqli_sql_exception
+!includesub class-runtimeexception.puml!INNER
+!endsub
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUpdateAdapter
+JAdapterInstance <|-- JUpdateAdapter
+!include class-JAdapterInstance.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JGoogleDataPlusComments
+JGoogleData <|-- JGoogleDataPlusComments
+!include class-JGoogleData.puml
+@enduml

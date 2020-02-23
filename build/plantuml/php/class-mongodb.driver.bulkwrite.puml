@@ -1,0 +1,12 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class MongoDB\\Driver\\BulkWrite << final >>
+interface Countable
+Countable <|.. MongoDB\\Driver\\BulkWrite
+!includesub class-countable.puml!INNER
+!endsub
+@enduml

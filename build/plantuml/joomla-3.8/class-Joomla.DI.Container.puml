@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\DI\\Container
+interface Psr\\Container\\ContainerInterface
+Psr\\Container\\ContainerInterface <|.. Joomla\\DI\\Container
+!include class-Psr.Container.ContainerInterface.puml
+@enduml

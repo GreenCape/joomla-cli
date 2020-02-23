@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_CheckIDRequest
+Auth_OpenID_Request <|-- Auth_OpenID_CheckIDRequest
+!include class-Auth_OpenID_Request.puml
+@enduml

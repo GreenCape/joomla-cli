@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JElementNewsfeed
+JElement <|-- JElementNewsfeed
+!include class-JElement.puml
+@enduml

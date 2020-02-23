@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Categories\\CategoryNode
+JObject <|-- Joomla\\CMS\\Categories\\CategoryNode
+!include class-JObject.puml
+@enduml

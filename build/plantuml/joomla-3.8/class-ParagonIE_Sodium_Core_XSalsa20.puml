@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class ParagonIE_Sodium_Core_XSalsa20
+ParagonIE_Sodium_Core_HSalsa20 <|-- ParagonIE_Sodium_Core_XSalsa20
+!include class-ParagonIE_Sodium_Core_HSalsa20.puml
+@enduml

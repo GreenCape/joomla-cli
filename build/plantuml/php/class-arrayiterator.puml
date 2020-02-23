@@ -1,0 +1,21 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class ArrayIterator
+interface SeekableIterator
+SeekableIterator <|.. ArrayIterator
+interface ArrayAccess
+ArrayAccess <|.. ArrayIterator
+interface Serializable
+Serializable <|.. ArrayIterator
+interface Countable
+Countable <|.. ArrayIterator
+!includesub class-seekableiterator.puml!INNER
+!includesub class-arrayaccess.puml!INNER
+!includesub class-serializable.puml!INNER
+!includesub class-countable.puml!INNER
+!endsub
+@enduml

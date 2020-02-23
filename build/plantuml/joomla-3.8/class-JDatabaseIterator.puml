@@ -1,0 +1,13 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class JDatabaseIterator
+interface Countable
+Countable <|.. JDatabaseIterator
+interface Iterator
+Iterator <|.. JDatabaseIterator
+!include class-Countable.puml
+!include class-Iterator.puml
+@enduml

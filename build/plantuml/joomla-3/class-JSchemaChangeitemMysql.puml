@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JSchemaChangeitemMysql
+JSchemaChangeitem <|-- JSchemaChangeitemMysql
+!include class-JSchemaChangeitem.puml
+@enduml

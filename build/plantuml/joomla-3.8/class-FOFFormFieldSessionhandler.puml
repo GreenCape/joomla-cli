@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFFormFieldSessionhandler
+JFormFieldSessionHandler <|-- FOFFormFieldSessionhandler
+interface FOFFormField
+FOFFormField <|.. FOFFormFieldSessionhandler
+!include class-JFormFieldSessionHandler.puml
+!include class-FOFFormField.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Auth_OpenID_SQLiteStore
+Auth_OpenID_SQLStore <|-- Auth_OpenID_SQLiteStore
+!include class-Auth_OpenID_SQLStore.puml
+@enduml

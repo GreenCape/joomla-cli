@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFDatabaseDriverJoomla
+FOFDatabase <|-- FOFDatabaseDriverJoomla
+interface FOFDatabaseInterface
+FOFDatabaseInterface <|.. FOFDatabaseDriverJoomla
+!include class-FOFDatabase.puml
+!include class-FOFDatabaseInterface.puml
+@enduml

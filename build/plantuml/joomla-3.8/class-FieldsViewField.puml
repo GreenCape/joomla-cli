@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FieldsViewField
+JViewLegacy <|-- FieldsViewField
+!include class-JViewLegacy.puml
+@enduml

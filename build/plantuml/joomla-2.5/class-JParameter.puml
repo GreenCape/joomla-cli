@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JParameter
+JRegistry <|-- JParameter
+!include class-JRegistry.puml
+@enduml

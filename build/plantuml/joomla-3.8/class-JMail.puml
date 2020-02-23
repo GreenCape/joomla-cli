@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JMail << alias >>
+\\Joomla\\CMS\\Mail\\Mail == JMail
+!include class-Joomla.CMS.Mail.Mail.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class plgSystemCache
+JPlugin <|-- plgSystemCache
+!include class-JPlugin.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JInstallerComponent
+JAdapterInstance <|-- JInstallerComponent
+!include class-JAdapterInstance.puml
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Mcrypt
+AKEncryptionAESAdapterAbstract <|-- Mcrypt
+interface AKEncryptionAESAdapterInterface
+AKEncryptionAESAdapterInterface <|.. Mcrypt
+!include class-AKEncryptionAESAdapterAbstract.puml
+!include class-AKEncryptionAESAdapterInterface.puml
+@enduml

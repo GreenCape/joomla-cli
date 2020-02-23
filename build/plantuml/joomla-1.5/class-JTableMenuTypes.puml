@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTableMenuTypes
+JTable <|-- JTableMenuTypes
+!include class-JTable.puml
+@enduml

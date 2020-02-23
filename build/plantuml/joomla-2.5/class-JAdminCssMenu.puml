@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JAdminCssMenu
+JTree <|-- JAdminCssMenu
+!include class-JTree.puml
+@enduml

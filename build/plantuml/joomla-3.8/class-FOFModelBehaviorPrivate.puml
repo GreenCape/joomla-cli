@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFModelBehaviorPrivate
+FOFModelBehavior <|-- FOFModelBehaviorPrivate
+!include class-FOFModelBehavior.puml
+@enduml

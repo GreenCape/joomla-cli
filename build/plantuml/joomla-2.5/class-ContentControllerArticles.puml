@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ContentControllerArticles
+JControllerAdmin <|-- ContentControllerArticles
+!include class-JControllerAdmin.puml
+@enduml

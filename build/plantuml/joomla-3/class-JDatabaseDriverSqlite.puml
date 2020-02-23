@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseDriverSqlite
+JDatabaseDriverPdo <|-- JDatabaseDriverSqlite
+!include class-JDatabaseDriverPdo.puml
+@enduml

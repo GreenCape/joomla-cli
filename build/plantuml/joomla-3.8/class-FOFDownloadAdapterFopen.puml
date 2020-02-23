@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FOFDownloadAdapterFopen
+FOFDownloadAdapterAbstract <|-- FOFDownloadAdapterFopen
+interface FOFDownloadInterface
+FOFDownloadInterface <|.. FOFDownloadAdapterFopen
+!include class-FOFDownloadAdapterAbstract.puml
+!include class-FOFDownloadInterface.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ComposerAutoloaderInit205c915b9c7d3e718e7c95793ee67ffe
+@enduml

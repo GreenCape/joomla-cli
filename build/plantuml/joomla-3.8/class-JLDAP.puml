@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLDAP << alias >>
+\\Joomla\\Ldap\\LdapClient == JLDAP
+!include class-Joomla.Ldap.LdapClient.puml
+@enduml

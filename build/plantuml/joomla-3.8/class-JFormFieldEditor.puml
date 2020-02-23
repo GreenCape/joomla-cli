@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldEditor << alias >>
+\\Joomla\\CMS\\Form\\Field\\EditorField == JFormFieldEditor
+!include class-Joomla.CMS.Form.Field.EditorField.puml
+@enduml

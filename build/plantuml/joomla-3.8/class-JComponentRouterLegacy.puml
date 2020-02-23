@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JComponentRouterLegacy << alias >>
+\\Joomla\\CMS\\Component\\Router\\RouterLegacy == JComponentRouterLegacy
+!include class-Joomla.CMS.Component.Router.RouterLegacy.puml
+@enduml

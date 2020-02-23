@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLogLoggerFormattedtext << alias >>
+\\Joomla\\CMS\\Log\\Logger\\FormattedtextLogger == JLogLoggerFormattedtext
+!include class-Joomla.CMS.Log.Logger.FormattedtextLogger.puml
+@enduml

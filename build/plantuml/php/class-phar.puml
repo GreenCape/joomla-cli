@@ -1,0 +1,23 @@
+@startuml
+!include skin.puml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+!startsub INNER
+class Phar
+RecursiveDirectoryIterator <|-- Phar
+interface RecursiveIterator
+RecursiveIterator <|.. Phar
+interface SeekableIterator
+SeekableIterator <|.. Phar
+interface Countable
+Countable <|.. Phar
+interface ArrayAccess
+ArrayAccess <|.. Phar
+!includesub class-recursivedirectoryiterator.puml!INNER
+!includesub class-recursiveiterator.puml!INNER
+!includesub class-seekableiterator.puml!INNER
+!includesub class-countable.puml!INNER
+!includesub class-arrayaccess.puml!INNER
+!endsub
+@enduml

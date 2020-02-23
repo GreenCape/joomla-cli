@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldRedirect_Status << alias >>
+\\Joomla\\CMS\\Form\\Field\\RedirectStatusField == JFormFieldRedirect_Status
+!include class-Joomla.CMS.Form.Field.RedirectStatusField.puml
+@enduml

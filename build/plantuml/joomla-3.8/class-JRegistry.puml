@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRegistry << alias >>
+\\Joomla\\Registry\\Registry == JRegistry
+!include class-Joomla.Registry.Registry.puml
+@enduml

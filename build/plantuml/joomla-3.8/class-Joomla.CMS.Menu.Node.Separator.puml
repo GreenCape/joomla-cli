@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Menu\\Node\\Separator
+Joomla\\CMS\\Menu\\Node <|-- Joomla\\CMS\\Menu\\Node\\Separator
+!include class-Joomla.CMS.Menu.Node.puml
+@enduml

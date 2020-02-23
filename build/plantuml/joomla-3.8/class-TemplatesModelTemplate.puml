@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class TemplatesModelTemplate
+JModelForm <|-- TemplatesModelTemplate
+!include class-JModelForm.puml
+@enduml

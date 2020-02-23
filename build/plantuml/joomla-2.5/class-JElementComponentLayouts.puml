@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JElementComponentLayouts
+JElementList <|-- JElementComponentLayouts
+!include class-JElementList.puml
+@enduml

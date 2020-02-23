@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JKeychain
+Joomla\\Registry\\Registry <|-- JKeychain
+!include class-Joomla.Registry.Registry.puml
+@enduml

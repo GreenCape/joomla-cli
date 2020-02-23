@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SqlModelQueries
+SqlModel <|-- SqlModelQueries
+!include class-SqlModel.puml
+@enduml

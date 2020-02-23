@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Log\\Logger\\MessagequeueLogger
+Joomla\\CMS\\Log\\Logger <|-- Joomla\\CMS\\Log\\Logger\\MessagequeueLogger
+!include class-Joomla.CMS.Log.Logger.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Session\\Storage\\Memcache
+Joomla\\Session\\Storage <|-- Joomla\\Session\\Storage\\Memcache
+!include class-Joomla.Session.Storage.puml
+@enduml

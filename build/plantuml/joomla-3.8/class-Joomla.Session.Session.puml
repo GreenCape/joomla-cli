@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\Session\\Session
+interface IteratorAggregate
+IteratorAggregate <|.. Joomla\\Session\\Session
+!include class-IteratorAggregate.puml
+@enduml

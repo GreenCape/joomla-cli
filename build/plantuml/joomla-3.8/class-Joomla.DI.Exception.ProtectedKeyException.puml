@@ -1,0 +1,12 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\DI\\Exception\\ProtectedKeyException
+OutOfBoundsException <|-- Joomla\\DI\\Exception\\ProtectedKeyException
+interface Psr\\Container\\ContainerExceptionInterface
+Psr\\Container\\ContainerExceptionInterface <|.. Joomla\\DI\\Exception\\ProtectedKeyException
+!include class-OutOfBoundsException.puml
+!include class-Psr.Container.ContainerExceptionInterface.puml
+@enduml

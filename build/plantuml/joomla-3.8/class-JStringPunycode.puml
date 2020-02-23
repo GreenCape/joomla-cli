@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JStringPunycode << alias >>
+\\Joomla\\CMS\\String\\PunycodeHelper == JStringPunycode
+!include class-Joomla.CMS.String.PunycodeHelper.puml
+@enduml

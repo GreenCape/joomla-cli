@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRegistryFormatINI
+JRegistryFormat <|-- JRegistryFormatINI
+!include class-JRegistryFormat.puml
+@enduml

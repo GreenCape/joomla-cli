@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheStorageXcache << alias >>
+\\Joomla\\CMS\\Cache\\Storage\\XcacheStorage == JCacheStorageXcache
+!include class-Joomla.CMS.Cache.Storage.XcacheStorage.puml
+@enduml

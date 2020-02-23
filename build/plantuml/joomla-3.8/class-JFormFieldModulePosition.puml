@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldModulePosition << alias >>
+\\Joomla\\CMS\\Form\\Field\\ModulepositionField == JFormFieldModulePosition
+!include class-Joomla.CMS.Form.Field.ModulepositionField.puml
+@enduml

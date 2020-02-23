@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JLanguageWrapperText << alias >>
+\\Joomla\\CMS\\Language\\Wrapper\\JTextWrapper == JLanguageWrapperText
+!include class-Joomla.CMS.Language.Wrapper.JTextWrapper.puml
+@enduml

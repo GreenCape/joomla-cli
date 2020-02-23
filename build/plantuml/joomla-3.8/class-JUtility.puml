@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JUtility << alias >>
+\\Joomla\\CMS\\Utility\\Utility == JUtility
+!include class-Joomla.CMS.Utility.Utility.puml
+@enduml

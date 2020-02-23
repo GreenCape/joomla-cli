@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JAssociationExtensionHelper << alias >>
+\\Joomla\\CMS\\Association\\AssociationExtensionHelper == JAssociationExtensionHelper
+!include class-Joomla.CMS.Association.AssociationExtensionHelper.puml
+@enduml

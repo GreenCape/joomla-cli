@@ -1,0 +1,15 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\CMS\\Table\\Table
+JObject <|-- Joomla\\CMS\\Table\\Table
+interface JObservableInterface
+JObservableInterface <|.. Joomla\\CMS\\Table\\Table
+interface JTableInterface
+JTableInterface <|.. Joomla\\CMS\\Table\\Table
+!include class-JObject.puml
+!include class-JObservableInterface.puml
+!include class-JTableInterface.puml
+@enduml

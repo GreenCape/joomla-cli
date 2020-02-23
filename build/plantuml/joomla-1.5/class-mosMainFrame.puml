@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class mosMainFrame
+JApplication <|-- mosMainFrame
+!include class-JApplication.puml
+@enduml

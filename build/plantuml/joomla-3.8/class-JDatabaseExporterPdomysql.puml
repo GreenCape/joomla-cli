@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDatabaseExporterPdomysql
+JDatabaseExporter <|-- JDatabaseExporterPdomysql
+!include class-JDatabaseExporter.puml
+@enduml

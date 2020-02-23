@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCache << alias >>
+\\Joomla\\CMS\\Cache\\Cache == JCache
+!include class-Joomla.CMS.Cache.Cache.puml
+@enduml

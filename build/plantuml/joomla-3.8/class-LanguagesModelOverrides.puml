@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class LanguagesModelOverrides
+JModelList <|-- LanguagesModelOverrides
+!include class-JModelList.puml
+@enduml

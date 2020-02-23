@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Http\\Transport\\StreamTransport
+interface Joomla\\CMS\\Http\\TransportInterface
+Joomla\\CMS\\Http\\TransportInterface <|.. Joomla\\CMS\\Http\\Transport\\StreamTransport
+!include class-Joomla.CMS.Http.TransportInterface.puml
+@enduml

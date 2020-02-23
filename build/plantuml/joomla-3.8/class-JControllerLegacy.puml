@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JControllerLegacy << alias >>
+\\Joomla\\CMS\\MVC\\Controller\\BaseController == JControllerLegacy
+!include class-Joomla.CMS.MVC.Controller.BaseController.puml
+@enduml

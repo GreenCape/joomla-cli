@@ -1,0 +1,7 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class SimplePie_XML_Declaration_Parser
+@enduml

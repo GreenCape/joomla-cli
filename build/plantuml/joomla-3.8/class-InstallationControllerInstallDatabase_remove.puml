@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class InstallationControllerInstallDatabase_remove
+InstallationControllerInstallDatabase_backup <|-- InstallationControllerInstallDatabase_remove
+!include class-InstallationControllerInstallDatabase_backup.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JTemplate
+patTemplate <|-- JTemplate
+!include class-patTemplate.puml
+@enduml

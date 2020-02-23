@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JImageFilterEmboss
+JImageFilter <|-- JImageFilterEmboss
+!include class-JImageFilter.puml
+@enduml

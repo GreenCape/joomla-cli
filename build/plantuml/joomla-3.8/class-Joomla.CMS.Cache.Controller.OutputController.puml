@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class Joomla\\CMS\\Cache\\Controller\\OutputController
+Joomla\\CMS\\Cache\\CacheController <|-- Joomla\\CMS\\Cache\\Controller\\OutputController
+!include class-Joomla.CMS.Cache.CacheController.puml
+@enduml

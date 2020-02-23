@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class JCryptCipherMcrypt
+interface JCryptCipher
+JCryptCipher <|.. JCryptCipherMcrypt
+!include class-JCryptCipher.puml
+@enduml

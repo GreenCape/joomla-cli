@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class MessagesModelMessage
+JModelAdmin <|-- MessagesModelMessage
+!include class-JModelAdmin.puml
+@enduml

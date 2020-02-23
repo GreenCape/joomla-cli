@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JKeychain
+JRegistry <|-- JKeychain
+!include class-JRegistry.puml
+@enduml

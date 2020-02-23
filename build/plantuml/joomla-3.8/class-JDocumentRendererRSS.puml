@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JDocumentRendererRSS << alias >>
+\\Joomla\\CMS\\Document\\Renderer\\Feed\\RssRenderer == JDocumentRendererRSS
+!include class-Joomla.CMS.Document.Renderer.Feed.RssRenderer.puml
+@enduml

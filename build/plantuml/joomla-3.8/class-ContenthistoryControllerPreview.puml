@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ContenthistoryControllerPreview
+JControllerLegacy <|-- ContenthistoryControllerPreview
+!include class-JControllerLegacy.puml
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JRegistry
+interface JsonSerializable
+JsonSerializable <|.. JRegistry
+!include class-JsonSerializable.puml
+@enduml

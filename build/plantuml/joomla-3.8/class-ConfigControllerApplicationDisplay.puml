@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class ConfigControllerApplicationDisplay
+ConfigControllerDisplay <|-- ConfigControllerApplicationDisplay
+!include class-ConfigControllerDisplay.puml
+@enduml

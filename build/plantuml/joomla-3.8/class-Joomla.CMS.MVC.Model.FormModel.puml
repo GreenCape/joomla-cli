@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+abstract class Joomla\\CMS\\MVC\\Model\\FormModel
+Joomla\\CMS\\MVC\\Model\\BaseDatabaseModel <|-- Joomla\\CMS\\MVC\\Model\\FormModel
+!include class-Joomla.CMS.MVC.Model.BaseDatabaseModel.puml
+@enduml

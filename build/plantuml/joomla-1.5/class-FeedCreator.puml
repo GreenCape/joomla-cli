@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class FeedCreator
+HtmlDescribable <|-- FeedCreator
+!include class-HtmlDescribable.puml
+@enduml

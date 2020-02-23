@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JFormFieldImageList
+JFormFieldFileList <|-- JFormFieldImageList
+!include class-JFormFieldFileList.puml
+@enduml

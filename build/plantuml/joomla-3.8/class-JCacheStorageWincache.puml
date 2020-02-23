@@ -1,0 +1,9 @@
+@startuml
+set namespaceSeparator \\
+hide members
+hide << alias >> circle
+
+class JCacheStorageWincache << alias >>
+\\Joomla\\CMS\\Cache\\Storage\\WincacheStorage == JCacheStorageWincache
+!include class-Joomla.CMS.Cache.Storage.WincacheStorage.puml
+@enduml
