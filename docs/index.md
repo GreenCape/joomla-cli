@@ -6,18 +6,18 @@ It works for all Joomla! versions since 1.0.0, although it needs a current PHP i
 Available commands are
 
 - [build](build/build.md) - perform all tests and generate documentation and the quality report
-- [dist]() - generate the distribution
-- [document]() - generate API documentation using the specified generator
+- [dist](distribution/dist.md) - generate the distribution
+- [document](document/api.md) - generate API documentation using the specified generator
 - [help]() - display help for a command
 - [list]() - list all available commands
 - [quality](quality/quality.md) - generate a quality report using CodeBrowser
 - [test](test/test.md) - run all tests locally and in the test containers
 
-**Core**
+**[Core](core/index.md)**
 - [core:download](core/download.md) - download a specific Joomla! version and unpack it to the base path
 - [core:version](core/version.md) - get version information for a Joomla! installation
 
-**Distribution**
+**[Distribution](distribution/index.md)**
 - [dist:clean]() - cleanup distribution directory
 - [dist:prepare]() - create and populate distribution directory
 
@@ -28,11 +28,11 @@ Available commands are
 - [docker:stop]() - stop and removes the test containers
 - [docker:up]() - starts the test containers after rebuilding them
 
-**Document**
-- [document:api]() - generate API documentation using the specified generator
+**[Document](document/index.md)**
+- [document:api](document/api.md) - generate API documentation using the specified generator
 - [document:changelog]() - generate CHANGELOG.md from the git commit history
 - [document:clean]() - clean the API doc directory
-- [document:uml]() - generate UML diagrams
+- [document:uml](document/uml.md) - generate UML diagrams
 
 **Extension**
 - [extension:install](extension/install.md) - install a Joomla! extension

@@ -52,7 +52,7 @@ class VersionCommand extends Command
     {
         $this
             ->setName('core:version')
-            ->setDescription('Shows the Joomla! version')
+            ->setDescription('Reports the version of the Joomla! installation at the base path')
             ->addOption(
                 'long',
                 'l',

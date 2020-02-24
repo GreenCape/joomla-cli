@@ -30,4 +30,4 @@ Make sure you have `~/.composer/vendor/bin/` in your path.
 
 ## Documentation
 
-The [documentation](docs/index.md) for the available commands can be found in the [`docs` directory](docs).
+The [documentation for the available commands](docs/commands/index.md) can be found in the [`docs` directory](docs).

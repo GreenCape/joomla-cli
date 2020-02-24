@@ -1,0 +1,39 @@
+[Joomla! CLI](../index.md) > [{{ data.group | title }}](index.md)
+# {{ data.command }}
+
+{{ data.description }}.
+
+## Synopsis
+```bash
+{% for call in data.usage %}
+    $ joomla {{ call | trim }}
+{% endfor %}
+```
+
+## Arguments
+{% if data.arguments %}
+    ```
+    {% for arg in data.arguments %}
+        {{ arg | trim }}
+    {% endfor %}
+    ```
+{% else %}
+    This command has no arguments.
+{% endif %}
+
+## Options
+```
+{% for option in data.options %}
+    {{ option }}
+{% endfor %}
+```
+
+## Description
+
+{% if data.help[0] | trim != data.description %}
+    {{ data.description }}.
+
+{% endif %}
+{% for line in data.help %}
+    {{ line | trim }}
+{% endfor %}

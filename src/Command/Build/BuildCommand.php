@@ -50,8 +50,15 @@ class BuildCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('build')
+            ->setName('build:all')
+            ->setAliases(['build'])
             ->setDescription('Performs all tests and generates documentation and the quality report')
+            ->setHelp(
+                wordwrap(
+                    'A valid manifest file is required in the base path. '
+                    . 'Its name and location are defined in the `project.json` file.'
+                )
+            )
         ;
     }
 

@@ -97,6 +97,15 @@ class DownloadCommand extends Command
                 'Location of the cache for Joomla! packages',
                 '.cache'
             )
+            ->setHelp(
+                wordwrap(
+                    '`version` can be any existing version number, branch name or tag. If the requested version is not '
+                    . 'found in the [official Joomla! release list](https://github.com/joomla/joomla-cms/releases), the '
+                    . 'download command looks for a matching tag in the official archive. Older versions not in Joomla!\'s '
+                    . 'archive down to version 1.0.0 are provided by '
+                    . '[GreenCape\'s legacy archive](https://github.com/GreenCape/joomla-legacy/releases).'
+                )
+            )
         ;
     }
 
@@ -126,6 +135,25 @@ class DownloadCommand extends Command
         $this->unpack($basePath, $tarball);
 
         $this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+    }
+
+    /**
+     * @return VersionList
+     * @throws FileNotFoundException
+     */
+    private function getAvailableVersions(): VersionList
+    {
+        $filesystem = new Filesystem(new Local(dirname($this->versionFile)));
+        $cacheFile  = basename($this->versionFile);
+
+        return new VersionList($filesystem, $cacheFile);
+    }
+
+    private function createPath(string $path): void
+    {
+        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
+            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
+        }
     }
 
     /**
@@ -179,42 +207,6 @@ class DownloadCommand extends Command
     }
 
     /**
-     * @return VersionList
-     * @throws FileNotFoundException
-     */
-    private function getAvailableVersions(): VersionList
-    {
-        $filesystem = new Filesystem(new Local(dirname($this->versionFile)));
-        $cacheFile  = basename($this->versionFile);
-
-        return new VersionList($filesystem, $cacheFile);
-    }
-
-    private function createPath(string $path): void
-    {
-        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
-            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
-        }
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
-    }
-
-    /**
      * @param          $basePath
      * @param  string  $tarball
      */
@@ -241,5 +233,22 @@ class DownloadCommand extends Command
             }
             shell_exec("rm -d {$subDir}");
         }
+    }
+
+    /**
+     * @param  string  $filename
+     * @param  string  $url
+     *
+     * @return string
+     */
+    private function download(string $filename, string $url): string
+    {
+        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
+
+        if ($bytes === false || $bytes === 0) {
+            throw new RuntimeException("Failed to download $url");
+        }
+
+        return $filename;
     }
 }
