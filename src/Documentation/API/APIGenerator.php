@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -34,39 +32,39 @@ namespace GreenCape\JoomlaCLI\Documentation\API;
 use GreenCape\JoomlaCLI\Documentation\API\Strategy\APIGeneratorInterface;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @since       Class available since Release __DEPLOY_VERSION__
+ * Class APIGenerator
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class APIGenerator
 {
-	/**
-	 * @var APIGeneratorInterface
-	 */
-	private $generator;
+    /**
+     * @var APIGeneratorInterface
+     */
+    private $generator;
 
-	/**
-	 * APIGenerator constructor.
-	 *
-	 * @param string $generator
-	 */
-	public function __construct(string $generator)
-	{
-		$classname       = 'GreenCape\\JoomlaCLI\\Documentation\\API\\Strategy\\' . ucfirst($generator);
-		$this->generator = new $classname;
-	}
+    /**
+     * APIGenerator constructor.
+     *
+     * @param  string  $generator
+     */
+    public function __construct(string $generator)
+    {
+        $classname       = 'GreenCape\\JoomlaCLI\\Documentation\\API\\Strategy\\' . ucfirst($generator);
+        $this->generator = new $classname;
+    }
 
-	/**
-	 * Generate API documentation using the selected tool
-	 *
-	 * @param string $title   The title for the documentation
-	 * @param string $source  The directory containing the source files
-	 * @param string $target  The target directory for the documentation
-	 * @param string $umlPath The path to the UML diagrams relative to `$target`
-	 */
-	public function run(string $title, string $source, string $target, string $umlPath): void
-	{
-		$this->generator->generate($title, $source, $target);
-		$this->generator->embedUml($umlPath);
-	}
+    /**
+     * Generate API documentation using the selected tool
+     *
+     * @param  string  $title    The title for the documentation
+     * @param  string  $source   The directory containing the source files
+     * @param  string  $target   The target directory for the documentation
+     * @param  string  $umlPath  The path to the UML diagrams relative to `$target`
+     */
+    public function run(string $title, string $source, string $target, string $umlPath): void
+    {
+        $this->generator->generate($title, $source, $target);
+        $this->generator->embedUml($umlPath);
+    }
 }

@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Core
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -40,75 +38,68 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The main Joomla CLI application.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
- * @since       Class available since Release 0.1.0
+ * @since  Class available since Release 0.1.0
  */
 class Application extends BaseApplication
 {
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		parent::__construct('Joomla CLI', '0.2.0');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Command');
-	}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct('Joomla CLI', '0.2.0');
+        $this->setCatchExceptions(false);
+        $this->addPlugins(__DIR__ . '/Command');
+    }
 
-	/**
-	 * Runs the current application.
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null): int
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (Exception $e)
-		{
-			if (null === $output)
-			{
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
-			$output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
+    /**
+     * Dynamically add all commands from a path
+     *
+     * @param  string  $path  The directory with the plugins
+     *
+     * @return  void
+     */
+    private function addPlugins($path): void
+    {
+        foreach (glob($path . '/**/*.php') as $filename) {
+            $filename     = str_replace($path, '', $filename);
+            $namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
+            $commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
+            $command      = new $commandClass;
+            $this->add($command);
+        }
+    }
 
-			return 1;
-		}
+    /**
+     * Runs the current application.
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  integer  0 if everything went fine, or an error code
+     *
+     * @throws  Exception on problems
+     */
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
+    {
+        try {
+            parent::run($input, $output);
+        } catch (Exception $e) {
+            if (null === $output) {
+                $output = new ConsoleOutput();
+            }
+            $message = [
+                $this->getLongVersion(),
+                '',
+                $e->getMessage(),
+                '',
+            ];
+            $output->writeln($message);
+            $output->writeln($e->getTraceAsString(), OutputInterface::VERBOSITY_DEBUG);
 
-		return 0;
-	}
+            return 1;
+        }
 
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param string $path The directory with the plugins
-	 *
-	 * @return  void
-	 */
-	private function addPlugins($path): void
-	{
-		foreach (glob($path . '/**/*.php') as $filename)
-		{
-			$filename     = str_replace($path, '', $filename);
-			$namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
-			$commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
-			$command      = new $commandClass;
-			$this->add($command);
-		}
-	}
+        return 0;
+    }
 }

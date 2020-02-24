@@ -21,8 +21,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -38,65 +36,63 @@ use JText;
 /**
  * Version specific methods
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.0
+ * @since  Class available since Release 0.1.0
  */
 class Joomla1Dot0Driver extends JoomlaDriver
 {
-	/**
-	 * Setup the environment
-	 *
-	 * @param string $application The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 * @throws Exception
-	 */
-	public function setupEnvironment($application = 'site'): void
-	{
-	}
+    /**
+     * Setup the environment
+     *
+     * @param  string  $application  The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     * @throws Exception
+     */
+    public function setupEnvironment($application = 'site'): void
+    {
+    }
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return $GLOBALS['mosConfig_' . $key] = $value;
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return $GLOBALS['mosConfig_' . $key] = $value;
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return $GLOBALS['mosConfig_' . $key];
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return $GLOBALS['mosConfig_' . $key];
+    }
 
-	/**
-	 *
-	 * @param object $manifest
-	 *
-	 * @return array
-	 */
-	public function getExtensionInfo($manifest): array
-	{
-		$data                = array();
-		$manifest            = $manifest->document;
-		$data['type']        = (string) $manifest->attributes('type');
-		$data['extension']   = (string) $manifest->name[0]->data();
-		$data['name']        = JText::_($manifest->name[0]->data());
-		$data['version']     = (string) $manifest->version[0]->data();
-		$data['description'] = JText::_($manifest->description[0]->data());
+    /**
+     *
+     * @param  object  $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest): array
+    {
+        $data                = [];
+        $manifest            = $manifest->document;
+        $data['type']        = (string)$manifest->attributes('type');
+        $data['extension']   = (string)$manifest->name[0]->data();
+        $data['name']        = JText::_($manifest->name[0]->data());
+        $data['version']     = (string)$manifest->version[0]->data();
+        $data['description'] = JText::_($manifest->description[0]->data());
 
-		return $data;
-	}
+        return $data;
+    }
 }

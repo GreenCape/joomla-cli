@@ -55,27 +55,21 @@ class AutoloadTest extends TestCase
 	{
 	}
 
-	public function testVendorClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(DocBlock::class, new DocBlock(''));
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
+    public function testVendorClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(DocBlock::class, new DocBlock(''));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 
-	public function testSourceClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(Application::class, new Application());
+    public function testSourceClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(Application::class, new Application());
 			$this->assertInstanceOf(Factory::class, new Factory());
-		}
-		catch (Exception $e)
-		{
+		} catch (Exception $e) {
 			$this->fail($e->getMessage());
 		}
 	}

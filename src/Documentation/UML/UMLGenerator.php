@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -37,150 +35,144 @@ use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @since       Class available since Release 0.3.0
+ * Class UMLGenerator
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class UMLGenerator implements LoggerAwareInterface
 {
-	private $dir;
-	private $skin;
-	private $jar;
-	private $includeRef = true;
-	private $predefinedClasses;
-	private $classMap;
-	private $createSvg = true;
+    private $dir;
+    private $skin;
+    private $jar;
+    private $includeRef = true;
+    private $predefinedClasses;
+    private $classMap;
+    private $createSvg  = true;
 
-	use LoggerAwareTrait;
+    use LoggerAwareTrait;
 
-	/**
-	 * UMLGenerator constructor.
-	 *
-	 * @param string $jar
-	 */
-	public function __construct(string $jar)
-	{
-		$this->jar    = $jar;
-		$this->logger = new NullLogger;
-	}
+    /**
+     * UMLGenerator constructor.
+     *
+     * @param  string  $jar
+     */
+    public function __construct(string $jar)
+    {
+        $this->jar    = $jar;
+        $this->logger = new NullLogger;
+    }
 
-	/**
-	 * @param string $repository Path to collection of predefined class diagrams
-	 *
-	 * @return UMLGenerator
-	 */
-	public function includeReferences(string $repository = null): self
-	{
-		$this->predefinedClasses = $repository;
-		$this->includeRef        = true;
+    /**
+     * @param  string  $repository  Path to collection of predefined class diagrams
+     *
+     * @return UMLGenerator
+     */
+    public function includeReferences(string $repository = null): self
+    {
+        $this->predefinedClasses = $repository;
+        $this->includeRef        = true;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return UMLGenerator
-	 */
-	public function excludeReferences(): self
-	{
-		$this->includeRef = false;
+    /**
+     * @return UMLGenerator
+     */
+    public function excludeReferences(): self
+    {
+        $this->includeRef = false;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function createSvg($create = true): void
-	{
-		$this->createSvg = $create;
-	}
+    public function createSvg($create = true): void
+    {
+        $this->createSvg = $create;
+    }
 
-	/**
-	 * @param $skin
-	 *
-	 * @return UMLGenerator
-	 */
-	public function skin($skin): self
-	{
-		$this->skin = $skin;
+    /**
+     * @param $skin
+     *
+     * @return UMLGenerator
+     */
+    public function skin($skin): self
+    {
+        $this->skin = $skin;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $classMapFile
-	 *
-	 * @return UMLGenerator
-	 */
-	public function classMap(string $classMapFile): self
-	{
-		$this->classMap = $classMapFile;
+    /**
+     * @param  string  $classMapFile
+     *
+     * @return UMLGenerator
+     */
+    public function classMap(string $classMapFile): self
+    {
+        $this->classMap = $classMapFile;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param Fileset $source
-	 * @param string  $targetDir
-	 */
-	public function generate(Fileset $source, $targetDir): void
-	{
-		if (!file_exists($targetDir))
-		{
-			mkdir($targetDir, 0777, true);
-		}
+    /**
+     * @param  Fileset  $source
+     * @param  string   $targetDir
+     */
+    public function generate(Fileset $source, $targetDir): void
+    {
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
 
-		$classNameCollector = new ClassNameCollector;
-		$classNameCollector->setLogger($this->logger);
+        $classNameCollector = new ClassNameCollector;
+        $classNameCollector->setLogger($this->logger);
 
-		$annotationCollector = new AnnotationCollector;
-		$annotationCollector->setLogger($this->logger);
+        $annotationCollector = new AnnotationCollector;
+        $annotationCollector->setLogger($this->logger);
 
-		$scanner = new UMLScanner();
-		$scanner->addCollector($classNameCollector);
-		$scanner->addCollector($annotationCollector);
+        $scanner = new UMLScanner();
+        $scanner->addCollector($classNameCollector);
+        $scanner->addCollector($annotationCollector);
 
-		$scanner->scan($source);
+        $scanner->scan($source);
 
-		if (!empty($this->classMap))
-		{
-			$classNameCollector->addClassMap($this->classMap);
-		}
+        if (!empty($this->classMap)) {
+            $classNameCollector->addClassMap($this->classMap);
+        }
 
-		$flags = 0;
+        $flags = 0;
 
-		if ($this->includeRef === false)
-		{
-			$flags |= UMLCollector::NO_INCLUDES;
-		}
-		elseif (!empty($this->predefinedClasses))
-		{
-			$cmd = "cp -fu {$this->predefinedClasses}/*.puml {$targetDir}";
-			$this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
-			shell_exec($cmd);
-		}
+        if ($this->includeRef === false) {
+            $flags |= UMLCollector::NO_INCLUDES;
+        } elseif (!empty($this->predefinedClasses)) {
+            $cmd = "cp -fu {$this->predefinedClasses}/*.puml {$targetDir}";
+            $this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
+            shell_exec($cmd);
+        }
 
-		$count = $scanner->writeDiagrams($targetDir, $flags);
+        $count = $scanner->writeDiagrams($targetDir, $flags);
 
-		if (file_exists($this->skin))
-		{
-			copy($this->skin, $targetDir . '/skin.puml');
-		}
+        if (file_exists($this->skin)) {
+            copy($this->skin, $targetDir . '/skin.puml');
+        }
 
-		if ($this->createSvg)
-		{
-			$relevantFiles = $scanner->getRelevantFiles();
+        if ($this->createSvg) {
+            $relevantFiles = $scanner->getRelevantFiles();
 
-			$files = implode("' '", $relevantFiles);
-			$dir   = getcwd();
-			$cmd   = "cd {$targetDir} && java -jar '{$this->jar}' -tsvg -progress '{$files}' && cd {$dir}";
-			$this->logger->debug("Generating SVG files\n\$ {$cmd}");
-			shell_exec($cmd);
-			echo "\n";
+            $files = implode("' '", $relevantFiles);
+            $dir   = getcwd();
+            $cmd   = "cd {$targetDir} && java -jar '{$this->jar}' -tsvg -progress '{$files}' && cd {$dir}";
+            $this->logger->debug("Generating SVG files\n\$ {$cmd}");
+            shell_exec($cmd);
+            echo "\n";
 
-			$count = count($relevantFiles);
+            $count = count($relevantFiles);
 
-			$cmd = "rm {$targetDir}/*.puml";
-			$this->logger->debug("Removing no longer needed diagram sources\n\$ {$cmd}");
-			shell_exec($cmd);
-		}
+            $cmd = "rm {$targetDir}/*.puml";
+            $this->logger->debug("Removing no longer needed diagram sources\n\$ {$cmd}");
+            shell_exec($cmd);
+        }
 
-		$this->logger->info("Created $count UML diagrams.");
-	}
+        $this->logger->info("Created $count UML diagrams.");
+    }
 }

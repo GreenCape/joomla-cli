@@ -36,47 +36,47 @@ use PHPUnit\Framework\TestCase;
 
 class ApplicationTest extends TestCase
 {
-	/** @var  Application */
-	private $console;
+    /** @var  Application */
+    private $console;
 
-	/**
-	 * @return array
-	 */
-	public function commandNameProvider(): array
-	{
-		return [
-			['core:version'],
-			['core:download'],
-			['core:install'],
-			['extension:install'],
-			['template:override'],
-		];
-	}
+    /**
+     * @return array
+     */
+    public function commandNameProvider(): array
+    {
+        return [
+			'version'     => ['core:version'],
+			'download'    => ['core:download'],
+            'install'     =>['core:install'],
+            'ext-install' => ['extension:install'],
+			'override'    => ['template:override'],
+        ];
+    }
 
-	/**
-	 * @dataProvider commandNameProvider
-	 *
-	 * @param string $command
-	 */
-	public function testCommandIsDefined($command): void
-	{
-		$this->assertTrue($this->console->has($command));
-	}
+    /**
+     * @dataProvider commandNameProvider
+     *
+     * @param  string  $command
+     */
+    public function testCommandIsDefined($command): void
+    {
+        $this->assertTrue($this->console->has($command));
+    }
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-		$this->console = new Application();
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+        $this->console = new Application();
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+    }
 }

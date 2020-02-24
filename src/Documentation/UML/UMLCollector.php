@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -34,28 +32,29 @@ namespace GreenCape\JoomlaCLI\Documentation\UML;
 use PhpParser\NodeVisitor;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @since       Class available since Release __DEPLOY_VERSION__
+ * Interface UMLCollector
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 interface UMLCollector extends NodeVisitor
 {
-	/** @var int Do not generate include statements for referenced classes */
-	public const NO_INCLUDES = 1;
+    /** @var int Do not generate include statements for referenced classes */
+    public const NO_INCLUDES = 1;
 
-	/** @var int Parameter denotes a namespace, not just a class name */
-	public const NAMESPACE = 2;
+    /** @var int Parameter denotes a namespace, not just a class name */
+    public const NAMESPACE   = 2;
 
-	/** @var int Ignore word boundaries (only in conjunction with NAMESPACE) */
-	public const GREEDY = 4;
+    /** @var int Ignore word boundaries (only in conjunction with NAMESPACE) */
+    public const GREEDY = 4;
 
-	public function add($name, $uml, $includes = []): void;
+    public function add($name, $uml, $includes = []): void;
 
-	public function writeDiagrams($targetDir, $flags): int;
+    public function writeDiagrams($targetDir, $flags): int;
 
-	/**
-	 * Gets a list of relevant (generated and included) files
-	 *
-	 * @return array
-	 */
-	public function getRelevantFiles(): array;
+    /**
+     * Gets a list of relevant (generated and included) files
+     *
+     * @return array
+     */
+    public function getRelevantFiles(): array;
 }

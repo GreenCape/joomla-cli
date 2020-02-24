@@ -1,17 +1,22 @@
 <?php
 /**
  * Extension stub file for PECL HTTP version 3.x
+ *
  * @author Katherine Rossiter <signe@users.noreply.github.com>
- * @see https://mdref.m6w6.name/http
+ * @see    https://mdref.m6w6.name/http
  */
 
 namespace http {
+
+    use ArrayAccess;
+    use IteratorAggregate;
+    use Serializable;
 
     interface Exception
     {
     }
 
-    class QueryString implements \Serializable, \ArrayAccess, \IteratorAggregate
+    class QueryString implements Serializable, ArrayAccess, IteratorAggregate
     {
 
         const TYPE_ARRAY  = 7;
@@ -23,19 +28,22 @@ namespace http {
 
         /**
          * The global instance. See http\QueryString::getGlobalInstance().
+         *
          * @var QueryString
          */
         private $instance;
 
         /**
          * The data
+         *
          * @var mixed[]
          */
         private $queryArray = null;
 
         /**
          * QueryString constructor.
-         * @param string $querystring
+         *
+         * @param  string  $querystring
          */
         public function __construct($querystring)
         {
@@ -50,10 +58,11 @@ namespace http {
 
         /**
          * Retrieve an querystring value
-         * @param string $name
-         * @param mixed $type
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $type
+         * @param  mixed   $defval
+         * @param  bool    $delete
          */
         public function get($name = null, $type = null, $defval = null, $delete = false)
         {
@@ -61,9 +70,11 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return array
          */
         public function getArray($name, $defval = null, $delete = false)
@@ -72,9 +83,11 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return bool
          */
         public function getBool($name, $defval = null, $delete = false)
@@ -83,9 +96,11 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return float
          */
         public function getFloat($name, $defval = null, $delete = false)
@@ -94,6 +109,7 @@ namespace http {
 
         /**
          * Retrieve the global querystring instance referencing $_GET
+         *
          * @return QueryString
          */
         public static function getGlobalInstance()
@@ -102,9 +118,11 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return int
          */
         public function getInt($name, $defval = null, $delete = false)
@@ -112,7 +130,7 @@ namespace http {
         }
 
         /**
-         * @return \IteratorAggregate
+         * @return IteratorAggregate
          */
         public function getIterator()
         {
@@ -120,9 +138,10 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
          */
         public function getObject($name, $defval = null, $delete = false)
         {
@@ -130,9 +149,11 @@ namespace http {
 
         /**
          * Retrieve an array value at offset $name
-         * @param string $name
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return string
          */
         public function getString($name, $defval = null, $delete = false)
@@ -141,7 +162,9 @@ namespace http {
 
         /**
          * Set additional $params to a clone of this instance
-         * @param mixed $params
+         *
+         * @param  mixed  $params
+         *
          * @return QueryString
          */
         public function mod($params = null)
@@ -168,9 +191,15 @@ namespace http {
         {
         }
 
+        public function unserialize($serialized)
+        {
+        }
+
         /**
          * Set additional querystring entries
-         * @param mixed $params
+         *
+         * @param  mixed  $params
+         *
          * @return QueryString
          */
         public function set($params)
@@ -179,6 +208,7 @@ namespace http {
 
         /**
          * Returns http\QueryString::$queryArray
+         *
          * @return mixed[]
          */
         public function toArray()
@@ -187,20 +217,19 @@ namespace http {
 
         /**
          * Get the string represenation of the querystring (x-www-form-urlencoded)
+         *
          * @return string
          */
         public function toString()
         {
         }
 
-        public function unserialize($serialized)
-        {
-        }
-
         /**
          * Translate character encodings of the querystring with ext/iconv
-         * @param string $from_enc
-         * @param string $to_enc
+         *
+         * @param  string  $from_enc
+         * @param  string  $to_enc
+         *
          * @return QueryString
          */
         public function xlate()
@@ -259,9 +288,10 @@ namespace http {
 
         /**
          * Url constructor.
-         * @param mixed $old_url
-         * @param mixed $new_url
-         * @param int $flags
+         *
+         * @param  mixed  $old_url
+         * @param  mixed  $new_url
+         * @param  int    $flags
          */
         public function __construct($old_url = null, $new_url = null, $flags = 0)
         {
@@ -276,8 +306,10 @@ namespace http {
 
         /**
          * Clone this URL and apply $parts to the cloned URL
-         * @param mixed $parts
-         * @param $flags
+         *
+         * @param  mixed  $parts
+         * @param         $flags
+         *
          * @return Url
          */
         public function mod($parts, $flags = http\Url::JOIN_PATH | http\Url::JOIN_QUERY | http\Url::SANITIZE_PATH)
@@ -286,6 +318,7 @@ namespace http {
 
         /**
          * Retrieve the URL parts as array
+         *
          * @return string[]
          */
         public function toArray()
@@ -294,6 +327,7 @@ namespace http {
 
         /**
          * Get the string prepresentation of the URL
+         *
          * @return string
          */
         public function toString()
@@ -304,68 +338,77 @@ namespace http {
 
 namespace http\Exception {
 
-    class BadConversionException extends \DomainException implements \http\Exception
+    use DomainException;
+    use http\Exception;
+
+    class BadConversionException extends DomainException implements Exception
     {
     }
 
-    class BadHeaderException extends \DomainException implements \http\Exception
+    class BadHeaderException extends DomainException implements Exception
     {
     }
 
-    class BadMessageException extends \DomainException implements \http\Exception
+    class BadMessageException extends DomainException implements Exception
     {
     }
 
-    class BadMethodCallException extends \BadMethodCallException implements \http\Exception
+    class BadMethodCallException extends \BadMethodCallException implements Exception
     {
     }
 
-    class BadQueryStringException extends \DomainException implements \http\Exception
+    class BadQueryStringException extends DomainException implements Exception
     {
     }
 
-    class BadUrlException extends \DomainException implements \http\Exception
+    class BadUrlException extends DomainException implements Exception
     {
     }
 
-    class InvalidArgumentException extends \InvalidArgumentException implements \http\Exception
+    class InvalidArgumentException extends \InvalidArgumentException implements Exception
     {
     }
 
-    class RuntimeException extends \RuntimeException implements \http\Exception
+    class RuntimeException extends \RuntimeException implements Exception
     {
     }
 
-    class UnexpectedValueException extends \UnexpectedValueException implements \http\Exception
+    class UnexpectedValueException extends \UnexpectedValueException implements Exception
     {
     }
 }
 
 namespace http\Env {
 
-    class Request extends \http\Message
+    use http\Message;
+
+    class Request extends Message
     {
 
         /**
          * The request’s query parameters. ($_GET)
+         *
          * @var http\QueryString
          */
         protected $query = null;
 
         /**
          * The request’s form parameters. ($_POST)
+         *
          * @var http\QueryString
          */
         protected $form = null;
 
         /**
          * The request’s form uploads. ($_FILES)
+         *
          * @var array
          */
         protected $files = null;
 
         /**
          * The request’s cookies. ($_COOKIE)
+         *
          * @var array
          */
         protected $cookie = null;
@@ -376,10 +419,12 @@ namespace http\Env {
 
         /**
          * Retrieve an URL query value ($_GET)
-         * @param string $name
-         * @param mixed $type
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $type
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return mixed
          */
         public function getCookie($name = null, $type = null, $defval = null, $delete = false)
@@ -388,6 +433,7 @@ namespace http\Env {
 
         /**
          * Retrieve the uploaded files list ($_FILES)
+         *
          * @return array
          */
         public function getFiles()
@@ -396,10 +442,12 @@ namespace http\Env {
 
         /**
          * Retrieve a form value ($_POST)
-         * @param string $name
-         * @param mixed $type
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $type
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return mixed
          */
         public function getForm($name = null, $type = null, $defval = null, $delete = false)
@@ -408,10 +456,12 @@ namespace http\Env {
 
         /**
          * Retrieve an URL query value ($_GET)
-         * @param string $name
-         * @param mixed $type
-         * @param mixed $defval
-         * @param bool $delete
+         *
+         * @param  string  $name
+         * @param  mixed   $type
+         * @param  mixed   $defval
+         * @param  bool    $delete
+         *
          * @return mixed
          */
         public function getQuery($name = null, $type = null, $defval = null, $delete = false)
@@ -421,9 +471,10 @@ namespace http\Env {
 
     /**
      * Class Response
+     *
      * @package http\Env
      */
-    class Response extends \http\Message
+    class Response extends Message
     {
         const CACHE_HIT  = 1;
         const CACHE_MISS = 2;
@@ -434,60 +485,70 @@ namespace http\Env {
 
         /**
          * How the client should treat this response in regards to caching
+         *
          * @var string
          */
         protected $cacheControl = null;
 
         /**
          * The response’s cookies.
+         *
          * @var array
          */
         protected $cookies = null;
 
         /**
          * The response’s MIME content type
+         *
          * @var string
          */
         protected $contentType = null;
 
         /**
          * The response’s MIME content disposition
+         *
          * @var string
          */
         protected $contentDisposition = null;
 
         /**
          * See http\Env\Response::CONTENT_ENCODING_* constants
+         *
          * @var int
          */
         protected $contentEncoding = null;
 
         /**
          * A custom ETag
+         *
          * @var string
          */
         protected $etag = null;
 
         /**
          * A “Last-Modified” time stamp.
+         *
          * @var int
          */
         protected $lastModified = null;
 
         /**
          * A request instance which overrides the environments default request
-         * @var \http\Env\Request
+         *
+         * @var Request
          */
         protected $request = null;
 
         /**
          * Any throttling delay.
+         *
          * @var int
          */
         protected $throttleDelay = null;
 
         /**
          * The chunk to send every $throttleDelay seconds.
+         *
          * @var int
          */
         protected $throttleChunk = null;
@@ -498,8 +559,10 @@ namespace http\Env {
 
         /**
          * Output buffer handler
-         * @param string $data
-         * @param int $ob_flags
+         *
+         * @param  string  $data
+         * @param  int     $ob_flags
+         *
          * @return bool
          */
         public function __invoke($data, $ob_flags = 0)
@@ -507,7 +570,8 @@ namespace http\Env {
         }
 
         /**
-         * @param string $header_name
+         * @param  string  $header_name
+         *
          * @return int
          */
         public function isCachedByETag($header_name = 'If-None-Match')
@@ -515,7 +579,8 @@ namespace http\Env {
         }
 
         /**
-         * @param string $header_name
+         * @param  string  $header_name
+         *
          * @return int
          */
         public function isCachedByLastModified($header_name = 'If-Modified-Since')
@@ -524,7 +589,9 @@ namespace http\Env {
 
         /**
          * Send the response through the SAPI or $stream
-         * @param resource $stream
+         *
+         * @param  resource  $stream
+         *
          * @return bool
          */
         public function send($stream = null)
@@ -533,7 +600,9 @@ namespace http\Env {
 
         /**
          * Make suggestions to the client how it should cache the response
-         * @param string $cache_control
+         *
+         * @param  string  $cache_control
+         *
          * @return Response
          */
         public function setCacheControl($cache_control)
@@ -542,7 +611,9 @@ namespace http\Env {
 
         /**
          * Set the reponse’s content disposition parameters
-         * @param array $disposition_params
+         *
+         * @param  array  $disposition_params
+         *
          * @return Response
          */
         public function setContentDisposition($disposition_params)
@@ -551,7 +622,9 @@ namespace http\Env {
 
         /**
          * Enable support for “Accept-Encoding” requests with deflate or gzip
-         * @param int $content_encoding
+         *
+         * @param  int  $content_encoding
+         *
          * @return Response
          */
         public function setContentEncoding($content_encoding)
@@ -560,7 +633,9 @@ namespace http\Env {
 
         /**
          * Set the MIME content type of the response
-         * @param string $content_type
+         *
+         * @param  string  $content_type
+         *
          * @return Response
          */
         public function setContentType($content_type)
@@ -569,7 +644,9 @@ namespace http\Env {
 
         /**
          * Add cookies to the response to send
-         * @param mixed $cookie
+         *
+         * @param  mixed  $cookie
+         *
          * @return Response
          */
         public function setCookie($cookie)
@@ -578,7 +655,9 @@ namespace http\Env {
 
         /**
          * Override the environment’s request
-         * @param \http\Message $env_request
+         *
+         * @param  Message  $env_request
+         *
          * @return Response
          */
         public function setEnvRequest($env_request)
@@ -587,7 +666,9 @@ namespace http\Env {
 
         /**
          * Override the environment’s request
-         * @param string $etag
+         *
+         * @param  string  $etag
+         *
          * @return Response
          */
         public function setEtag($etag)
@@ -596,7 +677,9 @@ namespace http\Env {
 
         /**
          * Override the environment’s request
-         * @param int $last_modified
+         *
+         * @param  int  $last_modified
+         *
          * @return Response
          */
         public function setLastModified($last_modified)
@@ -605,8 +688,10 @@ namespace http\Env {
 
         /**
          * Override the environment’s request
-         * @param int $chunk_size
-         * @param float $delay
+         *
+         * @param  int    $chunk_size
+         * @param  float  $delay
+         *
          * @return Response
          */
         public function setThrottleRate($chunk_size, $delay = 1)

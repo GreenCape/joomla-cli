@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -34,173 +32,167 @@ namespace GreenCape\JoomlaCLI\Documentation\API\Strategy;
 use GreenCape\JoomlaCLI\Fileset;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @since       Class available since Release __DEPLOY_VERSION__
+ * Class Phpdoc
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class Phpdoc implements APIGeneratorInterface
 {
-	/**
-	 * The target directory for the documentation
-	 *
-	 * @var string
-	 */
-	private $target;
+    /**
+     * The target directory for the documentation
+     *
+     * @var string
+     */
+    private $target;
 
-	/**
-	 * Generate the API documentation
-	 *
-	 * @param string $title  The title for the documentation
-	 * @param string $source The directory containing the source files
-	 * @param string $target The target directory for the documentation
-	 *
-	 * @return mixed
-	 */
-	public function generate(string $title, string $source, string $target): void
-	{
-		$this->target = $target;
+    /**
+     * Generate the API documentation
+     *
+     * @param  string  $title   The title for the documentation
+     * @param  string  $source  The directory containing the source files
+     * @param  string  $target  The target directory for the documentation
+     *
+     * @return mixed
+     */
+    public function generate(string $title, string $source, string $target): void
+    {
+        $this->target = $target;
 
-		$user = getmyuid() . ':' . getmygid();
+        $user = getmyuid() . ':' . getmygid();
 
-		$command = "docker run"
-		           . " --rm"
-		           . " --user={$user}"
-		           . " --volume={$source}:/app/io/source"
-		           . " --volume={$target}:/app/io/target"
-		           . " phpdoc/phpdoc"
+        $command = "docker run"
+                   . " --rm"
+                   . " --user={$user}"
+                   . " --volume={$source}:/app/io/source"
+                   . " --volume={$target}:/app/io/target"
+                   . " phpdoc/phpdoc"
 
-		           . " --directory /app/io/source"
-		           . " --target /app/io/target"
-		           . " --title \"{$title}\""
-		           . " --cache-folder /app/io/target/cache"
-		           . " --template clean";
+                   . " --directory /app/io/source"
+                   . " --target /app/io/target"
+                   . " --title \"{$title}\""
+                   . " --cache-folder /app/io/target/cache"
+                   . " --template clean";
 
-		passthru($command . ' 2>&1');
-	}
+        passthru($command . ' 2>&1');
+    }
 
-	/**
-	 * Embed the UML diagrams
-	 *
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return void
-	 */
-	public function embedUml(string $umlPath): void
-	{
-		$this->reflexive(
-			(new Fileset($this->target . '/classes'))
-				->include('**.html'),
-			function ($content) use ($umlPath) {
-				if (preg_match('~<h1>(?:<small>(.*?)</small>)?(.*?)</h1>~', $content, $match))
-				{
-					$namespace = str_replace('\\', '.', $match[1]);
-					$classname = trim($namespace . '.' . $match[2], '.');
+    /**
+     * Embed the UML diagrams
+     *
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return void
+     */
+    public function embedUml(string $umlPath): void
+    {
+        $this->reflexive(
+            (new Fileset($this->target . '/classes'))
+                ->include('**.html'),
+            function ($content) use ($umlPath) {
+                if (preg_match('~<h1>(?:<small>(.*?)</small>)?(.*?)</h1>~', $content, $match)) {
+                    $namespace = str_replace('\\', '.', $match[1]);
+                    $classname = trim($namespace . '.' . $match[2], '.');
 
-					$content = $this->replaceClassUML($content, 'class', $classname, $umlPath);
-					$content = $this->replaceMethodUML($content, $classname, $umlPath);
-				}
+                    $content = $this->replaceClassUML($content, 'class', $classname, $umlPath);
+                    $content = $this->replaceMethodUML($content, $classname, $umlPath);
+                }
 
-				return $content;
-			}
-		);
-	}
+                return $content;
+            }
+        );
+    }
 
-	/**
-	 * @param string $content The file content
-	 * @param string $type    The unit type
-	 * @param string $name    The unit name
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return string
-	 */
-	private function replaceClassUML($content, string $type, string $name, string $umlPath): string
-	{
-		$filename = strtolower("{$type}-{$name}.svg");
+    /**
+     * @param  string  $content  The file content
+     * @param  string  $type     The unit type
+     * @param  string  $name     The unit name
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return string
+     */
+    private function replaceClassUML($content, string $type, string $name, string $umlPath): string
+    {
+        $filename = strtolower("{$type}-{$name}.svg");
 
-		if (file_exists("{$this->target}/{$umlPath}/{$filename}"))
-		{
-			$content = preg_replace(
-				'~<h1>(?:<small>.*?</small>)?.*?</h1>\s+<p><em>.*?</em></p>~sm',
-				"\$0<img src=\"../{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'>",
-				$content
-			);
-		}
+        if (file_exists("{$this->target}/{$umlPath}/{$filename}")) {
+            $content = preg_replace(
+                '~<h1>(?:<small>.*?</small>)?.*?</h1>\s+<p><em>.*?</em></p>~sm',
+                "\$0<img src=\"../{$umlPath}/{$type}-{$name}.svg\" alt='Class Diagram'>",
+                $content
+            );
+        }
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * @param string $content The file content
-	 * @param string $name    The unit name
-	 * @param string $umlPath The path to the UML diagrams
-	 *
-	 * @return string
-	 */
-	private function replaceMethodUML($content, string $name, string $umlPath): string
-	{
-		$content = preg_replace('~(Warning: count.*?on line \d+)~', '', $content);
+    /**
+     * @param  string  $content  The file content
+     * @param  string  $name     The unit name
+     * @param  string  $umlPath  The path to the UML diagrams
+     *
+     * @return string
+     */
+    private function replaceMethodUML($content, string $name, string $umlPath): string
+    {
+        $content = preg_replace('~(Warning: count.*?on line \d+)~', '', $content);
 
-		$content = preg_replace_callback(
-			"~<article class=\"method\">\s*<h3[^>]*>(.*?)\(.*?</h3>.*?</article>\s*</div>\s*<aside[^>]*>(.*?)</aside>~sm",
-			static function ($match) use ($name, $umlPath) {
-				if (!preg_match('~<tr>\s*<th>\s*startuml\s*</th>\s*<td>.*?</td>\s*</tr>\s*<tr>\s*<th>\s*enduml\s*</th>\s*<td>\s*</td>\s*</tr>~sm', $match[2], $m))
-				{
-					return $match[0];
-				}
+        $content = preg_replace_callback(
+            "~<article class=\"method\">\s*<h3[^>]*>(.*?)\(.*?</h3>.*?</article>\s*</div>\s*<aside[^>]*>(.*?)</aside>~sm",
+            static function ($match) use ($name, $umlPath) {
+                if (!preg_match('~<tr>\s*<th>\s*startuml\s*</th>\s*<td>.*?</td>\s*</tr>\s*<tr>\s*<th>\s*enduml\s*</th>\s*<td>\s*</td>\s*</tr>~sm',
+                    $match[2], $m)) {
+                    return $match[0];
+                }
 
-				$filename = strtolower("seq-{$name}.{$match[1]}.svg");
+                $filename = strtolower("seq-{$name}.{$match[1]}.svg");
 
-				return str_replace(
-					[
-						$m[0],
-						'</article>'
-					],
-					[
-						'<tr><th>startuml/enduml</th><td>see left</td></tr>',
-						"<h4>UML</h4><img src=\"../{$umlPath}/{$filename}\" alt=\"UML Diagram (from annotation)\"></article>"
-					],
-					$match[0]);
-			},
-			$content
-		);
+                return str_replace(
+                    [
+                        $m[0],
+                        '</article>',
+                    ],
+                    [
+                        '<tr><th>startuml/enduml</th><td>see left</td></tr>',
+                        "<h4>UML</h4><img src=\"../{$umlPath}/{$filename}\" alt=\"UML Diagram (from annotation)\"></article>",
+                    ],
+                    $match[0]);
+            },
+            $content
+        );
 
-		return $content;
-	}
+        return $content;
+    }
 
-	/**
-	 * @param Fileset|string $fileset
-	 * @param callable       $filter
-	 */
-	private function reflexive($fileset, callable $filter): void
-	{
-		if (is_string($fileset))
-		{
-			$this->copyFile($fileset, $fileset, $filter);
+    /**
+     * @param  Fileset|string  $fileset
+     * @param  callable        $filter
+     */
+    private function reflexive($fileset, callable $filter): void
+    {
+        if (is_string($fileset)) {
+            $this->copyFile($fileset, $fileset, $filter);
 
-			return;
-		}
+            return;
+        }
 
-		foreach ($fileset->getFiles() as $file)
-		{
-			$this->copyFile($file, $file, $filter);
-		}
-	}
+        foreach ($fileset->getFiles() as $file) {
+            $this->copyFile($file, $file, $filter);
+        }
+    }
 
-	/**
-	 * @param string        $file
-	 * @param string        $toFile
-	 * @param callable|null $filter
-	 */
-	private function copyFile(string $file, string $toFile, callable $filter = null): void
-	{
-		if (is_dir($file))
-		{
-			return;
-		}
+    /**
+     * @param  string         $file
+     * @param  string         $toFile
+     * @param  callable|null  $filter
+     */
+    private function copyFile(string $file, string $toFile, callable $filter = null): void
+    {
+        if (is_dir($file)) {
+            return;
+        }
 
-		if (is_callable($filter))
-		{
-			file_put_contents($toFile, $filter(file_get_contents($file)));
-		}
-	}
+        if (is_callable($filter)) {
+            file_put_contents($toFile, $filter(file_get_contents($file)));
+        }
+    }
 }

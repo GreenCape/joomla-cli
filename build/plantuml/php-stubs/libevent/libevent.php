@@ -8,7 +8,6 @@
 // PHP Libevent extension documentation:
 // http://php.net/libevent
 
-
 // Event flags
 
 /**
@@ -62,7 +61,6 @@ define('EV_SIGNAL', 8);
  */
 define('EV_PERSIST', 16);
 
-
 // Event loop modes
 
 /**
@@ -81,7 +79,6 @@ define('EVLOOP_ONCE', 1);
  * @see event_base_loop
  */
 define('EVLOOP_NONBLOCK', 2);
-
 
 // Buffered event error codes (second argument in buffer's error-callback)
 
@@ -113,19 +110,19 @@ define('EVBUFFER_ERROR', 32);
  */
 define('EVBUFFER_TIMEOUT', 64);
 
-
-
-
 /**
  * <p>Create and initialize new event base</p>
  *
- * <p>Returns new event base, which can be used later in {@link event_base_set}(), {@link event_base_loop}() and other functions.</p>
+ * <p>Returns new event base, which can be used later in {@link event_base_set}(), {@link event_base_loop}() and other
+ * functions.</p>
  *
  * @link http://php.net/event_base_new
  *
  * @return resource|bool returns valid event base resource on success or FALSE on error.
  */
-function event_base_new(){}
+function event_base_new()
+{
+}
 
 /**
  * <p>Destroy event base</p>
@@ -136,11 +133,13 @@ function event_base_new(){}
  *
  * @link http://php.net/event_base_free
  *
- * @param resource $event_base Valid event base resource.
+ * @param  resource  $event_base  Valid event base resource.
  *
  * @return void
  */
-function event_base_free($event_base) {}
+function event_base_free($event_base)
+{
+}
 
 /**
  * <p>Handle events</p>
@@ -166,8 +165,9 @@ function event_base_free($event_base) {}
  *
  * @link http://php.net/event_base_loop
  *
- * @param resource $event_base Valid event base resource.
- * @param int $flags [optional] Optional parameter, which can take any combination of EVLOOP_ONCE and EVLOOP_NONBLOCK.
+ * @param  resource  $event_base  Valid event base resource.
+ * @param  int       $flags       [optional] Optional parameter, which can take any combination of EVLOOP_ONCE and
+ *                                EVLOOP_NONBLOCK.
  *
  * @return int <p>
  * Returns 0 if it exited normally,
@@ -175,7 +175,9 @@ function event_base_free($event_base) {}
  * and 1 if no events were registered.
  * </p>
  */
-function event_base_loop($event_base, $flags = null) {}
+function event_base_loop($event_base, $flags = null)
+{
+}
 
 /**
  * <p>Tells the event_base to exit its loop immediately.</p>
@@ -187,11 +189,13 @@ function event_base_loop($event_base, $flags = null) {}
  *
  * @link http://php.net/event_base_loopbreak
  *
- * @param resource $event_base Valid event base resource.
+ * @param  resource  $event_base  Valid event base resource.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_base_loopbreak($event_base) {}
+function event_base_loopbreak($event_base)
+{
+}
 
 /**
  * <p>Tells an event_base to stop looping after a given time has elapsed</p>
@@ -206,17 +210,19 @@ function event_base_loopbreak($event_base) {}
  *
  * @link http://php.net/event_base_loopexit
  *
- * @param resource $event_base <p>
- * Valid event base resource.
- * </p>
- * @param int $timeout [optional] <p>
- * Optional timeout parameter (in microseconds). If lower then 1,
- * the event_base stops looping without a delay.
- * </p>
+ * @param  resource  $event_base  <p>
+ *                                Valid event base resource.
+ *                                </p>
+ * @param  int       $timeout     [optional] <p>
+ *                                Optional timeout parameter (in microseconds). If lower then 1,
+ *                                the event_base stops looping without a delay.
+ *                                </p>
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_base_loopexit($event_base, $timeout = -1) {}
+function event_base_loopexit($event_base, $timeout = -1)
+{
+}
 
 /**
  * <p>Associate event base with an event</p>
@@ -226,12 +232,14 @@ function event_base_loopexit($event_base, $timeout = -1) {}
  *
  * @link http://php.net/event_base_set
  *
- * @param resource $event Valid event resource.
- * @param resource $base Valid event base resource.
+ * @param  resource  $event  Valid event resource.
+ * @param  resource  $base   Valid event base resource.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_base_set($event, $base) {}
+function event_base_set($event, $base)
+{
+}
 
 /**
  * <p>Set the number of different event priority levels</p>
@@ -243,13 +251,14 @@ function event_base_set($event, $base) {}
  *
  * @link http://php.net/event_base_priority_init
  *
- * @param resource $event_base Valid event base resource.
- * @param int $npriorities The number of event priority levels.
+ * @param  resource  $event_base   Valid event base resource.
+ * @param  int       $npriorities  The number of event priority levels.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_base_priority_init($event_base, $npriorities) {}
-
+function event_base_priority_init($event_base, $npriorities)
+{
+}
 
 /**
  * <p>Creates and returns a new event resource.</p>
@@ -259,7 +268,9 @@ function event_base_priority_init($event_base, $npriorities) {}
  *
  * @return resource|bool returns a new event resource on success or FALSE on error.
  */
-function event_new() {}
+function event_new()
+{
+}
 
 /**
  * <p>Free event resource.</p>
@@ -267,11 +278,13 @@ function event_new() {}
  *
  * @link http://php.net/event_free
  *
- * @param resource $event Valid event resource.
+ * @param  resource  $event  Valid event resource.
  *
  * @return void
  */
-function event_free($event) {}
+function event_free($event)
+{
+}
 
 /**
  * <p>Add an event to the set of monitored events</p>
@@ -290,16 +303,18 @@ function event_free($event) {}
  *
  * @link http://php.net/event_add
  *
- * @param resource $event <p>
- * Valid event resource.
- * </p>
- * @param int $timeout [optional] <p>
- * Optional timeout (in microseconds).
- * </p>
+ * @param  resource  $event    <p>
+ *                             Valid event resource.
+ *                             </p>
+ * @param  int       $timeout  [optional] <p>
+ *                             Optional timeout (in microseconds).
+ *                             </p>
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_add($event, $timeout = -1) {}
+function event_add($event, $timeout = -1)
+{
+}
 
 /**
  * <p>Prepares the event to be used in {@link event_add}().</p>
@@ -315,45 +330,48 @@ function event_add($event, $timeout = -1) {}
  *
  * <p>In case of matching event, these three arguments are passed to the callback function:
  * <table>
- * 	<tr>
- * 		<td><b>$fd</b></td>
- * 		<td>Signal number or resource indicating the stream.</td>
- * 	</tr>
- * 	<tr>
- * 		<td><b>$events</b></td>
- * 		<td>A flag indicating the event. Consists of the following flags: EV_TIMEOUT, EV_SIGNAL, EV_READ, EV_WRITE and EV_PERSIST.</td>
- * 	</tr>
- * 	<tr>
- * 		<td><b>$arg</b></td>
- * 		<td>Optional parameter, previously passed to {@link event_set}() as arg.</td>
- * 	</tr>
+ *    <tr>
+ *        <td><b>$fd</b></td>
+ *        <td>Signal number or resource indicating the stream.</td>
+ *    </tr>
+ *    <tr>
+ *        <td><b>$events</b></td>
+ *        <td>A flag indicating the event. Consists of the following flags: EV_TIMEOUT, EV_SIGNAL, EV_READ, EV_WRITE
+ *        and EV_PERSIST.</td>
+ *    </tr>
+ *    <tr>
+ *        <td><b>$arg</b></td>
+ *        <td>Optional parameter, previously passed to {@link event_set}() as arg.</td>
+ *    </tr>
  * </table>
  * </p>
  *
  * @link http://php.net/event_set
  *
- * @param resource $event <p>
- * Valid event resource.
- * </p>
- * @param resource|int $fd <p>
- * Valid PHP stream resource. The stream must be castable to file descriptor,
- * so you most likely won't be able to use any of filtered streams.
- * </p>
- * @param int $events <p>
- * A set of flags indicating the desired event, can be EV_READ and/or EV_WRITE.
- * The additional flag EV_PERSIST makes the event to persist until {@link event_del}() is
- * called, otherwise the callback is invoked only once.
- * </p>
- * @param callback $callback <p>
- * Callback function to be called when the matching event occurs.
- * </p>
- * @param mixed $arg [optional] <p>
- * Optional callback parameter.
- * </p>
+ * @param  resource      $event     <p>
+ *                                  Valid event resource.
+ *                                  </p>
+ * @param  resource|int  $fd        <p>
+ *                                  Valid PHP stream resource. The stream must be castable to file descriptor,
+ *                                  so you most likely won't be able to use any of filtered streams.
+ *                                  </p>
+ * @param  int           $events    <p>
+ *                                  A set of flags indicating the desired event, can be EV_READ and/or EV_WRITE.
+ *                                  The additional flag EV_PERSIST makes the event to persist until {@link event_del}()
+ *                                  is called, otherwise the callback is invoked only once.
+ *                                  </p>
+ * @param  callback      $callback  <p>
+ *                                  Callback function to be called when the matching event occurs.
+ *                                  </p>
+ * @param  mixed         $arg       [optional] <p>
+ *                                  Optional callback parameter.
+ *                                  </p>
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_set($event, $fd, $events, $callback, $arg = null) {}
+function event_set($event, $fd, $events, $callback, $arg = null)
+{
+}
 
 /**
  * <p>Remove an event from the set of monitored events.</p>
@@ -364,12 +382,13 @@ function event_set($event, $fd, $events, $callback, $arg = null) {}
  *
  * @link http://php.net/event_del
  *
- * @param resource $event Valid event resource.
+ * @param  resource  $event  Valid event resource.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_del($event) {}
-
+function event_del($event)
+{
+}
 
 /**
  * <p>Create new buffered event</p>
@@ -392,15 +411,18 @@ function event_del($event) {}
  *
  * @link http://php.net/event_buffer_new
  *
- * @param resource      $stream  Valid PHP stream resource. Must be castable to file descriptor.
- * @param callback|null $readcb  Callback to invoke where there is data to read, or NULL if no callback is desired.
- * @param callback|null $writecb Callback to invoke where the descriptor is ready for writing, or NULL if no callback is desired.
- * @param callback      $errorcb Callback to invoke where there is an error on the descriptor, cannot be NULL.
- * @param mixed         $arg     An argument that will be passed to each of the callbacks (optional).
+ * @param  resource       $stream   Valid PHP stream resource. Must be castable to file descriptor.
+ * @param  callback|null  $readcb   Callback to invoke where there is data to read, or NULL if no callback is desired.
+ * @param  callback|null  $writecb  Callback to invoke where the descriptor is ready for writing, or NULL if no
+ *                                  callback is desired.
+ * @param  callback       $errorcb  Callback to invoke where there is an error on the descriptor, cannot be NULL.
+ * @param  mixed          $arg      An argument that will be passed to each of the callbacks (optional).
  *
  * @return resource|bool returns new buffered event resource on success or FALSE on error.
  */
-function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null) {}
+function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null)
+{
+}
 
 /**
  * <p>Destroys the specified buffered event and frees all the resources associated.</p>
@@ -408,11 +430,13 @@ function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null) {}
  *
  * @link http://php.net/event_buffer_free
  *
- * @param resource $bevent Valid buffered event resource.
+ * @param  resource  $bevent  Valid buffered event resource.
  *
  * @return void
  */
-function event_buffer_free($bevent) {}
+function event_buffer_free($bevent)
+{
+}
 
 /**
  * <p>Associate buffered event with an event base</p>
@@ -422,12 +446,14 @@ function event_buffer_free($bevent) {}
  *
  * @link http://php.net/event_buffer_base_set
  *
- * @param resource $bevent Valid buffered event resource.
- * @param resource $event_base Valid event base resource.
+ * @param  resource  $bevent      Valid buffered event resource.
+ * @param  resource  $event_base  Valid event base resource.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_base_set($bevent, $event_base) {}
+function event_buffer_base_set($bevent, $event_base)
+{
+}
 
 /**
  * <p>Assign a priority to a buffered event. Use it after
@@ -450,19 +476,21 @@ function event_buffer_base_set($bevent, $event_base) {}
  *
  * @link http://php.net/event_buffer_priority_set
  *
- * @see event_base_priority_init
+ * @see  event_base_priority_init
  *
- * @param resource $bevent <p>
- * Valid buffered event resource.
- * </p>
- * @param int $priority <p>
- * Priority level. Cannot be less than 0 and cannot exceed
- * maximum priority level of the event base (see {@link event_base_priority_init}()).
- * </p>
+ * @param  resource  $bevent    <p>
+ *                              Valid buffered event resource.
+ *                              </p>
+ * @param  int       $priority  <p>
+ *                              Priority level. Cannot be less than 0 and cannot exceed
+ *                              maximum priority level of the event base (see {@link event_base_priority_init}()).
+ *                              </p>
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_priority_set($bevent, $priority) {}
+function event_buffer_priority_set($bevent, $priority)
+{
+}
 
 /**
  * <p>Writes data to the specified buffered event.</p>
@@ -473,13 +501,15 @@ function event_buffer_priority_set($bevent, $priority) {}
  *
  * @link http://php.net/event_buffer_write
  *
- * @param resource $bevent Valid buffered event resource.
- * @param string $data The data to be written.
- * @param int $data_size Optional size parameter. {@link event_buffer_write}() writes all the data by default
+ * @param  resource  $bevent     Valid buffered event resource.
+ * @param  string    $data       The data to be written.
+ * @param  int       $data_size  Optional size parameter. {@link event_buffer_write}() writes all the data by default
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_write($bevent, $data, $data_size = -1) {}
+function event_buffer_write($bevent, $data, $data_size = -1)
+{
+}
 
 /**
  * <p>Reads data from the input buffer of the buffered event.</p>
@@ -487,12 +517,14 @@ function event_buffer_write($bevent, $data, $data_size = -1) {}
  *
  * @link http://php.net/event_buffer_read
  *
- * @param resource $bevent Valid buffered event resource.
- * @param int $data_size Data size in bytes.
+ * @param  resource  $bevent     Valid buffered event resource.
+ * @param  int       $data_size  Data size in bytes.
  *
  * @return string
  */
-function event_buffer_read($bevent, $data_size) {}
+function event_buffer_read($bevent, $data_size)
+{
+}
 
 /**
  * <p>Enables the specified buffered event.</p>
@@ -500,12 +532,14 @@ function event_buffer_read($bevent, $data_size) {}
  *
  * @link http://php.net/event_buffer_enable
  *
- * @param resource $bevent Valid buffered event resource.
- * @param int $events Any combination of EV_READ and EV_WRITE.
+ * @param  resource  $bevent  Valid buffered event resource.
+ * @param  int       $events  Any combination of EV_READ and EV_WRITE.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_enable($bevent, $events) {}
+function event_buffer_enable($bevent, $events)
+{
+}
 
 /**
  * <p>Disable a buffered event</p>
@@ -515,12 +549,14 @@ function event_buffer_enable($bevent, $events) {}
  *
  * @link http://php.net/event_buffer_disable
  *
- * @param resource $bevent Valid buffered event resource.
- * @param int $events Any combination of EV_READ and EV_WRITE.
+ * @param  resource  $bevent  Valid buffered event resource.
+ * @param  int       $events  Any combination of EV_READ and EV_WRITE.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_disable($bevent, $events) {}
+function event_buffer_disable($bevent, $events)
+{
+}
 
 /**
  * <p>Sets the read and write timeouts for the specified buffered event.</p>
@@ -528,13 +564,15 @@ function event_buffer_disable($bevent, $events) {}
  *
  * @link http://php.net/event_buffer_timeout_set
  *
- * @param resource $bevent Valid buffered event resource.
- * @param int $read_timeout Read timeout (in seconds).
- * @param int $write_timeout Write timeout (in seconds).
+ * @param  resource  $bevent         Valid buffered event resource.
+ * @param  int       $read_timeout   Read timeout (in seconds).
+ * @param  int       $write_timeout  Write timeout (in seconds).
  *
  * @return void
  */
-function event_buffer_timeout_set($bevent, $read_timeout, $write_timeout) {}
+function event_buffer_timeout_set($bevent, $read_timeout, $write_timeout)
+{
+}
 
 /**
  * <p>Set the watermarks for read and write events.</p>
@@ -569,14 +607,16 @@ function event_buffer_timeout_set($bevent, $read_timeout, $write_timeout) {}
  *
  * @link http://php.net/event_buffer_watermark_set
  *
- * @param resource $bevent   Valid buffered event resource.
- * @param int      $events   Any combination of EV_READ and EV_WRITE.
- * @param int      $lowmark  Low watermark.
- * @param int      $highmark High watermark.
+ * @param  resource  $bevent    Valid buffered event resource.
+ * @param  int       $events    Any combination of EV_READ and EV_WRITE.
+ * @param  int       $lowmark   Low watermark.
+ * @param  int       $highmark  High watermark.
  *
  * @return void
  */
-function event_buffer_watermark_set($bevent, $events, $lowmark, $highmark) {}
+function event_buffer_watermark_set($bevent, $events, $lowmark, $highmark)
+{
+}
 
 /**
  * <p>Changes the file descriptor on which the buffered event operates.</p>
@@ -584,12 +624,14 @@ function event_buffer_watermark_set($bevent, $events, $lowmark, $highmark) {}
  *
  * @link http://php.net/event_buffer_fd_set
  *
- * @param resource $bevent Valid buffered event resource.
- * @param resource $fd Valid PHP stream, must be castable to file descriptor.
+ * @param  resource  $bevent  Valid buffered event resource.
+ * @param  resource  $fd      Valid PHP stream, must be castable to file descriptor.
  *
  * @return void
  */
-function event_buffer_fd_set($bevent, $fd) {}
+function event_buffer_fd_set($bevent, $fd)
+{
+}
 
 /**
  * <p>Set or reset callbacks for a buffered event</p>
@@ -599,23 +641,27 @@ function event_buffer_fd_set($bevent, $fd) {}
  *
  * @link http://php.net/event_buffer_set_callback
  *
- * @param resource $bevent Valid buffered event resource.
- * @param callback|null $readcb Callback to invoke where there is data to read, or NULL if no callback is desired.
- * @param callback|null $writecb Callback to invoke where the descriptor is ready for writing, or NULL if no callback is desired.
- * @param callback|null $errorcb Callback to invoke where there is an error on the descriptor, cannot be NULL.
- * @param mixed $arg An argument that will be passed to each of the callbacks (optional).
+ * @param  resource       $bevent   Valid buffered event resource.
+ * @param  callback|null  $readcb   Callback to invoke where there is data to read, or NULL if no callback is desired.
+ * @param  callback|null  $writecb  Callback to invoke where the descriptor is ready for writing, or NULL if no
+ *                                  callback is desired.
+ * @param  callback|null  $errorcb  Callback to invoke where there is an error on the descriptor, cannot be NULL.
+ * @param  mixed          $arg      An argument that will be passed to each of the callbacks (optional).
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_buffer_set_callback($bevent, $readcb, $writecb, $errorcb, $arg = null) {}
-
+function event_buffer_set_callback($bevent, $readcb, $writecb, $errorcb, $arg = null)
+{
+}
 
 /**
  * <p>Alias of {@link event_new}().</p>
  *
  * @return resource|bool returns valid event base resource on success or FALSE on error.
  */
-function event_timer_new() {}
+function event_timer_new()
+{
+}
 
 /**
  * <p>Prepares the timer event to be used in {@link event_add}().</p>
@@ -627,71 +673,79 @@ function event_timer_new() {}
  *
  * <p>In case of matching event, these three arguments are passed to the callback function:
  * <table>
- * 	<tr>
- * 		<td><b>$fd</b></td>
- * 		<td>null</td>
- * 	</tr>
- * 	<tr>
- * 		<td><b>$events</b></td>
- * 		<td>A flag indicating the event. EV_TIMEOUT.</td>
- * 	</tr>
- * 	<tr>
- * 		<td><b>$arg</b></td>
- * 		<td>Optional parameter, previously passed to {@link event_timer_set}() as arg.</td>
- * 	</tr>
+ *    <tr>
+ *        <td><b>$fd</b></td>
+ *        <td>null</td>
+ *    </tr>
+ *    <tr>
+ *        <td><b>$events</b></td>
+ *        <td>A flag indicating the event. EV_TIMEOUT.</td>
+ *    </tr>
+ *    <tr>
+ *        <td><b>$arg</b></td>
+ *        <td>Optional parameter, previously passed to {@link event_timer_set}() as arg.</td>
+ *    </tr>
  * </table>
  * </p>
  *
- * @param resource $event <p>
- * Valid event resource.
- * </p>
- * @param callback $callback <p>
- * Callback function to be called when the matching event occurs.
- * </p>
- * @param mixed $arg [optional] <p>
- * Optional callback parameter.
- * </p>
+ * @param  resource  $event     <p>
+ *                              Valid event resource.
+ *                              </p>
+ * @param  callback  $callback  <p>
+ *                              Callback function to be called when the matching event occurs.
+ *                              </p>
+ * @param  mixed     $arg       [optional] <p>
+ *                              Optional callback parameter.
+ *                              </p>
  *
  * @return void
  */
-function event_timer_set($event, $callback, $arg = null) {}
+function event_timer_set($event, $callback, $arg = null)
+{
+}
 
 /**
  * <p>Checks if a specific event is pending or scheduled.</p>
  *
- * @param resource $event <p>
- * Valid event resource.
- * </p>
- * @param int $timeout [optional] <p>
- * Optional timeout (in microseconds).
- * </p>
+ * @param  resource  $event    <p>
+ *                             Valid event resource.
+ *                             </p>
+ * @param  int       $timeout  [optional] <p>
+ *                             Optional timeout (in microseconds).
+ *                             </p>
  *
  * @return bool TRUE if event is not scheduled (added) FALSE otherwise
  */
-function event_timer_pending($event, $timeout = -1) {}
+function event_timer_pending($event, $timeout = -1)
+{
+}
 
 /**
  * <p>Alias of {@link event_add}().</p>
  *
- * @param resource $event <p>
- * Valid event resource.
- * </p>
- * @param int $timeout [optional] <p>
- * Optional timeout (in microseconds).
- * </p>
+ * @param  resource  $event    <p>
+ *                             Valid event resource.
+ *                             </p>
+ * @param  int       $timeout  [optional] <p>
+ *                             Optional timeout (in microseconds).
+ *                             </p>
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_timer_add($event, $timeout = -1) {}
+function event_timer_add($event, $timeout = -1)
+{
+}
 
 /**
  * <p>Alias of {@link event_del}().</p>
  *
- * @param resource $event Valid event resource.
+ * @param  resource  $event  Valid event resource.
  *
  * @return bool returns TRUE on success or FALSE on error.
  */
-function event_timer_del($event) {}
+function event_timer_del($event)
+{
+}
 
 
 // End of PECL libevent v.0.0.4

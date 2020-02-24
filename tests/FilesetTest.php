@@ -36,60 +36,63 @@ use PHPUnit\Framework\TestCase;
 
 class FilesetTest extends TestCase
 {
-	private $dir = 'tests/fixtures/fileset';
+    private $dir = 'tests/fixtures/fileset';
 
-	/**
-	 * @testdox test*.xml will include test_42.xml, but it will not include test/some.xml.
-	 */
-	public function testFilter1(): void
-	{
-		$fileset   = new Fileset($this->dir);
-		$files     = $fileset
-			->include('test*.xml')
-			->exclude('**/*.ent.xml')
-			->getFiles();
-		sort($files);
+    /**
+     * @testdox test*.xml will include test_42.xml, but it will not include test/some.xml.
+     */
+    public function testFilter1(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset
+            ->include('test*.xml')
+            ->exclude('**/*.ent.xml')
+            ->getFiles()
+        ;
+        sort($files);
 
-		$expected  = [
-			$this->dir . '/test_42.xml'
-		];
+        $expected = [
+            $this->dir . '/test_42.xml',
+        ];
 
-		$this->assertEquals($expected, $files);
-	}
+        $this->assertEquals($expected, $files);
+    }
 
-	/**
-	 * @testdox test**.xml fits to test_42.xml as well as to test/some.xml, for example.
-	 */
-	public function testFilter2(): void
-	{
-		$fileset  = new Fileset($this->dir);
-		$files    = $fileset
-			->include('test**.xml')
-			->exclude('**/*.ent.xml')
-			->getFiles();
-		sort($files);
+    /**
+     * @testdox test**.xml fits to test_42.xml as well as to test/some.xml, for example.
+     */
+    public function testFilter2(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset
+            ->include('test**.xml')
+            ->exclude('**/*.ent.xml')
+            ->getFiles()
+        ;
+        sort($files);
 
-		$expected = [
-			$this->dir . '/test/some.xml',
-			$this->dir . '/test_42.xml',
-		];
+        $expected = [
+            $this->dir . '/test/some.xml',
+            $this->dir . '/test_42.xml',
+        ];
 
-		$this->assertEquals($expected, $files);
-	}
+        $this->assertEquals($expected, $files);
+    }
 
-	/**
-	 * @testdox **\/*.ent.xml fits to all files that end with ent.xml in all subdirectories. However, it will not include any files that are directly in the base directory of the file set.
-	 */
-	public function testFilter3(): void
-	{
-		$fileset  = new Fileset($this->dir);
-		$files    = $fileset->include('**/*.ent.xml')->getFiles();
-		sort($files);
+    /**
+     * @testdox **\/*.ent.xml fits to all files that end with ent.xml in all subdirectories. However, it will not
+     *          include any files that are directly in the base directory of the file set.
+     */
+    public function testFilter3(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset->include('**/*.ent.xml')->getFiles();
+        sort($files);
 
-		$expected = [
-			$this->dir . '/test/test.ent.xml'
-		];
+        $expected = [
+            $this->dir . '/test/test.ent.xml',
+        ];
 
-		$this->assertEquals($expected, $files);
-	}
+        $this->assertEquals($expected, $files);
+    }
 }

@@ -21,8 +21,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -38,98 +36,92 @@ use League\Flysystem\Filesystem;
 /**
  * Version specific methods
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.1
+ * @since  Class available since Release 0.1.1
  */
 class Version
 {
-	/**
-	 * @var Filesystem The file system containing the Joomla! files
-	 */
-	private $filesystem;
+    /**
+     * @var Filesystem The file system containing the Joomla! files
+     */
+    private $filesystem;
 
-	/**
-	 * @var string[] Possible locations of the version file
-	 */
-	private $locations = [
-		'/libraries/src/Version.php', // J3.9
-		'/libraries/cms/version/version.php', // J2.5, J3.5
-		'/libraries/joomla/version.php', // J1.5
-		'/includes/version.php', // J1.0, J1.7
-	];
+    /**
+     * @var string[] Possible locations of the version file
+     */
+    private $locations = [
+        '/libraries/src/Version.php', // J3.9
+        '/libraries/cms/version/version.php', // J2.5, J3.5
+        '/libraries/joomla/version.php', // J1.5
+        '/includes/version.php', // J1.0, J1.7
+    ];
 
-	/** @var string[] The values from the version file */
-	private $data = [];
+    /** @var string[] The values from the version file */
+    private $data = [];
 
-	/**
-	 * Version constructor.
-	 *
-	 * @param Filesystem $filesystem The file system containing the Joomla! files
-	 *
-	 * @throws FileNotFoundException
-	 */
-	public function __construct(Filesystem $filesystem)
-	{
-		$this->filesystem = $filesystem;
+    /**
+     * Version constructor.
+     *
+     * @param  Filesystem  $filesystem  The file system containing the Joomla! files
+     *
+     * @throws FileNotFoundException
+     */
+    public function __construct(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
 
-		$content = $this->loadVersionFile();
+        $content = $this->loadVersionFile();
 
-		if (!is_string($content))
-		{
-			throw new FileNotFoundException('Joomla! version file');
-		}
+        if (!is_string($content)) {
+            throw new FileNotFoundException('Joomla! version file');
+        }
 
-		$prefix  = '(?:var\s*\$|public\s*\$|const\s*)';
-		$var     = '([A-Z_]+)';
-		$value   = '[\'"](.*?)[\'"];';
-		$pattern = '~' . $prefix . '\s*' . $var . '\s*=\s*' . $value . '~';
+        $prefix  = '(?:var\s*\$|public\s*\$|const\s*)';
+        $var     = '([A-Z_]+)';
+        $value   = '[\'"](.*?)[\'"];';
+        $pattern = '~' . $prefix . '\s*' . $var . '\s*=\s*' . $value . '~';
 
-		preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
-		foreach ($matches as $match)
-		{
-			$this->data[$match[1]] = $match[2];
-		}
-	}
+        preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            $this->data[$match[1]] = $match[2];
+        }
+    }
 
-	public function getRelease(): string
-	{
-		return $this->data['RELEASE'];
-	}
+    public function getRelease(): string
+    {
+        return $this->data['RELEASE'];
+    }
 
-	/**
-	 * @return string Short version format
-	 */
-	public function getShortVersion(): string
-	{
-		return $this->data['RELEASE'] . '.' . $this->data['DEV_LEVEL'];
-	}
+    /**
+     * @return string Short version format
+     */
+    public function getShortVersion(): string
+    {
+        return $this->data['RELEASE'] . '.' . $this->data['DEV_LEVEL'];
+    }
 
-	/**
-	 * @return string Long format version
-	 */
-	public function getLongVersion(): string
-	{
-		return $this->data['PRODUCT'] . ' ' . $this->data['RELEASE'] . '.' . $this->data['DEV_LEVEL'] . ' '
-		       . $this->data['DEV_STATUS']
-		       . ' [ ' . $this->data['CODENAME'] . ' ] ' . $this->data['RELDATE'] . ' '
-		       . $this->data['RELTIME'] . ' ' . $this->data['RELTZ'];
-	}
+    /**
+     * @return string Long format version
+     */
+    public function getLongVersion(): string
+    {
+        return $this->data['PRODUCT'] . ' ' . $this->data['RELEASE'] . '.' . $this->data['DEV_LEVEL'] . ' '
+               . $this->data['DEV_STATUS']
+               . ' [ ' . $this->data['CODENAME'] . ' ] ' . $this->data['RELDATE'] . ' '
+               . $this->data['RELTIME'] . ' ' . $this->data['RELTZ'];
+    }
 
-	/**
-	 * @return string|null
-	 * @throws FileNotFoundException
-	 */
-	private function loadVersionFile(): ?string
-	{
-		foreach ($this->locations as $location)
-		{
-			if ($this->filesystem->has($location))
-			{
-				return $this->filesystem->read($location);
-			}
-		}
+    /**
+     * @return string|null
+     * @throws FileNotFoundException
+     */
+    private function loadVersionFile(): ?string
+    {
+        foreach ($this->locations as $location) {
+            if ($this->filesystem->has($location)) {
+                return $this->filesystem->read($location);
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

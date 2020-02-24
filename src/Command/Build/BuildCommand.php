@@ -20,19 +20,17 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
- * @since           File available since Release 0.3.0
+ * @since           File available since Release __DEPLOY_VERSION__
  */
 
 namespace GreenCape\JoomlaCLI\Command\Build;
 
-use FromPhing;
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\FromPhing;
 use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,37 +38,43 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The Build command Performs all tests and generates documentation and the quality report.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @since       Class available since Release 0.3.0
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class BuildCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('build')
-			->setDescription('Performs all tests and generates documentation and the quality report');
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('build:all')
+            ->setAliases(['build'])
+            ->setDescription('Performs all tests and generates documentation and the quality report')
+            ->setHelp(
+                wordwrap(
+                    'A valid manifest file is required in the base path. '
+                    . 'Its name and location are defined in the `project.json` file.'
+                )
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @throws FileNotFoundException
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$project  = null;
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws FileNotFoundException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $project  = null;
 
-		(new FromPhing($output, $basePath, $project))->build();
-	}
+        (new FromPhing($output, $basePath, $project))->build();
+    }
 }

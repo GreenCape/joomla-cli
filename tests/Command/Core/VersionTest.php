@@ -40,42 +40,43 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class VersionTest extends TestCase
 {
-	use JoomlaPackagesTrait;
+    use JoomlaPackagesTrait;
 
-	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
-	 * @testdox      Command `version` detects the correct version
-	 */
-	public function testVersion($path, $release, $short, $long): void
-	{
-		$command = new VersionCommand();
-		$output  = new BufferedOutput();
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws Exception
+     * @dataProvider joomlaPackages
+     * @testdox      Command `version` detects the correct version
+     */
+    public function testVersion($path, $release, $short, $long): void
+    {
+        $command = new VersionCommand();
+        $output  = new BufferedOutput();
 
-		$command->run(new StringInput('-b tests/fixtures/' . $path), $output);
-		$this->assertEquals($long, trim($output->fetch()), '`version` with no option should return ' . $long);
+        $command->run(new StringInput('-b tests/fixtures/' . $path), $output);
+        $this->assertEquals($long, trim($output->fetch()), '`version` with no option should return ' . $long);
 
-		$command->run(new StringInput('--long -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($long, trim($output->fetch()), '`version` with option `--long` should return ' . $long);
+        $command->run(new StringInput('--long -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($long, trim($output->fetch()), '`version` with option `--long` should return ' . $long);
 
-		$command->run(new StringInput('-l -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($long, trim($output->fetch()), '`version` with option `-l` should return ' . $long);
+        $command->run(new StringInput('-l -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($long, trim($output->fetch()), '`version` with option `-l` should return ' . $long);
 
-		$command->run(new StringInput('--release -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($release, trim($output->fetch()), '`version` with option `--release` should return ' . $release);
+        $command->run(new StringInput('--release -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($release, trim($output->fetch()),
+            '`version` with option `--release` should return ' . $release);
 
-		$command->run(new StringInput('-r -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($release, trim($output->fetch()), '`version` with option `-r` should return ' . $release);
+        $command->run(new StringInput('-r -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($release, trim($output->fetch()), '`version` with option `-r` should return ' . $release);
 
-		$command->run(new StringInput('--short -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($short, trim($output->fetch()), '`version` with option `--short` should return ' . $short);
+        $command->run(new StringInput('--short -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($short, trim($output->fetch()), '`version` with option `--short` should return ' . $short);
 
-		$command->run(new StringInput('-s -b tests/fixtures/' . $path), $output);
-		$this->assertEquals($short, trim($output->fetch()), '`version` with option `-s` should return ' . $short);
-	}
+        $command->run(new StringInput('-s -b tests/fixtures/' . $path), $output);
+        $this->assertEquals($short, trim($output->fetch()), '`version` with option `-s` should return ' . $short);
+    }
 }

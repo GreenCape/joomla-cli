@@ -1,58 +1,57 @@
 <?php
 
-const SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES = 32;
-const SODIUM_CRYPTO_AEAD_AES256GCM_NSECBYTES = 0;
-const SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES = 12;
-const SODIUM_CRYPTO_AEAD_AES256GCM_ABYTES = 16;
-const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_KEYBYTES = 32;
-const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_NSECBYTES = 0;
-const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_NPUBBYTES = 8;
-const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_ABYTES = 16;
-const SODIUM_CRYPTO_AUTH_BYTES = 32;
-const SODIUM_CRYPTO_AUTH_KEYBYTES = 32;
-const SODIUM_CRYPTO_BOX_SEALBYTES = 16;
-const SODIUM_CRYPTO_BOX_SECRETKEYBYTES = 32;
-const SODIUM_CRYPTO_BOX_PUBLICKEYBYTES = 32;
-const SODIUM_CRYPTO_BOX_KEYPAIRBYTES = 64;
-const SODIUM_CRYPTO_BOX_MACBYTES = 16;
-const SODIUM_CRYPTO_BOX_NONCEBYTES = 24;
-const SODIUM_CRYPTO_BOX_SEEDBYTES = 32;
-const SODIUM_CRYPTO_KX_BYTES = 32;
-const SODIUM_CRYPTO_KX_PUBLICKEYBYTES = 32;
-const SODIUM_CRYPTO_KX_SECRETKEYBYTES = 32;
-const SODIUM_CRYPTO_GENERICHASH_BYTES = 32;
-const SODIUM_CRYPTO_GENERICHASH_BYTES_MIN = 16;
-const SODIUM_CRYPTO_GENERICHASH_BYTES_MAX = 64;
-const SODIUM_CRYPTO_GENERICHASH_KEYBYTES = 32;
-const SODIUM_CRYPTO_GENERICHASH_KEYBYTES_MIN = 16;
-const SODIUM_CRYPTO_GENERICHASH_KEYBYTES_MAX = 64;
-const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_SALTBYTES = 32;
-const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_STRPREFIX = '$7$';
+const SODIUM_CRYPTO_AEAD_AES256GCM_KEYBYTES                          = 32;
+const SODIUM_CRYPTO_AEAD_AES256GCM_NSECBYTES                         = 0;
+const SODIUM_CRYPTO_AEAD_AES256GCM_NPUBBYTES                         = 12;
+const SODIUM_CRYPTO_AEAD_AES256GCM_ABYTES                            = 16;
+const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_KEYBYTES                   = 32;
+const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_NSECBYTES                  = 0;
+const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_NPUBBYTES                  = 8;
+const SODIUM_CRYPTO_AEAD_CHACHA20POLY1305_ABYTES                     = 16;
+const SODIUM_CRYPTO_AUTH_BYTES                                       = 32;
+const SODIUM_CRYPTO_AUTH_KEYBYTES                                    = 32;
+const SODIUM_CRYPTO_BOX_SEALBYTES                                    = 16;
+const SODIUM_CRYPTO_BOX_SECRETKEYBYTES                               = 32;
+const SODIUM_CRYPTO_BOX_PUBLICKEYBYTES                               = 32;
+const SODIUM_CRYPTO_BOX_KEYPAIRBYTES                                 = 64;
+const SODIUM_CRYPTO_BOX_MACBYTES                                     = 16;
+const SODIUM_CRYPTO_BOX_NONCEBYTES                                   = 24;
+const SODIUM_CRYPTO_BOX_SEEDBYTES                                    = 32;
+const SODIUM_CRYPTO_KX_BYTES                                         = 32;
+const SODIUM_CRYPTO_KX_PUBLICKEYBYTES                                = 32;
+const SODIUM_CRYPTO_KX_SECRETKEYBYTES                                = 32;
+const SODIUM_CRYPTO_GENERICHASH_BYTES                                = 32;
+const SODIUM_CRYPTO_GENERICHASH_BYTES_MIN                            = 16;
+const SODIUM_CRYPTO_GENERICHASH_BYTES_MAX                            = 64;
+const SODIUM_CRYPTO_GENERICHASH_KEYBYTES                             = 32;
+const SODIUM_CRYPTO_GENERICHASH_KEYBYTES_MIN                         = 16;
+const SODIUM_CRYPTO_GENERICHASH_KEYBYTES_MAX                         = 64;
+const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_SALTBYTES            = 32;
+const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_STRPREFIX            = '$7$';
 const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_INTERACTIVE = 534288;
 const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_INTERACTIVE = 16777216;
-const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_SENSITIVE = 33554432;
-const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_SENSITIVE = 1073741824;
-const SODIUM_CRYPTO_SCALARMULT_BYTES = 32;
-const SODIUM_CRYPTO_SCALARMULT_SCALARBYTES = 32;
-const SODIUM_CRYPTO_SHORTHASH_BYTES = 8;
-const SODIUM_CRYPTO_SHORTHASH_KEYBYTES = 16;
-const SODIUM_CRYPTO_SECRETBOX_KEYBYTES = 32;
-const SODIUM_CRYPTO_SECRETBOX_MACBYTES = 16;
-const SODIUM_CRYPTO_SECRETBOX_NONCEBYTES = 24;
-const SODIUM_CRYPTO_SIGN_BYTES = 64;
-const SODIUM_CRYPTO_SIGN_SEEDBYTES = 32;
-const SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES = 32;
-const SODIUM_CRYPTO_SIGN_SECRETKEYBYTES = 64;
-const SODIUM_CRYPTO_SIGN_KEYPAIRBYTES = 96;
-const SODIUM_CRYPTO_STREAM_KEYBYTES = 32;
-const SODIUM_CRYPTO_STREAM_NONCEBYTES = 24;
-const SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE = 4;
-const SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE = 33554432;
-const SODIUM_CRYPTO_PWHASH_OPSLIMIT_MODERATE = 6;
-const SODIUM_CRYPTO_PWHASH_MEMLIMIT_MODERATE = 134217728;
-const SODIUM_CRYPTO_PWHASH_OPSLIMIT_SENSITIVE = 8;
-const SODIUM_CRYPTO_PWHASH_MEMLIMIT_SENSITIVE = 536870912;
-
+const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_SENSITIVE   = 33554432;
+const SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_SENSITIVE   = 1073741824;
+const SODIUM_CRYPTO_SCALARMULT_BYTES                                 = 32;
+const SODIUM_CRYPTO_SCALARMULT_SCALARBYTES                           = 32;
+const SODIUM_CRYPTO_SHORTHASH_BYTES                                  = 8;
+const SODIUM_CRYPTO_SHORTHASH_KEYBYTES                               = 16;
+const SODIUM_CRYPTO_SECRETBOX_KEYBYTES                               = 32;
+const SODIUM_CRYPTO_SECRETBOX_MACBYTES                               = 16;
+const SODIUM_CRYPTO_SECRETBOX_NONCEBYTES                             = 24;
+const SODIUM_CRYPTO_SIGN_BYTES                                       = 64;
+const SODIUM_CRYPTO_SIGN_SEEDBYTES                                   = 32;
+const SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES                              = 32;
+const SODIUM_CRYPTO_SIGN_SECRETKEYBYTES                              = 64;
+const SODIUM_CRYPTO_SIGN_KEYPAIRBYTES                                = 96;
+const SODIUM_CRYPTO_STREAM_KEYBYTES                                  = 32;
+const SODIUM_CRYPTO_STREAM_NONCEBYTES                                = 24;
+const SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE                      = 4;
+const SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE                      = 33554432;
+const SODIUM_CRYPTO_PWHASH_OPSLIMIT_MODERATE                         = 6;
+const SODIUM_CRYPTO_PWHASH_MEMLIMIT_MODERATE                         = 134217728;
+const SODIUM_CRYPTO_PWHASH_OPSLIMIT_SENSITIVE                        = 8;
+const SODIUM_CRYPTO_PWHASH_MEMLIMIT_SENSITIVE                        = 536870912;
 
 /**
  * Can you access AES-256-GCM? This is only available if you have supported
@@ -69,10 +68,11 @@ function sodium_crypto_aead_aes256gcm_is_available(): bool
  * Authenticated Encryption with Associated Data (decrypt)
  * AES-256-GCM
  *
- * @param string $msg encrypted message
- * @param string $nonce
- * @param string $key
- * @param string $ad additional data (optional)
+ * @param  string  $msg  encrypted message
+ * @param  string  $nonce
+ * @param  string  $key
+ * @param  string  $ad   additional data (optional)
+ *
  * @return string
  */
 function sodium_crypto_aead_aes256gcm_decrypt(
@@ -82,6 +82,7 @@ function sodium_crypto_aead_aes256gcm_decrypt(
     string $ad = ''
 ): string {
     unset($msg, $nonce, $key, $ad);
+
     return '';
 }
 
@@ -89,10 +90,11 @@ function sodium_crypto_aead_aes256gcm_decrypt(
  * Authenticated Encryption with Associated Data (encrypt)
  * AES-256-GCM
  *
- * @param string $msg plaintext message
- * @param string $nonce
- * @param string $key
- * @param string $ad additional data (optional)
+ * @param  string  $msg  plaintext message
+ * @param  string  $nonce
+ * @param  string  $key
+ * @param  string  $ad   additional data (optional)
+ *
  * @return string
  */
 function sodium_crypto_aead_aes256gcm_encrypt(
@@ -102,6 +104,7 @@ function sodium_crypto_aead_aes256gcm_encrypt(
     string $ad = ''
 ): string {
     unset($msg, $nonce, $key, $ad);
+
     return '';
 }
 
@@ -109,10 +112,11 @@ function sodium_crypto_aead_aes256gcm_encrypt(
  * Authenticated Encryption with Associated Data (decrypt)
  * ChaCha20 + Poly1305
  *
- * @param string $msg encrypted message
- * @param string $nonce
- * @param string $key
- * @param string $ad additional data (optional)
+ * @param  string  $msg  encrypted message
+ * @param  string  $nonce
+ * @param  string  $key
+ * @param  string  $ad   additional data (optional)
+ *
  * @return string
  */
 function sodium_crypto_aead_chacha20poly1305_decrypt(
@@ -122,6 +126,7 @@ function sodium_crypto_aead_chacha20poly1305_decrypt(
     string $ad = ''
 ): string {
     unset($msg, $nonce, $key, $ad);
+
     return '';
 }
 
@@ -129,10 +134,11 @@ function sodium_crypto_aead_chacha20poly1305_decrypt(
  * Authenticated Encryption with Associated Data (encrypt)
  * ChaCha20 + Poly1305
  *
- * @param string $msg plaintext message
- * @param string $nonce
- * @param string $key
- * @param string $ad additional data (optional)
+ * @param  string  $msg  plaintext message
+ * @param  string  $nonce
+ * @param  string  $key
+ * @param  string  $ad   additional data (optional)
+ *
  * @return string
  */
 function sodium_crypto_aead_chacha20poly1305_encrypt(
@@ -142,6 +148,7 @@ function sodium_crypto_aead_chacha20poly1305_encrypt(
     string $ad = ''
 ): string {
     unset($msg, $nonce, $key, $ad);
+
     return '';
 }
 
@@ -149,8 +156,9 @@ function sodium_crypto_aead_chacha20poly1305_encrypt(
  * Secret-key message authentication
  * HMAC SHA-512/256
  *
- * @param string $msg
- * @param string $key
+ * @param  string  $msg
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_auth(
@@ -158,6 +166,7 @@ function sodium_crypto_auth(
     string $key
 ): string {
     unset($msg, $key);
+
     return '';
 }
 
@@ -165,9 +174,10 @@ function sodium_crypto_auth(
  * Secret-key message verification
  * HMAC SHA-512/256
  *
- * @param string $mac
- * @param string $msg
- * @param string $key
+ * @param  string  $mac
+ * @param  string  $msg
+ * @param  string  $key
+ *
  * @return bool
  */
 function sodium_crypto_auth_verify(
@@ -176,6 +186,7 @@ function sodium_crypto_auth_verify(
     string $key
 ): bool {
     unset($mac, $msg, $key);
+
     return false;
 }
 
@@ -183,9 +194,10 @@ function sodium_crypto_auth_verify(
  * Public-key authenticated encryption (encrypt)
  * X25519 + Xsalsa20 + Poly1305
  *
- * @param string $msg
- * @param string $nonce
- * @param string $keypair
+ * @param  string  $msg
+ * @param  string  $nonce
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_box(
@@ -194,6 +206,7 @@ function sodium_crypto_box(
     string $keypair
 ): string {
     unset($msg, $nonce, $keypair);
+
     return '';
 }
 
@@ -202,28 +215,32 @@ function sodium_crypto_box(
  *
  * @return string
  */
-function sodium_crypto_box_keypair(): string {
+function sodium_crypto_box_keypair(): string
+{
     return '';
 }
 
 /**
  * Derive an X25519 keypair for use with the sodium_crypto_box API from a seed
  *
- * @param string $seed
+ * @param  string  $seed
+ *
  * @return string
  */
 function sodium_crypto_box_seed_keypair(
     string $seed
 ): string {
     unset($seed);
+
     return '';
 }
 
 /**
  * Create an X25519 keypair from an X25519 secret key and X25519 public key
  *
- * @param string $secretkey
- * @param string $publickey
+ * @param  string  $secretkey
+ * @param  string  $publickey
+ *
  * @return string
  */
 function sodium_crypto_box_keypair_from_secretkey_and_publickey(
@@ -231,6 +248,7 @@ function sodium_crypto_box_keypair_from_secretkey_and_publickey(
     string $publickey
 ): string {
     unset($secretkey, $publickey);
+
     return '';
 }
 
@@ -238,9 +256,10 @@ function sodium_crypto_box_keypair_from_secretkey_and_publickey(
  * Public-key authenticated encryption (decrypt)
  * X25519 + Xsalsa20 + Poly1305
  *
- * @param string $msg
- * @param string $nonce
- * @param string $keypair
+ * @param  string  $msg
+ * @param  string  $nonce
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_box_open(
@@ -249,32 +268,37 @@ function sodium_crypto_box_open(
     string $keypair
 ): string {
     unset($msg, $nonce, $keypair);
+
     return '';
 }
 
 /**
  * Get an X25519 public key from an X25519 keypair
  *
- * @param string $keypair
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_box_publickey(
     string $keypair
 ): string {
     unset($keypair);
+
     return '';
 }
 
 /**
  * Derive an X25519 public key from an X25519 secret key
  *
- * @param string $secretkey
+ * @param  string  $secretkey
+ *
  * @return string
  */
 function sodium_crypto_box_publickey_from_secretkey(
     string $secretkey
 ): string {
     unset($secretkey);
+
     return '';
 }
 
@@ -282,8 +306,9 @@ function sodium_crypto_box_publickey_from_secretkey(
  * Anonymous public-key encryption (encrypt)
  * X25519 + Xsalsa20 + Poly1305 + BLAKE2b
  *
- * @param string $message
- * @param string $publickey
+ * @param  string  $message
+ * @param  string  $publickey
+ *
  * @return string
  */
 function sodium_crypto_box_seal(
@@ -291,6 +316,7 @@ function sodium_crypto_box_seal(
     string $publickey
 ): string {
     unset($message, $publickey);
+
     return '';
 }
 
@@ -298,8 +324,9 @@ function sodium_crypto_box_seal(
  * Anonymous public-key encryption (decrypt)
  * X25519 + Xsalsa20 + Poly1305 + BLAKE2b
  *
- * @param string $encrypted
- * @param string $keypair
+ * @param  string  $encrypted
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_box_seal_open(
@@ -307,18 +334,21 @@ function sodium_crypto_box_seal_open(
     string $keypair
 ): string {
     unset($encrypted, $keypair);
+
     return '';
 }
 
 /**
  * Extract the X25519 secret key from an X25519 keypair
  *
- * @param string $keypair
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_box_secretkey(string $keypair): string
 {
     unset($keypair);
+
     return '';
 }
 
@@ -326,10 +356,11 @@ function sodium_crypto_box_secretkey(string $keypair): string
  * Elliptic Curve Diffie Hellman Key Exchange
  * X25519
  *
- * @param string $secretkey
- * @param string $publickey
- * @param string $client_publickey
- * @param string $server_publickey
+ * @param  string  $secretkey
+ * @param  string  $publickey
+ * @param  string  $client_publickey
+ * @param  string  $server_publickey
+ *
  * @return string
  */
 function sodium_crypto_kx(
@@ -339,23 +370,26 @@ function sodium_crypto_kx(
     string $server_publickey
 ): string {
     unset($secretkey, $publickey, $client_publickey, $server_publickey);
+
     return '';
 }
 
 /**
  * Fast and secure cryptographic hash
  *
- * @param string $input
- * @param string $key
- * @param int $length
+ * @param  string  $input
+ * @param  string  $key
+ * @param  int     $length
+ *
  * @return string
  */
 function sodium_crypto_generichash(
     string $input,
     string $key = '',
     int $length = 32
-): string{
+): string {
     unset($input, $key, $length);
+
     return '';
 }
 
@@ -363,8 +397,9 @@ function sodium_crypto_generichash(
  * Create a new hash state (e.g. to use for streams)
  * BLAKE2b
  *
- * @param string $key
- * @param int $length
+ * @param  string  $key
+ * @param  int     $length
+ *
  * @return string
  */
 function sodium_crypto_generichash_init(
@@ -372,6 +407,7 @@ function sodium_crypto_generichash_init(
     int $length = 32
 ): string {
     unset($key, $length);
+
     return '';
 }
 
@@ -380,7 +416,8 @@ function sodium_crypto_generichash_init(
  * BLAKE2b
  *
  * @param &string $hashState
- * @param string $append
+ * @param  string  $append
+ *
  * @return bool
  */
 function sodium_crypto_generichash_update(
@@ -388,6 +425,7 @@ function sodium_crypto_generichash_update(
     string $append
 ): bool {
     unset($hashState, $append);
+
     return '';
 }
 
@@ -395,8 +433,9 @@ function sodium_crypto_generichash_update(
  * Get the final hash
  * BLAKE2b
  *
- * @param string $hashState
- * @param int $length
+ * @param  string  $hashState
+ * @param  int     $length
+ *
  * @return string
  */
 function sodium_crypto_generichash_final(
@@ -404,6 +443,7 @@ function sodium_crypto_generichash_final(
     int $length = 32
 ): string {
     unset($state, $length);
+
     return '';
 }
 
@@ -411,11 +451,12 @@ function sodium_crypto_generichash_final(
  * Secure password-based key derivation function
  * Argon2i
  *
- * @param int $out_len
- * @param string $passwd
- * @param string $salt
- * @param int $opslimit
- * @param int $memlimit
+ * @param  int     $out_len
+ * @param  string  $passwd
+ * @param  string  $salt
+ * @param  int     $opslimit
+ * @param  int     $memlimit
+ *
  * @return $string
  */
 function sodium_crypto_pwhash(
@@ -426,6 +467,7 @@ function sodium_crypto_pwhash(
     int $memlimit
 ): string {
     unset($out_len, $passwd, $salt, $opslimit, $memlimit);
+
     return '';
 }
 
@@ -433,9 +475,10 @@ function sodium_crypto_pwhash(
  * Get a formatted password hash (for storage)
  * Argon2i
  *
- * @param string $passwd
- * @param int $opslimit
- * @param int $memlimit
+ * @param  string  $passwd
+ * @param  int     $opslimit
+ * @param  int     $memlimit
+ *
  * @return $string
  */
 function sodium_crypto_pwhash_str(
@@ -444,6 +487,7 @@ function sodium_crypto_pwhash_str(
     int $memlimit
 ): string {
     unset($passwd, $opslimit, $memlimit);
+
     return '';
 }
 
@@ -451,8 +495,9 @@ function sodium_crypto_pwhash_str(
  * Verify a password against a hash
  * Argon2i
  *
- * @param string $hash
- * @param string $passwd
+ * @param  string  $hash
+ * @param  string  $passwd
+ *
  * @return bool
  */
 function sodium_crypto_pwhash_str_verify(
@@ -460,6 +505,7 @@ function sodium_crypto_pwhash_str_verify(
     string $passwd
 ): bool {
     unset($hash, $passwd);
+
     return false;
 }
 
@@ -467,11 +513,12 @@ function sodium_crypto_pwhash_str_verify(
  * Secure password-based key derivation function
  * Scrypt
  *
- * @param int $out_len
- * @param string $passwd
- * @param string $salt
- * @param int $opslimit
- * @param int $memlimit
+ * @param  int     $out_len
+ * @param  string  $passwd
+ * @param  string  $salt
+ * @param  int     $opslimit
+ * @param  int     $memlimit
+ *
  * @return $string
  */
 function sodium_crypto_pwhash_scryptsalsa208sha256(
@@ -482,6 +529,7 @@ function sodium_crypto_pwhash_scryptsalsa208sha256(
     int $memlimit
 ): string {
     unset($out_len, $passwd, $salt, $opslimit, $memlimit);
+
     return '';
 }
 
@@ -489,9 +537,10 @@ function sodium_crypto_pwhash_scryptsalsa208sha256(
  * Get a formatted password hash (for storage)
  * Scrypt
  *
- * @param string $passwd
- * @param int $opslimit
- * @param int $memlimit
+ * @param  string  $passwd
+ * @param  int     $opslimit
+ * @param  int     $memlimit
+ *
  * @return $string
  */
 function sodium_crypto_pwhash_scryptsalsa208sha256_str(
@@ -500,6 +549,7 @@ function sodium_crypto_pwhash_scryptsalsa208sha256_str(
     int $memlimit
 ): string {
     unset($passwd, $opslimit, $memlimit);
+
     return '';
 }
 
@@ -507,8 +557,9 @@ function sodium_crypto_pwhash_scryptsalsa208sha256_str(
  * Verify a password against a hash
  * Scrypt
  *
- * @param string $hash
- * @param string $passwd
+ * @param  string  $hash
+ * @param  string  $passwd
+ *
  * @return bool
  */
 function sodium_crypto_pwhash_scryptsalsa208sha256_str_verify(
@@ -516,6 +567,7 @@ function sodium_crypto_pwhash_scryptsalsa208sha256_str_verify(
     string $passwd
 ): bool {
     unset($hash, $passwd);
+
     return false;
 }
 
@@ -523,8 +575,9 @@ function sodium_crypto_pwhash_scryptsalsa208sha256_str_verify(
  * Elliptic Curve Diffie Hellman over Curve25519
  * X25519
  *
- * @param string $ecdhA
- * @param string $ecdhB
+ * @param  string  $ecdhA
+ * @param  string  $ecdhB
+ *
  * @return string
  */
 function sodium_crypto_scalarmult(
@@ -532,6 +585,7 @@ function sodium_crypto_scalarmult(
     string $ecdhB
 ): string {
     unset($ecdhA, $ecdhB);
+
     return '';
 }
 
@@ -539,9 +593,10 @@ function sodium_crypto_scalarmult(
  * Authenticated secret-key encryption (encrypt)
  * Xsals20 + Poly1305
  *
- * @param string $plaintext
- * @param string $nonce
- * @param string $key
+ * @param  string  $plaintext
+ * @param  string  $nonce
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_secretbox(
@@ -550,6 +605,7 @@ function sodium_crypto_secretbox(
     string $key
 ): string {
     unset($plaintext, $nonce, $key);
+
     return '';
 }
 
@@ -557,9 +613,10 @@ function sodium_crypto_secretbox(
  * Authenticated secret-key encryption (decrypt)
  * Xsals20 + Poly1305
  *
- * @param string $ciphertext
- * @param string $nonce
- * @param string $key
+ * @param  string  $ciphertext
+ * @param  string  $nonce
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_secretbox_open(
@@ -568,6 +625,7 @@ function sodium_crypto_secretbox_open(
     string $key
 ): string {
     unset($ciphertext, $nonce, $key);
+
     return '';
 }
 
@@ -575,8 +633,9 @@ function sodium_crypto_secretbox_open(
  * A short keyed hash suitable for data structures
  * SipHash-2-4
  *
- * @param string $message
- * @param string $key
+ * @param  string  $message
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_shorthash(
@@ -584,6 +643,7 @@ function sodium_crypto_shorthash(
     string $key
 ): string {
     unset($message, $key);
+
     return '';
 }
 
@@ -591,8 +651,9 @@ function sodium_crypto_shorthash(
  * Digital Signature
  * Ed25519
  *
- * @param string $message
- * @param string $secretkey
+ * @param  string  $message
+ * @param  string  $secretkey
+ *
  * @return string
  */
 function sodium_crypto_sign(
@@ -600,6 +661,7 @@ function sodium_crypto_sign(
     string $secretkey
 ): string {
     unset($message, $secretkey);
+
     return '';
 }
 
@@ -607,8 +669,9 @@ function sodium_crypto_sign(
  * Digital Signature (detached)
  * Ed25519
  *
- * @param string $message
- * @param string $secretkey
+ * @param  string  $message
+ * @param  string  $secretkey
+ *
  * @return string
  */
 function sodium_crypto_sign_detached(
@@ -616,32 +679,37 @@ function sodium_crypto_sign_detached(
     string $secretkey
 ): string {
     unset($message, $secretkey);
+
     return '';
 }
 
 /**
  * Convert an Ed25519 public key to an X25519 public key
  *
- * @param string $sign_pk
+ * @param  string  $sign_pk
+ *
  * @return string
  */
 function sodium_crypto_sign_ed25519_pk_to_curve25519(
     string $sign_pk
 ): string {
     unset($sign_pk);
+
     return '';
 }
 
 /**
  * Convert an Ed25519 secret key to an X25519 secret key
  *
- * @param string $sign_sk
+ * @param  string  $sign_sk
+ *
  * @return string
  */
 function sodium_crypto_sign_ed25519_sk_to_curve25519(
     string $sign_sk
 ): string {
     unset($sign_sk);
+
     return '';
 }
 
@@ -655,12 +723,12 @@ function sodium_crypto_sign_keypair(): string
     return '';
 }
 
-
 /**
  * Create an Ed25519 keypair from an Ed25519 secret key + Ed25519 public key
  *
- * @param string $secretkey
- * @param string $publickey
+ * @param  string  $secretkey
+ * @param  string  $publickey
+ *
  * @return string
  */
 function sodium_crypto_sign_keypair_from_secretkey_and_publickey(
@@ -668,14 +736,16 @@ function sodium_crypto_sign_keypair_from_secretkey_and_publickey(
     string $publickey
 ): string {
     unset($secretkey, $publickey);
+
     return '';
 }
 
 /**
  * Verify a signed message and return the plaintext
  *
- * @param string $signed_message
- * @param string $publickey
+ * @param  string  $signed_message
+ * @param  string  $publickey
+ *
  * @return string
  */
 function sodium_crypto_sign_open(
@@ -683,67 +753,77 @@ function sodium_crypto_sign_open(
     string $publickey
 ): string {
     unset($signed_message, $publickey);
+
     return '';
 }
 
 /**
  * Get the public key from an Ed25519 keypair
  *
- * @param string $keypair
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_sign_publickey(
     string $keypair
 ): string {
     unset($keypair);
+
     return '';
 }
 
 /**
  * Get the secret key from an Ed25519 keypair
  *
- * @param string $keypair
+ * @param  string  $keypair
+ *
  * @return string
  */
 function sodium_crypto_sign_secretkey(
     string $keypair
 ): string {
     unset($keypair);
+
     return '';
 }
 
 /**
  * Derive an Ed25519 public key from an Ed25519 secret key
  *
- * @param string $secretkey
+ * @param  string  $secretkey
+ *
  * @return string
  */
 function sodium_crypto_sign_publickey_from_secretkey(
     string $secretkey
 ): string {
     unset($secretkey);
+
     return '';
 }
 
 /**
  * Derive an Ed25519 keypair for use with the crypto_sign API from a seed
  *
- * @param string $seed
+ * @param  string  $seed
+ *
  * @return string
  */
 function sodium_crypto_sign_seed_keypair(
     string $seed
 ): string {
     unset($seed);
+
     return '';
 }
 
 /**
  * Verify a detached signature
  *
- * @param string $signature
- * @param string $msg
- * @param string $publickey
+ * @param  string  $signature
+ * @param  string  $msg
+ * @param  string  $publickey
+ *
  * @return bool
  */
 function sodium_crypto_sign_verify_detached(
@@ -752,6 +832,7 @@ function sodium_crypto_sign_verify_detached(
     string $publickey
 ): bool {
     unset($signature, $msg, $publickey);
+
     return false;
 }
 
@@ -759,9 +840,10 @@ function sodium_crypto_sign_verify_detached(
  * Create a keystream from a key and nonce
  * Xsalsa20
  *
- * @param int $length
- * @param string $nonce
- * @param string $key
+ * @param  int     $length
+ * @param  string  $nonce
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_stream(
@@ -770,6 +852,7 @@ function sodium_crypto_stream(
     string $key
 ): string {
     unset($length, $nonce, $key);
+
     return '';
 }
 
@@ -777,9 +860,10 @@ function sodium_crypto_stream(
  * Encrypt a message using a stream cipher
  * Xsalsa20
  *
- * @param string $plaintext
- * @param string $nonce
- * @param string $key
+ * @param  string  $plaintext
+ * @param  string  $nonce
+ * @param  string  $key
+ *
  * @return string
  */
 function sodium_crypto_stream_xor(
@@ -788,6 +872,7 @@ function sodium_crypto_stream_xor(
     string $key
 ): string {
     unset($plaintext, $nonce, $key);
+
     return '';
 }
 
@@ -795,13 +880,15 @@ function sodium_crypto_stream_xor(
  * Generate a string of random bytes
  * /dev/urandom
  *
- * @param int $length
+ * @param  int  $length
+ *
  * @return string
  */
 function sodium_randombytes_buf(
     int $length
 ): string {
     unset($length);
+
     return '';
 }
 
@@ -811,7 +898,8 @@ function sodium_randombytes_buf(
  *
  * @return int
  */
-function sodium_randombytes_random16(): string {
+function sodium_randombytes_random16(): string
+{
     return '';
 }
 
@@ -819,34 +907,39 @@ function sodium_randombytes_random16(): string {
  * Generate an unbiased random integer between 0 and a specified value
  * /dev/urandom
  *
- * @param int $upperBoundNonInclusive
+ * @param  int  $upperBoundNonInclusive
+ *
  * @return int
  */
 function sodium_randombytes_uniform(
     int $upperBoundNonInclusive
 ): int {
     unset($upperBoundNonInclusive);
+
     return 0;
 }
 
 /**
  * Convert to hex without side-chanels
  *
- * @param string $binary
+ * @param  string  $binary
+ *
  * @return string
  */
 function sodium_bin2hex(
     string $binary
 ): string {
     unset($binary);
+
     return '';
 }
 
 /**
  * Compare two strings in constant time
  *
- * @param string $left
- * @param string $right
+ * @param  string  $left
+ * @param  string  $right
+ *
  * @return int
  */
 function sodium_compare(
@@ -854,19 +947,22 @@ function sodium_compare(
     string $right
 ): int {
     unset($left, $right);
+
     return 0;
 }
 
 /**
  * Convert from hex without side-chanels
  *
- * @param string $binary
+ * @param  string  $binary
+ *
  * @return string
  */
 function sodium_hex2bin(
     string $hex
 ): string {
     unset($hex);
+
     return '';
 }
 
@@ -874,6 +970,7 @@ function sodium_hex2bin(
  * Increment a string in little-endian
  *
  * @param &string $nonce
+ *
  * @return string
  */
 function sodium_increment(
@@ -886,7 +983,7 @@ function sodium_increment(
  * Add the right operand to the left
  *
  * @param &string $left
- * @param string $right
+ * @param  string  $right
  */
 function sodium_add(
     string &$left,
@@ -897,25 +994,30 @@ function sodium_add(
 
 /**
  * Get the true major version of libsodium
+ *
  * @return int
  */
-function sodium_library_version_major(): int {
+function sodium_library_version_major(): int
+{
     return 0;
 }
 
 /**
  * Get the true minor version of libsodium
+ *
  * @return int
  */
-function sodium_library_version_minor(): int {
+function sodium_library_version_minor(): int
+{
     return 0;
 }
 
 /**
  * Compare two strings in constant time
  *
- * @param string $left
- * @param string $right
+ * @param  string  $left
+ * @param  string  $right
+ *
  * @return int
  */
 function sodium_memcmp(
@@ -923,6 +1025,7 @@ function sodium_memcmp(
     string $right
 ): int {
     unset($right, $left);
+
     return 0;
 }
 
@@ -942,14 +1045,16 @@ function sodium_memzero(
  *
  * @return string
  */
-function sodium_version_string(): string {
+function sodium_version_string(): string
+{
     return 'NA';
 }
 
 /**
  * Scalar multiplication of the base point and your key
  *
- * @param string $sk
+ * @param  string  $sk
+ *
  * @return string
  */
 function sodium_crypto_scalarmult_base(

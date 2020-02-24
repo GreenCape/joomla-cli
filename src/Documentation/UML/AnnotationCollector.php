@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -38,108 +36,105 @@ use PhpParser\NodeVisitorAbstract;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
+/**
+ * Class AnnotationCollector
+ *
+ * @since  Class available since Release __DEPLOY_VERSION__
+ */
 class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
 {
-	private $currentClass;
+    private $currentClass;
 
-	private $uml = [];
-	/**
-	 * @var array
-	 */
-	private $relevantFiles = [];
+    private $uml = [];
+    /**
+     * @var array
+     */
+    private $relevantFiles = [];
 
-	use LoggerAwareTrait;
+    use LoggerAwareTrait;
 
-	public function enterNode(Node $node)
-	{
-		if ($node instanceof ClassLike)
-		{
-			if ($this->isAnonymous($node))
-			{
-				return;
-			}
+    public function enterNode(Node $node)
+    {
+        if ($node instanceof ClassLike) {
+            if ($this->isAnonymous($node)) {
+                return;
+            }
 
-			$this->currentClass = (string) $node->namespacedName;
-		}
-		elseif ($node instanceof ClassMethod)
-		{
-			$this->createUml((string) $node->name, (string) $node->getDocComment());
-		}
-	}
+            $this->currentClass = (string)$node->namespacedName;
+        } elseif ($node instanceof ClassMethod) {
+            $this->createUml((string)$node->name, (string)$node->getDocComment());
+        }
+    }
 
-	public function leaveNode(Node $node)
-	{
-		if ($node instanceof ClassLike)
-		{
-			$this->currentClass = null;
-		}
-	}
+    public function leaveNode(Node $node)
+    {
+        if ($node instanceof ClassLike) {
+            $this->currentClass = null;
+        }
+    }
 
-	public function add($name, $uml, $includes = []): void
-	{
-		$this->uml[strtolower($name)] = $uml;
-	}
+    /**
+     * @param  ClassLike  $node
+     *
+     * @return bool
+     */
+    private function isAnonymous(ClassLike $node): bool
+    {
+        return !isset($node->namespacedName);
+    }
 
-	public function writeDiagrams($targetDir, $flags): int
-	{
-		foreach ($this->uml as $name => $uml)
-		{
-			$filename              = $this->filename($name);
-			$this->relevantFiles[] = $filename;
+    /**
+     * @param  string  $name
+     * @param  string  $comment
+     */
+    private function createUml(string $name, string $comment): void
+    {
+        if (preg_match_all('~@startuml(.*?)@enduml~sm', $comment, $matches, PREG_SET_ORDER) === 0) {
+            return;
+        }
 
-			file_put_contents($targetDir . '/' . $filename, $uml);
-		}
+        $uml = "@startuml\n!include skin.puml\n!startsub INNER\n";
 
-		return count($this->uml);
-	}
+        foreach ($matches as $match) {
+            $uml .= preg_replace("~\n\s*\*\s*~", "\n", $match[1]);
+        }
 
-	/**
-	 * Gets a list of relevant (generated and included) files
-	 *
-	 * @return array
-	 */
-	public function getRelevantFiles(): array
-	{
-		return $this->relevantFiles;
-	}
+        $uml .= "!endsub\n@enduml\n";
 
-	/**
-	 * @param string $name
-	 * @param string $comment
-	 */
-	private function createUml(string $name, string $comment): void
-	{
-		if (preg_match_all('~@startuml(.*?)@enduml~sm', $comment, $matches, PREG_SET_ORDER) === 0)
-		{
-			return;
-		}
+        $this->add($this->currentClass . '::' . $name, $uml);
+    }
 
-		$uml = "@startuml\n!include skin.puml\n!startsub INNER\n";
+    public function add($name, $uml, $includes = []): void
+    {
+        $this->uml[strtolower($name)] = $uml;
+    }
 
-		foreach ($matches as $match)
-		{
-			$uml .= preg_replace("~\n\s*\*\s*~", "\n", $match[1]);
-		}
+    public function writeDiagrams($targetDir, $flags): int
+    {
+        foreach ($this->uml as $name => $uml) {
+            $filename              = $this->filename($name);
+            $this->relevantFiles[] = $filename;
 
-		$uml .= "!endsub\n@enduml\n";
+            file_put_contents($targetDir . '/' . $filename, $uml);
+        }
 
-		$this->add($this->currentClass . '::' . $name, $uml);
-	}
+        return count($this->uml);
+    }
 
-	private function filename(string $name): string
-	{
-		[$class, $method] = explode('::', $name);
+    /**
+     * Gets a list of relevant (generated and included) files
+     *
+     * @return array
+     */
+    public function getRelevantFiles(): array
+    {
+        return $this->relevantFiles;
+    }
 
-		return strtolower('annotation-' . trim(preg_replace('~\W+~', '.', $class), '.') . '-' . $method . '.puml');
-	}
+    private function filename(string $name): string
+    {
+        [$class, $method] = explode('::', $name);
 
-	/**
-	 * @param ClassLike $node
-	 *
-	 * @return bool
-	 */
-	private function isAnonymous(ClassLike $node): bool
-	{
-		return !isset($node->namespacedName);
-	}
+        return strtolower('annotation-' . trim(preg_replace('~\W+~', '.', $class), '.') . '-' . $method . '.puml');
+    }
 }

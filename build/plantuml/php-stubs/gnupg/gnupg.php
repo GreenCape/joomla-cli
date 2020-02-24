@@ -1,5 +1,6 @@
 <?php
 /** GNUPG Constants
+ *
  * @link http://php.net/manual/en/gnupg.constants.php
  */
 define('GNUPG_SIG_MODE_NORMAL', 0);
@@ -30,292 +31,314 @@ define('GNUPG_ERROR_SILENT', 0);
 
 /**
  * GNUPG Encryption Class
+ *
  * @link http://php.net/manual/en/book.gnupg.php
  * Class gnupg
  */
+class gnupg
+{
+    /**
+     * Add a key for decryption
+     *
+     * @link http://php.net/manual/en/function.gnupg-adddecryptkey.php
+     * @phpstub
+     *
+     * @param  string  $fingerprint
+     * @param  string  $passphrase
+     *
+     * @return bool
+     */
+    function adddecryptkey($fingerprint, $passphrase)
+    {
+    }
 
-class gnupg {
-	/**
-	 * Add a key for decryption
-	 * @link http://php.net/manual/en/function.gnupg-adddecryptkey.php
-	 * @phpstub
-	 *
-	 * @param string $fingerprint
-	 * @param string $passphrase
-	 *
-	 * @return bool
-	 */
-	function adddecryptkey($fingerprint, $passphrase)
-	{
-	}
+    /**
+     * Verifies a signed text
+     *
+     * @link http://php.net/manual/en/function.gnupg-verify.php
+     * @phpstub
+     *
+     * * @param  string  $signed_text
+     * @param  string  $signature
+     * @param  string  $plaintext
+     *
+     * @return array On success, this function returns information about the signature.
+     *               On failure, this function returns false.
+     */
+    function verify($signed_text, $signature, &$plaintext = null)
+    {
+    }
 
-	/**
-	 * Verifies a signed text
-	 * @link http://php.net/manual/en/function.gnupg-verify.php
-	 * @phpstub
-	 *
-	 * * @param string $signed_text
-	 * @param string $signature
-	 * @param string $plaintext
-	 *
-	 * @return array On success, this function returns information about the signature.
-	 *               On failure, this function returns false.
-	 */
-	function verify($signed_text, $signature, &$plaintext = NULL)
-	{
-	}
+    /**
+     * Add a key for encryption
+     *
+     * @link http://php.net/manual/en/function.gnupg-addencryptkey.php
+     * @phpstub
+     *
+     * @param  string  $fingerprint
+     *
+     * @return bool
+     */
+    function addencryptkey($fingerprint)
+    {
+    }
 
-	/**
-	 * Add a key for encryption
-	 * @link http://php.net/manual/en/function.gnupg-addencryptkey.php
-	 * @phpstub
-	 *
-	 * @param string $fingerprint
-	 *
-	 * @return bool
-	 */
-	function addencryptkey($fingerprint)
-	{
-	}
+    /**
+     * Add a key for signing
+     *
+     * @link http://php.net/manual/en/function.gnupg-addsignkey.php
+     * @phpstub
+     *
+     * @param  string  $fingerprint
+     * @param  string  $passphrase
+     *
+     * @return bool
+     */
+    function addsignkey($fingerprint, $passphrase = null)
+    {
+    }
 
-	/**
-	 * Add a key for signing
-	 * @link http://php.net/manual/en/function.gnupg-addsignkey.php
-	 * @phpstub
-	 *
-	 * @param string $fingerprint
-	 * @param string $passphrase
-	 *
-	 * @return bool
-	 */
-	function addsignkey($fingerprint, $passphrase = NULL)
-	{
-	}
+    /**
+     * Removes all keys which were set for decryption before
+     *
+     * @link http://php.net/manual/en/function.gnupg-cleardecryptkeys.php
+     * @phpstub
+     *
+     * @return bool
+     */
+    function cleardecryptkeys()
+    {
+    }
 
-	/**
-	 * Removes all keys which were set for decryption before
-	 * @link http://php.net/manual/en/function.gnupg-cleardecryptkeys.php
-	 * @phpstub
-	 *
-	 * @return bool
-	 */
-	function cleardecryptkeys()
-	{
-	}
+    /**
+     * Removes all keys which were set for encryption before
+     *
+     * @link http://php.net/manual/en/function.gnupg-clearencryptkeys.php
+     * @phpstub
+     *
+     *
+     * @return bool
+     */
+    function clearencryptkeys()
+    {
+    }
 
-	/**
-	 * Removes all keys which were set for encryption before
-	 * @link http://php.net/manual/en/function.gnupg-clearencryptkeys.php
-	 * @phpstub
-	 *
-	 *
-	 * @return bool
-	 */
-	function clearencryptkeys()
-	{
-	}
+    /**
+     * Removes all keys which were set for signing before
+     *
+     * @link http://php.net/manual/en/function.gnupg-clearsignkeys.php
+     * @phpstub
+     *
+     *
+     * @return bool
+     */
+    function clearsignkeys()
+    {
+    }
 
-	/**
-	 * Removes all keys which were set for signing before
-	 * @link http://php.net/manual/en/function.gnupg-clearsignkeys.php
-	 * @phpstub
-	 *
-	 *
-	 * @return bool
-	 */
-	function clearsignkeys()
-	{
-	}
+    /**
+     * Decrypts a given text
+     *
+     * @link http://php.net/manual/en/function.gnupg-decrypt.php
+     * @phpstub
+     *
+     * @param  string  $text
+     *
+     * @return string On success, this function returns the decrypted text.
+     *                On failure, this function returns false.
+     */
+    function decrypt($text)
+    {
+    }
 
-	/**
-	 * Decrypts a given text
-	 * @link http://php.net/manual/en/function.gnupg-decrypt.php
-	 * @phpstub
-	 *
-	 * @param string $text
-	 *
-	 * @return string On success, this function returns the decrypted text.
-	 *                On failure, this function returns false.
-	 */
-	function decrypt($text)
-	{
-	}
+    /**
+     * Decrypts and verifies a given text
+     *
+     * @link http://php.net/manual/en/function.gnupg-decryptverify.php
+     * @phpstub
+     *
+     * @param  string  $text
+     * @param  string  $plaintext
+     *
+     * @return array On success, this function returns information about the signature and
+     *               fills the  parameter with the decrypted text.
+     *               On failure, this function returns false.
+     */
+    function decryptverify($text, &$plaintext)
+    {
+    }
 
-	/**
-	 * Decrypts and verifies a given text
-	 * @link http://php.net/manual/en/function.gnupg-decryptverify.php
-	 * @phpstub
-	 *
-	 * @param string $text
-	 * @param string $plaintext
-	 *
-	 * @return array On success, this function returns information about the signature and
-	 *               fills the  parameter with the decrypted text.
-	 *               On failure, this function returns false.
-	 */
-	function decryptverify($text, &$plaintext)
-	{
-	}
+    /**
+     * Encrypts a given text
+     *
+     * @link http://php.net/manual/en/function.gnupg-encrypt.php
+     * @phpstub
+     *
+     * @param  string  $plaintext
+     *
+     * @return string On success, this function returns the encrypted text.
+     *                On failure, this function returns false.
+     */
+    function encrypt($plaintext)
+    {
+    }
 
-	/**
-	 * Encrypts a given text
-	 * @link http://php.net/manual/en/function.gnupg-encrypt.php
-	 * @phpstub
-	 *
-	 * @param string $plaintext
-	 *
-	 * @return string On success, this function returns the encrypted text.
-	 *                On failure, this function returns false.
-	 */
-	function encrypt($plaintext)
-	{
-	}
+    /**
+     * Encrypts and signs a given text
+     *
+     * @link http://php.net/manual/en/function.gnupg-encryptsign.php
+     * @phpstub
+     *
+     * @param  string  $plaintext
+     *
+     * @return string On success, this function returns the encrypted and signed text.
+     *                On failure, this function returns false.
+     */
+    function encryptsign($plaintext)
+    {
+    }
 
-	/**
-	 * Encrypts and signs a given text
-	 * @link http://php.net/manual/en/function.gnupg-encryptsign.php
-	 * @phpstub
-	 *
-	 * @param string $plaintext
-	 *
-	 * @return string On success, this function returns the encrypted and signed text.
-	 *                On failure, this function returns false.
-	 */
-	function encryptsign($plaintext)
-	{
-	}
+    /**
+     * Exports a key
+     *
+     * @link http://php.net/manual/en/function.gnupg-export.php
+     * @phpstub
+     *
+     * @param  string  $fingerprint
+     *
+     * @return string On success, this function returns the keydata.
+     *                On failure, this function returns false.
+     */
+    function export($fingerprint)
+    {
+    }
 
-	/**
-	 * Exports a key
-	 * @link http://php.net/manual/en/function.gnupg-export.php
-	 * @phpstub
-	 *
-	 * @param string $fingerprint
-	 *
-	 * @return string On success, this function returns the keydata.
-	 *                On failure, this function returns false.
-	 */
-	function export($fingerprint)
-	{
-	}
+    /**
+     * Returns the errortext, if a function fails
+     *
+     * @link http://php.net/manual/en/function.gnupg-geterror.php
+     * @phpstub
+     *
+     *
+     * @return string Returns an errortext, if an error has occurred, otherwise false.
+     */
+    function geterror()
+    {
+    }
 
-	/**
-	 * Returns the errortext, if a function fails
-	 * @link http://php.net/manual/en/function.gnupg-geterror.php
-	 * @phpstub
-	 *
-	 *
-	 * @return string Returns an errortext, if an error has occurred, otherwise false.
-	 */
-	function geterror()
-	{
-	}
+    /**
+     * Returns the currently active protocol for all operations
+     *
+     * @link http://php.net/manual/en/function.gnupg-getprotocol.php
+     * @phpstub
+     *
+     *
+     * @return int Returns the currently active protocol, which can be one of
+     *             or
+     *             .
+     */
+    function getprotocol()
+    {
+    }
 
-	/**
-	 * Returns the currently active protocol for all operations
-	 * @link http://php.net/manual/en/function.gnupg-getprotocol.php
-	 * @phpstub
-	 *
-	 *
-	 * @return int Returns the currently active protocol, which can be one of
-	 *             or
-	 *             .
-	 */
-	function getprotocol()
-	{
-	}
+    /**
+     * Imports a key
+     *
+     * @link http://php.net/manual/en/function.gnupg-import.php
+     * @phpstub
+     *
+     * @param  string  $keydata
+     *
+     * @return array On success, this function returns and info-array about the importprocess.
+     *               On failure, this function returns false.
+     */
+    function import($keydata)
+    {
+    }
 
-	/**
-	 * Imports a key
-	 * @link http://php.net/manual/en/function.gnupg-import.php
-	 * @phpstub
-	 *
-	 * @param string $keydata
-	 *
-	 * @return array On success, this function returns and info-array about the importprocess.
-	 *               On failure, this function returns false.
-	 */
-	function import($keydata)
-	{
-	}
+    /**
+     * Initialize a connection
+     *
+     * @link http://php.net/manual/en/function.gnupg-init.php
+     * @phpstub
+     *
+     * @return resource A GnuPG ``resource`` connection used by other GnuPG functions.
+     */
+    function init()
+    {
+    }
 
-	/**
-	 * Initialize a connection
-	 * @link http://php.net/manual/en/function.gnupg-init.php
-	 * @phpstub
-	 *
-	 * @return resource A GnuPG ``resource`` connection used by other GnuPG functions.
-	 */
-	function init()
-	{
-	}
+    /**
+     * Returns an array with information about all keys that matches the given pattern
+     *
+     * @link http://php.net/manual/en/function.gnupg-keyinfo.php
+     * @phpstub
+     *
+     * @param  string  $pattern
+     *
+     * @return array Returns an array with information about all keys that matches the given
+     *               pattern or false, if an error has occurred.
+     */
+    function keyinfo($pattern)
+    {
+    }
 
-	/**
-	 * Returns an array with information about all keys that matches the given pattern
-	 * @link http://php.net/manual/en/function.gnupg-keyinfo.php
-	 * @phpstub
-	 *
-	 * @param string $pattern
-	 *
-	 * @return array Returns an array with information about all keys that matches the given
-	 *               pattern or false, if an error has occurred.
-	 */
-	function keyinfo($pattern)
-	{
-	}
+    /**
+     * Toggle armored output
+     *
+     * @link http://php.net/manual/en/function.gnupg-setarmor.php
+     * @phpstub
+     *
+     * @param  int  $armor
+     *
+     * @return bool
+     */
+    function setarmor($armor)
+    {
+    }
 
-	/**
-	 * Toggle armored output
-	 * @link http://php.net/manual/en/function.gnupg-setarmor.php
-	 * @phpstub
-	 *
-	 * @param int $armor
-	 *
-	 * @return bool
-	 */
-	function setarmor($armor)
-	{
-	}
+    /**
+     * Sets the mode for error_reporting
+     *
+     * @link http://php.net/manual/en/function.gnupg-seterrormode.php
+     * @phpstub
+     *
+     * @param  int  $errormode
+     *
+     * @return void
+     */
+    function seterrormode($errormode)
+    {
+    }
 
-	/**
-	 * Sets the mode for error_reporting
-	 * @link http://php.net/manual/en/function.gnupg-seterrormode.php
-	 * @phpstub
-	 *
-	 * @param int $errormode
-	 *
-	 * @return void
-	 */
-	function seterrormode($errormode)
-	{
-	}
+    /**
+     * Sets the mode for signing
+     *
+     * @link http://php.net/manual/en/function.gnupg-setsignmode.php
+     * @phpstub
+     *
+     * @param  int  $signmode
+     *
+     * @return bool
+     */
+    function setsignmode($signmode)
+    {
+    }
 
-	/**
-	 * Sets the mode for signing
-	 * @link http://php.net/manual/en/function.gnupg-setsignmode.php
-	 * @phpstub
-	 *
-	 * @param int $signmode
-	 *
-	 * @return bool
-	 */
-	function setsignmode($signmode)
-	{
-	}
-
-	/**
-	 * Signs a given text
-	 * @link http://php.net/manual/en/function.gnupg-sign.php
-	 * @phpstub
-	 *
-	 * @param string $plaintext
-	 *
-	 * @return string On success, this function returns the signed text or the signature.
-	 *                On failure, this function returns false.
-	 */
-	function sign($plaintext)
-	{
-	}
+    /**
+     * Signs a given text
+     *
+     * @link http://php.net/manual/en/function.gnupg-sign.php
+     * @phpstub
+     *
+     * @param  string  $plaintext
+     *
+     * @return string On success, this function returns the signed text or the signature.
+     *                On failure, this function returns false.
+     */
+    function sign($plaintext)
+    {
+    }
 
 }
 

@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -32,125 +30,104 @@
 namespace GreenCape\JoomlaCLI;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @since       Class available since Release 0.3.0
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class InitFileFixer
 {
-	/**
-	 * @param string $file
-	 *
-	 * @return int
-	 */
-	public function fix(string $file): int
-	{
-		$this->log("Formatting file {$file}");
-		$tmp = tempnam(dirname($file), 'tmp');
+    /**
+     * @param  string  $file
+     *
+     * @return int
+     */
+    public function fix(string $file): int
+    {
+        $this->log("Formatting file {$file}");
+        $tmp = tempnam(dirname($file), 'tmp');
 
-		$src = fopen($file, 'rb');
-		if (!$src)
-		{
-			$this->log("Unable to open {$file}", 'warning');
+        $src = fopen($file, 'rb');
+        if (!$src) {
+            $this->log("Unable to open {$file}", 'warning');
 
-			return 1;
-		}
-		$dst = fopen($tmp, 'wb');
-		if (!$dst)
-		{
-			$this->log("Unable to open {$tmp}", 'warning');
-			fclose($src);
+            return 1;
+        }
+        $dst = fopen($tmp, 'wb');
+        if (!$dst) {
+            $this->log("Unable to open {$tmp}", 'warning');
+            fclose($src);
 
-			return 1;
-		}
+            return 1;
+        }
 
-		$prefix     = '';
-		$buffer     = '';
-		$insidePara = false;
-		$insideStat = false;
-		$incomplete = false;
-		do
-		{
-			$line = trim(fgets($src));
-			if (empty($line))
-			{
-				$this->dump('Skipping empty line', $line);
-			}
-			elseif (preg_match('~^(#|--)~', $line))
-			{
-				$this->dump('Skipping comment', $line);
-			}
-			elseif ($incomplete)
-			{
-				$this->dump('Incomplete:', $line);
-				$prefix     = trim("$prefix $line");
-				$incomplete = !preg_match('~VALUES$~i', $line);
-			}
-			elseif (preg_match('~;$~', $line))
-			{
-				$this->dump("Encountered ';':", $line);
-				$buffer = trim("$buffer $prefix $line");
-				fwrite($dst, "$buffer\n");
-				$buffer     = $prefix = '';
-				$insidePara = false;
-				$insideStat = false;
-			}
-			elseif ($insidePara)
-			{
-				$this->dump('inside (), adding:', $line);
-				$buffer = trim("$buffer $prefix $line");
-			}
-			elseif (preg_match('~\($~', $line))
-			{
-				$this->dump("Encountered '(':", $line);
-				$buffer     = trim("$buffer $prefix $line");
-				$insidePara = true;
-			}
-			elseif (preg_match('~^(INSERT|REPLACE)~i', $line, $match))
-			{
-				$this->dump("Multiline '{$match[1]}':", $line);
-				$prefix     = $line;
-				$insideStat = true;
-				$incomplete = !preg_match('~VALUES$~i', $line);
-			}
-			elseif ($insideStat && preg_match('~^\((.*)\)\s*,~', $line, $match))
-			{
-				$this->dump('inside statement, adding:', $line);
-				$buffer .= trim("$prefix ($match[1]);");
-				fwrite($dst, "$buffer\n");
-				$buffer = '';
-			}
-			else
-			{
-				$this->dump('Line not handled:', $line, 'warning');
-				$buffer = trim("$buffer $line");
-			}
-		} while (!feof($src));
+        $prefix     = '';
+        $buffer     = '';
+        $insidePara = false;
+        $insideStat = false;
+        $incomplete = false;
+        do {
+            $line = trim(fgets($src));
+            if (empty($line)) {
+                $this->dump('Skipping empty line', $line);
+            } elseif (preg_match('~^(#|--)~', $line)) {
+                $this->dump('Skipping comment', $line);
+            } elseif ($incomplete) {
+                $this->dump('Incomplete:', $line);
+                $prefix     = trim("$prefix $line");
+                $incomplete = !preg_match('~VALUES$~i', $line);
+            } elseif (preg_match('~;$~', $line)) {
+                $this->dump("Encountered ';':", $line);
+                $buffer = trim("$buffer $prefix $line");
+                fwrite($dst, "$buffer\n");
+                $buffer     = $prefix = '';
+                $insidePara = false;
+                $insideStat = false;
+            } elseif ($insidePara) {
+                $this->dump('inside (), adding:', $line);
+                $buffer = trim("$buffer $prefix $line");
+            } elseif (preg_match('~\($~', $line)) {
+                $this->dump("Encountered '(':", $line);
+                $buffer     = trim("$buffer $prefix $line");
+                $insidePara = true;
+            } elseif (preg_match('~^(INSERT|REPLACE)~i', $line, $match)) {
+                $this->dump("Multiline '{$match[1]}':", $line);
+                $prefix     = $line;
+                $insideStat = true;
+                $incomplete = !preg_match('~VALUES$~i', $line);
+            } elseif ($insideStat && preg_match('~^\((.*)\)\s*,~', $line, $match)) {
+                $this->dump('inside statement, adding:', $line);
+                $buffer .= trim("$prefix ($match[1]);");
+                fwrite($dst, "$buffer\n");
+                $buffer = '';
+            } else {
+                $this->dump('Line not handled:', $line, 'warning');
+                $buffer = trim("$buffer $line");
+            }
+        } while (!feof($src));
 
-		fclose($dst);
-		fclose($src);
+        fclose($dst);
+        fclose($src);
 
-		copy($tmp, $file);
-		unlink($tmp);
+        copy($tmp, $file);
+        unlink($tmp);
 
-		return 0;
-	}
+        return 0;
+    }
 
-	/**
-	 * @param      $label
-	 * @param      $value
-	 * @param null $level
-	 */
-	private function dump($label, $value, $level = null): void
-	{
-		$this->log(sprintf('%-30s %s', $label, substr($value, 0, 80)), $level ?? 'debug');
-	}
+    /**
+     * @param        $label
+     * @param        $value
+     * @param  null  $level
+     */
+    private function dump($label, $value, $level = null): void
+    {
+        $this->log(sprintf('%-30s %s', $label, substr($value, 0, 80)), $level ?? 'debug');
+    }
 
-	/**
-	 * @param string $message
-	 * @param string $level
-	 */
-	private function log(string $message, string $level = 'debug'): void
-	{
-		echo $message;
-	}
+    /**
+     * @param  string  $message
+     * @param  string  $level
+     */
+    private function log(string $message, string $level = 'debug'): void
+    {
+        echo $message;
+    }
 }

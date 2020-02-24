@@ -13,19 +13,19 @@
  */
 -->
 <extension type="package" version="2.5.0" method="upgrade">
-	<name>Aelterwerden</name>
-	<author>Niels Braczek</author>
-	<creationDate>2013-01-03</creationDate>
-	<copyright>(C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<authorEmail>nbraczek@bsds.de</authorEmail>
-	<authorUrl>www.bsds.de</authorUrl>
-	<version>2.2.0</version>
-	<description>COM_AELTERWERDEN_XML_DESCRIPTION</description>
+    <name>Aelterwerden</name>
+    <author>Niels Braczek</author>
+    <creationDate>2013-01-03</creationDate>
+    <copyright>(C)2013 BSDS Braczek Software- und DatenSysteme. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <authorEmail>nbraczek@bsds.de</authorEmail>
+    <authorUrl>www.bsds.de</authorUrl>
+    <version>2.2.0</version>
+    <description>COM_AELTERWERDEN_XML_DESCRIPTION</description>
 
-	<files>
-		<file type="component" id="com_example">com_example.tar.bz2</file>
-		<file type="module" id="mod_dummy">mod_dummy.tar.bz2</file>
-		<file type="plugin" id="plg_dummy">plg_dummy.tar.bz2</file>
-	</files>
+    <files>
+        <file type="component" id="com_example">com_example.tar.bz2</file>
+        <file type="module" id="mod_dummy">mod_dummy.tar.bz2</file>
+        <file type="plugin" id="plg_dummy">plg_dummy.tar.bz2</file>
+    </files>
 </extension>

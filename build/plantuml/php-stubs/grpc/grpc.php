@@ -1,16 +1,24 @@
 <?php
 /**
  * Helper autocomplete for php grpc extension
+ *
  * @author Dmitry Gavriloff <info@imega.ru>
- * @link https://github.com/iMega/grpc-phpdoc
+ * @link   https://github.com/iMega/grpc-phpdoc
  */
+
 /**
  * Grpc
+ *
  * @see http://grpc.io
  * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
  */
-namespace Grpc
-{
+
+namespace Grpc {
+
+    use Closure;
+    use InvalidArgumentException;
+    use LogicException;
+
     /**
      * Register call error constants
      */
@@ -355,11 +363,12 @@ namespace Grpc
     /**
      * channel has seen a failure that it cannot recover from
      */
-    const CHANNEL_SHUTDOWN = 4;
+    const CHANNEL_SHUTDOWN      = 4;
     const CHANNEL_FATAL_FAILURE = 4;
 
     /**
      * Class Server
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class Server
@@ -367,45 +376,56 @@ namespace Grpc
         /**
          * Constructs a new instance of the Server class
          *
-         * @param array $args The arguments to pass to the server (optional)
+         * @param  array  $args  The arguments to pass to the server (optional)
          */
-        public function __construct(array $args) {}
+        public function __construct(array $args)
+        {
+        }
 
         /**
          * Request a call on a server. Creates a single GRPC_SERVER_RPC_NEW event.
          *
-         * @param int $tag_new    The tag to associate with the new request
-         * @param int $tag_cancel The tag to use if the call is cancelled
+         * @param  int  $tag_new     The tag to associate with the new request
+         * @param  int  $tag_cancel  The tag to use if the call is cancelled
          */
-        public function requestCall($tag_new, $tag_cancel) {}
+        public function requestCall($tag_new, $tag_cancel)
+        {
+        }
 
         /**
          * Add a http2 over tcp listener.
          *
-         * @param string $addr The address to add
+         * @param  string  $addr  The address to add
          *
          * @return bool true on success, false on failure
          */
-        public function addHttp2Port($addr) {}
+        public function addHttp2Port($addr)
+        {
+        }
 
         /**
          * Add a secure http2 over tcp listener.
          *
-         * @param string             $addr      The address to add
-         * @param ServerCredentials $creds_obj
+         * @param  string             $addr  The address to add
+         * @param  ServerCredentials  $creds_obj
          *
          * @return bool true on success, false on failure
          */
-        public function addSecureHttp2Port($addr, $creds_obj) {}
+        public function addSecureHttp2Port($addr, $creds_obj)
+        {
+        }
 
         /**
          * Start a server - tells all listeners to start listening
          */
-        public function start() {}
+        public function start()
+        {
+        }
     }
 
     /**
      * Class ServerCredentials
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class ServerCredentials
@@ -413,22 +433,24 @@ namespace Grpc
         /**
          * Create SSL credentials.
          *
-         * @param string $pem_root_certs  PEM encoding of the server root certificates
-         * @param string $pem_private_key PEM encoding of the client's private key
-         * @param string $pem_cert_chain  PEM encoding of the client's certificate chain
+         * @param  string  $pem_root_certs   PEM encoding of the server root certificates
+         * @param  string  $pem_private_key  PEM encoding of the client's private key
+         * @param  string  $pem_cert_chain   PEM encoding of the client's certificate chain
          *
          * @return object Credentials The new SSL credentials object
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
         public static function createSsl(
             $pem_root_certs,
             $pem_private_key,
             $pem_cert_chain
-        ) {}
+        ) {
+        }
     }
 
     /**
      * Class Channel
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class Channel
@@ -438,50 +460,61 @@ namespace Grpc
          * "credentials" key mapping to a ChannelCredentials object, a secure channel
          * will be created with those credentials.
          *
-         * @param string $target The hostname to associate with this channel
-         * @param array  $args   The arguments to pass to the Channel (optional)
+         * @param  string  $target  The hostname to associate with this channel
+         * @param  array   $args    The arguments to pass to the Channel (optional)
          *
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function __construct($target, $args = array()) {}
+        public function __construct($target, $args = [])
+        {
+        }
 
         /**
          * Get the endpoint this call/stream is connected to
          *
          * @return string The URI of the endpoint
          */
-        public function getTarget() {}
+        public function getTarget()
+        {
+        }
 
         /**
          * Get the connectivity state of the channel
          *
-         * @param bool $try_to_connect try to connect on the channel
+         * @param  bool  $try_to_connect  try to connect on the channel
          *
          * @return int The grpc connectivity state
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function getConnectivityState($try_to_connect = false) {}
+        public function getConnectivityState($try_to_connect = false)
+        {
+        }
 
         /**
          * Watch the connectivity state of the channel until it changed
          *
-         * @param int     $last_state   The previous connectivity state of the channel
-         * @param Timeval $deadline_obj The deadline this function should wait until
+         * @param  int      $last_state    The previous connectivity state of the channel
+         * @param  Timeval  $deadline_obj  The deadline this function should wait until
          *
          * @return bool If the connectivity state changes from last_state
          *              before deadline
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function watchConnectivityState($last_state, Timeval $deadline_obj) {}
+        public function watchConnectivityState($last_state, Timeval $deadline_obj)
+        {
+        }
 
         /**
          * Close the channel
          */
-        public function close() {}
+        public function close()
+        {
+        }
     }
 
     /**
      * Class ChannelCredentials
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class ChannelCredentials
@@ -489,59 +522,68 @@ namespace Grpc
         /**
          * Set default roots pem.
          *
-         * @param string $pem_roots PEM encoding of the server root certificates
+         * @param  string  $pem_roots  PEM encoding of the server root certificates
          *
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public static function setDefaultRootsPem($pem_roots) {}
+        public static function setDefaultRootsPem($pem_roots)
+        {
+        }
 
         /**
          * Create a default channel credentials object.
          *
          * @return ChannelCredentials The new default channel credentials object
          */
-        public static function createDefault() {}
+        public static function createDefault()
+        {
+        }
 
         /**
          * Create SSL credentials.
          *
-         * @param string $pem_root_certs  PEM encoding of the server root certificates
-         * @param string $pem_private_key PEM encoding of the client's private key
-         * @param string $pem_cert_chain  PEM encoding of the client's certificate chain
+         * @param  string  $pem_root_certs   PEM encoding of the server root certificates
+         * @param  string  $pem_private_key  PEM encoding of the client's private key
+         * @param  string  $pem_cert_chain   PEM encoding of the client's certificate chain
          *
          * @return ChannelCredentials The new SSL credentials object
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
         public static function createSsl(
             $pem_root_certs,
             $pem_private_key = '',
             $pem_cert_chain = ''
-        ) {}
+        ) {
+        }
 
         /**
          * Create composite credentials from two existing credentials.
          *
-         * @param ChannelCredentials $cred1 The first credential
-         * @param CallCredentials    $cred2 The second credential
+         * @param  ChannelCredentials  $cred1  The first credential
+         * @param  CallCredentials     $cred2  The second credential
          *
          * @return ChannelCredentials The new composite credentials object
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
         public static function createComposite(
             ChannelCredentials $cred1,
             CallCredentials $cred2
-        ) {}
+        ) {
+        }
 
         /**
          * Create insecure channel credentials
          *
          * @return null
          */
-        public static function createInsecure() {}
+        public static function createInsecure()
+        {
+        }
     }
 
     /**
      * Class Call
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class Call
@@ -549,57 +591,67 @@ namespace Grpc
         /**
          * Constructs a new instance of the Call class.
          *
-         * @param Channel $channel           The channel to associate the call with.
-         *                                   Must not be closed.
-         * @param string  $method            The method to call
-         * @param Timeval $absolute_deadline The deadline for completing the call
+         * @param  Channel  $channel            The channel to associate the call with.
+         *                                      Must not be closed.
+         * @param  string   $method             The method to call
+         * @param  Timeval  $absolute_deadline  The deadline for completing the call
          *
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
         public function __construct(
             Channel $channel,
             $method,
             Timeval $absolute_deadline,
             $host_override = null
-        ) {}
+        ) {
+        }
 
         /**
          * Start a batch of RPC actions.
          *
-         * @param array $batch Array of actions to take
+         * @param  array  $batch  Array of actions to take
          *
          * @return object Object with results of all actions
-         * @throws \InvalidArgumentException
-         * @throws \LogicException
+         * @throws InvalidArgumentException
+         * @throws LogicException
          */
-        public function startBatch(array $batch) {}
+        public function startBatch(array $batch)
+        {
+        }
 
         /**
          * Set the CallCredentials for this call.
          *
-         * @param CallCredentials $creds_obj The CallCredentials object
+         * @param  CallCredentials  $creds_obj  The CallCredentials object
          *
          * @return int The error code
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function setCredentials(CallCredentials $creds_obj) {}
+        public function setCredentials(CallCredentials $creds_obj)
+        {
+        }
 
         /**
          * Get the endpoint this call/stream is connected to
          *
          * @return string The URI of the endpoint
          */
-        public function getPeer() {}
+        public function getPeer()
+        {
+        }
 
         /**
          * Cancel the call. This will cause the call to end with STATUS_CANCELLED if it
          * has not already ended with another status.
          */
-        public function cancel() {}
+        public function cancel()
+        {
+        }
     }
 
     /**
      * Class CallCredentials
+     *
      * @see https://github.com/grpc/grpc/tree/master/src/php/ext/grpc
      */
     class CallCredentials
@@ -607,26 +659,29 @@ namespace Grpc
         /**
          * Create composite credentials from two existing credentials.
          *
-         * @param CallCredentials $cred1 The first credential
-         * @param CallCredentials $cred2 The second credential
+         * @param  CallCredentials  $cred1  The first credential
+         * @param  CallCredentials  $cred2  The second credential
          *
          * @return CallCredentials The new composite credentials object
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
         public static function createComposite(
             CallCredentials $cred1,
             CallCredentials $cred2
-        ) {}
+        ) {
+        }
 
         /**
          * Create a call credentials object from the plugin API
          *
-         * @param \Closure $callback The callback function
+         * @param  Closure  $callback  The callback function
          *
          * @return CallCredentials The new call credentials object
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public static function createFromPlugin(\Closure $callback) {}
+        public static function createFromPlugin(Closure $callback)
+        {
+        }
     }
 
     /**
@@ -639,87 +694,107 @@ namespace Grpc
         /**
          * Constructs a new instance of the Timeval class
          *
-         * @param int $usec The number of microseconds in the interval
+         * @param  int  $usec  The number of microseconds in the interval
          */
-        public function __construct($usec) {}
+        public function __construct($usec)
+        {
+        }
 
         /**
          * Adds another Timeval to this one and returns the sum. Calculations saturate
          * at infinities.
          *
-         * @param Timeval $other The other Timeval object to add
+         * @param  Timeval  $other  The other Timeval object to add
          *
          * @return Timeval A new Timeval object containing the sum
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function add(Timeval $other) {}
+        public function add(Timeval $other)
+        {
+        }
 
         /**
          * Return negative, 0, or positive according to whether a < b, a == b, or a > b
          * respectively.
          *
-         * @param Timeval $a The first time to compare
-         * @param Timeval $b The second time to compare
+         * @param  Timeval  $a  The first time to compare
+         * @param  Timeval  $b  The second time to compare
          *
          * @return int
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public static function compare(Timeval $a, Timeval $b) {}
+        public static function compare(Timeval $a, Timeval $b)
+        {
+        }
 
         /**
          * Returns the infinite future time value as a timeval object
          *
          * @return Timeval Infinite future time value
          */
-        public static function infFuture() {}
+        public static function infFuture()
+        {
+        }
 
         /**
          * Returns the infinite past time value as a timeval object
          *
          * @return Timeval Infinite past time value
          */
-        public static function infPast() {}
+        public static function infPast()
+        {
+        }
 
         /**
          * Returns the current time as a timeval object
          *
          * @return Timeval The current time
          */
-        public static function now() {}
+        public static function now()
+        {
+        }
 
         /**
          * Checks whether the two times are within $threshold of each other
          *
-         * @param Timeval $a         The first time to compare
-         * @param Timeval $b         The second time to compare
-         * @param Timeval $threshold The threshold to check against
+         * @param  Timeval  $a          The first time to compare
+         * @param  Timeval  $b          The second time to compare
+         * @param  Timeval  $threshold  The threshold to check against
          *
          * @return bool True if $a and $b are within $threshold, False otherwise
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public static function similar(Timeval $a, Timeval $b, Timeval $threshold) {}
+        public static function similar(Timeval $a, Timeval $b, Timeval $threshold)
+        {
+        }
 
         /**
          * Sleep until this time, interpreted as an absolute timeout
          */
-        public function sleepUntil() {}
+        public function sleepUntil()
+        {
+        }
 
         /**
          * Subtracts another Timeval from this one and returns the difference.
          * Calculations saturate at infinities.
          *
-         * @param Timeval $other The other Timeval object to subtract
+         * @param  Timeval  $other  The other Timeval object to subtract
          *
          * @return Timeval A new Timeval object containing the sum
-         * @throws \InvalidArgumentException
+         * @throws InvalidArgumentException
          */
-        public function subtract(Timeval $other) {}
+        public function subtract(Timeval $other)
+        {
+        }
 
         /**
          * Returns the zero time interval as a timeval object
          *
          * @return Timeval Zero length time interval
          */
-        public static function zero() {}
+        public static function zero()
+        {
+        }
     }
 }

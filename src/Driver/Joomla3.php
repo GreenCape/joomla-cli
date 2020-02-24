@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -36,34 +34,32 @@ use JFactory;
 /**
  * Version specific methods
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.0
+ * @since  Class available since Release 0.1.0
  */
 class Joomla3Driver extends JoomlaDriver
 {
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return JFactory::getConfig()->set($key, $value);
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return JFactory::getConfig()->set($key, $value);
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return JFactory::getConfig()->get($key);
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return JFactory::getConfig()->get($key);
+    }
 }

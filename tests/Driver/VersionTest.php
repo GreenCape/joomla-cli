@@ -39,40 +39,40 @@ use PHPUnit\Framework\TestCase;
 
 class VersionTest extends TestCase
 {
-	use JoomlaPackagesTrait;
+    use JoomlaPackagesTrait;
 
-	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws FileNotFoundException
-	 * @dataProvider joomlaPackages
-	 * @testdox      Version driver detects the correct version
-	 */
-	public function testVersion($path, $release, $short, $long): void
-	{
-		$adapter    = new Local('tests/fixtures/' . $path);
-		$filesystem = new Filesystem($adapter);
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws FileNotFoundException
+     * @dataProvider joomlaPackages
+     * @testdox      Version driver detects the correct version
+     */
+    public function testVersion($path, $release, $short, $long): void
+    {
+        $adapter    = new Local('tests/fixtures/' . $path);
+        $filesystem = new Filesystem($adapter);
 
-		$joomlaVersion = new Version($filesystem);
+        $joomlaVersion = new Version($filesystem);
 
-		$this->assertEquals($release, $joomlaVersion->getRelease());
-		$this->assertEquals($short, $joomlaVersion->getShortVersion());
-		$this->assertEquals($long, $joomlaVersion->getLongVersion());
-	}
+        $this->assertEquals($release, $joomlaVersion->getRelease());
+        $this->assertEquals($short, $joomlaVersion->getShortVersion());
+        $this->assertEquals($long, $joomlaVersion->getLongVersion());
+    }
 
-	/**
-	 * @throws FileNotFoundException
-	 * @testdox Version driver throws FileNotFoundException if version file is not found
-	 */
-	public function testException(): void
-	{
-		$adapter    = new Local('tests/fixtures/nx');
-		$filesystem = new Filesystem($adapter);
+    /**
+     * @throws FileNotFoundException
+     * @testdox Version driver throws FileNotFoundException if version file is not found
+     */
+    public function testException(): void
+    {
+        $adapter    = new Local('tests/fixtures/nx');
+        $filesystem = new Filesystem($adapter);
 
-		$this->expectException(FileNotFoundException::class);
-		new Version($filesystem);
-	}
+        $this->expectException(FileNotFoundException::class);
+        new Version($filesystem);
+    }
 }
