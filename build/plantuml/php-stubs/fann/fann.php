@@ -14,9 +14,9 @@ class FANNConnection
     /**
      * The connection constructor
      *
-     * @param  int    $from_neuron
-     * @param  int    $to_neuron
-     * @param  float  $weight
+     * @param int $from_neuron
+     * @param int $to_neuron
+     * @param float $weight
      */
     public function __construct($from_neuron, $to_neuron, $weight)
     {
@@ -52,7 +52,7 @@ class FANNConnection
     /**
      * Sets the connections weight
      *
-     * @param  float  $weight
+     * @param float $weight
      *
      * @return bool
      */
@@ -66,11 +66,11 @@ class FANNConnection
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $data
- * @param  int       $max_neurons
- * @param  int       $neurons_between_reports
- * @param  float     $desired_error
+ * @param resource $ann
+ * @param resource $data
+ * @param int $max_neurons
+ * @param int $neurons_between_reports
+ * @param float $desired_error
  *
  * @return bool
  */
@@ -83,11 +83,11 @@ function fann_cascadetrain_on_data($ann, $data, $max_neurons, $neurons_between_r
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  string    $filename
- * @param  int       $max_neurons
- * @param  int       $neurons_between_reports
- * @param  float     $desired_error
+ * @param resource $ann
+ * @param string $filename
+ * @param int $max_neurons
+ * @param int $neurons_between_reports
+ * @param float $desired_error
  *
  * @return bool
  */
@@ -100,7 +100,7 @@ function fann_cascadetrain_on_file($ann, $filename, $max_neurons, $neurons_betwe
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return bool
  */
@@ -113,7 +113,7 @@ function fann_clear_scaling_params($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return resource Returns a copy of neural network resource on success, or false on error
  */
@@ -126,7 +126,7 @@ function fann_copy($ann)
  *
  * @stub
  *
- * @param  string  $configuration_file
+ * @param string $configuration_file
  *
  * @return resource
  */
@@ -139,8 +139,8 @@ function fann_create_from_file($configuration_file)
  *
  * @stub
  *
- * @param  int    $num_layers
- * @param  array  $layers
+ * @param int $num_layers
+ * @param array $layers
  *
  * @return resource Returns a neural network resource on success, or false on error.
  */
@@ -154,14 +154,14 @@ function fann_create_shortcut_array($num_layers, $layers)
  * @stub-variable-parameters
  * @stub
  *
- * @param  int  $num_layers
- * @param  int  $num_neurons1
- * @param  int  $num_neurons2
- * @param  int  $_
+ * @param int $num_layers
+ * @param int $num_neurons1
+ * @param int $num_neurons2
+ * @param int $_
  *
  * @return reference Returns a neural network resource on success, or false on error.
  */
-function fann_create_shortcut($num_layers, $num_neurons1, $num_neurons2, $_ = null)
+function fann_create_shortcut($num_layers, $num_neurons1, $num_neurons2, $_ = NULL)
 {
 }
 
@@ -170,9 +170,9 @@ function fann_create_shortcut($num_layers, $num_neurons1, $num_neurons2, $_ = nu
  *
  * @stub
  *
- * @param  float  $connection_rate
- * @param  int    $num_layers
- * @param  array  $layers
+ * @param float $connection_rate
+ * @param int $num_layers
+ * @param array $layers
  *
  * @return ReturnType Returns a neural network resource on success, or false on error.
  */
@@ -186,15 +186,15 @@ function fann_create_sparse_array($connection_rate, $num_layers, $layers)
  * @stub-variable-parameters
  * @stub
  *
- * @param  float  $connection_rate
- * @param  int    $num_layers
- * @param  int    $num_neurons1
- * @param  int    $num_neurons2
- * @param  int    $_
+ * @param float $connection_rate
+ * @param int $num_layers
+ * @param int $num_neurons1
+ * @param int $num_neurons2
+ * @param int $_
  *
  * @return ReturnType Returns a neural network resource on success, or false on error.
  */
-function fann_create_sparse($connection_rate, $num_layers, $num_neurons1, $num_neurons2, $_ = null)
+function fann_create_sparse($connection_rate, $num_layers, $num_neurons1, $num_neurons2, $_ = NULL)
 {
 }
 
@@ -203,8 +203,8 @@ function fann_create_sparse($connection_rate, $num_layers, $num_neurons1, $num_n
  *
  * @stub
  *
- * @param  int    $num_layers
- * @param  array  $layers
+ * @param int $num_layers
+ * @param array $layers
  *
  * @return resource Returns a neural network resource on success, or false on error.
  */
@@ -218,14 +218,14 @@ function fann_create_standard_array($num_layers, $layers)
  * @stub-variable-parameters
  * @stub
  *
- * @param  int  $num_layers
- * @param  int  $num_neurons1
- * @param  int  $num_neurons2
- * @param  int  $_
+ * @param int $num_layers
+ * @param int $num_neurons1
+ * @param int $num_neurons2
+ * @param int $_
  *
  * @return resource Returns a neural network resource on success, or false on error.
  */
-function fann_create_standard($num_layers, $num_neurons1, $num_neurons2, $_ = null)
+function fann_create_standard($num_layers, $num_neurons1, $num_neurons2, $_ = NULL)
 {
 }
 
@@ -234,10 +234,10 @@ function fann_create_standard($num_layers, $num_neurons1, $num_neurons2, $_ = nu
  *
  * @stub
  *
- * @param  int       $num_data
- * @param  int       $num_input
- * @param  int       $num_output
- * @param  callable  $user_function
+ * @param int $num_data
+ * @param int $num_input
+ * @param int $num_output
+ * @param callable $user_function
  *
  * @return resource
  */
@@ -250,9 +250,9 @@ function fann_create_train_from_callback($num_data, $num_input, $num_output, $us
  *
  * @stub
  *
- * @param  int  $num_data
- * @param  int  $num_input
- * @param  int  $num_output
+ * @param int $num_data
+ * @param int $num_input
+ * @param int $num_output
  *
  * @return resource
  */
@@ -265,8 +265,8 @@ function fann_create_train($num_data, $num_input, $num_output)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $input_vector
+ * @param resource $ann
+ * @param array $input_vector
  *
  * @return bool
  */
@@ -279,8 +279,8 @@ function fann_descale_input($ann, $input_vector)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $output_vector
+ * @param resource $ann
+ * @param array $output_vector
  *
  * @return bool
  */
@@ -293,8 +293,8 @@ function fann_descale_output($ann, $output_vector)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
+ * @param resource $ann
+ * @param resource $train_data
  *
  * @return bool
  */
@@ -307,7 +307,7 @@ function fann_descale_train($ann, $train_data)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return bool
  */
@@ -320,7 +320,7 @@ function fann_destroy($ann)
  *
  * @stub
  *
- * @param  resource  $train_data
+ * @param resource $train_data
  *
  * @return bool
  */
@@ -333,7 +333,7 @@ function fann_destroy_train($train_data)
  *
  * @stub
  *
- * @param  resource  $data
+ * @param resource $data
  *
  * @return resource
  */
@@ -346,9 +346,9 @@ function fann_duplicate_train_data($data)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $layer
- * @param  int       $neuron
+ * @param resource $ann
+ * @param int $layer
+ * @param int $neuron
  *
  * @return int constant or -1 if the neuron is not defined in the neural network, or false on error.
  */
@@ -361,12 +361,11 @@ function fann_get_activation_function($ann, $layer, $neuron)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $layer
- * @param  int       $neuron
+ * @param resource $ann
+ * @param int $layer
+ * @param int $neuron
  *
- * @return float The activation steepness for the neuron or -1 if the neuron is not defined in the neural network, or
- *               false on error.
+ * @return float The activation steepness for the neuron or -1 if the neuron is not defined in the neural network, or false on error.
  */
 function fann_get_activation_steepness($ann, $layer, $neuron)
 {
@@ -377,7 +376,7 @@ function fann_get_activation_steepness($ann, $layer, $neuron)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return array An array of numbers of bias in each layer
  */
@@ -390,7 +389,7 @@ function fann_get_bias_array($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The bit fail limit, or false on error.
  */
@@ -403,7 +402,7 @@ function fann_get_bit_fail_limit($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of bits fail, or false on error.
  */
@@ -416,7 +415,7 @@ function fann_get_bit_fail($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of cascade activation functions, or false on error.
  */
@@ -429,7 +428,7 @@ function fann_get_cascade_activation_functions_count($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return array The cascade activation functions, or false on error.
  */
@@ -442,7 +441,7 @@ function fann_get_cascade_activation_functions($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of activation steepnesses, or false on error.
  */
@@ -455,7 +454,7 @@ function fann_get_cascade_activation_steepnesses_count($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return array The cascade activation steepnesses, or false on error.
  */
@@ -468,7 +467,7 @@ function fann_get_cascade_activation_steepnesses($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The cascade candidate change fraction, or false on error.
  */
@@ -481,7 +480,7 @@ function fann_get_cascade_candidate_change_fraction($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The candidate limit, or false on error.
  */
@@ -494,7 +493,7 @@ function fann_get_cascade_candidate_limit($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The number of cascade candidate stagnation epochs, or false on error.
  */
@@ -507,7 +506,7 @@ function fann_get_cascade_candidate_stagnation_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The maximum candidate epochs, or false on error.
  */
@@ -520,7 +519,7 @@ function fann_get_cascade_max_cand_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The maximum out epochs, or false on error.
  */
@@ -533,7 +532,7 @@ function fann_get_cascade_max_out_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The minimum candidate epochs, or false on error.
  */
@@ -546,7 +545,7 @@ function fann_get_cascade_min_cand_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The minimum out epochs, or false on error.
  */
@@ -559,7 +558,7 @@ function fann_get_cascade_min_out_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of candidate groups, or false on error.
  */
@@ -572,7 +571,7 @@ function fann_get_cascade_num_candidate_groups($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of candidates used during training, or false on error.
  */
@@ -585,7 +584,7 @@ function fann_get_cascade_num_candidates($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The cascade output change fraction, or false on error.
  */
@@ -598,7 +597,7 @@ function fann_get_cascade_output_change_fraction($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of cascade output stagnation epochs, or false on error.
  */
@@ -611,7 +610,7 @@ function fann_get_cascade_output_stagnation_epochs($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The weight multiplier, or false on error.
  */
@@ -624,7 +623,7 @@ function fann_get_cascade_weight_multiplier($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return array An array of connections in the network
  */
@@ -637,7 +636,7 @@ function fann_get_connection_array($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The connection rate used when the network was created, or false on error.
  */
@@ -650,7 +649,7 @@ function fann_get_connection_rate($ann)
  *
  * @stub
  *
- * @param  resource  $errdat
+ * @param resource $errdat
  *
  * @return int The error number, or false on error.
  */
@@ -663,7 +662,7 @@ function fann_get_errno($errdat)
  *
  * @stub
  *
- * @param  resource  $errdat
+ * @param resource $errdat
  *
  * @return string The last error string, or false on error.
  */
@@ -676,7 +675,7 @@ function fann_get_errstr($errdat)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return array An array of numbers of neurons in each leayer
  */
@@ -689,7 +688,7 @@ function fann_get_layer_array($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The learning momentum, or false on error.
  */
@@ -702,7 +701,7 @@ function fann_get_learning_momentum($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The learning rate, or false on error.
  */
@@ -715,7 +714,7 @@ function fann_get_learning_rate($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The mean square error, or false on error.
  */
@@ -728,7 +727,7 @@ function fann_get_MSE($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int constant, or false on error.
  */
@@ -741,7 +740,7 @@ function fann_get_network_type($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int Number of input neurons, or false on error
  */
@@ -754,7 +753,7 @@ function fann_get_num_input($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The number of leayers in the neural network, or false on error.
  */
@@ -767,7 +766,7 @@ function fann_get_num_layers($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int Number of output neurons, or false on error
  */
@@ -780,7 +779,7 @@ function fann_get_num_output($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The decay, or false on error.
  */
@@ -793,7 +792,7 @@ function fann_get_quickprop_decay($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The mu factor, or false on error.
  */
@@ -806,7 +805,7 @@ function fann_get_quickprop_mu($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The decrease factor, or false on error.
  */
@@ -819,7 +818,7 @@ function fann_get_rprop_decrease_factor($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The maximum step-size, or false on error.
  */
@@ -832,7 +831,7 @@ function fann_get_rprop_delta_max($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The minimum step-size, or false on error.
  */
@@ -845,7 +844,7 @@ function fann_get_rprop_delta_min($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return ReturnType The initial step-size, or false on error.
  */
@@ -858,7 +857,7 @@ function fann_get_rprop_delta_zero($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The increase factor, or false on error.
  */
@@ -871,7 +870,7 @@ function fann_get_rprop_increase_factor($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The sarprop step error shift , or false on error.
  */
@@ -884,7 +883,7 @@ function fann_get_sarprop_step_error_shift($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The sarprop step error threshold factor, or false on error.
  */
@@ -897,7 +896,7 @@ function fann_get_sarprop_step_error_threshold_factor($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The sarprop temperature, or false on error.
  */
@@ -910,7 +909,7 @@ function fann_get_sarprop_temperature($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return float The sarprop weight decay shift, or false on error.
  */
@@ -923,7 +922,7 @@ function fann_get_sarprop_weight_decay_shift($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int Total number of connections in the entire network, or false on error
  */
@@ -936,7 +935,7 @@ function fann_get_total_connections($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int Total number of neurons in the entire network, or false on error.
  */
@@ -949,7 +948,7 @@ function fann_get_total_neurons($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The  constant, or false on error.
  */
@@ -962,7 +961,7 @@ function fann_get_train_error_function($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int constant, or false on error.
  */
@@ -975,7 +974,7 @@ function fann_get_training_algorithm($ann)
  *
  * @stub
  *
- * @param  resource  $ann
+ * @param resource $ann
  *
  * @return int The  constant, or false on error.
  */
@@ -988,8 +987,8 @@ function fann_get_train_stop_function($ann)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
+ * @param resource $ann
+ * @param resource $train_data
  *
  * @return bool
  */
@@ -1002,7 +1001,7 @@ function fann_init_weights($ann, $train_data)
  *
  * @stub
  *
- * @param  resource  $data
+ * @param resource $data
  *
  * @return int Number of elements in the train data ``resource``, or false on error.
  */
@@ -1015,8 +1014,8 @@ function fann_length_train_data($data)
  *
  * @stub
  *
- * @param  resource  $data1
- * @param  resource  $data2
+ * @param resource $data1
+ * @param resource $data2
  *
  * @return resource New merged train data ``resource``, or false on error.
  */
@@ -1029,7 +1028,7 @@ function fann_merge_train_data($data1, $data2)
  *
  * @stub
  *
- * @param  resource  $data
+ * @param resource $data
  *
  * @return int The number of inputs, or false on error.
  */
@@ -1042,7 +1041,7 @@ function fann_num_input_train_data($data)
  *
  * @stub
  *
- * @param  resource  $data
+ * @param resource $data
  *
  * @return int The number of outputs, or false on error.
  */
@@ -1055,7 +1054,7 @@ function fann_num_output_train_data($data)
  *
  * @stub
  *
- * @param  string  $errdat
+ * @param string $errdat
  *
  * @return void
  */
@@ -1068,9 +1067,9 @@ function fann_print_error($errdat)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $min_weight
- * @param  float     $max_weight
+ * @param resource $ann
+ * @param float $min_weight
+ * @param float $max_weight
  *
  * @return bool
  */
@@ -1083,7 +1082,7 @@ function fann_randomize_weights($ann, $min_weight, $max_weight)
  *
  * @stub
  *
- * @param  string  $filename
+ * @param string $filename
  *
  * @return resource
  */
@@ -1096,7 +1095,7 @@ function fann_read_train_from_file($filename)
  *
  * @stub
  *
- * @param  resource  $errdat
+ * @param resource $errdat
  *
  * @return void
  */
@@ -1109,7 +1108,7 @@ function fann_reset_errno($errdat)
  *
  * @stub
  *
- * @param  resource  $errdat
+ * @param resource $errdat
  *
  * @return void
  */
@@ -1122,7 +1121,7 @@ function fann_reset_errstr($errdat)
  *
  * @stub
  *
- * @param  string  $ann
+ * @param string $ann
  *
  * @return bool
  */
@@ -1135,8 +1134,8 @@ function fann_reset_MSE($ann)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $input
+ * @param resource $ann
+ * @param array $input
  *
  * @return array Array of output values, or false on error
  */
@@ -1149,8 +1148,8 @@ function fann_run($ann, $input)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  string    $configuration_file
+ * @param resource $ann
+ * @param string $configuration_file
  *
  * @return bool
  */
@@ -1163,8 +1162,8 @@ function fann_save($ann, $configuration_file)
  *
  * @stub
  *
- * @param  resource  $data
- * @param  string    $file_name
+ * @param resource $data
+ * @param string $file_name
  *
  * @return bool
  */
@@ -1177,8 +1176,8 @@ function fann_save_train($data, $file_name)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $input_vector
+ * @param resource $ann
+ * @param array $input_vector
  *
  * @return bool
  */
@@ -1191,9 +1190,9 @@ function fann_scale_input($ann, $input_vector)
  *
  * @stub
  *
- * @param  resource  $train_data
- * @param  float     $new_min
- * @param  float     $new_max
+ * @param resource $train_data
+ * @param float $new_min
+ * @param float $new_max
  *
  * @return bool
  */
@@ -1206,8 +1205,8 @@ function fann_scale_input_train_data($train_data, $new_min, $new_max)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $output_vector
+ * @param resource $ann
+ * @param array $output_vector
  *
  * @return bool
  */
@@ -1220,9 +1219,9 @@ function fann_scale_output($ann, $output_vector)
  *
  * @stub
  *
- * @param  resource  $train_data
- * @param  float     $new_min
- * @param  float     $new_max
+ * @param resource $train_data
+ * @param float $new_min
+ * @param float $new_max
  *
  * @return bool
  */
@@ -1235,9 +1234,9 @@ function fann_scale_output_train_data($train_data, $new_min, $new_max)
  *
  * @stub
  *
- * @param  resource  $train_data
- * @param  float     $new_min
- * @param  float     $new_max
+ * @param resource $train_data
+ * @param float $new_min
+ * @param float $new_max
  *
  * @return bool
  */
@@ -1250,8 +1249,8 @@ function fann_scale_train_data($train_data, $new_min, $new_max)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
+ * @param resource $ann
+ * @param resource $train_data
  *
  * @return bool
  */
@@ -1264,8 +1263,8 @@ function fann_scale_train($ann, $train_data)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $activation_function
+ * @param resource $ann
+ * @param int $activation_function
  *
  * @return bool
  */
@@ -1278,9 +1277,9 @@ function fann_set_activation_function_hidden($ann, $activation_function)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $activation_function
- * @param  int       $layer
+ * @param resource $ann
+ * @param int $activation_function
+ * @param int $layer
  *
  * @return bool
  */
@@ -1293,8 +1292,8 @@ function fann_set_activation_function_layer($ann, $activation_function, $layer)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $activation_function
+ * @param resource $ann
+ * @param int $activation_function
  *
  * @return bool
  */
@@ -1307,10 +1306,10 @@ function fann_set_activation_function_output($ann, $activation_function)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $activation_function
- * @param  int       $layer
- * @param  int       $neuron
+ * @param resource $ann
+ * @param int $activation_function
+ * @param int $layer
+ * @param int $neuron
  *
  * @return bool
  */
@@ -1323,8 +1322,8 @@ function fann_set_activation_function($ann, $activation_function, $layer, $neuro
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $activation_steepness
+ * @param resource $ann
+ * @param float $activation_steepness
  *
  * @return bool
  */
@@ -1337,9 +1336,9 @@ function fann_set_activation_steepness_hidden($ann, $activation_steepness)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $activation_steepness
- * @param  int       $layer
+ * @param resource $ann
+ * @param float $activation_steepness
+ * @param int $layer
  *
  * @return bool
  */
@@ -1352,8 +1351,8 @@ function fann_set_activation_steepness_layer($ann, $activation_steepness, $layer
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $activation_steepness
+ * @param resource $ann
+ * @param float $activation_steepness
  *
  * @return bool
  */
@@ -1366,10 +1365,10 @@ function fann_set_activation_steepness_output($ann, $activation_steepness)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $activation_steepness
- * @param  int       $layer
- * @param  int       $neuron
+ * @param resource $ann
+ * @param float $activation_steepness
+ * @param int $layer
+ * @param int $neuron
  *
  * @return bool
  */
@@ -1382,8 +1381,8 @@ function fann_set_activation_steepness($ann, $activation_steepness, $layer, $neu
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $bit_fail_limit
+ * @param resource $ann
+ * @param float $bit_fail_limit
  *
  * @return bool
  */
@@ -1396,8 +1395,8 @@ function fann_set_bit_fail_limit($ann, $bit_fail_limit)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  collable  $callback
+ * @param resource $ann
+ * @param collable $callback
  *
  * @return bool
  */
@@ -1410,8 +1409,8 @@ function fann_set_callback($ann, $callback)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $cascade_activation_functions
+ * @param resource $ann
+ * @param array $cascade_activation_functions
  *
  * @return bool
  */
@@ -1424,8 +1423,8 @@ function fann_set_cascade_activation_functions($ann, $cascade_activation_functio
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $cascade_activation_steepnesses_count
+ * @param resource $ann
+ * @param array $cascade_activation_steepnesses_count
  *
  * @return bool
  */
@@ -1438,8 +1437,8 @@ function fann_set_cascade_activation_steepnesses($ann, $cascade_activation_steep
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $cascade_candidate_change_fraction
+ * @param resource $ann
+ * @param float $cascade_candidate_change_fraction
  *
  * @return bool
  */
@@ -1452,8 +1451,8 @@ function fann_set_cascade_candidate_change_fraction($ann, $cascade_candidate_cha
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $cascade_candidate_limit
+ * @param resource $ann
+ * @param float $cascade_candidate_limit
  *
  * @return bool
  */
@@ -1466,8 +1465,8 @@ function fann_set_cascade_candidate_limit($ann, $cascade_candidate_limit)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_candidate_stagnation_epochs
+ * @param resource $ann
+ * @param int $cascade_candidate_stagnation_epochs
  *
  * @return bool
  */
@@ -1480,8 +1479,8 @@ function fann_set_cascade_candidate_stagnation_epochs($ann, $cascade_candidate_s
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_max_cand_epochs
+ * @param resource $ann
+ * @param int $cascade_max_cand_epochs
  *
  * @return bool
  */
@@ -1494,8 +1493,8 @@ function fann_set_cascade_max_cand_epochs($ann, $cascade_max_cand_epochs)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_max_out_epochs
+ * @param resource $ann
+ * @param int $cascade_max_out_epochs
  *
  * @return bool
  */
@@ -1508,8 +1507,8 @@ function fann_set_cascade_max_out_epochs($ann, $cascade_max_out_epochs)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_min_cand_epochs
+ * @param resource $ann
+ * @param int $cascade_min_cand_epochs
  *
  * @return bool
  */
@@ -1522,8 +1521,8 @@ function fann_set_cascade_min_cand_epochs($ann, $cascade_min_cand_epochs)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_min_out_epochs
+ * @param resource $ann
+ * @param int $cascade_min_out_epochs
  *
  * @return bool
  */
@@ -1536,8 +1535,8 @@ function fann_set_cascade_min_out_epochs($ann, $cascade_min_out_epochs)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_num_candidate_groups
+ * @param resource $ann
+ * @param int $cascade_num_candidate_groups
  *
  * @return bool
  */
@@ -1550,8 +1549,8 @@ function fann_set_cascade_num_candidate_groups($ann, $cascade_num_candidate_grou
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $cascade_output_change_fraction
+ * @param resource $ann
+ * @param float $cascade_output_change_fraction
  *
  * @return bool
  */
@@ -1564,8 +1563,8 @@ function fann_set_cascade_output_change_fraction($ann, $cascade_output_change_fr
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $cascade_output_stagnation_epochs
+ * @param resource $ann
+ * @param int $cascade_output_stagnation_epochs
  *
  * @return bool
  */
@@ -1578,8 +1577,8 @@ function fann_set_cascade_output_stagnation_epochs($ann, $cascade_output_stagnat
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $cascade_weight_multiplier
+ * @param resource $ann
+ * @param float $cascade_weight_multiplier
  *
  * @return bool
  */
@@ -1592,8 +1591,8 @@ function fann_set_cascade_weight_multiplier($ann, $cascade_weight_multiplier)
  *
  * @stub
  *
- * @param  resource  $errdat
- * @param  string    $log_file
+ * @param resource $errdat
+ * @param string $log_file
  *
  * @return void
  */
@@ -1606,10 +1605,10 @@ function fann_set_error_log($errdat, $log_file)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
- * @param  float     $new_input_min
- * @param  float     $new_input_max
+ * @param resource $ann
+ * @param resource $train_data
+ * @param float $new_input_min
+ * @param float $new_input_max
  *
  * @return bool
  */
@@ -1622,8 +1621,8 @@ function fann_set_input_scaling_params($ann, $train_data, $new_input_min, $new_i
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $learning_momentum
+ * @param resource $ann
+ * @param float $learning_momentum
  *
  * @return bool
  */
@@ -1636,8 +1635,8 @@ function fann_set_learning_momentum($ann, $learning_momentum)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $learning_rate
+ * @param resource $ann
+ * @param float $learning_rate
  *
  * @return bool
  */
@@ -1650,10 +1649,10 @@ function fann_set_learning_rate($ann, $learning_rate)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
- * @param  float     $new_output_min
- * @param  float     $new_output_max
+ * @param resource $ann
+ * @param resource $train_data
+ * @param float $new_output_min
+ * @param float $new_output_max
  *
  * @return bool
  */
@@ -1666,8 +1665,8 @@ function fann_set_output_scaling_params($ann, $train_data, $new_output_min, $new
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $quickprop_decay
+ * @param resource $ann
+ * @param float $quickprop_decay
  *
  * @return bool
  */
@@ -1680,8 +1679,8 @@ function fann_set_quickprop_decay($ann, $quickprop_decay)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $quickprop_mu
+ * @param resource $ann
+ * @param float $quickprop_mu
  *
  * @return bool
  */
@@ -1694,8 +1693,8 @@ function fann_set_quickprop_mu($ann, $quickprop_mu)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $rprop_decrease_factor
+ * @param resource $ann
+ * @param float $rprop_decrease_factor
  *
  * @return bool
  */
@@ -1708,8 +1707,8 @@ function fann_set_rprop_decrease_factor($ann, $rprop_decrease_factor)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $rprop_delta_max
+ * @param resource $ann
+ * @param float $rprop_delta_max
  *
  * @return bool
  */
@@ -1722,8 +1721,8 @@ function fann_set_rprop_delta_max($ann, $rprop_delta_max)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $rprop_delta_min
+ * @param resource $ann
+ * @param float $rprop_delta_min
  *
  * @return bool
  */
@@ -1736,8 +1735,8 @@ function fann_set_rprop_delta_min($ann, $rprop_delta_min)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $rprop_delta_zero
+ * @param resource $ann
+ * @param float $rprop_delta_zero
  *
  * @return bool
  */
@@ -1750,8 +1749,8 @@ function fann_set_rprop_delta_zero($ann, $rprop_delta_zero)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $rprop_increase_factor
+ * @param resource $ann
+ * @param float $rprop_increase_factor
  *
  * @return bool
  */
@@ -1764,8 +1763,8 @@ function fann_set_rprop_increase_factor($ann, $rprop_increase_factor)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $sarprop_step_error_shift
+ * @param resource $ann
+ * @param float $sarprop_step_error_shift
  *
  * @return bool
  */
@@ -1778,8 +1777,8 @@ function fann_set_sarprop_step_error_shift($ann, $sarprop_step_error_shift)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $sarprop_step_error_threshold_factor
+ * @param resource $ann
+ * @param float $sarprop_step_error_threshold_factor
  *
  * @return bool
  */
@@ -1792,8 +1791,8 @@ function fann_set_sarprop_step_error_threshold_factor($ann, $sarprop_step_error_
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $sarprop_temperature
+ * @param resource $ann
+ * @param float $sarprop_temperature
  *
  * @return bool
  */
@@ -1806,8 +1805,8 @@ function fann_set_sarprop_temperature($ann, $sarprop_temperature)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  float     $sarprop_weight_decay_shift
+ * @param resource $ann
+ * @param float $sarprop_weight_decay_shift
  *
  * @return bool
  */
@@ -1820,12 +1819,12 @@ function fann_set_sarprop_weight_decay_shift($ann, $sarprop_weight_decay_shift)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $train_data
- * @param  float     $new_input_min
- * @param  float     $new_input_max
- * @param  float     $new_output_min
- * @param  float     $new_output_max
+ * @param resource $ann
+ * @param resource $train_data
+ * @param float $new_input_min
+ * @param float $new_input_max
+ * @param float $new_output_min
+ * @param float $new_output_max
  *
  * @return bool
  */
@@ -1838,8 +1837,8 @@ function fann_set_scaling_params($ann, $train_data, $new_input_min, $new_input_m
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $error_function
+ * @param resource $ann
+ * @param int $error_function
  *
  * @return bool
  */
@@ -1852,8 +1851,8 @@ function fann_set_train_error_function($ann, $error_function)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $training_algorithm
+ * @param resource $ann
+ * @param int $training_algorithm
  *
  * @return bool
  */
@@ -1866,8 +1865,8 @@ function fann_set_training_algorithm($ann, $training_algorithm)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $stop_function
+ * @param resource $ann
+ * @param int $stop_function
  *
  * @return bool
  */
@@ -1880,8 +1879,8 @@ function fann_set_train_stop_function($ann, $stop_function)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $connections
+ * @param resource $ann
+ * @param array $connections
  *
  * @return bool
  */
@@ -1894,10 +1893,10 @@ function fann_set_weight_array($ann, $connections)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  int       $from_neuron
- * @param  int       $to_neuron
- * @param  float     $weight
+ * @param resource $ann
+ * @param int $from_neuron
+ * @param int $to_neuron
+ * @param float $weight
  *
  * @return bool
  */
@@ -1910,7 +1909,7 @@ function fann_set_weight($ann, $from_neuron, $to_neuron, $weight)
  *
  * @stub
  *
- * @param  resource  $train_data
+ * @param resource $train_data
  *
  * @return bool
  */
@@ -1923,9 +1922,9 @@ function fann_shuffle_train_data($train_data)
  *
  * @stub
  *
- * @param  resource  $data
- * @param  int       $pos
- * @param  int       $length
+ * @param resource $data
+ * @param int $pos
+ * @param int $length
  *
  * @return resource
  */
@@ -1938,8 +1937,8 @@ function fann_subset_train_data($data, $pos, $length)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $data
+ * @param resource $ann
+ * @param resource $data
  *
  * @return float The updated MSE, or false on error.
  */
@@ -1952,9 +1951,9 @@ function fann_test_data($ann, $data)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $input
- * @param  array     $desired_output
+ * @param resource $ann
+ * @param array $input
+ * @param array $desired_output
  *
  * @return bool
  */
@@ -1967,8 +1966,8 @@ function fann_test($ann, $input, $desired_output)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $data
+ * @param resource $ann
+ * @param resource $data
  *
  * @return float The MSE, or false on error.
  */
@@ -1981,11 +1980,11 @@ function fann_train_epoch($ann, $data)
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  resource  $data
- * @param  int       $max_epochs
- * @param  int       $epochs_between_reports
- * @param  float     $desired_error
+ * @param resource $ann
+ * @param resource $data
+ * @param int $max_epochs
+ * @param int $epochs_between_reports
+ * @param float $desired_error
  *
  * @return bool
  */
@@ -1998,11 +1997,11 @@ function fann_train_on_data($ann, $data, $max_epochs, $epochs_between_reports, $
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  string    $filename
- * @param  int       $max_epochs
- * @param  int       $epochs_between_reports
- * @param  float     $desired_error
+ * @param resource $ann
+ * @param string $filename
+ * @param int $max_epochs
+ * @param int $epochs_between_reports
+ * @param float $desired_error
  *
  * @return bool
  */
@@ -2015,9 +2014,9 @@ function fann_train_on_file($ann, $filename, $max_epochs, $epochs_between_report
  *
  * @stub
  *
- * @param  resource  $ann
- * @param  array     $input
- * @param  array     $desired_output
+ * @param resource $ann
+ * @param array $input
+ * @param array $desired_output
  *
  * @return bool
  */

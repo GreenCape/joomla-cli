@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class represents a RAR archive, which may be formed by several volumes (parts) and which contains a number of
  * RAR entries (i.e., files, directories and other special objects such as symbolic links).
@@ -14,27 +13,24 @@ final class RarArchive implements Traversable
     /**
      * Open RAR archive
      *
-     * @param  string    $filename         Path to the Rar archive
-     * @param  string    $password         A plain password, if needed to decrypt the headers. It will also be used by
-     *                                     default if encrypted files are found. Note that the files may have different
-     *                                     passwords in respect to the headers and among them
-     * @param  callable  $volume_callback  A function that receives one parameter – the path of the volume that was
-     *                                     not found – and returns a string with the correct path for such volume or
-     *                                     NULL if such volume does not exist or is not known. The programmer should
-     *                                     ensure the passed function doesn't cause loops as this function is called
-     *                                     repeatedly if the path returned in a previous call did not correspond to the
-     *                                     needed volume. Specifying this parameter omits the notice that would
-     *                                     otherwise be emitted whenever a volume is not found; an implementation that
-     *                                     only returns NULL can therefore be used to merely omit such notices
+     * @param string $filename Path to the Rar archive
+     * @param string $password A plain password, if needed to decrypt the headers. It will also be used by default if
+     *      encrypted files are found. Note that the files may have different passwords in respect
+     *      to the headers and among them
+     * @param callable $volume_callback A function that receives one parameter – the path of the volume that was
+     *      not found – and returns a string with the correct path for such volume or NULL if such volume does not
+     *      exist or is not known. The programmer should ensure the passed function doesn't cause loops as this
+     *      function is called repeatedly if the path returned in a previous call did not correspond to the needed
+     *      volume. Specifying this parameter omits the notice that would otherwise be emitted whenever a volume is
+     *      not found; an implementation that only returns NULL can therefore be used to merely omit such notices
      *
-     * @return RarArchive the requested RarArchive instance or FALSE on failure.
      * @link http://php.net/manual/en/rararchive.open.php
      *
+     * @return RarArchive the requested RarArchive instance or FALSE on failure.
      */
     public static function open($filename, $password = null, callable $volume_callback = null)
     {
     }
-
     /**
      * Close RAR archive and free all resources
      *
@@ -45,7 +41,6 @@ final class RarArchive implements Traversable
     public function close()
     {
     }
-
     /**
      * Get comment text from the RAR archive
      *
@@ -56,7 +51,6 @@ final class RarArchive implements Traversable
     public function getComment()
     {
     }
-
     /**
      * Get full list of entries from the RAR archive
      *
@@ -65,7 +59,6 @@ final class RarArchive implements Traversable
     public function getEntries()
     {
     }
-
     /**
      * Get entry object from the RAR archive
      *
@@ -73,31 +66,28 @@ final class RarArchive implements Traversable
      *
      * @link http://php.net/manual/en/rararchive.getentry.php
      *
-     * @param  string  $entryname  Path to the entry within the RAR archive
+     * @param string $entryname Path to the entry within the RAR archive
      *
      * @return RarEntry the matching RarEntry object or FALSE on failure
      */
     public function getEntry($entryname)
     {
     }
-
     /**
      * Test whether an archive is broken (incomplete)
      *
-     * This function determines whether an archive is incomplete, i.e., if a volume is missing or a volume is
-     * truncated.
+     * This function determines whether an archive is incomplete, i.e., if a volume is missing or a volume is truncated.
      *
      * @link http://php.net/manual/en/rararchive.isbroken.php
      *
      * @return bool Returns TRUE if the archive is broken, FALSE otherwise. This function may also return FALSE if
      *         the passed file has already been closed. The only way to tell the two cases apart is to enable
-     *         exceptions with {@see RarException::setUsingExceptions()}; however, this should be unnecessary as a
-     *         program should not operate on closed files.
+     *         exceptions with {@see RarException::setUsingExceptions()}; however, this should be unnecessary as a program
+     *         should not operate on closed files.
      */
     public function isBroken()
     {
     }
-
     /**
      * Check whether the RAR archive is solid
      *
@@ -107,10 +97,9 @@ final class RarArchive implements Traversable
      *
      * @return bool TRUE if the archive is solid, FALSE otherwise
      */
-    public function isSolid()
+    public function  isSolid()
     {
     }
-
     /**
      * Whether opening broken archives is allowed
      *
@@ -120,14 +109,13 @@ final class RarArchive implements Traversable
      *
      * @link http://php.net/manual/ru/rararchive.setallowbroken.php
      *
-     * @param  bool  $allow_broken  Whether to allow reading broken files (TRUE) or not (FALSE)
+     * @param bool $allow_broken Whether to allow reading broken files (TRUE) or not (FALSE)
      *
      * @return bool TRUE или FALSE в случае возникновения ошибки. It will only fail if the file has already been closed
      */
     public function setAllowBroken($allow_broken)
     {
     }
-
     /**
      * Get text representation
      *
@@ -141,11 +129,10 @@ final class RarArchive implements Traversable
      * @return string A textual representation of this RarArchive object. The content of this
      *          representation is unspecified.
      */
-    public function __toString()
+    public function  __toString()
     {
     }
 }
-
 /**
  * A RAR entry, representing a directory or a compressed file inside a RAR archive
  *
@@ -164,8 +151,8 @@ final class RarEntry
      */
     const HOST_OS2 = 1;
     /**
-     * If the return value of {@see RarEntry::getHostOs()} equals this constant, Microsoft Windows was used to add this
-     * entry. Intended to replace {@see RAR_HOST_WIN32}
+     * If the return value of {@see RarEntry::getHostOs()} equals this constant, Microsoft Windows was used to add this entry.
+     * Intended to replace {@see RAR_HOST_WIN32}
      */
     const HOST_WIN32 = 2;
     /**
@@ -374,7 +361,6 @@ final class RarEntry
      * {@see RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET}.
      */
     const ATTRIBUTE_UNIX_SOCKET = 49152;
-
     /**
      * Extract entry from the archive
      *
@@ -383,28 +369,25 @@ final class RarEntry
      *
      * @link http://php.net/manual/en/rarentry.extract.php
      *
-     * @param  string  $dir            Path to the directory where files should be extracted. This parameter is
-     *                                 considered if and only if filepath is not. If both parameters are empty an
-     *                                 extraction to the current directory will be attempted.
-     * @param  string  $filepath       Path (relative or absolute) containing the directory and filename of the
-     *                                 extracted file. This parameter overrides both the parameter dir and the original
-     *                                 file name.
-     * @param  string  $password       The password used to encrypt this entry. If the entry is not encrypted, this
-     *                                 value will not be used and can be omitted. If this parameter is omitted and the
-     *                                 entry is encrypted, the password given to rar_open(), if any, will be used. If a
-     *                                 wrong password is given, either explicitly or implicitly via rar_open(), CRC
-     *                                 checking will fail and this method will fail and return FALSE. If no password is
-     *                                 given and one is required, this method will fail and return FALSE. You can check
-     *                                 whether an entry is encrypted with {@see RarEntry::isEncrypted()}.
-     * @param  bool    $extended_data  If TRUE, extended information such as NTFS ACLs and Unix owner information will
-     *                                 be set in the extract files, as long as it's present in the archive.
+     * @param string $dir Path to the directory where files should be extracted. This parameter is considered if and
+     *      only if filepath is not. If both parameters are empty an extraction to the current directory
+     *      will be attempted.
+     * @param string $filepath Path (relative or absolute) containing the directory and filename of the extracted file.
+     *      This parameter overrides both the parameter dir and the original file name.
+     * @param string $password The password used to encrypt this entry. If the entry is not encrypted, this value will
+     *      not be used and can be omitted. If this parameter is omitted and the entry is encrypted, the password
+     *      given to rar_open(), if any, will be used. If a wrong password is given, either explicitly or implicitly
+     *      via rar_open(), CRC checking will fail and this method will fail and return FALSE. If no password is given
+     *      and one is required, this method will fail and return FALSE. You can check whether an entry is encrypted
+     *      with {@see RarEntry::isEncrypted()}.
+     * @param bool $extended_data If TRUE, extended information such as NTFS ACLs and Unix owner information will be
+     *      set in the extract files, as long as it's present in the archive.
      *
      * @return TRUE on success or FALSE on failure
      */
-    public function extract($dir, $filepath = "", $password = null, $extended_data = false)
+    public function  extract($dir, $filepath = "", $password = null, $extended_data = false)
     {
     }
-
     /**
      * Get attributes of the entry
      *
@@ -417,7 +400,6 @@ final class RarEntry
     public function getAttr()
     {
     }
-
     /**
      * Get CRC of the entry
      *
@@ -430,7 +412,6 @@ final class RarEntry
     public function getCrc()
     {
     }
-
     /**
      * Get entry last modification time
      *
@@ -441,7 +422,6 @@ final class RarEntry
     public function getFileTime()
     {
     }
-
     /**
      * Get entry host OS
      *
@@ -454,7 +434,6 @@ final class RarEntry
     public function getHostOs()
     {
     }
-
     /**
      * Get pack method of the entry
      *
@@ -467,7 +446,6 @@ final class RarEntry
     public function getMethod()
     {
     }
-
     /**
      * Get name of the entry
      *
@@ -480,7 +458,6 @@ final class RarEntry
     public function getName()
     {
     }
-
     /**
      * Get packed size of the entry
      *
@@ -491,7 +468,6 @@ final class RarEntry
     public function getPackedSize()
     {
     }
-
     /**
      * Get file handler for entry
      *
@@ -500,30 +476,26 @@ final class RarEntry
      *
      * @link http://php.net/manual/en/rarentry.getstream.php
      *
-     * @param  string  $password  The password used to encrypt this entry. If the entry is not encrypted, this value
-     *                            will not be used and can be omitted. If this parameter is omitted and the entry is
-     *                            encrypted, the password given to {@see rar_open()}, if any, will be used. If a wrong
-     *                            password is given, either explicitly or implicitly via {@see rar_open()}, this
-     *                            method's resulting stream will produce wrong output. If no password is given and one
-     *                            is required, this method will fail and return FALSE. You can check whether an entry
-     *                            is encrypted with {@see RarEntry::isEncrypted()}.
+     * @param string $password The password used to encrypt this entry. If the entry is not encrypted, this value will
+     *      not be used and can be omitted. If this parameter is omitted and the entry is encrypted,
+     *      the password given to {@see rar_open()}, if any, will be used. If a wrong password is given, either
+     *      explicitly or implicitly via {@see rar_open()}, this method's resulting stream will produce wrong output.
+     *      If no password is given and one is required, this method will fail and return FALSE. You can check
+     *      whether an entry is encrypted with {@see RarEntry::isEncrypted()}.
      *
      * @return resource file handler or FALSE on failure
      */
     public function getStream($password = '')
     {
     }
-
     /**
      * Get unpacked size of the entry
-     *
      * @link http://php.net/manual/en/rarentry.getunpackedsize.php
      * @return int the unpacked size, or FALSE on error
      */
     public function getUnpackedSize()
     {
     }
-
     /**
      * Get minimum version of RAR program required to unpack the entry
      *
@@ -537,7 +509,6 @@ final class RarEntry
     public function getVersion()
     {
     }
-
     /**
      * Test whether an entry represents a directory
      *
@@ -548,7 +519,6 @@ final class RarEntry
     public function isDirectory()
     {
     }
-
     /**
      * Test whether an entry is encrypted
      *
@@ -559,7 +529,6 @@ final class RarEntry
     public function isEncrypted()
     {
     }
-
     /**
      * Get text representation of entry
      *
@@ -575,7 +544,6 @@ final class RarEntry
     {
     }
 }
-
 /**
  * This class serves two purposes:
  * it is the type of the exceptions thrown by the RAR extension functions and methods and it allows, through static
@@ -611,13 +579,12 @@ final class RarException extends Exception
     public static function isUsingExceptions()
     {
     }
-
     /**
      * Activate and deactivate error handling with exceptions
      *
      * @link http://php.net/manual/en/rarexception.setusingexceptions.php
      *
-     * @param  bool  $using_exceptions  Should be TRUE to activate exception throwing, FALSE to deactivate (the default)
+     * @param bool $using_exceptions Should be TRUE to activate exception throwing, FALSE to deactivate (the default)
      */
     public static function setUsingExceptions($using_exceptions)
     {
