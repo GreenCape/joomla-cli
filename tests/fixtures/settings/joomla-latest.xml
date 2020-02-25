@@ -1,0 +1,6 @@
+<environment name="joomla-latest">
+    <joomla version="3"/>
+    <server type="nginx"/>
+    <php version="7.1"/>
+    <database driver="mysql" prefix="j3lat_"/>
+</environment>

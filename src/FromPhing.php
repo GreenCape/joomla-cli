@@ -2,13 +2,13 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use DOMDocument;
-use DOMNode;
 use Exception;
 use GreenCape\JoomlaCLI\Command\Docker;
 use GreenCape\JoomlaCLI\Command\Document\UmlCommand;
 use GreenCape\JoomlaCLI\Documentation\API\APIGenerator;
 use GreenCape\JoomlaCLI\Repository\VersionList;
+use GreenCape\JoomlaCLI\Utility\Array_;
+use GreenCape\JoomlaCLI\Utility\Xml;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
@@ -497,6 +497,24 @@ class FromPhing
 
     /**
      * @param  Fileset|string  $fileset
+     * @param  string          $toDir
+     * @param  callable|null   $filter
+     */
+    private function copy($fileset, string $toDir, callable $filter = null): void
+    {
+        if (is_string($fileset)) {
+            $this->copyFile($fileset, $toDir, $filter);
+
+            return;
+        }
+
+        foreach ($fileset->getFiles() as $file) {
+            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
+        }
+    }
+
+    /**
+     * @param  Fileset|string  $fileset
      * @param  callable        $filter
      */
     private function reflexive($fileset, callable $filter): void
@@ -510,6 +528,28 @@ class FromPhing
         foreach ($fileset->getFiles() as $file) {
             $this->copyFile($file, $file, $filter);
         }
+    }
+
+    /**
+     * @param  string         $file
+     * @param  string         $toFile
+     * @param  callable|null  $filter
+     */
+    private function copyFile(string $file, string $toFile, callable $filter = null): void
+    {
+        if (is_dir($file)) {
+            return;
+        }
+
+        $this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
+
+        $content = file_get_contents($file);
+
+        if (is_callable($filter)) {
+            $content = $filter($content);
+        }
+
+        file_put_contents($toFile, $content);
     }
 
     /**
@@ -546,6 +586,41 @@ class FromPhing
         }
     }
 
+    /*********************************
+     * Quality Metrics related tasks *
+     *********************************/
+
+    /**
+     * Checks if (every file from) target is newer than (every file from) source
+     *
+     * @param  Fileset|string  $target
+     * @param  Fileset|string  ...$sources
+     *
+     * @return bool
+     */
+    private function isUptodate($target, ...$sources): bool
+    {
+        $targetFiles = is_string($target) ? [$target] : $target->getFiles();
+
+        $targetTime = array_reduce(
+            $targetFiles,
+            static function ($carry, $file) {
+                return min($carry, filemtime($file));
+            }
+        );
+
+        foreach ($sources as $source) {
+            $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
+            foreach ($sourceFiles as $file) {
+                if (filemtime($file) > $targetTime) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      *
      */
@@ -573,10 +648,6 @@ class FromPhing
         $this->exec("tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
             $this->dist['basedir']);
     }
-
-    /*********************************
-     * Quality Metrics related tasks *
-     *********************************/
 
     /**
      * Performs all tests and generates documentation and the quality report.
@@ -655,6 +726,10 @@ class FromPhing
         $this->mkdir("{$this->build}/logs");
     }
 
+    /***************************
+     * Patch Set related tasks *
+     ***************************/
+
     /**
      * Runs all tests locally and in the test containers.
      *
@@ -667,6 +742,10 @@ class FromPhing
         $this->testSystem();
         $this->testCoverageReport();
     }
+
+    /**********************
+     * Test related tasks *
+     **********************/
 
     /**
      * Generates a quality report using CodeBrowser.
@@ -699,10 +778,6 @@ class FromPhing
             $this->build . '/report/api', '../uml');
     }
 
-    /***************************
-     * Patch Set related tasks *
-     ***************************/
-
     /**
      * Generate autoload script
      */
@@ -711,10 +786,6 @@ class FromPhing
         $this->exec("{$this->bin}/phpab --tolerant --basedir . --output {$this->tests}/autoload.php {$this->tests}");
         $this->exec("{$this->bin}/phpab --tolerant --basedir {$this->source} --output {$this->source}/autoload.php {$this->source}");
     }
-
-    /**********************
-     * Test related tasks *
-     **********************/
 
     /**
      * Cleanup distribution directory
@@ -840,6 +911,10 @@ class FromPhing
         $this->exec($command);
     }
 
+    /******************************
+     * Distribution related tasks *
+     ******************************/
+
     /**
      * Generates pmd.xml using PHP MessDetector.
      */
@@ -883,9 +958,9 @@ class FromPhing
         $this->exec($command);
     }
 
-    /******************************
-     * Distribution related tasks *
-     ******************************/
+    /******************
+     * Internal tasks *
+     ******************/
 
     /**
      * Aggregates the results from all the measurement tools.
@@ -937,10 +1012,6 @@ class FromPhing
         $command = new UmlCommand();
         $command->run($input, $this->output);
     }
-
-    /******************
-     * Internal tasks *
-     ******************/
 
     /**
      * Generates CHANGELOG.md from the git commit history.
@@ -1026,661 +1097,6 @@ class FromPhing
     }
 
     /**
-     * Generates the contents and prepares the test containers.
-     *
-     * @throws FileNotFoundException
-     */
-    public function dockerBuild(): void
-    {
-        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
-            $uptodate = false;
-        } else {
-            $uptodate = $this->isUptodate(
-                $this->serverDockyard . '/docker-compose.yml',
-                (new Fileset('.'))
-                    ->include($this->source . '/**')
-                    ->include($this->integrationTests . '/**')
-                    ->include($this->testEnvironments . '/**')
-            );
-        }
-
-        if ($uptodate) {
-            $this->echo('Container setups are up to date - skipping.', 'info');
-
-            return;
-        }
-
-        // Recreate directories for container contents
-        $this->delete($this->serverDockyard);
-        $this->mkdir($this->serverDockyard . '/nginx/conf');
-        $this->mkdir($this->serverDockyard . '/nginx/html');
-        $this->mkdir($this->serverDockyard . '/apache/conf');
-        $this->mkdir($this->serverDockyard . '/apache/html');
-        $this->mkdir($this->serverDockyard . '/proxy/conf');
-        $this->mkdir($this->serverDockyard . '/mysql');
-        $this->mkdir($this->serverDockyard . '/postgresql');
-
-        // Get available Joomla! versions
-        $this->joomlaVersions($this->versionCache);
-
-        // Set default values for keys not defined in database.xml
-        $this->database = [
-            'mysql'      => [
-                'version'      => 'latest',
-                'name'         => 'joomla_test',
-                'user'         => 'db_user',
-                'password'     => 'db_pass',
-                'rootPassword' => '',
-            ],
-            'postgresql' => [
-                'version'  => 'latest',
-                'name'     => 'joomla_test',
-                'user'     => 'db_user',
-                'password' => 'db_pass',
-            ],
-        ];
-
-        // Load database environment, if provided
-        if (file_exists($this->testEnvironments . '/database.xml')) {
-            $this->database = $this->merge($this->database,
-                $this->xmlProperty($this->testEnvironments . '/database.xml', false, true));
-        }
-
-        $this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
-            ? ''
-            : "-p'{$this->database['mysql']['rootPassword']}'";
-
-        $this->copy(
-            (new Fileset($this->buildTemplates . '/docker'))
-                ->include('docker-compose.yml'),
-            $this->serverDockyard,
-            $this->filterExpand
-        );
-
-        // Handle each test environment
-        foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition) {
-            if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml'])) {
-                continue;
-            }
-
-            $this->dockerBuildSystem($environmentDefinition);
-        }
-    }
-
-    /**
-     * Checks if (every file from) target is newer than (every file from) source
-     *
-     * @param  Fileset|string  $target
-     * @param  Fileset|string  ...$sources
-     *
-     * @return bool
-     */
-    private function isUptodate($target, ...$sources): bool
-    {
-        $targetFiles = is_string($target) ? [$target] : $target->getFiles();
-
-        $targetTime = array_reduce(
-            $targetFiles,
-            static function ($carry, $file) {
-                return min($carry, filemtime($file));
-            }
-        );
-
-        foreach ($sources as $source) {
-            $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
-            foreach ($sourceFiles as $file) {
-                if (filemtime($file) > $targetTime) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param $versionCache
-     *
-     * @return VersionList
-     * @throws FileNotFoundException
-     */
-    private function joomlaVersions($versionCache): VersionList
-    {
-        return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
-    }
-
-    /**
-     * @param $array1
-     * @param $array2
-     *
-     * @return array
-     */
-    private function merge($array1, $array2): array
-    {
-        foreach ($array2 as $key => $value) {
-            $array1[$key] = is_array($value) ? $this->merge((array)$array1[$key], $value) : $value;
-        }
-
-        return $array1;
-    }
-
-    /**
-     * @param  string  $xmlFile
-     * @param  bool    $keepRoot
-     * @param  bool    $collapseAttributes
-     *
-     * @return array|string
-     */
-    private function xmlProperty(string $xmlFile, $keepRoot = true, $collapseAttributes = false)
-    {
-        $prolog     = '<?xml version="1.0" encoding="UTF-8"?>';
-        $xmlContent = file_get_contents($xmlFile);
-        if (strpos($xmlContent, '<?xml') !== 0) {
-            $xmlContent = $prolog . "\n" . $xmlContent;
-        }
-
-        try {
-            $xml = new DOMDocument();
-            $xml->loadXML($xmlContent);
-
-            $node = $xml->firstChild;
-
-            $array = $this->nodeToArray($node, $collapseAttributes);
-
-            if ($keepRoot) {
-                $array = [
-                    $node->nodeName => $array,
-                ];
-            }
-
-            return $array;
-        } catch (Throwable $exception) {
-            throw new RuntimeException("Unable to parse content of {$xmlFile}\n" . $exception->getMessage());
-        }
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     * @param  string          $toDir
-     * @param  callable|null   $filter
-     */
-    private function copy($fileset, string $toDir, callable $filter = null): void
-    {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $toDir, $filter);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
-        }
-    }
-
-    /**
-     * @param $environmentDefinition
-     *
-     * @throws FileNotFoundException
-     */
-    private function dockerBuildSystem($environmentDefinition): void
-    {
-        $target = basename($environmentDefinition, '.xml');
-
-        // Get the environment settings
-        $this->environment = [
-            'name'     => $target,
-            'server'   => [
-                'type'   => 'nginx',
-                'offset' => 'UTC',
-                'tld'    => 'dev',
-            ],
-            'cache'    => [
-                'enabled' => 0,
-                'time'    => 15,
-                'handler' => 'file',
-            ],
-            'debug'    => [
-                'system'   => 1,
-                'language' => 1,
-            ],
-            'meta'     => [
-                'description' => "Test installation for {$this->project['name']} on Joomla! \${version}",
-                'keywords'    => "{$this->project['name']} Joomla Test",
-                'showVersion' => 1,
-                'showTitle'   => 1,
-                'showAuthor'  => 1,
-            ],
-            'sef'      => [
-                'enabled' => 0,
-                'rewrite' => 0,
-                'suffix'  => 0,
-                'unicode' => 0,
-            ],
-            'session'  => [
-                'lifetime' => 15,
-                'handler'  => 'database',
-            ],
-            'joomla'   => [
-                'version'    => 'latest',
-                'sampleData' => 'data',
-            ],
-            'database' => [
-                'driver' => 'mysqli',
-                'name'   => 'joomla_test',
-                'prefix' => "{$target}_",
-            ],
-            'feeds'    => [
-                'limit' => 10,
-                'email' => 'author',
-            ],
-        ];
-
-        $this->environment = $this->merge($this->environment,
-            $this->xmlProperty($this->testEnvironments . '/default.xml', false, true));
-        $this->environment = $this->merge($this->environment, $this->xmlProperty($environmentDefinition, false, true));
-
-        $domain = "{$this->environment['name']}.{$this->environment['server']['tld']}";
-
-        $this->environment['meta']['description'] = str_replace('{$this->version}',
-            $this->environment['joomla']['version'], $this->environment['meta']['description']);
-        $this->environment['database']['prefix']  = str_replace('{$this->target}', $this->environment['name'],
-            $this->environment['database']['prefix']);
-
-        if (in_array($this->environment['database']['driver'], ['mysqli', 'pdomysql'])) {
-            $this->environment['database']['engine'] = 'mysql';
-        } else {
-            $this->environment['database']['engine'] = $this->environment['database']['driver'];
-        }
-
-        // Download and unpack the specified Joomla! version
-        $cmsRoot = $this->serverDockyard . '/' . $this->environment['server']['type'] . '/html/' . $domain;
-        $tarball = $this->joomlaDownload($this->environment['joomla']['version'], $this->versionCache,
-            $this->downloadCache);
-        $this->untar($cmsRoot, $tarball);
-        $version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
-
-        // Add SUT
-        $this->copy(
-            (new Fileset($this->source))
-                ->exclude('installation/**/*'),
-            $cmsRoot
-        );
-
-        // Add test files
-        $this->delete($cmsRoot . '/tests');
-        $this->mkdir($cmsRoot . '/tests');
-        $this->copy(
-            (new Fileset($this->tests))
-                ->include('mocks/**/*')
-                ->include('integration/**/*')
-                ->include('system/**/*')
-                ->include('autoload.php'),
-            $cmsRoot . '/tests',
-            $this->filterExpand
-        );
-        $this->copy(
-            (new Fileset($this->buildTemplates . '/template/selenium'))
-                ->exclude('server_files/**/*'),
-            $cmsRoot . '/tests/system'
-        );
-
-        $this->exec(
-            "phpab --tolerant --basedir '.' --exclude '*Test.php' --template '{$this->buildTemplates}/template/tests/system/autoload.php.in' --output '{$cmsRoot}/tests/system/autoload.php' .",
-            "{$cmsRoot}/tests/system"
-        );
-
-        // Create build directory
-        $this->delete($cmsRoot . '/build');
-        $this->mkdir($cmsRoot . '/build/logs/coverage');
-
-        // Build the database import script
-        if (!file_exists("{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}")) {
-            throw new RuntimeException("Joomla! {$version} does not support {$this->environment['database']['engine']} databases");
-        }
-
-        // Get the database info - use global values, if not provided with local environment
-        $this->environment['database']['name'] = $this->environment['database']['name'] ?? $this->database[$this->environment['database']['engine']]['name'];
-
-        // Gather the database contents
-        $coreData   = "{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}/joomla.sql";
-        $sampleData = "{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}/sample_{$this->environment['joomla']['sampledata']}.sql";
-
-        if (!file_exists($sampleData)) {
-            throw new RuntimeException("No '{$this->environment['joomla']['sampledata']}' sample data found for Joomla! {$version} with {$this->environment['database']['engine']} database");
-        }
-
-        $testData = $this->versionMatch(
-            'joomla-(.*).sql',
-            "{$this->buildTemplates}/template/{$this->environment['database']['engine']}",
-            $version
-        );
-
-        if (empty($testData)) {
-            throw new RuntimeException("No test data found for Joomla! {$version} with {$this->environment['database']['engine']} database");
-        }
-
-        $this->echo(<<<ECHO
-    Joomla version:  {$version}
-    Domain:          {$domain}
-    Server:          {$this->environment['server']['type']}
-
-    Database type:   {$this->environment['database']['engine']}:{$this->database[$this->environment['database']['engine']]['version']}
-                     ({$this->environment['database']['driver']})
-    Database name:   {$this->environment['database']['name']}
-    Database prefix: {$this->environment['database']['prefix']}
-    Database user:   {$this->database[$this->environment['database']['engine']]['user']}:{$this->database[$this->environment['database']['engine']]['password']}
-ECHO
-            ,
-            'info'
-        );
-
-        // Build the import files
-        $importSql = "{$this->serverDockyard}/{$this->environment['database']['engine']}/{$this->environment['name']}.sql";
-        $importSh  = "{$this->serverDockyard}/{$this->environment['database']['engine']}/{$this->environment['name']}.sh";
-
-        if ($this->environment['database']['name'] === $this->database[$this->environment['database']['engine']]['name']) {
-            file_put_contents($importSql, '');
-        } else {
-            $this->copy(
-                "{$this->buildTemplates}/template/{$this->environment['database']['engine']}/createdb.sql",
-                $importSql,
-                $this->filterExpand
-            );
-        }
-
-        $this->exec("cat '{$coreData}' >> '{$importSql}'");
-        $this->exec("cat '{$sampleData}' >> '{$importSql}'");
-        $this->exec("cat '{$testData}' >> '{$importSql}'");
-        $this->exec("sed -i 's/#__/{$this->environment['database']['prefix']}/g' '{$importSql}'");
-
-        // Prepare database initialization
-        if ($this->environment['database']['engine'] === 'postgresql') {
-            // Fix single quote escaping
-            $this->exec("sed -i \"s/\\\'/''/g\" \"{$importSql}\"");
-            $this->exec("echo '#!/bin/bash' > '{$importSh}'");
-            $this->exec("echo 'set -e' >> '{$importSh}'");
-            $this->exec("echo 'gosu postgres postgres --single -j {$this->environment['database']['name']} < /docker-entrypoint-initdb.d/{$this->environment['name']}.sql' > '{$importSh}'");
-        } elseif ($this->environment['database']['engine'] === 'mysql') {
-            // Re-format import.sql to match MySQLd init-file restrictions
-            (new InitFileFixer())->fix($importSql);
-        }
-
-        $this->echo("Created database import script in {$importSql}", 'debug');
-
-        // Setup web server
-        $this->copy(
-            "{$this->buildTemplates}/template/{$this->environment['server']['type']}/vhost.conf",
-            "{$this->serverDockyard}/{$this->environment['server']['type']}/conf/{$domain}.conf",
-            $this->filterExpand
-        );
-        $this->copy(
-            "{$this->buildTemplates}/template/{$this->environment['server']['type']}/proxy.conf",
-            "{$this->serverDockyard}/proxy/conf/{$domain}.conf",
-            $this->filterExpand
-        );
-
-        // Create Joomla! configuration file
-        if (file_exists("{$cmsRoot}/configuration.php-dist")) {
-            $configFile = "{$cmsRoot}/configuration.php-dist";
-        } else {
-            $configFile = "{$cmsRoot}/installation/configuration.php-dist";
-        }
-
-        $errorReporting       = E_ALL & ~E_STRICT & ~E_DEPRECATED;
-        $prettyServerName     = ucfirst($this->environment['server']['type']);
-        $prettyDatabaseDriver = ucfirst(
-            str_replace(
-                [
-                    'sql',
-                    'my',
-                ],
-                [
-                    'SQL',
-                    'My',
-                ],
-                $this->environment['database']['driver']
-            )
-        );
-
-        $map = [
-            // Site Settings
-            'sitename'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
-            // Database settings
-            'dbtype'          => $this->environment['database']['driver'],
-            'host'            => $this->environment['database']['engine'],
-            'user'            => $this->database[$this->environment['database']['engine']]['user'],
-            'password'        => $this->database[$this->environment['database']['engine']]['password'],
-            'db'              => $this->environment['database']['name'],
-            'dbprefix'        => $this->environment['database']['prefix'],
-            // Server settings
-            'error_reporting' => $errorReporting,
-            // Locale settings
-            'offset'          => $this->environment['server']['offset'],
-            // Session settings
-            'lifetime'        => $this->environment['session']['lifetime'],
-            'session_handler' => $this->environment['session']['handler'],
-            // Mail settings
-            'mailer'          => 'smtp',
-            'mailfrom'        => "admin@{$domain}",
-            'fromname'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
-            'sendmail'        => '/usr/bin/env catchmail',
-            'smtpauth'        => 0,
-            'smtpuser'        => '',
-            'smtppass'        => '',
-            'smtphost'        => 'mail:1025',
-            'smtpsecure'      => 'none',
-            // Cache settings
-            'caching'         => $this->environment['cache']['enabled'],
-            'cachetime'       => $this->environment['cache']['time'],
-            'cache_handler'   => $this->environment['cache']['handler'],
-            // Debug settings
-            'debug'           => $this->environment['debug']['system'],
-            'debug_db'        => $this->environment['debug']['system'],
-            'debug_lang'      => $this->environment['debug']['language'],
-            // Meta settings
-            'MetaDesc'        => $this->environment['meta']['description'],
-            'MetaKeys'        => $this->environment['meta']['keywords'],
-            'MetaTitle'       => $this->environment['meta']['showTitle'],
-            'MetaAuthor'      => $this->environment['meta']['showAuthor'],
-            'MetaVersion'     => $this->environment['meta']['showVersion'],
-            // SEO settings
-            'sef'             => $this->environment['sef']['enabled'],
-            'sef_rewrite'     => $this->environment['sef']['rewrite'],
-            'sef_suffix'      => $this->environment['sef']['suffix'],
-            'unicodeslugs'    => $this->environment['sef']['unicode'],
-            // Feed settings
-            'feed_limit'      => $this->environment['feeds']['limit'],
-            'feed_email'      => $this->environment['feeds']['email'],
-        ];
-
-        $this->copy(
-            $configFile,
-            "{$cmsRoot}/configuration.php",
-            function ($content) use ($map) {
-                foreach ($map as $key => $value) {
-                    $pattern = "~(\{$this->$key}\s*=\s*)(.*?);(?:\s*//\s*(.*))?~";
-                    $replace = "\1'{$value}'; // \3 was: \2";
-                    $content = preg_replace(
-                        $pattern,
-                        $replace,
-                        $content
-                    );
-                }
-
-                return $content;
-            }
-        );
-
-        // Remove installation folder
-        $this->delete("{$cmsRoot}/installation");
-
-        // A better way would be to change ownership within the containers
-        $this->exec("chmod -R 0777 \"{$cmsRoot}\"");
-    }
-
-    /**
-     * @param  DOMNode  $node
-     * @param  bool     $collapseAttributes
-     *
-     * @return array|string
-     */
-    private function nodeToArray(DOMNode $node, $collapseAttributes = false)
-    {
-        $array = [];
-
-        if ($node->hasAttributes()) {
-            foreach ($node->attributes as $attr) {
-                if ($collapseAttributes) {
-                    $array[$attr->nodeName] = $attr->nodeValue;
-                } else {
-                    $array['.attributes'][$attr->nodeName] = $attr->nodeValue;
-                }
-            }
-        }
-
-        if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $childNode) {
-                if ($childNode->nodeType === XML_TEXT_NODE) {
-                    $value = trim($childNode->nodeValue);
-                    if (!empty($value)) {
-                        return $value;
-                    }
-                } else {
-                    $array[$childNode->nodeName] = $this->nodeToArray($childNode, $collapseAttributes);
-                }
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * @param  string         $file
-     * @param  string         $toFile
-     * @param  callable|null  $filter
-     */
-    private function copyFile(string $file, string $toFile, callable $filter = null): void
-    {
-        if (is_dir($file)) {
-            return;
-        }
-
-        $this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
-
-        $content = file_get_contents($file);
-
-        if (is_callable($filter)) {
-            $content = $filter($content);
-        }
-
-        file_put_contents($toFile, $content);
-    }
-
-    /**
-     * @param          $version
-     * @param  string  $versionCache
-     * @param  string  $downloadCache
-     *
-     * @return string
-     * @throws FileNotFoundException
-     */
-    private function joomlaDownload($version, string $versionCache, string $downloadCache): string
-    {
-        $versions  = $this->joomlaVersions($versionCache);
-        $requested = $version;
-        $version   = $versions->resolve($version);
-        $tarball   = $downloadCache . '/' . $version . '.tar.gz';
-
-        if (!$versions->isBranch($version) && file_exists($tarball)) {
-            return $tarball;
-        }
-
-        if ($versions->isBranch($version)) {
-            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
-
-            return $this->download($tarball, $url);
-        }
-
-        if ($versions->isTag($version)) {
-            try // to get the official release for that version
-            {
-                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
-
-                return $this->download($tarball, $url);
-            } catch (Throwable $exception) // else get it from the archive
-            {
-                $repository = $versions->getRepository($version);
-                $url        = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
-
-                return $this->download($tarball, $url);
-            }
-        }
-
-        throw new RuntimeException("$requested: Version is unknown");
-    }
-
-    /**
-     * @param  string  $toDir
-     * @param  string  $file
-     */
-    private function untar(string $toDir, string $file): void
-    {
-        $this->mkdir($toDir);
-        $this->exec("tar -zxvf {$file} -C {$toDir} --exclude-vcs");
-
-        // If $toDir contains only a single directory, we need to lift everything up one level.
-        $dirList = glob("{$toDir}/*", GLOB_ONLYDIR);
-
-        if (count($dirList) === 1) {
-            $this->copy(
-                new Fileset($dirList[0]),
-                $toDir
-            );
-
-            $this->delete($dirList[0]);
-        }
-    }
-
-    /**
-     * @param $pattern
-     * @param $path
-     * @param $version
-     *
-     * @return string|null
-     */
-    private function versionMatch($pattern, $path, $version): ?string
-    {
-        $bestVersion = '0';
-        $bestFile    = null;
-        foreach (glob("$path/*") as $filename) {
-            if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1],
-                    '<') && version_compare($match[1], $version, '<=')) {
-                $bestVersion = $match[1];
-                $bestFile    = $filename;
-            }
-        }
-
-        return $bestFile;
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
-    }
-
-    /**
      * Run integrations tests on a single test installation
      *
      * @param $environmentDefinition
@@ -1690,8 +1106,8 @@ ECHO
         $target = basename($environmentDefinition, '.xml');
 
         // Get the environment settings
-        $environment = $this->merge(
-            $this->merge(
+        $environment = Array_::merge(
+            Array_::merge(
                 [
                     'name'   => $target,
                     'server' => [
@@ -1699,9 +1115,9 @@ ECHO
                         'tld'  => 'dev',
                     ],
                 ],
-                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
+                Xml::xmlProperty("{$this->testEnvironments}/default.xml", false, true)
             ),
-            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
+            Xml::xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
         );
         $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
         $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
@@ -1780,8 +1196,8 @@ ECHO
         $target = basename($environmentDefinition, '.xml');
 
         // Get the environment settings
-        $environment = $this->merge(
-            $this->merge(
+        $environment = Array_::merge(
+            Array_::merge(
                 [
                     'name'    => $target,
                     'server'  => [
@@ -1792,9 +1208,9 @@ ECHO
                         'type' => 'firefox',
                     ],
                 ],
-                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
+                Xml::xmlProperty("{$this->testEnvironments}/default.xml", false, true)
             ),
-            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
+            Xml::xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
         );
         $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
         $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
@@ -1862,6 +1278,152 @@ ECHO
     }
 
     /**
+     * @param $pattern
+     * @param $path
+     * @param $version
+     *
+     * @return string|null
+     */
+    private function versionMatch($pattern, $path, $version): ?string
+    {
+        $bestVersion = '0';
+        $bestFile    = null;
+        foreach (glob("$path/*") as $filename) {
+            if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1],
+                    '<') && version_compare($match[1], $version, '<=')) {
+                $bestVersion = $match[1];
+                $bestFile    = $filename;
+            }
+        }
+
+        return $bestFile;
+    }
+
+    /**
+     * @param          $version
+     * @param  string  $versionCache
+     * @param  string  $downloadCache
+     *
+     * @return string
+     * @throws FileNotFoundException
+     */
+    private function joomlaDownload($version, string $versionCache, string $downloadCache): string
+    {
+        $versions  = $this->joomlaVersions($versionCache);
+        $requested = $version;
+        $version   = $versions->resolve($version);
+        $tarball   = $downloadCache . '/' . $version . '.tar.gz';
+
+        if (!$versions->isBranch($version) && file_exists($tarball)) {
+            return $tarball;
+        }
+
+        if ($versions->isBranch($version)) {
+            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
+
+            return $this->download($tarball, $url);
+        }
+
+        if ($versions->isTag($version)) {
+            try // to get the official release for that version
+            {
+                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
+
+                return $this->download($tarball, $url);
+            } catch (Throwable $exception) // else get it from the archive
+            {
+                $repository = $versions->getRepository($version);
+                $url        = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
+
+                return $this->download($tarball, $url);
+            }
+        }
+
+        throw new RuntimeException("$requested: Version is unknown");
+    }
+
+    /**
+     * @param  string  $toDir
+     * @param  string  $file
+     */
+    private function untar(string $toDir, string $file): void
+    {
+        $this->mkdir($toDir);
+        $this->exec("tar -zxvf {$file} -C {$toDir} --exclude-vcs");
+
+        // If $toDir contains only a single directory, we need to lift everything up one level.
+        $dirList = glob("{$toDir}/*", GLOB_ONLYDIR);
+
+        if (count($dirList) === 1) {
+            $this->copy(
+                new Fileset($dirList[0]),
+                $toDir
+            );
+
+            $this->delete($dirList[0]);
+        }
+    }
+
+    /**
+     * Generates the contents and prepares the test containers.
+     *
+     * @throws FileNotFoundException
+     */
+    public function dockerBuild(): void
+    {
+        $testEnvironments = $this->testEnvironments;
+
+        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
+            $uptodate = false;
+        } else {
+            $uptodate = $this->isUptodate(
+                $this->serverDockyard . '/docker-compose.yml',
+                (new Fileset('.'))
+                    ->include($this->source . '/**')
+                    ->include($this->integrationTests . '/**')
+                    ->include($testEnvironments . '/**')
+            );
+        }
+
+        if ($uptodate) {
+            $this->echo('Container setups are up to date - skipping.', 'info');
+
+            return;
+        }
+
+        // Recreate directories for container contents
+        $this->delete($this->serverDockyard);
+        $this->mkdir($this->serverDockyard . '/nginx/conf');
+        $this->mkdir($this->serverDockyard . '/nginx/html');
+        $this->mkdir($this->serverDockyard . '/apache/conf');
+        $this->mkdir($this->serverDockyard . '/apache/html');
+        $this->mkdir($this->serverDockyard . '/proxy/conf');
+        $this->mkdir($this->serverDockyard . '/mysql');
+        $this->mkdir($this->serverDockyard . '/postgresql');
+
+        // Get available Joomla! versions
+        $this->joomlaVersions($this->versionCache);
+
+        $this->database = (new Settings($this->project['name']))->defaultDatabase($testEnvironments . '/database.xml');
+
+        $this->copy(
+            (new Fileset($this->buildTemplates . '/docker'))
+                ->include('docker-compose.yml'),
+            $this->serverDockyard,
+            $this->filterExpand
+        );
+
+        // Handle each test environment
+        foreach (glob($testEnvironments . '/*.xml') as $environmentDefinition) {
+            if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml'])) {
+                continue;
+            }
+
+            $this->dockerBuildSystem($environmentDefinition);
+        }
+    }
+
+    /**
      * @param $application
      * @param $domain
      * @param $cmsRoot
@@ -1918,5 +1480,362 @@ ECHO
         );
 
         $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
+    }
+
+    /**
+     * @param $versionCache
+     *
+     * @return VersionList
+     * @throws FileNotFoundException
+     */
+    private function joomlaVersions($versionCache): VersionList
+    {
+        return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
+    }
+
+    /**
+     * @param  string  $filename
+     * @param  string  $url
+     *
+     * @return string
+     */
+    private function download(string $filename, string $url): string
+    {
+        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
+
+        if ($bytes === false || $bytes === 0) {
+            throw new RuntimeException("Failed to download $url");
+        }
+
+        return $filename;
+    }
+
+    /**
+     * @param  string  $xmlFile  XML file containing the environment definition
+     *
+     * @throws FileNotFoundException
+     */
+    private function dockerBuildSystem(string $xmlFile): void
+    {
+        $environment = (new Settings($this->project['name']))->environment($xmlFile,
+            $this->testEnvironments . '/default.xml');
+
+        $domain = "{$environment['name']}.{$environment['server']['tld']}";
+
+        // Download and unpack the specified Joomla! version
+        $cmsRoot = $this->serverDockyard . '/' . $environment['server']['type'] . '/html/' . $domain;
+        $tarball = $this->joomlaDownload($environment['joomla']['version'], $this->versionCache,
+            $this->downloadCache);
+        $this->untar($cmsRoot, $tarball);
+        $version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
+
+        // Add SUT
+        $this->copy(
+            (new Fileset($this->source))
+                ->exclude('installation/**/*'),
+            $cmsRoot
+        );
+
+        // Add test files
+        $this->delete($cmsRoot . '/tests');
+        $this->mkdir($cmsRoot . '/tests');
+        $this->copy(
+            (new Fileset($this->tests))
+                ->include('mocks/**/*')
+                ->include('integration/**/*')
+                ->include('system/**/*')
+                ->include('autoload.php'),
+            $cmsRoot . '/tests',
+            $this->filterExpand
+        );
+        $this->copy(
+            (new Fileset($this->buildTemplates . '/template/selenium'))
+                ->exclude('server_files/**/*'),
+            $cmsRoot . '/tests/system'
+        );
+
+        $this->exec(
+            "phpab --tolerant --basedir '.' --exclude '*Test.php' --template '{$this->buildTemplates}/template/tests/system/autoload.php.in' --output '{$cmsRoot}/tests/system/autoload.php' .",
+            "{$cmsRoot}/tests/system"
+        );
+
+        // Create build directory
+        $this->delete($cmsRoot . '/build');
+        $this->mkdir($cmsRoot . '/build/logs/coverage');
+
+        // Build the database import script
+        if (!file_exists("{$cmsRoot}/installation/sql/{$environment['database']['engine']}")) {
+            throw new RuntimeException("Joomla! {$version} does not support {$environment['database']['engine']} databases");
+        }
+
+        // Gather the database contents
+        $coreData   = "{$cmsRoot}/installation/sql/{$environment['database']['engine']}/joomla.sql";
+        $sampleData = "{$cmsRoot}/installation/sql/{$environment['database']['engine']}/sample_{$environment['joomla']['sampledata']}.sql";
+
+        if (!file_exists($sampleData)) {
+            throw new RuntimeException("No '{$environment['joomla']['sampledata']}' sample data found for Joomla! {$version} with {$environment['database']['engine']} database");
+        }
+
+        $testData = $this->versionMatch(
+            'joomla-(.*).sql',
+            "{$this->buildTemplates}/template/{$environment['database']['engine']}",
+            $version
+        );
+
+        if (empty($testData)) {
+            throw new RuntimeException("No test data found for Joomla! {$version} with {$environment['database']['engine']} database");
+        }
+
+        $this->echo(<<<ECHO
+    Joomla version:  {$version}
+    Domain:          {$domain}
+    Server:          {$environment['server']['type']}
+
+    Database type:   {$environment['database']['engine']}:{$database[$environment['database']['engine']]['version']}
+                     ({$environment['database']['driver']})
+    Database name:   {$environment['database']['name']}
+    Database prefix: {$environment['database']['prefix']}
+    Database user:   {$database[$environment['database']['engine']]['user']}:{$database[$environment['database']['engine']]['password']}
+ECHO
+            ,
+            'info'
+        );
+
+        // Build the import files
+        $importSql = "{$this->serverDockyard}/{$environment['database']['engine']}/{$environment['name']}.sql";
+        $importSh  = "{$this->serverDockyard}/{$environment['database']['engine']}/{$environment['name']}.sh";
+
+        if ($environment['database']['name'] === $database[$environment['database']['engine']]['name']) {
+            file_put_contents($importSql, '');
+        } else {
+            $this->copy(
+                "{$this->buildTemplates}/template/{$environment['database']['engine']}/createdb.sql",
+                $importSql,
+                $this->filterExpand
+            );
+        }
+
+        $this->exec("cat '{$coreData}' >> '{$importSql}'");
+        $this->exec("cat '{$sampleData}' >> '{$importSql}'");
+        $this->exec("cat '{$testData}' >> '{$importSql}'");
+        $this->exec("sed -i 's/#__/{$environment['database']['prefix']}/g' '{$importSql}'");
+
+        // Prepare database initialization
+        if ($environment['database']['engine'] === 'postgresql') {
+            // Fix single quote escaping
+            $this->exec("sed -i \"s/\\\'/''/g\" \"{$importSql}\"");
+            $this->exec("echo '#!/bin/bash' > '{$importSh}'");
+            $this->exec("echo 'set -e' >> '{$importSh}'");
+            $this->exec("echo 'gosu postgres postgres --single -j {$environment['database']['name']} < /docker-entrypoint-initdb.d/{$environment['name']}.sql' > '{$importSh}'");
+        } elseif ($environment['database']['engine'] === 'mysql') {
+            // Re-format import.sql to match MySQLd init-file restrictions
+            (new InitFileFixer())->fix($importSql);
+        }
+
+        $this->echo("Created database import script in {$importSql}", 'debug');
+
+        // Setup web server
+        $this->copy(
+            "{$this->buildTemplates}/template/{$environment['server']['type']}/vhost.conf",
+            "{$this->serverDockyard}/{$environment['server']['type']}/conf/{$domain}.conf",
+            $this->filterExpand
+        );
+        $this->copy(
+            "{$this->buildTemplates}/template/{$environment['server']['type']}/proxy.conf",
+            "{$this->serverDockyard}/proxy/conf/{$domain}.conf",
+            $this->filterExpand
+        );
+
+        // Create Joomla! configuration file
+        if (file_exists("{$cmsRoot}/configuration.php-dist")) {
+            $configFile = "{$cmsRoot}/configuration.php-dist";
+        } else {
+            $configFile = "{$cmsRoot}/installation/configuration.php-dist";
+        }
+
+        $errorReporting       = E_ALL & ~E_STRICT & ~E_DEPRECATED;
+        $prettyServerName     = ucfirst($environment['server']['type']);
+        $prettyDatabaseDriver = ucfirst(
+            str_replace(
+                [
+                    'sql',
+                    'my',
+                ],
+                [
+                    'SQL',
+                    'My',
+                ],
+                $environment['database']['driver']
+            )
+        );
+
+        $map = [
+            // Site Settings
+            'sitename'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
+            // Database settings
+            'dbtype'          => $environment['database']['driver'],
+            'host'            => $environment['database']['engine'],
+            'user'            => $database[$environment['database']['engine']]['user'],
+            'password'        => $database[$environment['database']['engine']]['password'],
+            'db'              => $environment['database']['name'],
+            'dbprefix'        => $environment['database']['prefix'],
+            // Server settings
+            'error_reporting' => $errorReporting,
+            // Locale settings
+            'offset'          => $environment['server']['offset'],
+            // Session settings
+            'lifetime'        => $environment['session']['lifetime'],
+            'session_handler' => $environment['session']['handler'],
+            // Mail settings
+            'mailer'          => 'smtp',
+            'mailfrom'        => "admin@{$domain}",
+            'fromname'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
+            'sendmail'        => '/usr/bin/env catchmail',
+            'smtpauth'        => 0,
+            'smtpuser'        => '',
+            'smtppass'        => '',
+            'smtphost'        => 'mail:1025',
+            'smtpsecure'      => 'none',
+            // Cache settings
+            'caching'         => $environment['cache']['enabled'],
+            'cachetime'       => $environment['cache']['time'],
+            'cache_handler'   => $environment['cache']['handler'],
+            // Debug settings
+            'debug'           => $environment['debug']['system'],
+            'debug_db'        => $environment['debug']['system'],
+            'debug_lang'      => $environment['debug']['language'],
+            // Meta settings
+            'MetaDesc'        => $environment['meta']['description'],
+            'MetaKeys'        => $environment['meta']['keywords'],
+            'MetaTitle'       => $environment['meta']['showTitle'],
+            'MetaAuthor'      => $environment['meta']['showAuthor'],
+            'MetaVersion'     => $environment['meta']['showVersion'],
+            // SEO settings
+            'sef'             => $environment['sef']['enabled'],
+            'sef_rewrite'     => $environment['sef']['rewrite'],
+            'sef_suffix'      => $environment['sef']['suffix'],
+            'unicodeslugs'    => $environment['sef']['unicode'],
+            // Feed settings
+            'feed_limit'      => $environment['feeds']['limit'],
+            'feed_email'      => $environment['feeds']['email'],
+        ];
+
+        $this->copy(
+            $configFile,
+            "{$cmsRoot}/configuration.php",
+            function ($content) use ($map) {
+                foreach ($map as $key => $value) {
+                    $pattern = "~(\{$this->$key}\s*=\s*)(.*?);(?:\s*//\s*(.*))?~";
+                    $replace = "\1'{$value}'; // \3 was: \2";
+                    $content = preg_replace(
+                        $pattern,
+                        $replace,
+                        $content
+                    );
+                }
+
+                return $content;
+            }
+        );
+
+        // Remove installation folder
+        $this->delete("{$cmsRoot}/installation");
+
+        // A better way would be to change ownership within the containers
+        $this->exec("chmod -R 0777 \"{$cmsRoot}\"");
+    }
+
+    /**
+     * Get the environment settings
+     *
+     * @param          $projectName
+     * @param          $environmentDefinition
+     * @param  string  $xmlFile
+     * @param  array   $database
+     *
+     * @return array
+     */
+    private function gatherEnvironment($projectName, $environmentDefinition, string $xmlFile, array $database): array
+    {
+        $target = basename($environmentDefinition, '.xml');
+
+        $environment = [
+            'name'     => $target,
+            'server'   => [
+                'type'   => 'nginx',
+                'offset' => 'UTC',
+                'tld'    => 'dev',
+            ],
+            'cache'    => [
+                'enabled' => 0,
+                'time'    => 15,
+                'handler' => 'file',
+            ],
+            'debug'    => [
+                'system'   => 1,
+                'language' => 1,
+            ],
+            'meta'     => [
+                'description' => "Test installation for {$projectName} on Joomla! \${version}",
+                'keywords'    => "{$projectName} Joomla Test",
+                'showVersion' => 1,
+                'showTitle'   => 1,
+                'showAuthor'  => 1,
+            ],
+            'sef'      => [
+                'enabled' => 0,
+                'rewrite' => 0,
+                'suffix'  => 0,
+                'unicode' => 0,
+            ],
+            'session'  => [
+                'lifetime' => 15,
+                'handler'  => 'database',
+            ],
+            'joomla'   => [
+                'version'    => 'latest',
+                'sampleData' => 'data',
+            ],
+            'database' => [
+                'driver' => 'mysqli',
+                'name'   => 'joomla_test',
+                'prefix' => '${target}_',
+            ],
+            'feeds'    => [
+                'limit' => 10,
+                'email' => 'author',
+            ],
+        ];
+
+        $environment = Array_::merge(
+            $environment,
+            Xml::xmlProperty($xmlFile, false, true)
+        );
+        $environment = Array_::merge(
+            $environment,
+            Xml::xmlProperty($environmentDefinition, false, true)
+        );
+
+        $environment['meta']['description'] = str_replace(
+            '${version}',
+            $environment['joomla']['version'],
+            $environment['meta']['description']
+        );
+        $environment['database']['prefix']  = str_replace(
+            '${target}',
+            $environment['name'],
+            $environment['database']['prefix']
+        );
+
+        if (in_array($environment['database']['driver'], ['mysqli', 'pdomysql'])) {
+            $environment['database']['engine'] = 'mysql';
+        } else {
+            $environment['database']['engine'] = $environment['database']['driver'];
+        }
+
+        // Get the database info - use global values, if not provided with local environment
+        $environment['database']['name'] = $environment['database']['name'] ?? $database[$environment['database']['engine']]['name'];
+
+        return $environment;
     }
 }
