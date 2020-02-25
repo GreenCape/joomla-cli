@@ -42,96 +42,105 @@ use Symfony\Component\Console\Output\NullOutput;
 
 class InstallationTest extends TestCase
 {
-	private static $container = 'fixtures_db_1';
+    private static $container = 'fixtures_db_1';
 
-	private static $composeFile = '--file tests/fixtures/maria-db.yml';
+    private static $composeFile = '--file tests/fixtures/maria-db.yml';
 
-	private $admin = 'admin:admin';
+    private $admin = 'admin:admin';
 
-	private $database = 'sqladmin:sqladmin@http://127.0.0.1:3306/database';
+    private $database = 'sqladmin:sqladmin@http://127.0.0.1:3306/database';
 
-	use JoomlaPackagesTrait;
+    use JoomlaPackagesTrait;
 
-	public static function setUpBeforeClass(): void
-	{
-		shell_exec('docker-compose ' . self::$composeFile . ' up -d 2>&1');
+    /**
+     * Start the database container
+     *
+     * If the container does not start up, you might check if the port is in use
+     *
+     * $ sudo lsof -i :3306
+     *
+     * or
+     *
+     * $ sudo netstat -peanut | grep ':3306'
+     */
+    public static function setUpBeforeClass(): void
+    {
+        shell_exec('docker-compose ' . self::$composeFile . ' up -d 2>&1');
 
-		for ($t = 0; $t < 10; ++$t)
-		{
-			sleep(1);
-			if (self::isReady(self::$container))
-			{
-				return;
-			}
-		}
-		self::markTestSkipped('Could not start database container within 10 seconds');
-	}
+        for ($t = 0; $t < 10; ++$t) {
+            sleep(1);
+            if (self::isReady(self::$container)) {
+                return;
+            }
+        }
+        self::markTestSkipped('Could not start database container within 10 seconds');
+    }
 
-	public static function tearDownAfterClass(): void
-	{
-		#shell_exec('docker-compose ' . self::$composeFile . ' down 2>&1');
-	}
+    public static function tearDownAfterClass(): void
+    {
+        shell_exec('docker-compose ' . self::$composeFile . ' down 2>&1');
+    }
 
-	/**
-	 * @param $container
-	 *
-	 * @return bool
-	 */
-	private static function isReady($container): bool
-	{
-		return strpos(shell_exec("docker logs {$container} 2>&1"), 'mysqld: ready for connections.') !== false;
-	}
+    /**
+     * @param $container
+     *
+     * @return bool
+     */
+    private static function isReady($container): bool
+    {
+        return strpos(shell_exec("docker logs {$container} 2>&1"), 'mysqld: ready for connections.') !== false;
+    }
 
-	/**
-	 * @param string $path
-	 * @param string $release
-	 * @param string $short
-	 * @param string $long
-	 *
-	 * @throws Exception
-	 * @dataProvider joomlaPackages
-	 */
-	public function testInstall($path, $release, $short, $long): void
-	{
-		$this->setupFilesystem($path, $short);
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws Exception
+     * @dataProvider joomlaPackages
+     */
+    public function testInstall($path, $release, $short, $long): void
+    {
+        $this->setupFilesystem($path, $short);
 
-		$command = new InstallCommand();
-		$output  = new NullOutput();
-		[$admin, $password] = explode(':', $this->admin);
-		$prefix = 'j' . str_replace('.', '', $release);
+        $command = new InstallCommand();
+        $output  = new NullOutput();
+        [$admin, $password] = explode(':', $this->admin);
+        $prefix = 'j' . str_replace('.', '', $release);
 
-		$options = implode(
-			' ',
-			[
-				'--admin=' . $this->admin,
-				'--db-type=mysqli',
-				'--database=' . $this->database,
-				'--root=root',
-				'--prefix=' . $prefix
-			]
-		);
-		$command->run(new StringInput("-b tests/tmp/$path $options"), $output);
+        $options = implode(
+            ' ',
+            [
+                '--admin=' . $this->admin,
+                '--db-type=mysqli',
+                '--database=' . $this->database,
+                '--root=root',
+                '--prefix=' . $prefix,
+            ]
+        );
+        $command->run(new StringInput("-b tests/tmp/$path $options"), $output);
 
-		$dsn = new DataSource($this->database);
+        $dsn = new DataSource($this->database);
 
-		$container = self::$container;
-		$user      = $dsn->getUser();
-		$pass      = $dsn->getPass();
-		$base      = $dsn->getBase();
-		file_put_contents("tests/tmp/{$path}/query.sql", "SELECT * FROM {$prefix}_users WHERE username='{$admin}'");
-		$result = shell_exec("docker exec -i {$container} sh -c 'exec mysql -u{$user} -p\"{$pass}\" {$base}' < tests/tmp/{$path}/query.sql 2>&1");
+        $container = self::$container;
+        $user      = $dsn->getUser();
+        $pass      = $dsn->getPass();
+        $base      = $dsn->getBase();
+        file_put_contents("tests/tmp/{$path}/query.sql", "SELECT * FROM {$prefix}_users WHERE username='{$admin}'");
+        $result = shell_exec("docker exec -i {$container} sh -c 'exec mysql -u{$user} -p\"{$pass}\" {$base}' < tests/tmp/{$path}/query.sql 2>&1");
 
-		$this->assertEquals('Foo', $result, "MySQL: {$result}");
-	}
+        $this->assertEquals('Foo', $result, "MySQL: {$result}");
+    }
 
-	/**
-	 * @param $path
-	 * @param $short
-	 *
-	 * @throws Exception
-	 */
-	private function setupFilesystem($path, $short): void
-	{
-		(new DownloadCommand())->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), new NullOutput());
-	}
+    /**
+     * @param $path
+     * @param $short
+     *
+     * @throws Exception
+     */
+    private function setupFilesystem($path, $short): void
+    {
+        (new DownloadCommand())->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), new NullOutput());
+    }
 }

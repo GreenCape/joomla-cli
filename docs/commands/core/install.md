@@ -1,22 +1,24 @@
 [Joomla! CLI](../index.md) > [Core](index.md)
-# core:download
+# core:install
 
-Downloads a Joomla! version and unpacks it to the base path.
+Installs Joomla!.
 
 ## Synopsis
 ```bash
-$ joomla core:download [options] [--] [<version>]
+$ joomla core:install [options]
 ```
 
 ## Arguments
-```
-version                  The Joomla! version to install. [default: "latest"]
-```
+This command has no arguments.
 
 ## Options
 ```
-  -f, --file=FILE          Location of the version cache file [default: "/tmp/versions.json"]
-  -c, --cache=CACHE        Location of the cache for Joomla! packages [default: ".cache"]
+  -a, --admin=ADMIN        The admin user name and password, separated by colon [default: "admin:admin"]
+  -e, --email=EMAIL        The admin email address [default: "admin@localhost"]
+  -t, --db-type=DB-TYPE    The database type [default: "mysqli"]
+  -d, --database=DATABASE  The database connection. Format  <user>:<pass>@<host>:<port>/<database> [default: "sqladmin:sqladmin@localhost:3306/database"]
+  -r, --root=ROOT          The database root password [default: "root"]
+  -p, --prefix=PREFIX      The table prefix [default: "jos_"]
   -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
@@ -29,5 +31,5 @@ version                  The Joomla! version to install. [default: "latest"]
 
 ## Description
 
-Downloads a Joomla! version and unpacks it to the base path
+Installs Joomla!
 

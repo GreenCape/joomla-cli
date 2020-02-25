@@ -6,34 +6,34 @@
 ## Synopsis
 ```bash
 {% for call in data.usage %}
-    $ joomla {{ call | trim }}
+$ joomla {{ call | trim }}
 {% endfor %}
 ```
 
 ## Arguments
 {% if data.arguments %}
-    ```
-    {% for arg in data.arguments %}
-        {{ arg | trim }}
-    {% endfor %}
-    ```
+```
+{% for arg in data.arguments %}
+{{ arg | trim }}
+{% endfor %}
+```
 {% else %}
-    This command has no arguments.
+This command has no arguments.
 {% endif %}
 
 ## Options
 ```
 {% for option in data.options %}
-    {{ option }}
+{{ option }}
 {% endfor %}
 ```
 
 ## Description
 
 {% if data.help[0] | trim != data.description %}
-    {{ data.description }}.
+{{ data.description }}.
 
 {% endif %}
 {% for line in data.help %}
-    {{ line | trim }}
+{{ line | trim }}
 {% endfor %}

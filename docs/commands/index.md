@@ -19,6 +19,7 @@ Available commands are
 
 **[Core](core/index.md)**
 - [core:download](core/download.md) - Downloads a Joomla! version and unpacks it to the base path
+- [core:install](core/install.md) - Installs Joomla!
 - [core:version](core/version.md) - Reports the version of the Joomla! installation at the base path
 
 **[Dist](dist/index.md)**

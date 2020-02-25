@@ -45,65 +45,73 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class InstallCommand extends Command
 {
-	/**
-	 * Configure the options for the install command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('core:install')
-			->setDescription('Installs Joomla!')
-			->addOption(
-				'admin',
-				'a',
-				InputOption::VALUE_REQUIRED,
-				'The admin user name and password, separated by colon',
-				'admin:admin'
-			)
-			->addOption(
-				'db-type',
-				't',
-				InputOption::VALUE_REQUIRED,
-				'The database type',
-				'mysqli'
-			)
-			->addOption(
-				'database',
-				'd',
-				InputOption::VALUE_REQUIRED,
-				'The database connection. Format  <user> : <pass> @ <host> : <port> / <database>',
-				'sqladmin:sqladmin@localhost:3306/database'
-			)
-			->addOption(
-				'root',
-				'r',
-				InputOption::VALUE_REQUIRED,
-				'The database root password',
-				'root'
-			)
-			->addOption(
-				'prefix',
-				'p',
-				InputOption::VALUE_REQUIRED,
-				'The table prefix',
-				'jos_'
-			);
-	}
+    /**
+     * Configure the options for the install command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('core:install')
+            ->setDescription('Installs Joomla!')
+            ->addOption(
+                'admin',
+                'a',
+                InputOption::VALUE_REQUIRED,
+                'The admin user name and password, separated by colon',
+                'admin:admin'
+            )
+            ->addOption(
+                'email',
+                'e',
+                InputOption::VALUE_REQUIRED,
+                'The admin email address',
+                'admin@localhost'
+            )
+            ->addOption(
+                'db-type',
+                't',
+                InputOption::VALUE_REQUIRED,
+                'The database type',
+                'mysqli'
+            )
+            ->addOption(
+                'database',
+                'd',
+                InputOption::VALUE_REQUIRED,
+                /** @lang text */ 'The database connection. Format  <user>:<pass>@<host>:<port>/<database>',
+                'sqladmin:sqladmin@localhost:3306/database'
+            )
+            ->addOption(
+                'root',
+                'r',
+                InputOption::VALUE_REQUIRED,
+                'The database root password',
+                'root'
+            )
+            ->addOption(
+                'prefix',
+                'p',
+                InputOption::VALUE_REQUIRED,
+                'The table prefix',
+                'jos_'
+            )
+        ;
+    }
 
-	/**
-	 * Execute the install command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, 1 on error
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): int
-	{
-		$output->writeln('Installation failed due to unknown reason.');
+    /**
+     * Execute the install command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  integer  0 if everything went fine, 1 on error
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('Installation failed due to unknown reason.');
 
-		return 1;
-	}
+        return 1;
+    }
 }
