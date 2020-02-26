@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JoomlaCLI" default="build">
-    <target name="build" depends="prepare,lint"/>
+    <target name="build" depends="prepare,lint,phpcs,phar" description="Builds the PHAR executable after proper preparation"/>
 
-    <target name="clean" description="Cleanup build artifacts">
+    <target name="clean" description="Cleanup build artifacts" hidden="true">
         <delete dir="${basedir}/bin"/>
         <delete dir="${basedir}/vendor"/>
         <delete file="${basedir}/composer.lock"/>
@@ -12,40 +12,25 @@
         </delete>
     </target>
 
-    <target name="composer" description="Install dependencies with Composer">
-        <tstamp>
-            <format property="thirty.days.ago" pattern="MM/dd/yyyy hh:mm aa" offset="-30" unit="day"/>
-        </tstamp>
-        <delete>
-            <fileset dir="${basedir}">
-                <include name="composer.phar" />
-                <date datetime="${thirty.days.ago}" when="before"/>
-            </fileset>
-        </delete>
-
-        <get src="https://getcomposer.org/composer.phar" dest="${basedir}/composer.phar" skipexisting="true"/>
-
-        <exec executable="php">
-            <arg value="composer.phar"/>
+    <target name="composer" description="Install dependencies with Composer" hidden="true">
+        <exec executable="composer">
             <arg value="install"/>
         </exec>
     </target>
 
-    <target name="prepare" depends="clean,composer" description="Prepare for build">
+    <target name="prepare" depends="clean,composer" description="Prepare for build" hidden="true">
     </target>
 
-    <target name="lint">
+    <target name="lint" hidden="true">
         <apply executable="php" failonerror="true">
             <arg value="-l" />
 
             <fileset dir="${basedir}/src">
                 <include name="**/*.php" />
-                <modified />
             </fileset>
 
             <fileset dir="${basedir}/tests">
                 <include name="**/*.php" />
-                <modified />
             </fileset>
         </apply>
     </target>
@@ -59,7 +44,7 @@
     </target>
 
     <target name="phpunit" depends="prepare,lint" description="Run unit tests with PHPUnit">
-        <exec executable="${basedir}/vendor/bin/phpunit" failonerror="true">
+        <exec executable="${basedir}/vendor/bin/phpunit">
             <arg value="--configuration" />
             <arg path="${basedir}/build/phpunit.xml" />
         </exec>
@@ -71,10 +56,10 @@
         <mkdir dir="${basedir}/build/phar"/>
     </target>
 
-    <target name="phar-build">
-        <exec executable="bash" outputproperty="version">
+    <target name="phar-build" hidden="true">
+        <exec executable="bash" outputProperty="version">
             <arg value="-c" />
-            <arg value="${basedir}/joomla --version | awk 'BEGIN { ORS = &quot;&quot;; } {print $4}'" />
+            <arg value="${basedir}/joomla --version | awk '{print $4}'" />
         </exec>
 
         <copy todir="${basedir}/build/phar/src">
@@ -118,7 +103,7 @@
 
         <exec executable="${basedir}/build/phar-manifest.php" output="${basedir}/build/phar/manifest.txt"/>
 
-        <exec executable="phpab">
+        <exec executable="phpab" passthru="true">
             <arg value="--all" />
             <arg value="--phar" />
             <arg value="--output" />
@@ -130,6 +115,6 @@
             <arg path="${basedir}/build/phar" />
         </exec>
 
-        <chmod file="${basedir}/build/joomla-cli-${version}.phar" perm="ugo+rx"/>
+        <exec command="chmod ugo+rx ${basedir}/build/joomla-cli-${version}.phar" passthru="true"/>
     </target>
 </project>

@@ -31,3 +31,34 @@ Make sure you have `~/.composer/vendor/bin/` in your path.
 ## Documentation
 
 The [documentation for the available commands](docs/commands/index.md) can be found in the [`docs` directory](docs).
+
+## Development
+
+This project uses Phing for task handling.
+
+```text
+Default target:
+-------------------------------------------------------------------------------
+ build    Builds the PHAR executable after proper preparation
+
+Main targets:
+-------------------------------------------------------------------------------
+ build    Builds the PHAR executable after proper preparation
+ phar     Create PHAR archive of Joomla CLI and all its dependencies
+ phpcs    Find coding standard violations using PHP_CodeSniffer
+ phpunit  Run unit tests with PHPUnit
+```
+
+### Testing
+
+```bash
+$ phing phpunit -Dbasedir=.
+```
+
+### Building the PHAR Archive
+
+```bash
+$ phing build -Dbasedir=.
+```
+
+The generated `joomla-cli-x.x.x.phar` file is located in the `build/` directory.

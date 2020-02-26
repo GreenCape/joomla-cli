@@ -19,7 +19,7 @@ $lock = json_decode(file_get_contents(__DIR__ . '/../composer.lock'));
 foreach ($lock->packages as $package) {
     print $package->name . ': ' . $package->version;
 
-    if (!preg_match('/^[v= ]*(([0-9]+)(\\.([0-9]+)(\\.([0-9]+)(-([0-9]+))?(-?([a-zA-Z-+][a-zA-Z0-9\\.\\-:]*)?)?)?)?)$/', $package->version)) {
+    if (!preg_match('/^[v= ]*((\d+)(\.(\d+)(\.(\d+)(-(\d+))?(-?([a-zA-Z-+][a-zA-Z\d.\-:]*)?)?)?)?)$/', $package->version)) {
         print '@' . $package->source->reference;
     }
 
