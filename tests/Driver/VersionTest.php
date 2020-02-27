@@ -37,11 +37,18 @@ use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class VersionTest
+ *
+ * @testdox Version Driver ...
+ */
 class VersionTest extends TestCase
 {
     use JoomlaPackagesTrait;
 
     /**
+     * @testdox  ... detects Joomla! $release (tested with Joomla! $short)
+     *
      * @param  string  $path
      * @param  string  $release
      * @param  string  $short
@@ -49,7 +56,6 @@ class VersionTest extends TestCase
      *
      * @throws FileNotFoundException
      * @dataProvider joomlaPackages
-     * @testdox      Version driver detects the correct version
      */
     public function testVersion($path, $release, $short, $long): void
     {
@@ -64,8 +70,9 @@ class VersionTest extends TestCase
     }
 
     /**
+     * @testdox ... throws FileNotFoundException if version file is not found
+     *
      * @throws FileNotFoundException
-     * @testdox Version driver throws FileNotFoundException if version file is not found
      */
     public function testException(): void
     {

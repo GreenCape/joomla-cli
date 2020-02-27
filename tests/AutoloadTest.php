@@ -37,24 +37,32 @@ use GreenCape\JoomlaCLI\Driver\Factory;
 use phpDocumentor\Reflection\DocBlock;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class AutoloadTest
+ *
+ * @testdox Autoloader ...
+ */
 class AutoloadTest extends TestCase
 {
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp(): void
-	{
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown(): void
-	{
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+    }
 
+    /**
+     * @testdox ... finds vendor classes
+     */
     public function testVendorClassesAreFoundByAutoloader(): void
     {
         try {
@@ -64,13 +72,16 @@ class AutoloadTest extends TestCase
         }
     }
 
+    /**
+     * @testdox ... finds Joomla! CLI classes
+     */
     public function testSourceClassesAreFoundByAutoloader(): void
     {
         try {
             $this->assertInstanceOf(Application::class, new Application());
-			$this->assertInstanceOf(Factory::class, new Factory());
-		} catch (Exception $e) {
-			$this->fail($e->getMessage());
-		}
-	}
+            $this->assertInstanceOf(Factory::class, new Factory());
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 }

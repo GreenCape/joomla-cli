@@ -38,11 +38,18 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
+/**
+ * Class VersionTest
+ *
+ * @testdox Command `core:version` ...
+ */
 class VersionTest extends TestCase
 {
     use JoomlaPackagesTrait;
 
     /**
+     * @testdox  ... detects the correct version for Joomla! $release (tested with Joomla! $short)
+     *
      * @param  string  $path
      * @param  string  $release
      * @param  string  $short
@@ -50,7 +57,6 @@ class VersionTest extends TestCase
      *
      * @throws Exception
      * @dataProvider joomlaPackages
-     * @testdox      Command `version` detects the correct version
      */
     public function testVersion($path, $release, $short, $long): void
     {
