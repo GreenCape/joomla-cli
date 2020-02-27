@@ -34,12 +34,17 @@ namespace GreenCapeTest;
 use GreenCape\JoomlaCLI\Fileset;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class FilesetTest
+ *
+ * @testdox FileSet ...
+ */
 class FilesetTest extends TestCase
 {
     private $dir = 'tests/fixtures/fileset';
 
     /**
-     * @testdox test*.xml will include test_42.xml, but it will not include test/some.xml.
+     * @testdox ... includes `test_42.xml` for pattern 'test*.xml', but it does not include `test/some.xml`.
      */
     public function testFilter1(): void
     {
@@ -59,7 +64,7 @@ class FilesetTest extends TestCase
     }
 
     /**
-     * @testdox test**.xml fits to test_42.xml as well as to test/some.xml, for example.
+     * @testdox ... includes `test_42.xml` as well as `test/some.xml` for pattern 'test**.xml'.
      */
     public function testFilter2(): void
     {
@@ -80,10 +85,25 @@ class FilesetTest extends TestCase
     }
 
     /**
-     * @testdox **\/*.ent.xml fits to all files that end with ent.xml in all subdirectories. However, it will not
-     *          include any files that are directly in the base directory of the file set.
+     * @testdox ... includes all files that end with 'ent.xml' in all subdirectories for pattern '**\/*.ent.xml'.
      */
     public function testFilter3(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset->include('**/*.ent.xml')->getFiles();
+        sort($files);
+
+        $expected = [
+            $this->dir . '/test/test.ent.xml',
+        ];
+
+        $this->assertEquals($expected, $files);
+    }
+
+    /**
+     * @testdox ... does not include files directly in the base directory of the file set for pattern '**\/*.ent.xml'.
+     */
+    public function testFilter4(): void
     {
         $fileset = new Fileset($this->dir);
         $files   = $fileset->include('**/*.ent.xml')->getFiles();

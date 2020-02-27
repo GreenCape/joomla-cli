@@ -34,34 +34,15 @@ namespace GreenCapeTest;
 use GreenCape\JoomlaCLI\Application;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ApplicationTest
+ *
+ * @testdox Application ...
+ */
 class ApplicationTest extends TestCase
 {
     /** @var  Application */
     private $console;
-
-    /**
-     * @return array
-     */
-    public function commandNameProvider(): array
-    {
-        return [
-			'version'     => ['core:version'],
-			'download'    => ['core:download'],
-            'install'     =>['core:install'],
-            'ext-install' => ['extension:install'],
-			'override'    => ['template:override'],
-        ];
-    }
-
-    /**
-     * @dataProvider commandNameProvider
-     *
-     * @param  string  $command
-     */
-    public function testCommandIsDefined($command): void
-    {
-        $this->assertTrue($this->console->has($command));
-    }
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -78,5 +59,31 @@ class ApplicationTest extends TestCase
      */
     protected function tearDown(): void
     {
+    }
+
+    /**
+     * @return array
+     */
+    public function commandNameProvider(): array
+    {
+        return [
+			'version'     => ['core:version'],
+			'download'    => ['core:download'],
+            'install'     =>['core:install'],
+            'ext-install' => ['extension:install'],
+			'override'    => ['template:override'],
+        ];
+    }
+
+    /**
+     * @testdox      ... knows command `$command`
+     *
+     * @dataProvider commandNameProvider
+     *
+     * @param  string  $command
+     */
+    public function testCommandIsDefined($command): void
+    {
+        $this->assertTrue($this->console->has($command));
     }
 }

@@ -41,6 +41,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
+/**
+ * Class OverrideTest
+ *
+ * @testdox Command `template:override` ...
+ */
 class OverrideTest extends TestCase
 {
     /**
@@ -57,14 +62,29 @@ class OverrideTest extends TestCase
         self::$filesystem = new Filesystem(new Local('tests'));
     }
 
+    protected function tearDown(): void
+    {
+        self::$filesystem->deleteDir('tmp');
+    }
+
+    public function joomlaPackagesWithout10()
+    {
+        $packages = $this->joomlaPackages();
+        unset($packages['1.0']);
+
+        return $packages;
+    }
+
     /**
+     * @testdox      ... creates override files for Joomla! $release (tested with Joomla! $short)
+     *
      * @param  string  $path
      * @param  string  $release
      * @param  string  $short
      * @param  string  $long
      *
      * @throws Exception
-     * @dataProvider joomlaPackages
+     * @dataProvider joomlaPackagesWithout10
      */
     public function testOverride($path, $release, $short, $long): void
     {
@@ -88,10 +108,5 @@ class OverrideTest extends TestCase
             []
         );
         $this->assertTrue($release === '1.0' || count($contents) > 2);
-    }
-
-    protected function tearDown(): void
-    {
-        self::$filesystem->deleteDir('tmp');
     }
 }

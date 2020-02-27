@@ -37,6 +37,11 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\Memory\MemoryAdapter;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class VersionListTest
+ *
+ * @testdox Joomla Repositories
+ */
 class VersionListTest extends TestCase
 {
     /**
@@ -69,8 +74,9 @@ class VersionListTest extends TestCase
     }
 
     /**
-     * @throws FileNotFoundException
      * @testdox Version list contains branches, tags and aliases
+     *
+     * @throws FileNotFoundException
      */
     public function testALot(): void
     {
@@ -111,8 +117,9 @@ class VersionListTest extends TestCase
     }
 
     /**
-     * @throws FileNotFoundException
      * @testdox The version list is cached
+     *
+     * @throws FileNotFoundException
      */
     public function testReuse(): void
     {
