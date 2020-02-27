@@ -62,4 +62,27 @@ class Joomla3Driver extends JoomlaDriver
     {
         return JFactory::getConfig()->get($key);
     }
+
+    /**
+     * Get the queries for creating a super user account
+     *
+     * @param  string  $adminUser
+     * @param  string  $adminPassword
+     * @param  string  $adminEmail
+     *
+     * @return array SQL statements
+     */
+    public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
+    {
+        $cryptPass = password_hash($adminPassword, PASSWORD_DEFAULT);;
+
+        $nullDate    = '0000-00-00 00:00:00';
+        $installDate = date('Y-m-d H:i:s');
+
+        /** @todo Escape admin* values */
+        return [
+            "INSERT INTO `#__users` (id, name, username, email, password, block, sendEmail, registerDate, lastvisitDate, activation, params) VALUES (960, 'Super User', '$adminUser', '$adminEmail', '$cryptPass', 0, 1, registerDate='$installDate', lastvisitDate='$nullDate', activation='', params='')",
+            "INSERT INTO `#__user_usergroup_map` (user_id, group_id) VALUES (960, 8)",
+        ];
+    }
 }

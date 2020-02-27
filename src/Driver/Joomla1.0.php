@@ -95,4 +95,54 @@ class Joomla1Dot0Driver extends JoomlaDriver
 
         return $data;
     }
+
+    /**
+     * Get the queries for creating a super user account
+     *
+     * @param  string  $adminUser
+     * @param  string  $adminPassword
+     * @param  string  $adminEmail
+     *
+     * @return array SQL statements
+     */
+    public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
+    {
+        $salt      = $this->mosMakePassword(16);
+        $crypt     = md5($adminPassword . $salt);
+        $cryptPass = $crypt . ':' . $salt;
+
+        $nullDate    = '0000-00-00 00:00:00';
+        $installDate = date('Y-m-d H:i:s');
+
+        /** @todo Escape admin* values */
+        return [
+            "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminUser', '$adminEmail', '$cryptPass', 'Super Administrator', 0, 1, 25, '$installDate', '$nullDate', '', '')",
+            "INSERT INTO `#__core_acl_aro` VALUES (10,'users','62',0,'Administrator',0)",
+            "INSERT INTO `#__core_acl_groups_aro_map` VALUES (25,'',10)",
+        ];
+    }
+
+    /**
+     * Generate a random password of given length.
+     *
+     * Taken from Joomla 1.0.15 installer.
+     *
+     * @param  int  $length
+     *
+     * @return string
+     */
+    private function mosMakePassword($length): string
+    {
+        $salt = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $len  = strlen($salt);
+        $pass = '';
+
+        mt_srand(10000000 * (double)microtime());
+
+        for ($i = 0; $i < $length; $i++) {
+            $pass .= $salt[mt_rand(0, $len - 1)];
+        }
+
+        return $pass;
+    }
 }
