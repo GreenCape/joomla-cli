@@ -31,56 +31,57 @@
 
 namespace GreenCapeTest;
 
-use Exception;
-use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use GreenCape\JoomlaCLI\Command\Core\InstallCommand;
 use GreenCape\JoomlaCLI\DataSource;
 use GreenCapeTest\JoomlaPackagesTrait;
-use mysqli as MySQLi;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
+/**
+ * Class DataSourceTest
+ *
+ * @testdox DataSource ...
+ */
 class DataSourceTest extends TestCase
 {
-	/**
-	 * @return array
-	 */
-	public function dsnSamples(): array
-	{
-		return [
-			['user:pass@host:3306/base'],
-			['user:pass@host:3306'],
-			['user:pass@host/base'],
-			['user:pass@host'],
-			['host:3306/base'],
-			['user@host:3306/base'],
-		];
-	}
+    /**
+     * @return array
+     */
+    public function dsnSamples(): array
+    {
+        return [
+            ['user:pass@host:3306/base'],
+            ['user:pass@host:3306'],
+            ['user:pass@host/base'],
+            ['user:pass@host'],
+            ['host:3306/base'],
+            ['user@host:3306/base'],
+        ];
+    }
 
-	/**
-	 * @dataProvider dsnSamples
-	 * @testdox DSN strings are parsed correctly
-	 */
-	public function testPattern($sample): void
-	{
-		$dsn = new DataSource($sample, 'user:pass@host:3306/base');
+    /**
+     * @testdox      ... parses '$sample' correctly
+     *
+     * @dataProvider dsnSamples
+     */
+    public function testPattern($sample): void
+    {
+        $dsn = new DataSource($sample, 'user:pass@host:3306/base');
 
-		$this->assertEquals('user', $dsn->getUser());
-		$this->assertEquals('pass', $dsn->getPass());
-		$this->assertEquals('host', $dsn->getHost());
-		$this->assertEquals('3306', $dsn->getPort());
-		$this->assertEquals('base', $dsn->getBase());
-	}
+        $this->assertEquals('user', $dsn->getUser());
+        $this->assertEquals('pass', $dsn->getPass());
+        $this->assertEquals('host', $dsn->getHost());
+        $this->assertEquals('3306', $dsn->getPort());
+        $this->assertEquals('base', $dsn->getBase());
+    }
 
-	/**
-	 * @testdox IP addresses are recognised as host as well
-	 */
-	public function testIP(): void
-	{
-		$dsn = new DataSource('http://127.0.0.1:3307', 'user:pass@host:3306/base');
+    /**
+     * @testdox ... recognises IP addresses for the host as well
+     */
+    public function testIP(): void
+    {
+        $dsn = new DataSource('http://127.0.0.1:3307', 'user:pass@host:3306/base');
 
-		$this->assertEquals('http://127.0.0.1', $dsn->getHost());
-		$this->assertEquals('3307', $dsn->getPort());
-	}
+        $this->assertEquals('http://127.0.0.1', $dsn->getHost());
+        $this->assertEquals('3307', $dsn->getPort());
+    }
 }

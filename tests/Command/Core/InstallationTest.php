@@ -42,6 +42,11 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
 
+/**
+ * Class InstallationTest
+ *
+ * @testdox Command `core:install` ...
+ */
 class InstallationTest extends TestCase
 {
     private static $container = 'fixtures_db_1';
@@ -65,7 +70,7 @@ class InstallationTest extends TestCase
      *
      * $ sudo netstat -peanut | grep ':3306'
      */
-    public static function xsetUpBeforeClass(): void
+    public static function setUpBeforeClass(): void
     {
         shell_exec('docker-compose ' . self::$composeFile . ' up -d 2>&1');
 
@@ -78,7 +83,7 @@ class InstallationTest extends TestCase
         self::markTestSkipped('Could not start database container within 10 seconds');
     }
 
-    public static function xtearDownAfterClass(): void
+    public static function tearDownAfterClass(): void
     {
         shell_exec('docker-compose ' . self::$composeFile . ' down 2>&1');
     }
@@ -94,7 +99,8 @@ class InstallationTest extends TestCase
     }
 
     /**
-     * @testdox If the Joomla version can not be identified at the provided location, the download of the specified Joomla version is started.
+     * @testdox ... downloads the specified Joomla version, if not already present.
+     *
      * @throws Exception
      */
     public function testPresence(): void
@@ -121,6 +127,8 @@ class InstallationTest extends TestCase
     }
 
     /**
+     * @testdox ... installs Joomla! $release (tested with Joomla! $short)
+     *
      * @param  string  $path
      * @param  string  $release
      * @param  string  $short
@@ -128,7 +136,6 @@ class InstallationTest extends TestCase
      *
      * @throws Exception
      * @dataProvider joomlaPackages
-     * @testdox Joomla! $release can be installed (tested with Joomla! $short)
      */
     public function testInstall($path, $release, $short, $long): void
     {

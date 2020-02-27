@@ -34,8 +34,16 @@ namespace GreenCapeTest;
 use GreenCape\JoomlaCLI\Settings;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class SettingsTest
+ *
+ * @testdox Settings ...
+ */
 class SettingsTest extends TestCase
 {
+    /**
+     * @testdox ... provides default database configuration
+     */
     public function testDefaultDatabase(): void
     {
         $settings = new Settings('Test');
@@ -62,6 +70,9 @@ class SettingsTest extends TestCase
         $this->assertEquals($expected, $database);
     }
 
+    /**
+     * @testdox ... merges defaults into environment definition
+     */
     public function testEnvironment(): void
     {
         $settings = new Settings('Test');
