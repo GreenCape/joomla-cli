@@ -20,18 +20,17 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
- * @since           File available since Release 0.1.0
+ * @since           File available since Release __DEPLOY_VERSION__
  */
 
 namespace GreenCape\JoomlaCLI\Command\Core;
 
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Settings;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,9 +38,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * The Core Install command allows the installation of Joomla! from the command line.
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @since       Class available since Release 0.2.0
+ * @since       Class available since Release __DEPLOY_VERSION__
  */
 class InstallCommand extends Command
 {
@@ -110,6 +107,12 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $dir = dirname(__DIR__, 3) . '/build/joomla';
+
+        $settings    = new Settings('Joomla');
+        $environment = $settings->environment($dir . '/default.xml', $dir);
+
+        $output->writeln(print_r($environment, true));
         $output->writeln('Installation failed due to unknown reason.');
 
         return 1;

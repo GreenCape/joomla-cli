@@ -1517,8 +1517,12 @@ class FromPhing
      */
     private function dockerBuildSystem(string $xmlFile): void
     {
-        $environment = (new Settings($this->project['name']))->environment($xmlFile,
-            $this->testEnvironments . '/default.xml');
+        $settings    = new Settings($this->project['name']);
+        $environment = $settings->environment(
+            $xmlFile,
+            $this->testEnvironments . '/default.xml'
+        );
+        $database    = $settings->defaultDatabase($this->testEnvironments);
 
         $domain = "{$environment['name']}.{$environment['server']['tld']}";
 

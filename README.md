@@ -39,14 +39,16 @@ This project uses Phing for task handling.
 ```text
 Default target:
 -------------------------------------------------------------------------------
- build    Builds the PHAR executable after proper preparation
+ build     Builds the PHAR executable after proper preparation
 
 Main targets:
 -------------------------------------------------------------------------------
- build    Builds the PHAR executable after proper preparation
- phar     Create PHAR archive of Joomla CLI and all its dependencies
- phpcs    Find coding standard violations using PHP_CodeSniffer
- phpunit  Run unit tests with PHPUnit
+ build     Builds the PHAR executable after proper preparation
+ clean     Remove vendor, composer.lock for clean re-install; remove phar artifacts
+ composer  (Re-) install dependencies with Composer
+ phar      Create PHAR archive of Joomla CLI and all of its dependencies
+ phpcs     Find coding standard violations using PHP_CodeSniffer
+ phpunit   Run unit tests with PHPUnit
 ```
 
 ### Testing

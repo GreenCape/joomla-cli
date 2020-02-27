@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JoomlaCLI" default="build">
-    <target name="build" depends="prepare,lint,phpcs,phar" description="Builds the PHAR executable after proper preparation"/>
+    <target name="build" depends="lint,phpcs,phar"
+            description="Builds the PHAR executable after proper preparation"/>
 
-    <target name="clean" description="Cleanup build artifacts" hidden="true">
+    <target name="clean" description="Remove vendor, composer.lock for clean re-install; remove phar artifacts">
         <delete dir="${basedir}/bin"/>
         <delete dir="${basedir}/vendor"/>
         <delete file="${basedir}/composer.lock"/>
@@ -12,88 +13,86 @@
         </delete>
     </target>
 
-    <target name="composer" description="Install dependencies with Composer" hidden="true">
+    <target name="composer" description="(Re-) install dependencies with Composer">
         <exec executable="composer">
             <arg value="install"/>
         </exec>
     </target>
 
-    <target name="prepare" depends="clean,composer" description="Prepare for build" hidden="true">
-    </target>
-
     <target name="lint" hidden="true">
         <apply executable="php" failonerror="true">
-            <arg value="-l" />
+            <arg value="-l"/>
 
             <fileset dir="${basedir}/src">
-                <include name="**/*.php" />
+                <include name="**/*.php"/>
             </fileset>
 
             <fileset dir="${basedir}/tests">
-                <include name="**/*.php" />
+                <include name="**/*.php"/>
+                <exclude name="tmp/**/*"/>
             </fileset>
         </apply>
     </target>
 
     <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
         <exec executable="phpcs">
-            <arg value="--standard=PSR2" />
-            <arg value="--extensions=php" />
-            <arg path="${basedir}/src" />
+            <arg value="--standard=PSR2"/>
+            <arg value="--extensions=php"/>
+            <arg path="${basedir}/src"/>
         </exec>
     </target>
 
-    <target name="phpunit" depends="prepare,lint" description="Run unit tests with PHPUnit">
+    <target name="phpunit" depends="lint" description="Run unit tests with PHPUnit">
         <exec executable="${basedir}/vendor/bin/phpunit">
-            <arg value="--configuration" />
-            <arg path="${basedir}/build/phpunit.xml" />
+            <arg value="--configuration"/>
+            <arg path="${basedir}/build/phpunit.xml"/>
         </exec>
     </target>
 
     <target name="phar"
-            description="Create PHAR archive of Joomla CLI and all its dependencies"
+            description="Create PHAR archive of Joomla CLI and all of its dependencies"
             depends="clean,composer,phar-build">
         <mkdir dir="${basedir}/build/phar"/>
     </target>
 
     <target name="phar-build" hidden="true">
         <exec executable="bash" outputProperty="version">
-            <arg value="-c" />
-            <arg value="${basedir}/joomla --version | awk '{print $4}'" />
+            <arg value="-c"/>
+            <arg value="${basedir}/joomla --version | awk '{print $4}'"/>
         </exec>
 
         <copy todir="${basedir}/build/phar/src">
             <fileset dir="${basedir}/src">
-                <include name="**/*.php" />
+                <include name="**/*.php"/>
             </fileset>
         </copy>
 
         <copy todir="${basedir}/build/phar/finder-facade">
             <fileset dir="${basedir}/vendor/sebastian/finder-facade/src">
-                <include name="**/*.php" />
-                <exclude name="**/autoload.php" />
+                <include name="**/*.php"/>
+                <exclude name="**/autoload.php"/>
             </fileset>
         </copy>
 
         <copy todir="${basedir}/build/phar/git">
             <fileset dir="${basedir}/vendor/sebastian/git/src">
-                <include name="**/*.php" />
-                <exclude name="**/autoload.php" />
+                <include name="**/*.php"/>
+                <exclude name="**/autoload.php"/>
             </fileset>
         </copy>
 
         <copy todir="${basedir}/build/phar/version">
             <fileset dir="${basedir}/vendor/sebastian/version/src">
-                <include name="**/*.php" />
-                <exclude name="**/autoload.php" />
+                <include name="**/*.php"/>
+                <exclude name="**/autoload.php"/>
             </fileset>
         </copy>
 
         <copy todir="${basedir}/build/phar/symfony">
             <fileset dir="${basedir}/vendor/symfony">
-                <include name="**/*.php" />
-                <exclude name="**/Tests/**" />
-                <exclude name="**/autoload.php" />
+                <include name="**/*.php"/>
+                <exclude name="**/Tests/**"/>
+                <exclude name="**/autoload.php"/>
             </fileset>
         </copy>
 
@@ -104,15 +103,15 @@
         <exec executable="${basedir}/build/phar-manifest.php" output="${basedir}/build/phar/manifest.txt"/>
 
         <exec executable="phpab" passthru="true">
-            <arg value="--all" />
-            <arg value="--phar" />
-            <arg value="--output" />
-            <arg path="${basedir}/build/joomla-cli-${version}.phar" />
-            <arg value="--template" />
-            <arg path="${basedir}/build/phar-autoload.php.in" />
-            <arg value="--indent" />
-            <arg value="            " />
-            <arg path="${basedir}/build/phar" />
+            <arg value="--all"/>
+            <arg value="--phar"/>
+            <arg value="--output"/>
+            <arg path="${basedir}/build/joomla-cli-${version}.phar"/>
+            <arg value="--template"/>
+            <arg path="${basedir}/build/phar-autoload.php.in"/>
+            <arg value="--indent"/>
+            <arg value="            "/>
+            <arg path="${basedir}/build/phar"/>
         </exec>
 
         <exec command="chmod ugo+rx ${basedir}/build/joomla-cli-${version}.phar" passthru="true"/>

@@ -30,6 +30,8 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\Factory;
+use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
@@ -130,6 +132,6 @@ abstract class Command extends BaseCommand
      */
     protected function loadDriver(InputInterface $input, OutputInterface $output): void
     {
-        $this->joomla = (new DriverFactory)->create($this->joomlaFilesystem);
+        $this->joomla = (new Factory)->create($this->joomlaFilesystem);
     }
 }

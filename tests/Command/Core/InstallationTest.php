@@ -36,8 +36,10 @@ use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
 use GreenCape\JoomlaCLI\Command\Core\InstallCommand;
 use GreenCape\JoomlaCLI\DataSource;
 use GreenCapeTest\Driver\JoomlaPackagesTrait;
+use League\Flysystem\FileNotFoundException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
 
 class InstallationTest extends TestCase
@@ -63,7 +65,7 @@ class InstallationTest extends TestCase
      *
      * $ sudo netstat -peanut | grep ':3306'
      */
-    public static function setUpBeforeClass(): void
+    public static function xsetUpBeforeClass(): void
     {
         shell_exec('docker-compose ' . self::$composeFile . ' up -d 2>&1');
 
@@ -76,7 +78,7 @@ class InstallationTest extends TestCase
         self::markTestSkipped('Could not start database container within 10 seconds');
     }
 
-    public static function tearDownAfterClass(): void
+    public static function xtearDownAfterClass(): void
     {
         shell_exec('docker-compose ' . self::$composeFile . ' down 2>&1');
     }
@@ -92,6 +94,33 @@ class InstallationTest extends TestCase
     }
 
     /**
+     * @testdox If the Joomla version can not be identified at the provided location, the download of the specified Joomla version is started.
+     * @throws Exception
+     */
+    public function testPresence(): void
+    {
+        $base = dirname(__DIR__, 2);
+        $this->assertEquals('tests', basename($base));
+
+        $target = dirname($base) . '/tmp/joomla_install';
+
+        shell_exec("rm -rf $target");
+        mkdir($target, 0777, true);
+
+        $command = new InstallCommand();
+        $output  = new BufferedOutput();
+
+        $gotException = false;
+        try {
+            $command->run(new StringInput('-b ' . $target), $output);
+        } catch (FileNotFoundException $exception) {
+            $gotException = true;
+        }
+
+        $this->assertFalse($gotException, 'Missing installation was not recognised');
+    }
+
+    /**
      * @param  string  $path
      * @param  string  $release
      * @param  string  $short
@@ -99,6 +128,7 @@ class InstallationTest extends TestCase
      *
      * @throws Exception
      * @dataProvider joomlaPackages
+     * @testdox Joomla! $release can be installed (tested with Joomla! $short)
      */
     public function testInstall($path, $release, $short, $long): void
     {

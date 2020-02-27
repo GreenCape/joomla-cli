@@ -29,9 +29,9 @@
 
 namespace GreenCape\JoomlaCLI\Command\Core;
 
-use Exception;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Driver\Version;
+use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -81,7 +81,7 @@ class VersionCommand extends Command
      * @param  OutputInterface  $output  An OutputInterface instance
      *
      * @return  void
-     * @throws Exception
+     * @throws  FileNotFoundException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
