@@ -29,6 +29,9 @@
 
 namespace GreenCape\JoomlaCLI\Driver;
 
+use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
+use GreenCape\JoomlaCLI\Driver\Crypt\PasswordHash;
+use GreenCape\JoomlaCLI\Driver\Crypt\Salted32MD5;
 use JFactory;
 
 /**
@@ -74,7 +77,10 @@ class Joomla3Driver extends JoomlaDriver
      */
     public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
     {
-        $cryptPass = password_hash($adminPassword, PASSWORD_DEFAULT);;
+        $crypt = $this->crypt();
+
+        $salt      = $crypt->createSalt();
+        $cryptPass = $crypt->encryptPassword($adminPassword, $salt);
 
         $nullDate    = '0000-00-00 00:00:00';
         $installDate = date('Y-m-d H:i:s');
@@ -84,5 +90,15 @@ class Joomla3Driver extends JoomlaDriver
             "INSERT INTO `#__users` (id, name, username, email, password, block, sendEmail, registerDate, lastvisitDate, activation, params) VALUES (960, 'Super User', '$adminUser', '$adminEmail', '$cryptPass', 0, 1, registerDate='$installDate', lastvisitDate='$nullDate', activation='', params='')",
             "INSERT INTO `#__user_usergroup_map` (user_id, group_id) VALUES (960, 8)",
         ];
+    }
+
+    /**
+     * Get the encryption strategy
+     *
+     * @return CryptInterface
+     */
+    public function crypt(): CryptInterface
+    {
+        return new PasswordHash();
     }
 }

@@ -32,6 +32,7 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
 use JFactory;
 use JText;
 use League\Flysystem\FileNotFoundException;
@@ -165,4 +166,11 @@ abstract class JoomlaDriver
      * @return array SQL statements
      */
     abstract public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array;
+
+    /**
+     * Get the encryption strategy
+     *
+     * @return CryptInterface
+     */
+    abstract public function crypt(): CryptInterface;
 }

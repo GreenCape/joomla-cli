@@ -31,6 +31,8 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
+use GreenCape\JoomlaCLI\Driver\Crypt\Salted16MD5;
 use JText;
 
 /**
@@ -107,9 +109,10 @@ class Joomla1Dot0Driver extends JoomlaDriver
      */
     public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
     {
-        $salt      = $this->mosMakePassword(16);
-        $crypt     = md5($adminPassword . $salt);
-        $cryptPass = $crypt . ':' . $salt;
+        $crypt = $this->crypt();
+
+        $salt      = $crypt->createSalt();
+        $cryptPass = $crypt->encryptPassword($adminPassword, $salt);
 
         $nullDate    = '0000-00-00 00:00:00';
         $installDate = date('Y-m-d H:i:s');
@@ -123,26 +126,12 @@ class Joomla1Dot0Driver extends JoomlaDriver
     }
 
     /**
-     * Generate a random password of given length.
+     * Get the encryption strategy
      *
-     * Taken from Joomla 1.0.15 installer.
-     *
-     * @param  int  $length
-     *
-     * @return string
+     * @return CryptInterface
      */
-    private function mosMakePassword($length): string
+    public function crypt(): CryptInterface
     {
-        $salt = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        $len  = strlen($salt);
-        $pass = '';
-
-        mt_srand(10000000 * (double)microtime());
-
-        for ($i = 0; $i < $length; $i++) {
-            $pass .= $salt[mt_rand(0, $len - 1)];
-        }
-
-        return $pass;
+        return new Salted16MD5();
     }
 }
