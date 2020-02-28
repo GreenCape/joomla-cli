@@ -44,18 +44,19 @@ class Factory
      * Create a version specific driver to Joomla
      *
      * @param  Filesystem  $filesystem  The Joomla file system
+     * @param  string  $basePath
      *
      * @return  JoomlaDriver
      * @throws FileNotFoundException
      */
-    public function create(Filesystem $filesystem): JoomlaDriver
+    public function create(Filesystem $filesystem, string $basePath): JoomlaDriver
     {
         $parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
         while (!empty($parts)) {
             $version   = implode('Dot', $parts);
             $classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
             if (class_exists($classname)) {
-                return new $classname($filesystem);
+                return new $classname($filesystem, $basePath);
             }
             array_pop($parts);
         }

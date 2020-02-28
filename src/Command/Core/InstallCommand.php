@@ -104,6 +104,7 @@ class InstallCommand extends Command
      * @param  OutputInterface  $output  An OutputInterface instance
      *
      * @return  integer  0 if everything went fine, 1 on error
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -111,6 +112,8 @@ class InstallCommand extends Command
 
         $settings    = new Settings('Joomla');
         $environment = $settings->environment($dir . '/default.xml', $dir);
+
+        $this->setupEnvironment('installation', $input, $output);
 
         $output->writeln(print_r($environment, true));
         $output->writeln('Installation failed due to unknown reason.');

@@ -32,10 +32,10 @@ namespace GreenCape\JoomlaCLI\Driver;
 
 use Exception;
 use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
-use GreenCape\JoomlaCLI\Driver\Crypt\Salted16MD5;
 use GreenCape\JoomlaCLI\Driver\Crypt\Salted32MD5;
 use JFactory;
 use JText;
+use League\Flysystem\Filesystem;
 
 /**
  * Version specific methods
@@ -44,6 +44,18 @@ use JText;
  */
 class Joomla1Dot5Driver extends JoomlaDriver
 {
+    /**
+     * Joomla1Dot5Driver constructor.
+     *
+     * @param  Filesystem  $filesystem
+     * @param  string      $basePath
+     */
+    public function __construct(Filesystem $filesystem, string $basePath)
+    {
+        parent::__construct($filesystem, $basePath);
+        define('_JEXEC', 1);
+    }
+
     /**
      * Setup the environment
      *

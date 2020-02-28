@@ -61,16 +61,18 @@ abstract class JoomlaDriver
      * JoomlaDriver constructor.
      *
      * @param  Filesystem  $filesystem
+     * @param  string      $basePath
      */
-    public function __construct(Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem, string $basePath)
     {
         $this->filesystem = $filesystem;
+        $this->basePath   = $basePath;
     }
 
     /**
      * Setup the environment
      *
-     * @param  string  $application  The application, eg., 'site' or 'administration'
+     * @param  string  $application  The application, eg., 'site', 'administration' or 'installation'
      *
      * @return  void
      * @throws Exception
@@ -88,27 +90,31 @@ abstract class JoomlaDriver
         ];
         $_SERVER = array_merge($_SERVER, $server);
 
-        if (file_exists($this->basePath . '/defines.php')) {
-            include_once $this->basePath . '/defines.php';
+        if ($application === 'installation') {
+            require_once $this->basePath . '/application/bootstrap.php';
+        } else {
+            if (file_exists($this->basePath . '/defines.php')) {
+                include_once $this->basePath . '/defines.php';
+            }
+
+            if (!defined('_JDEFINES')) {
+                define('JPATH_BASE', $this->basePath);
+                require_once JPATH_BASE . '/includes/defines.php';
+            }
+
+            require_once JPATH_BASE . '/includes/framework.php';
+
+            if ($application === 'administrator') {
+                require_once JPATH_BASE . '/includes/helper.php';
+                require_once JPATH_BASE . '/includes/toolbar.php';
+
+                // JUri uses $_SERVER['HTTP_HOST'] without check
+                $_SERVER['HTTP_HOST'] = 'CLI';
+            }
+
+            $app = JFactory::getApplication($application);
+            $app->initialise();
         }
-
-        if (!defined('_JDEFINES')) {
-            define('JPATH_BASE', $this->basePath);
-            require_once JPATH_BASE . '/includes/defines.php';
-        }
-
-        require_once JPATH_BASE . '/includes/framework.php';
-
-        if ($application === 'administrator') {
-            require_once JPATH_BASE . '/includes/helper.php';
-            require_once JPATH_BASE . '/includes/toolbar.php';
-
-            // JUri uses $_SERVER['HTTP_HOST'] without check
-            $_SERVER['HTTP_HOST'] = 'CLI';
-        }
-
-        $app = JFactory::getApplication($application);
-        $app->initialise();
     }
 
     /**

@@ -52,7 +52,6 @@ abstract class Command extends BaseCommand
 
     /**
      * @var string
-     * @deprecated Use Command::$joomlaFilesystem instead
      */
     protected $basePath;
 
@@ -90,7 +89,7 @@ abstract class Command extends BaseCommand
     /**
      * Setup the environment
      *
-     * @param  string           $application  The application, eg., 'site' or 'administration'
+     * @param  string           $application  The application, eg., 'site', 'administrator' or 'installation'
      * @param  InputInterface   $input        An InputInterface instance
      * @param  OutputInterface  $output       An OutputInterface instance
      *
@@ -99,9 +98,21 @@ abstract class Command extends BaseCommand
      */
     protected function setupEnvironment($application, InputInterface $input, OutputInterface $output): void
     {
+        $this->handleBasePath($input, $output);
         $this->loadDriver($input, $output);
-
         $this->joomla->setupEnvironment($application);
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     * @throws FileNotFoundException
+     */
+    protected function loadDriver(InputInterface $input, OutputInterface $output): void
+    {
+        $this->joomla = (new Factory)->create($this->joomlaFilesystem, $this->basePath);
     }
 
     /**
@@ -117,21 +128,10 @@ abstract class Command extends BaseCommand
         $path                   = realpath($input->getOption('basepath'));
         $adapter                = new Local($path);
         $this->joomlaFilesystem = new Filesystem($adapter);
+        $this->basePath         = $path;
 
         $output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
         return $path;
-    }
-
-    /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return void
-     * @throws FileNotFoundException
-     */
-    protected function loadDriver(InputInterface $input, OutputInterface $output): void
-    {
-        $this->joomla = (new Factory)->create($this->joomlaFilesystem);
     }
 }

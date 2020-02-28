@@ -31,8 +31,8 @@ namespace GreenCape\JoomlaCLI\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
 use GreenCape\JoomlaCLI\Driver\Crypt\PasswordHash;
-use GreenCape\JoomlaCLI\Driver\Crypt\Salted32MD5;
 use JFactory;
+use League\Flysystem\Filesystem;
 
 /**
  * Version specific methods
@@ -41,6 +41,18 @@ use JFactory;
  */
 class Joomla3Driver extends JoomlaDriver
 {
+    /**
+     * Joomla3Driver constructor.
+     *
+     * @param  Filesystem  $filesystem
+     * @param  string      $basePath
+     */
+    public function __construct(Filesystem $filesystem, string $basePath)
+    {
+        parent::__construct($filesystem, $basePath);
+        define('_JEXEC', 1);
+    }
+
     /**
      * Set a configuration value.
      *
