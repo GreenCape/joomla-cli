@@ -33,7 +33,9 @@ namespace GreenCape\JoomlaCLI\Driver;
 use Exception;
 use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
 use GreenCape\JoomlaCLI\Driver\Crypt\Salted16MD5;
+use GreenCape\JoomlaCLI\Utility\Expander;
 use JText;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 
 /**
@@ -52,7 +54,10 @@ class Joomla1Dot0Driver extends JoomlaDriver
     public function __construct(Filesystem $filesystem, string $basePath)
     {
         parent::__construct($filesystem, $basePath);
-        define('_VALID_MOS', 1);
+
+        if (!defined('_VALID_MOS')) {
+            define('_VALID_MOS', 1);
+        }
     }
 
     /**
@@ -114,28 +119,34 @@ class Joomla1Dot0Driver extends JoomlaDriver
     /**
      * Get the queries for creating a super user account
      *
+     * @param  string  $engine
      * @param  string  $adminUser
      * @param  string  $adminPassword
      * @param  string  $adminEmail
      *
-     * @return array SQL statements
+     * @return string SQL statements
+     * @throws FileNotFoundException
      */
-    public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
+    public function getRootAccountCreationQuery(string $engine, $adminUser, $adminPassword, $adminEmail): string
     {
-        $crypt = $this->crypt();
-
-        $salt      = $crypt->createSalt();
-        $cryptPass = $crypt->encryptPassword($adminPassword, $salt);
-
-        $nullDate    = '0000-00-00 00:00:00';
-        $installDate = date('Y-m-d H:i:s');
+        $templateDir = $this->buildTemplates . '/' . $engine;
+        $crypt       = $this->crypt();
 
         /** @todo Escape admin* values */
-        return [
-            "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminUser', '$adminEmail', '$cryptPass', 'Super Administrator', 0, 1, 25, '$installDate', '$nullDate', '', '')",
-            "INSERT INTO `#__core_acl_aro` VALUES (10,'users','62',0,'Administrator',0)",
-            "INSERT INTO `#__core_acl_groups_aro_map` VALUES (25,'',10)",
+        $values = [
+            'adminUser'   => $adminUser,
+            'cryptPass'   => $crypt->encryptPassword($adminPassword, $crypt->createSalt()),
+            'adminEmail'  => $adminEmail,
+            'installDate' => date('Y-m-d H:i:s'),
         ];
+
+        $content = file_get_contents($templateDir . '/admin-1.sql');
+
+        if (!is_string($content)) {
+            throw new FileNotFoundException($templateDir . '/admin-1.sql');
+        }
+
+        return (new Expander())->expand($content, $values);
     }
 
     /**

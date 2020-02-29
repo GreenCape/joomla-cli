@@ -33,12 +33,17 @@ namespace GreenCape\JoomlaCLI\Driver;
 use Exception;
 use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
 use GreenCape\JoomlaCLI\Driver\Crypt\Salted32MD5;
+use GreenCape\JoomlaCLI\Utility\Expander;
 use JFactory;
 use JText;
 use League\Flysystem\Filesystem;
 
 if (!function_exists('set_magic_quotes_runtime')) {
-    function set_magic_quotes_runtime() {};
+    function set_magic_quotes_runtime()
+    {
+    }
+
+    ;
 }
 
 /**
@@ -57,7 +62,10 @@ class Joomla1Dot5Driver extends JoomlaDriver
     public function __construct(Filesystem $filesystem, string $basePath)
     {
         parent::__construct($filesystem, $basePath);
-        define('_JEXEC', 1);
+
+        if (!defined('_JEXEC')) {
+            define('_JEXEC', 1);
+        }
     }
 
     /**
@@ -85,7 +93,6 @@ class Joomla1Dot5Driver extends JoomlaDriver
         define('DS', DIRECTORY_SEPARATOR);
 
         require_once JPATH_BASE . '/includes/defines.php';
-        /** @noinspection PhpUndefinedConstantInspection - defined in defines.php */
         require_once JPATH_LIBRARIES . '/loader.php';
 
         spl_autoload_register('__autoload');
@@ -154,28 +161,27 @@ class Joomla1Dot5Driver extends JoomlaDriver
     /**
      * Get the queries for creating a super user account
      *
+     * @param  string  $engine
      * @param  string  $adminUser
      * @param  string  $adminPassword
      * @param  string  $adminEmail
      *
-     * @return array SQL statements
+     * @return string SQL statements
      */
-    public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
+    public function getRootAccountCreationQuery(string $engine, $adminUser, $adminPassword, $adminEmail): string
     {
-        $crypt = $this->crypt();
-
-        $salt      = $crypt->createSalt();
-        $cryptPass = $crypt->encryptPassword($adminPassword, $salt);
-
-        $nullDate    = '0000-00-00 00:00:00';
-        $installDate = date('Y-m-d H:i:s');
+        $templateDir = $this->buildTemplates . '/' . $engine;
+        $crypt       = $this->crypt();
 
         /** @todo Escape admin* values */
-        return [
-            "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminUser', '$adminEmail', '$cryptPass', 'Super Administrator', 0, 1, 25, '$installDate', '$nullDate', '', '')",
-            "INSERT INTO `#__core_acl_aro` VALUES (10,'users','62',0,'Administrator',0)",
-            "INSERT INTO `#__core_acl_groups_aro_map` VALUES (25,'',10)",
+        $values = [
+            'adminUser'   => $adminUser,
+            'cryptPass'   => $crypt->encryptPassword($adminPassword, $crypt->createSalt()),
+            'adminEmail'  => $adminEmail,
+            'installDate' => date('Y-m-d H:i:s'),
         ];
+
+        return (new Expander())->expand(file_get_contents($templateDir . '/admin-1.sql'), $values);
     }
 
     /**

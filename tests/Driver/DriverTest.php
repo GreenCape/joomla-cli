@@ -31,7 +31,6 @@
 
 namespace GreenCapeTest\Driver;
 
-use GreenCape\JoomlaCLI\Command\Core\InstallCommand;
 use GreenCape\JoomlaCLI\Driver\Factory;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
@@ -58,15 +57,42 @@ class DriverTest extends TestCase
      * @throws FileNotFoundException
      * @dataProvider joomlaPackages
      */
-    public function testRootCreate($path, $release, $short, $long): void
+    public function testDbCreate($path, $release, $short, $long): void
     {
-        $adapter = new Local('tests/fixtures/' . $path);
+        $adapter    = new Local('tests/fixtures/' . $path);
         $filesystem = new Filesystem($adapter);
 
         $driver = (new Factory)->create($filesystem, 'tests/fixtures/' . $path);
 
-        $queries = $driver->getRootAccountCreationQuery('admin', 'admin', 'admin@localhost');
+        $queries = $driver->getDatabaseCreationQuery('mysql');
+        $this->assertStringContainsString('CREATE DATABASE IF NOT EXISTS `${environment.database.name}`', $queries);
 
-        $this->assertStringContainsString(' INTO `#__users` ', $queries[0]);
+        $queries = $driver->getDatabaseCreationQuery('postgresql');
+        $this->assertStringContainsString('CREATE DATABASE "${environment.database.name}"', $queries);
+    }
+
+    /**
+     * @testdox      ... can generate SQL for creating root user for Joomla! $release (tested with Joomla! $short)
+     *
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws FileNotFoundException
+     * @dataProvider joomlaPackages
+     */
+    public function testRootCreate($path, $release, $short, $long): void
+    {
+        $adapter    = new Local('tests/fixtures/' . $path);
+        $filesystem = new Filesystem($adapter);
+
+        $driver = (new Factory)->create($filesystem, 'tests/fixtures/' . $path);
+
+        foreach (['mysql', 'postgresql'] as $engine) {
+            $queries = $driver->getRootAccountCreationQuery($engine, 'admin', 'admin', 'admin@localhost');
+
+            $this->assertStringContainsString(' INTO `#__users` ', $queries);
+        }
     }
 }

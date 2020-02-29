@@ -32,6 +32,7 @@ namespace GreenCape\JoomlaCLI\Driver;
 use Exception;
 use GreenCape\JoomlaCLI\Driver\Crypt\CryptInterface;
 use GreenCape\JoomlaCLI\Driver\Crypt\Salted32MD5;
+use GreenCape\JoomlaCLI\Utility\Expander;
 use JFactory;
 use League\Flysystem\Filesystem;
 
@@ -51,7 +52,10 @@ class Joomla2Driver extends JoomlaDriver
     public function __construct(Filesystem $filesystem, string $basePath)
     {
         parent::__construct($filesystem, $basePath);
-        define('_JEXEC', 1);
+
+        if (!defined('_JEXEC')) {
+            define('_JEXEC', 1);
+        }
     }
 
     /**
@@ -99,27 +103,27 @@ class Joomla2Driver extends JoomlaDriver
     /**
      * Get the queries for creating a super user account
      *
+     * @param  string  $engine
      * @param  string  $adminUser
      * @param  string  $adminPassword
      * @param  string  $adminEmail
      *
-     * @return array SQL statements
+     * @return string SQL statements
      */
-    public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array
+    public function getRootAccountCreationQuery(string $engine, $adminUser, $adminPassword, $adminEmail): string
     {
-        $crypt = $this->crypt();
-
-        $salt      = $crypt->createSalt();
-        $cryptPass = $crypt->encryptPassword($adminPassword, $salt);
-
-        $nullDate    = '0000-00-00 00:00:00';
-        $installDate = date('Y-m-d H:i:s');
+        $templateDir = $this->buildTemplates . '/' . $engine;
+        $crypt       = $this->crypt();
 
         /** @todo Escape admin* values */
-        return [
-            "REPLACE INTO `#__users` SET id=42, name='Super User', username='$adminUser', email='$adminEmail', password='$cryptPass', usertype='deprecated', block=0, sendEmail=1, registerDate='$installDate', lastvisitDate='$nullDate', activation='', params=''",
-            "REPLACE INTO `#__user_usergroup_map` SET user_id=42, group_id=8",
+        $values = [
+            'adminUser'   => $adminUser,
+            'cryptPass'   => $crypt->encryptPassword($adminPassword, $crypt->createSalt()),
+            'adminEmail'  => $adminEmail,
+            'installDate' => date('Y-m-d H:i:s'),
         ];
+
+        return (new Expander())->expand(file_get_contents($templateDir . '/admin-2.sql'), $values);
     }
 
     /**

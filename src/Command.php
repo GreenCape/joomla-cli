@@ -104,18 +104,6 @@ abstract class Command extends BaseCommand
     }
 
     /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return void
-     * @throws FileNotFoundException
-     */
-    protected function loadDriver(InputInterface $input, OutputInterface $output): void
-    {
-        $this->joomla = (new Factory)->create($this->joomlaFilesystem, $this->basePath);
-    }
-
-    /**
      * Read the base path from the options
      *
      * @param  InputInterface   $input   An InputInterface instance
@@ -125,7 +113,7 @@ abstract class Command extends BaseCommand
      */
     protected function handleBasePath(InputInterface $input, OutputInterface $output): string
     {
-        $path                   = realpath($input->getOption('basepath'));
+        $path                   = $input->getOption('basepath');
         $adapter                = new Local($path);
         $this->joomlaFilesystem = new Filesystem($adapter);
         $this->basePath         = $path;
@@ -133,5 +121,17 @@ abstract class Command extends BaseCommand
         $output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
         return $path;
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     * @throws FileNotFoundException
+     */
+    protected function loadDriver(InputInterface $input, OutputInterface $output): void
+    {
+        $this->joomla = (new Factory)->create($this->joomlaFilesystem, $this->basePath);
     }
 }

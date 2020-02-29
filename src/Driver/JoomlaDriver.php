@@ -53,6 +53,11 @@ abstract class JoomlaDriver
     protected $basePath;
 
     /**
+     * @var string  Directory of the build templates
+     */
+    protected $buildTemplates;
+
+    /**
      * @var Filesystem
      */
     private $filesystem;
@@ -65,8 +70,9 @@ abstract class JoomlaDriver
      */
     public function __construct(Filesystem $filesystem, string $basePath)
     {
-        $this->filesystem = $filesystem;
-        $this->basePath   = $basePath;
+        $this->filesystem     = $filesystem;
+        $this->basePath       = $basePath;
+        $this->buildTemplates = dirname(__DIR__, 2) . '/build/template';
     }
 
     /**
@@ -163,15 +169,41 @@ abstract class JoomlaDriver
     }
 
     /**
+     * Get the query for database creation
+     *
+     * @param  string  $engine
+     *
+     * @return string
+     * @throws FileNotFoundException
+     */
+    public function getDatabaseCreationQuery(string $engine): string
+    {
+        $sqlFile  = $this->buildTemplates . '/' . $engine . '/createdb.sql';
+        $contents = file_get_contents($sqlFile);
+
+        if (!is_string($contents)) {
+            throw new FileNotFoundException($sqlFile);
+        }
+
+        return $contents;
+    }
+
+    /**
      * Get the queries for creating a super user account
      *
+     * @param  string  $engine
      * @param  string  $adminUser
      * @param  string  $adminPassword
      * @param  string  $adminEmail
      *
-     * @return array SQL statements
+     * @return string SQL statements
      */
-    abstract public function getRootAccountCreationQuery($adminUser, $adminPassword, $adminEmail): array;
+    abstract public function getRootAccountCreationQuery(
+        string $engine,
+        $adminUser,
+        $adminPassword,
+        $adminEmail
+    ): string;
 
     /**
      * Get the encryption strategy
@@ -179,4 +211,18 @@ abstract class JoomlaDriver
      * @return CryptInterface
      */
     abstract public function crypt(): CryptInterface;
+
+    /**
+     * @param          $engine
+     * @param  string  $data
+     *
+     * @return string
+     * @throws FileNotFoundException
+     */
+    public function getDatabaseSeed($engine, $data = ''): string
+    {
+        $data = empty($data) ? 'joomla.sql' : 'sample_' . $data . '.sql';
+
+        return $this->filesystem->read('installation/sql/' . $engine . '/' . $data);
+    }
 }

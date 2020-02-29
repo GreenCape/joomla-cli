@@ -47,7 +47,7 @@ class Application extends BaseApplication
      */
     public function __construct()
     {
-        parent::__construct('Joomla CLI', '0.2.0');
+        parent::__construct('Joomla CLI', '__DEPLOY_VERSION__');
         $this->setCatchExceptions(false);
         $this->addPlugins(__DIR__ . '/Command');
     }
@@ -82,15 +82,19 @@ class Application extends BaseApplication
      */
     public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
+        if (null === $output) {
+            $output = new ConsoleOutput();
+        }
+
         try {
-            parent::run($input, $output);
-        } catch (Exception $e) {
-            if (null === $output) {
-                $output = new ConsoleOutput();
-            }
             $message = [
                 $this->getLongVersion(),
                 '',
+            ];
+            $output->writeln($message);
+            parent::run($input, $output);
+        } catch (Exception $e) {
+            $message = [
                 $e->getMessage(),
                 '',
             ];

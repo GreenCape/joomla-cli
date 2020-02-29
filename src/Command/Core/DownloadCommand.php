@@ -166,14 +166,14 @@ class DownloadCommand extends Command
         $tarball   = $cachePath . '/' . $version . '.tar.gz';
 
         if (!$versions->isBranch($version) && file_exists($tarball)) {
-            $this->output->writeln("$requested: Joomla $version is already in cache",
+            $this->output->writeln("$requested: Joomla! $version is already in cache",
                 OutputInterface::VERBOSITY_VERBOSE);
 
             return $tarball;
         }
 
         if ($versions->isBranch($version)) {
-            $this->output->writeln("$requested: Downloading Joomla $version branch",
+            $this->output->writeln("$requested: Downloading Joomla! $version branch",
                 OutputInterface::VERBOSITY_VERBOSE);
             $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
 
@@ -181,7 +181,7 @@ class DownloadCommand extends Command
         }
 
         if ($versions->isTag($version)) {
-            $this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
+            $this->output->writeln("$requested: Downloading Joomla! $version", OutputInterface::VERBOSITY_VERBOSE);
 
             try // to get the official release for that version
             {

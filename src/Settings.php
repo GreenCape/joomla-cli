@@ -143,7 +143,11 @@ class Settings
         $database = $this->defaultDatabase($defaultDir);
 
         // Get the database info - use global values, if not provided with local environment
-        $environment['database']['name'] = $environment['database']['name'] ?? $database[$environment['database']['engine']]['name'];
+        $environment['database']['version']      = $environment['database']['version'] ?? $database[$environment['database']['engine']]['version'];
+        $environment['database']['name']         = $environment['database']['name'] ?? $database[$environment['database']['engine']]['name'];
+        $environment['database']['user']         = $environment['database']['user'] ?? $database[$environment['database']['engine']]['user'];
+        $environment['database']['password']     = $environment['database']['password'] ?? $database[$environment['database']['engine']]['password'];
+        $environment['database']['rootPassword'] = $environment['database']['rootPassword'] ?? $database[$environment['database']['engine']]['rootPassword'];
 
         return $environment;
     }
@@ -160,16 +164,21 @@ class Settings
         $database = [
             'mysql'      => [
                 'version'      => 'latest',
+                'host'         => 'localhost',
+                'port'         => '3306',
                 'name'         => 'joomla_test',
                 'user'         => 'db_user',
                 'password'     => 'db_pass',
                 'rootPassword' => '',
             ],
             'postgresql' => [
-                'version'  => 'latest',
-                'name'     => 'joomla_test',
-                'user'     => 'db_user',
-                'password' => 'db_pass',
+                'version'      => 'latest',
+                'host'         => 'localhost',
+                'port'         => '5432',
+                'name'         => 'joomla_test',
+                'user'         => 'db_user',
+                'password'     => 'db_pass',
+                'rootPassword' => '',
             ],
         ];
 
