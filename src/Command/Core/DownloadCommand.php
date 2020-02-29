@@ -51,204 +51,199 @@ use Throwable;
  */
 class DownloadCommand extends Command
 {
-	/**
-	 * @var string
-	 */
-	private $versionFile;
+    /**
+     * @var string
+     */
+    private $versionFile;
 
-	/**
-	 * @var string
-	 */
-	private $version;
+    /**
+     * @var string
+     */
+    private $version;
 
-	/**
-	 * @var string
-	 */
-	private $cachePath;
+    /**
+     * @var string
+     */
+    private $cachePath;
 
-	/**
-	 * @var OutputInterface
-	 */
-	private $output;
+    /**
+     * @var OutputInterface
+     */
+    private $output;
 
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('core:download')
-			->setDescription('Downloads a Joomla! version and unpacks it to the base path')
-			->addArgument(
-				'version',
-				InputArgument::OPTIONAL,
-				'The Joomla! version to install.',
-				'latest'
-			)
-			->addOption(
-				'file',
-				'f',
-				InputArgument::OPTIONAL,
-				'Location of the version cache file',
-				'/tmp/versions.json'
-			)
-			->addOption(
-				'cache',
-				'c',
-				InputArgument::OPTIONAL,
-				'Location of the cache for Joomla! packages',
-				'.cache'
-			);
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('core:download')
+            ->setDescription('Downloads a Joomla! version and unpacks it to the base path')
+            ->addArgument(
+                'version',
+                InputArgument::OPTIONAL,
+                'The Joomla! version to install.',
+                'latest'
+            )
+            ->addOption(
+                'file',
+                'f',
+                InputArgument::OPTIONAL,
+                'Location of the version cache file',
+                '/tmp/versions.json'
+            )
+            ->addOption(
+                'cache',
+                'c',
+                InputArgument::OPTIONAL,
+                'Location of the cache for Joomla! packages',
+                '.cache'
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @throws FileNotFoundException
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$this->output      = $output;
-		$this->version     = $input->getArgument('version');
-		$this->versionFile = $input->getOption('file');
-		$this->cachePath   = $input->getOption('cache');
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws FileNotFoundException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $this->output      = $output;
+        $this->version     = $input->getArgument('version');
+        $this->versionFile = $input->getOption('file');
+        $this->cachePath   = $input->getOption('cache');
 
-		$basePath = $input->getOption('basepath');
+        $basePath = $input->getOption('basepath');
 
-		$versionList = $this->getAvailableVersions();
-		$this->createPath($this->cachePath);
+        $versionList = $this->getAvailableVersions();
+        $this->createPath($this->cachePath);
 
-		$tarball = $this->getTarball($versionList);
-		$this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $tarball = $this->getTarball($versionList);
+        $this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-		$this->unpack($basePath, $tarball);
+        $this->unpack($basePath, $tarball);
 
-		$this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
-	}
+        $this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+    }
 
-	/**
-	 * @param VersionList $versions
-	 *
-	 * @return string
-	 */
-	private function getTarball(VersionList $versions): string
-	{
-		$version   = $this->version;
-		$cachePath = $this->cachePath;
+    /**
+     * @return VersionList
+     * @throws FileNotFoundException
+     */
+    private function getAvailableVersions(): VersionList
+    {
+        $filesystem = new Filesystem(new Local(dirname($this->versionFile)));
+        $cacheFile  = basename($this->versionFile);
 
-		$requested = $version;
-		$version   = $versions->resolve($version);
-		$tarball   = $cachePath . '/' . $version . '.tar.gz';
+        return new VersionList($filesystem, $cacheFile);
+    }
 
-		if (!$versions->isBranch($version) && file_exists($tarball))
-		{
-			$this->output->writeln("$requested: Joomla $version is already in cache", OutputInterface::VERBOSITY_VERBOSE);
+    private function createPath(string $path): void
+    {
+        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
+            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
+        }
+    }
 
-			return $tarball;
-		}
+    /**
+     * @param  VersionList  $versions
+     *
+     * @return string
+     */
+    private function getTarball(VersionList $versions): string
+    {
+        $version   = $this->version;
+        $cachePath = $this->cachePath;
 
-		if ($versions->isBranch($version))
-		{
-			$this->output->writeln("$requested: Downloading Joomla $version branch", OutputInterface::VERBOSITY_VERBOSE);
-			$url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
+        $requested = $version;
+        $version   = $versions->resolve($version);
+        $tarball   = $cachePath . '/' . $version . '.tar.gz';
 
-			return $this->download($tarball, $url);
-		}
+        if (!$versions->isBranch($version) && file_exists($tarball)) {
+            $this->output->writeln("$requested: Joomla $version is already in cache",
+                OutputInterface::VERBOSITY_VERBOSE);
 
-		if ($versions->isTag($version))
-		{
-			$this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
+            return $tarball;
+        }
 
-			try // to get the official release for that version
-			{
-				$this->output->writeln('Trying release channel', OutputInterface::VERBOSITY_VERY_VERBOSE);
-				$url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
+        if ($versions->isBranch($version)) {
+            $this->output->writeln("$requested: Downloading Joomla $version branch",
+                OutputInterface::VERBOSITY_VERBOSE);
+            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
 
-				return $this->download($tarball, $url);
-			}
-			catch (Throwable $exception) // else get it from the archive
-			{
-				$repository = $versions->getRepository($version);
-				$this->output->writeln("Trying {$repository} archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
-				$url = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
+            return $this->download($tarball, $url);
+        }
 
-				return $this->download($tarball, $url);
-			}
-		}
-		throw new RuntimeException("$requested: Version is unknown");
-	}
+        if ($versions->isTag($version)) {
+            $this->output->writeln("$requested: Downloading Joomla $version", OutputInterface::VERBOSITY_VERBOSE);
 
-	/**
-	 * @return VersionList
-	 * @throws FileNotFoundException
-	 */
-	private function getAvailableVersions(): VersionList
-	{
-		$filesystem = new Filesystem(new Local(dirname($this->versionFile)));
-		$cacheFile  = basename($this->versionFile);
+            try // to get the official release for that version
+            {
+                $this->output->writeln('Trying release channel', OutputInterface::VERBOSITY_VERY_VERBOSE);
+                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
 
-		return new VersionList($filesystem, $cacheFile);
-	}
+                return $this->download($tarball, $url);
+            } catch (Throwable $exception) // else get it from the archive
+            {
+                $repository = $versions->getRepository($version);
+                $this->output->writeln("Trying {$repository} archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
+                $url = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
 
-	private function createPath(string $path): void
-	{
-		if (!@mkdir($path, 0777, true) && !is_dir($path))
-		{
-			throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
-		}
-	}
+                return $this->download($tarball, $url);
+            }
+        }
+        throw new RuntimeException("$requested: Version is unknown");
+    }
 
-	/**
-	 * @param string $filename
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	private function download(string $filename, string $url): string
-	{
-		$bytes = file_put_contents($filename, @fopen($url, 'rb'));
+    /**
+     * @param          $basePath
+     * @param  string  $tarball
+     */
+    private function unpack($basePath, string $tarball): void
+    {
+        $this->createPath($basePath);
+        shell_exec("tar -zxvf {$tarball} -C {$basePath} --exclude-vcs");
 
-		if ($bytes === false || $bytes === 0)
-		{
-			throw new RuntimeException("Failed to download $url");
-		}
+        // If $basePath contains only a single directory, we need to lift everything up one level.
+        $dirList = glob("{$basePath}/*", GLOB_ONLYDIR);
 
-		return $filename;
-	}
+        if (count($dirList) === 1) {
+            $subDir  = $dirList[0];
+            $dirList = array_filter(
+                glob("{$subDir}/{*,.*}", GLOB_NOSORT | GLOB_BRACE),
+                static function ($filename) {
+                    $basename = basename($filename);
 
-	/**
-	 * @param        $basePath
-	 * @param string $tarball
-	 */
-	private function unpack($basePath, string $tarball): void
-	{
-		$this->createPath($basePath);
-		shell_exec("tar -zxvf {$tarball} -C {$basePath} --exclude-vcs");
+                    return ($basename !== '.' && $basename !== '..');
+                }
+            );
+            foreach ($dirList as $item) {
+                shell_exec("mv {$item} {$basePath}");
+            }
+            shell_exec("rm -d {$subDir}");
+        }
+    }
 
-		// If $basePath contains only a single directory, we need to lift everything up one level.
-		$dirList = glob("{$basePath}/*", GLOB_ONLYDIR);
+    /**
+     * @param  string  $filename
+     * @param  string  $url
+     *
+     * @return string
+     */
+    private function download(string $filename, string $url): string
+    {
+        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
 
-		if (count($dirList) === 1)
-		{
-			$subDir  = $dirList[0];
-			$dirList = array_filter(
-				glob("{$subDir}/{*,.*}", GLOB_NOSORT | GLOB_BRACE),
-				static function ($filename) {
-					$basename = basename($filename);
+        if ($bytes === false || $bytes === 0) {
+            throw new RuntimeException("Failed to download $url");
+        }
 
-					return ($basename !== '.' && $basename !== '..');
-				}
-			);
-			foreach ($dirList as $item)
-			{
-				shell_exec("mv {$item} {$basePath}");
-			}
-			shell_exec("rm -d {$subDir}");
-		}
-	}
+        return $filename;
+    }
 }

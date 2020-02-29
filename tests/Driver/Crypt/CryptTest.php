@@ -115,7 +115,7 @@ class CryptTest extends TestCase
     public function testCreatePassword($plainPassword, $encryptedPassword, $path, $version): void
     {
         $filesystem = new Filesystem(new Local('tests/fixtures/' . $path));
-        $driver     = (new Factory())->create($filesystem);
+        $driver     = (new Factory())->create($filesystem, 'tests/fixtures/' . $path);
         $crypt      = $driver->crypt();
 
         $parts  = explode(':', $encryptedPassword);

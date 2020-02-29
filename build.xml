@@ -43,7 +43,7 @@
     </target>
 
     <target name="phpunit" depends="lint" description="Run unit tests with PHPUnit">
-        <exec executable="${basedir}/vendor/bin/phpunit">
+        <exec executable="${basedir}/vendor/bin/phpunit" passthru="true" checkreturn="true">
             <arg value="--configuration"/>
             <arg path="${basedir}/build/phpunit.xml"/>
         </exec>

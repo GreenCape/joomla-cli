@@ -37,6 +37,10 @@ use JFactory;
 use JText;
 use League\Flysystem\Filesystem;
 
+if (!function_exists('set_magic_quotes_runtime')) {
+    function set_magic_quotes_runtime() {};
+}
+
 /**
  * Version specific methods
  *

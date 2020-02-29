@@ -139,6 +139,8 @@ class InstallationTest extends TestCase
      */
     public function testInstall($path, $release, $short, $long): void
     {
+        $er = error_reporting(E_ALL & ~E_NOTICE);
+
         $this->setupFilesystem($path, $short);
 
         $command = new InstallCommand();
@@ -168,6 +170,8 @@ class InstallationTest extends TestCase
         $result = shell_exec("docker exec -i {$container} sh -c 'exec mysql -u{$user} -p\"{$pass}\" {$base}' < tests/tmp/{$path}/query.sql 2>&1");
 
         $this->assertEquals('Foo', $result, "MySQL: {$result}");
+
+        error_reporting($er);
     }
 
     /**
@@ -178,6 +182,6 @@ class InstallationTest extends TestCase
      */
     private function setupFilesystem($path, $short): void
     {
-        (new DownloadCommand())->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), new NullOutput());
+        (new DownloadCommand())->run(new StringInput("-b tmp/$path -c tmp/cache $short"), new NullOutput());
     }
 }

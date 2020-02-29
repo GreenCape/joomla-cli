@@ -63,7 +63,7 @@ class DriverTest extends TestCase
         $adapter = new Local('tests/fixtures/' . $path);
         $filesystem = new Filesystem($adapter);
 
-        $driver = (new Factory)->create($filesystem);
+        $driver = (new Factory)->create($filesystem, 'tests/fixtures/' . $path);
 
         $queries = $driver->getRootAccountCreationQuery('admin', 'admin', 'admin@localhost');
 

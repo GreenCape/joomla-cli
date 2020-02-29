@@ -31,8 +31,10 @@ namespace GreenCape\JoomlaCLI\Command\Core;
 
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Settings;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -52,6 +54,12 @@ class InstallCommand extends Command
         $this
             ->setName('core:install')
             ->setDescription('Installs Joomla!')
+            ->addArgument(
+                'version',
+                InputArgument::OPTIONAL,
+                'The Joomla! version to install. Ignored, when an installable Joomla version is found at the base path',
+                'latest'
+            )
             ->addOption(
                 'admin',
                 'a',
@@ -113,11 +121,35 @@ class InstallCommand extends Command
         $settings    = new Settings('Joomla');
         $environment = $settings->environment($dir . '/default.xml', $dir);
 
+        $basePath = $input->getOption('basepath');
+        if (!is_dir($basePath . '/installation')) {
+            $this->download($input, $output);
+        }
+
         $this->setupEnvironment('installation', $input, $output);
 
         $output->writeln(print_r($environment, true));
         $output->writeln('Installation failed due to unknown reason.');
 
         return 1;
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @throws \Exception
+     */
+    private function download(InputInterface $input, OutputInterface $output): void
+    {
+        $o = $input->getOptions();
+        $a = $input->getArguments();
+        unset($a['command']);
+        $download = new DownloadCommand();
+        if (!array_key_exists('version', $a)) {
+            $a['version'] = 'latest';
+        }
+        $args = " --basepath={$o['basepath']} {$a['version']}";
+        $download->run(new StringInput($args), $output);
     }
 }
