@@ -93,12 +93,10 @@ class VersionCommand extends Command
         $version = new Version($this->joomlaFilesystem);
 
         if ($input->getOption('short')) {
-            /** @noinspection PhpUndefinedMethodInspection */
             $result = $version->getShortVersion();
         } elseif ($input->getOption('release')) {
             $result = $version->getRelease();
         } else {
-            /** @noinspection PhpUndefinedMethodInspection */
             $result = $version->getLongVersion();
         }
         $output->writeln($result);

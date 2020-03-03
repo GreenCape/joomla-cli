@@ -32,7 +32,9 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\DriverFactory;
 use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,7 +55,6 @@ abstract class Command extends BaseCommand
 
     /**
      * @var string
-     * @deprecated Use Command::$joomlaFilesystem instead
      */
     protected $basePath;
 
@@ -110,6 +111,7 @@ abstract class Command extends BaseCommand
      * @param  OutputInterface  $output
      *
      * @return void
+     * @throws FileNotFoundException
      */
     protected function loadDriver(InputInterface $input, OutputInterface $output): void
     {

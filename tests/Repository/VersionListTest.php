@@ -32,7 +32,6 @@
 namespace GreenCapeTest\Repository;
 
 use GreenCape\JoomlaCLI\Repository\VersionList;
-use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Memory\MemoryAdapter;
@@ -62,7 +61,6 @@ class VersionListTest extends TestCase
     }
 
     /**
-     * @throws FileExistsException
      * @throws FileNotFoundException
      */
     public function setUp(): void
@@ -113,7 +111,6 @@ class VersionListTest extends TestCase
     }
 
     /**
-     * @throws FileExistsException
      * @throws FileNotFoundException
      * @testdox The version list is cached
      */

@@ -31,6 +31,7 @@
 
 namespace GreenCape\JoomlaCLI\Command\Extension;
 
+use Exception;
 use GreenCape\JoomlaCLI\Command;
 use JInstaller;
 use JInstallerHelper;
@@ -73,6 +74,7 @@ class InstallCommand extends Command
      * @param  OutputInterface  $output  An OutputInterface instance
      *
      * @return  integer  0 if everything went fine, 1 on error
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -132,14 +134,12 @@ class InstallCommand extends Command
         $manifest = $installer->getManifest();
         $data     = $this->joomla->getExtensionInfo($manifest);
 
-        $message = [
+        return [
             'Installed ' . $data['type'] . ' <info>' . $data['name'] . '</info> version <info>' . $data['version'] . '</info>',
             '',
             wordwrap($data['description'], 60),
             '',
         ];
-
-        return $message;
     }
 
     /**
