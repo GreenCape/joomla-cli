@@ -497,6 +497,24 @@ class FromPhing
 
     /**
      * @param  Fileset|string  $fileset
+     * @param  string          $toDir
+     * @param  callable|null   $filter
+     */
+    private function copy($fileset, string $toDir, callable $filter = null): void
+    {
+        if (is_string($fileset)) {
+            $this->copyFile($fileset, $toDir, $filter);
+
+            return;
+        }
+
+        foreach ($fileset->getFiles() as $file) {
+            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
+        }
+    }
+
+    /**
+     * @param  Fileset|string  $fileset
      * @param  callable        $filter
      */
     private function reflexive($fileset, callable $filter): void
@@ -510,6 +528,28 @@ class FromPhing
         foreach ($fileset->getFiles() as $file) {
             $this->copyFile($file, $file, $filter);
         }
+    }
+
+    /**
+     * @param  string         $file
+     * @param  string         $toFile
+     * @param  callable|null  $filter
+     */
+    private function copyFile(string $file, string $toFile, callable $filter = null): void
+    {
+        if (is_dir($file)) {
+            return;
+        }
+
+        $this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
+
+        $content = file_get_contents($file);
+
+        if (is_callable($filter)) {
+            $content = $filter($content);
+        }
+
+        file_put_contents($toFile, $content);
     }
 
     /**
@@ -546,6 +586,41 @@ class FromPhing
         }
     }
 
+    /*********************************
+     * Quality Metrics related tasks *
+     *********************************/
+
+    /**
+     * Checks if (every file from) target is newer than (every file from) source
+     *
+     * @param  Fileset|string  $target
+     * @param  Fileset|string  ...$sources
+     *
+     * @return bool
+     */
+    private function isUptodate($target, ...$sources): bool
+    {
+        $targetFiles = is_string($target) ? [$target] : $target->getFiles();
+
+        $targetTime = array_reduce(
+            $targetFiles,
+            static function ($carry, $file) {
+                return min($carry, filemtime($file));
+            }
+        );
+
+        foreach ($sources as $source) {
+            $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
+            foreach ($sourceFiles as $file) {
+                if (filemtime($file) > $targetTime) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      *
      */
@@ -573,10 +648,6 @@ class FromPhing
         $this->exec("tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
             $this->dist['basedir']);
     }
-
-    /*********************************
-     * Quality Metrics related tasks *
-     *********************************/
 
     /**
      * Performs all tests and generates documentation and the quality report.
@@ -655,6 +726,10 @@ class FromPhing
         $this->mkdir("{$this->build}/logs");
     }
 
+    /***************************
+     * Patch Set related tasks *
+     ***************************/
+
     /**
      * Runs all tests locally and in the test containers.
      *
@@ -667,6 +742,10 @@ class FromPhing
         $this->testSystem();
         $this->testCoverageReport();
     }
+
+    /**********************
+     * Test related tasks *
+     **********************/
 
     /**
      * Generates a quality report using CodeBrowser.
@@ -699,10 +778,6 @@ class FromPhing
             $this->build . '/report/api', '../uml');
     }
 
-    /***************************
-     * Patch Set related tasks *
-     ***************************/
-
     /**
      * Generate autoload script
      */
@@ -711,10 +786,6 @@ class FromPhing
         $this->exec("{$this->bin}/phpab --tolerant --basedir . --output {$this->tests}/autoload.php {$this->tests}");
         $this->exec("{$this->bin}/phpab --tolerant --basedir {$this->source} --output {$this->source}/autoload.php {$this->source}");
     }
-
-    /**********************
-     * Test related tasks *
-     **********************/
 
     /**
      * Cleanup distribution directory
@@ -840,6 +911,10 @@ class FromPhing
         $this->exec($command);
     }
 
+    /******************************
+     * Distribution related tasks *
+     ******************************/
+
     /**
      * Generates pmd.xml using PHP MessDetector.
      */
@@ -883,9 +958,9 @@ class FromPhing
         $this->exec($command);
     }
 
-    /******************************
-     * Distribution related tasks *
-     ******************************/
+    /******************
+     * Internal tasks *
+     ******************/
 
     /**
      * Aggregates the results from all the measurement tools.
@@ -937,10 +1012,6 @@ class FromPhing
         $command = new UmlCommand();
         $command->run($input, $this->output);
     }
-
-    /******************
-     * Internal tasks *
-     ******************/
 
     /**
      * Generates CHANGELOG.md from the git commit history.
@@ -1026,6 +1097,274 @@ class FromPhing
     }
 
     /**
+     * Run integrations tests on a single test installation
+     *
+     * @param $environmentDefinition
+     */
+    private function testIntegrationSingle($environmentDefinition): void
+    {
+        $target = basename($environmentDefinition, '.xml');
+
+        // Get the environment settings
+        $environment = $this->merge(
+            $this->merge(
+                [
+                    'name'   => $target,
+                    'server' => [
+                        'type' => 'nginx',
+                        'tld'  => 'dev',
+                    ],
+                ],
+                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
+            ),
+            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
+        );
+        $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
+        $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
+
+        $container = $environment['server']['type'] === 'nginx' ? 'servers_php_1' : "servers_{$environment['server']['type']}_1";
+
+        $uptodate = $this->isUptodate("{$this->build}/logs/coverage/integration-{$target}.cov",
+            $this->sourceFiles,
+            $this->integrationTestFiles,
+            (new Fileset($this->testEnvironments))
+                ->include($environmentDefinition)
+        );
+
+        if ($uptodate) {
+            $this->echo("Integration test for {$target} is up to date - skipping.", 'info');
+
+            return;
+        }
+
+        $this->echo("Integration test on {$target}", 'info');
+        $this->delete("{$cmsRoot}/build/logs");
+        $this->mkdir("{$cmsRoot}/build/logs");
+
+        $applications = (new Fileset("{$cmsRoot}/tests/integration"))->include('*',
+            Fileset::NO_RECURSE | Fileset::ONLY_DIRS);
+
+        foreach ($applications as $application) {
+            $this->testIntegrationApp($application, $domain, $cmsRoot, $target, $container);
+        }
+
+        $merger = new CoverageMerger();
+        $merger
+            ->fileset((new Fileset("{$cmsRoot}/build/logs"))->include('**/*.cov'))
+            ->pattern("/var/www/html/{$domain}")
+            ->replace("{$this->source}/")
+            ->php("{$cmsRoot}/build/logs/integration-{$target}.cov")
+            ->merge()
+        ;
+
+        $this->copy(
+            new Fileset("{$cmsRoot}/build/logs/integration-{$target}.cov"),
+            "{$this->build}/logs/coverage",
+            static function ($content) use ($target) {
+                return preg_replace("~'(.*?)Test::test~", "'{$target}: \1Test::test", $content);
+            }
+        );
+    }
+
+    /**
+     * Stops and removes the test containers.
+     */
+    public function dockerStop(): void
+    {
+        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
+            $this->echo('Servers are not set up. Nothing to do', 'info');
+
+            return;
+        }
+
+        $this->exec(
+            'docker-compose stop',
+            $this->serverDockyard
+        );
+
+        // Give the containers time to stop
+        sleep(2);
+    }
+
+    /**
+     * Runs system tests on a single test installation.
+     *
+     * @param $environmentDefinition
+     */
+    private function testSystemSingle($environmentDefinition): void
+    {
+        $target = basename($environmentDefinition, '.xml');
+
+        // Get the environment settings
+        $environment = $this->merge(
+            $this->merge(
+                [
+                    'name'    => $target,
+                    'server'  => [
+                        'type' => 'nginx',
+                        'tld'  => 'dev',
+                    ],
+                    'browser' => [
+                        'type' => 'firefox',
+                    ],
+                ],
+                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
+            ),
+            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
+        );
+        $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
+        $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
+
+        $systemTestFilter = static function ($content) use ($environment, $domain, $target) {
+            return str_replace(
+                [
+                    '@CMS_ROOT@',
+                    '@TARGET@',
+                    '@DOMAIN@',
+                    '@BROWSER@',
+                ],
+                [
+                    "/var/www/html/{$domain}",
+                    $target,
+                    $domain,
+                    $environment['browser']['type'],
+                ],
+                $content
+            );
+        };
+
+        $this->echo("System test for {$target} on {$domain}", 'info');
+
+        // Find bootstrap file
+        $bootstrap = $this->versionMatch(
+            'bootstrap-(.*).php',
+            "{$this->buildTemplates}/template/tests/system",
+            $this->environment['joomla']['version']
+        );
+
+        if (empty($bootstrap)) {
+            throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
+        }
+
+        // Configure bootstrap file
+        $this->copy(
+            $bootstrap,
+            "{$cmsRoot}/tests/system/bootstrap.php",
+            $systemTestFilter
+        );
+
+        // Configure phpunit
+        $this->copy(
+            "{$this->buildTemplates}/template/tests/system/phpunit.xml",
+            "{$cmsRoot}/tests/system/phpunit.xml",
+            $systemTestFilter
+        );
+
+        $container = "servers_{$environment['server']['type']}_1";
+
+        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
+
+        $this->copy(
+            (new Fileset("{$cmsRoot}/build/logs"))
+                ->include('system-*.cov'),
+            "{$this->build}/logs/coverage",
+            function ($content) use ($target, $domain) {
+                $content = str_replace("/var/www/html/{$domain}", $this->source, $content);
+                $content = preg_replace("~'(.*?)Test::test~", "{$target}: \1Test::test", $content);
+
+                return $content;
+            }
+        );
+    }
+
+    /**
+     * @param $pattern
+     * @param $path
+     * @param $version
+     *
+     * @return string|null
+     */
+    private function versionMatch($pattern, $path, $version): ?string
+    {
+        $bestVersion = '0';
+        $bestFile    = null;
+        foreach (glob("$path/*") as $filename) {
+            if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1],
+                    '<') && version_compare($match[1], $version, '<=')) {
+                $bestVersion = $match[1];
+                $bestFile    = $filename;
+            }
+        }
+
+        return $bestFile;
+    }
+
+    /**
+     * @param          $version
+     * @param  string  $versionCache
+     * @param  string  $downloadCache
+     *
+     * @return string
+     * @throws FileNotFoundException
+     */
+    private function joomlaDownload($version, string $versionCache, string $downloadCache): string
+    {
+        $versions  = $this->joomlaVersions($versionCache);
+        $requested = $version;
+        $version   = $versions->resolve($version);
+        $tarball   = $downloadCache . '/' . $version . '.tar.gz';
+
+        if (!$versions->isBranch($version) && file_exists($tarball)) {
+            return $tarball;
+        }
+
+        if ($versions->isBranch($version)) {
+            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
+
+            return $this->download($tarball, $url);
+        }
+
+        if ($versions->isTag($version)) {
+            try // to get the official release for that version
+            {
+                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
+
+                return $this->download($tarball, $url);
+            } catch (Throwable $exception) // else get it from the archive
+            {
+                $repository = $versions->getRepository($version);
+                $url        = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
+
+                return $this->download($tarball, $url);
+            }
+        }
+
+        throw new RuntimeException("$requested: Version is unknown");
+    }
+
+    /**
+     * @param  string  $toDir
+     * @param  string  $file
+     */
+    private function untar(string $toDir, string $file): void
+    {
+        $this->mkdir($toDir);
+        $this->exec("tar -zxvf {$file} -C {$toDir} --exclude-vcs");
+
+        // If $toDir contains only a single directory, we need to lift everything up one level.
+        $dirList = glob("{$toDir}/*", GLOB_ONLYDIR);
+
+        if (count($dirList) === 1) {
+            $this->copy(
+                new Fileset($dirList[0]),
+                $toDir
+            );
+
+            $this->delete($dirList[0]);
+        }
+    }
+
+    /**
      * Generates the contents and prepares the test containers.
      *
      * @throws FileNotFoundException
@@ -1108,48 +1447,6 @@ class FromPhing
     }
 
     /**
-     * Checks if (every file from) target is newer than (every file from) source
-     *
-     * @param  Fileset|string  $target
-     * @param  Fileset|string  ...$sources
-     *
-     * @return bool
-     */
-    private function isUptodate($target, ...$sources): bool
-    {
-        $targetFiles = is_string($target) ? [$target] : $target->getFiles();
-
-        $targetTime = array_reduce(
-            $targetFiles,
-            static function ($carry, $file) {
-                return min($carry, filemtime($file));
-            }
-        );
-
-        foreach ($sources as $source) {
-            $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
-            foreach ($sourceFiles as $file) {
-                if (filemtime($file) > $targetTime) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param $versionCache
-     *
-     * @return VersionList
-     * @throws FileNotFoundException
-     */
-    private function joomlaVersions($versionCache): VersionList
-    {
-        return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
-    }
-
-    /**
      * @param $array1
      * @param $array2
      *
@@ -1200,21 +1497,90 @@ class FromPhing
     }
 
     /**
-     * @param  Fileset|string  $fileset
-     * @param  string          $toDir
-     * @param  callable|null   $filter
+     * @param $application
+     * @param $domain
+     * @param $cmsRoot
+     * @param $target
+     * @param $container
      */
-    private function copy($fileset, string $toDir, callable $filter = null): void
+    private function testIntegrationApp($application, $domain, $cmsRoot, $target, $container): void
     {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $toDir, $filter);
-
+        if (empty($application)) {
             return;
         }
 
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
+        $integrationTestFilter = static function ($content) use ($application, $domain, $target) {
+            return str_replace(
+                [
+                    '@APPLICATION@',
+                    '@CMS_ROOT@',
+                    '@TARGET@',
+                ],
+                [
+                    $application,
+                    "/var/www/html/{$domain}",
+                    $target,
+                ],
+                $content
+            );
+        };
+
+        $this->echo($application, 'info');
+
+        // Find bootstrap file
+        $bootstrap = $this->versionMatch(
+            'bootstrap-(.*).php',
+            "{$this->buildTemplates}/template/tests/integration",
+            $this->environment['joomla']['version']
+        );
+
+        if (empty($bootstrap)) {
+            throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
         }
+
+        // Configure bootstrap file
+        $this->copy(
+            $bootstrap,
+            "{$cmsRoot}/tests/integration/{$application}/bootstrap.php",
+            $integrationTestFilter
+        );
+
+        // Configure phpunit
+        $this->copy(
+            "{$this->buildTemplates}/template/tests/integration/phpunit.xml",
+            "{$cmsRoot}/tests/integration/{$application}/phpunit.xml",
+            $integrationTestFilter
+        );
+
+        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
+    }
+
+    /**
+     * @param $versionCache
+     *
+     * @return VersionList
+     * @throws FileNotFoundException
+     */
+    private function joomlaVersions($versionCache): VersionList
+    {
+        return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
+    }
+
+    /**
+     * @param  string  $filename
+     * @param  string  $url
+     *
+     * @return string
+     */
+    private function download(string $filename, string $url): string
+    {
+        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
+
+        if ($bytes === false || $bytes === 0) {
+            throw new RuntimeException("Failed to download $url");
+        }
+
+        return $filename;
     }
 
     /**
@@ -1552,371 +1918,5 @@ ECHO
         }
 
         return $array;
-    }
-
-    /**
-     * @param  string         $file
-     * @param  string         $toFile
-     * @param  callable|null  $filter
-     */
-    private function copyFile(string $file, string $toFile, callable $filter = null): void
-    {
-        if (is_dir($file)) {
-            return;
-        }
-
-        $this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
-
-        $content = file_get_contents($file);
-
-        if (is_callable($filter)) {
-            $content = $filter($content);
-        }
-
-        file_put_contents($toFile, $content);
-    }
-
-    /**
-     * @param          $version
-     * @param  string  $versionCache
-     * @param  string  $downloadCache
-     *
-     * @return string
-     * @throws FileNotFoundException
-     */
-    private function joomlaDownload($version, string $versionCache, string $downloadCache): string
-    {
-        $versions  = $this->joomlaVersions($versionCache);
-        $requested = $version;
-        $version   = $versions->resolve($version);
-        $tarball   = $downloadCache . '/' . $version . '.tar.gz';
-
-        if (!$versions->isBranch($version) && file_exists($tarball)) {
-            return $tarball;
-        }
-
-        if ($versions->isBranch($version)) {
-            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
-
-            return $this->download($tarball, $url);
-        }
-
-        if ($versions->isTag($version)) {
-            try // to get the official release for that version
-            {
-                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
-
-                return $this->download($tarball, $url);
-            } catch (Throwable $exception) // else get it from the archive
-            {
-                $repository = $versions->getRepository($version);
-                $url        = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
-
-                return $this->download($tarball, $url);
-            }
-        }
-
-        throw new RuntimeException("$requested: Version is unknown");
-    }
-
-    /**
-     * @param  string  $toDir
-     * @param  string  $file
-     */
-    private function untar(string $toDir, string $file): void
-    {
-        $this->mkdir($toDir);
-        $this->exec("tar -zxvf {$file} -C {$toDir} --exclude-vcs");
-
-        // If $toDir contains only a single directory, we need to lift everything up one level.
-        $dirList = glob("{$toDir}/*", GLOB_ONLYDIR);
-
-        if (count($dirList) === 1) {
-            $this->copy(
-                new Fileset($dirList[0]),
-                $toDir
-            );
-
-            $this->delete($dirList[0]);
-        }
-    }
-
-    /**
-     * @param $pattern
-     * @param $path
-     * @param $version
-     *
-     * @return string|null
-     */
-    private function versionMatch($pattern, $path, $version): ?string
-    {
-        $bestVersion = '0';
-        $bestFile    = null;
-        foreach (glob("$path/*") as $filename) {
-            if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1],
-                    '<') && version_compare($match[1], $version, '<=')) {
-                $bestVersion = $match[1];
-                $bestFile    = $filename;
-            }
-        }
-
-        return $bestFile;
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
-    }
-
-    /**
-     * Run integrations tests on a single test installation
-     *
-     * @param $environmentDefinition
-     */
-    private function testIntegrationSingle($environmentDefinition): void
-    {
-        $target = basename($environmentDefinition, '.xml');
-
-        // Get the environment settings
-        $environment = $this->merge(
-            $this->merge(
-                [
-                    'name'   => $target,
-                    'server' => [
-                        'type' => 'nginx',
-                        'tld'  => 'dev',
-                    ],
-                ],
-                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
-            ),
-            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
-        );
-        $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
-        $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
-
-        $container = $environment['server']['type'] === 'nginx' ? 'servers_php_1' : "servers_{$environment['server']['type']}_1";
-
-        $uptodate = $this->isUptodate("{$this->build}/logs/coverage/integration-{$target}.cov",
-            $this->sourceFiles,
-            $this->integrationTestFiles,
-            (new Fileset($this->testEnvironments))
-                ->include($environmentDefinition)
-        );
-
-        if ($uptodate) {
-            $this->echo("Integration test for {$target} is up to date - skipping.", 'info');
-
-            return;
-        }
-
-        $this->echo("Integration test on {$target}", 'info');
-        $this->delete("{$cmsRoot}/build/logs");
-        $this->mkdir("{$cmsRoot}/build/logs");
-
-        $applications = (new Fileset("{$cmsRoot}/tests/integration"))->include('*',
-            Fileset::NO_RECURSE | Fileset::ONLY_DIRS);
-
-        foreach ($applications as $application) {
-            $this->testIntegrationApp($application, $domain, $cmsRoot, $target, $container);
-        }
-
-        $merger = new CoverageMerger();
-        $merger
-            ->fileset((new Fileset("{$cmsRoot}/build/logs"))->include('**/*.cov'))
-            ->pattern("/var/www/html/{$domain}")
-            ->replace("{$this->source}/")
-            ->php("{$cmsRoot}/build/logs/integration-{$target}.cov")
-            ->merge()
-        ;
-
-        $this->copy(
-            new Fileset("{$cmsRoot}/build/logs/integration-{$target}.cov"),
-            "{$this->build}/logs/coverage",
-            static function ($content) use ($target) {
-                return preg_replace("~'(.*?)Test::test~", "'{$target}: \1Test::test", $content);
-            }
-        );
-    }
-
-    /**
-     * Stops and removes the test containers.
-     */
-    public function dockerStop(): void
-    {
-        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
-            $this->echo('Servers are not set up. Nothing to do', 'info');
-
-            return;
-        }
-
-        $this->exec(
-            'docker-compose stop',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to stop
-        sleep(2);
-    }
-
-    /**
-     * Runs system tests on a single test installation.
-     *
-     * @param $environmentDefinition
-     */
-    private function testSystemSingle($environmentDefinition): void
-    {
-        $target = basename($environmentDefinition, '.xml');
-
-        // Get the environment settings
-        $environment = $this->merge(
-            $this->merge(
-                [
-                    'name'    => $target,
-                    'server'  => [
-                        'type' => 'nginx',
-                        'tld'  => 'dev',
-                    ],
-                    'browser' => [
-                        'type' => 'firefox',
-                    ],
-                ],
-                $this->xmlProperty("{$this->testEnvironments}/default.xml", false, true)
-            ),
-            $this->xmlProperty("{$this->testEnvironments}/{$environmentDefinition}", false, true)
-        );
-        $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
-        $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
-
-        $systemTestFilter = static function ($content) use ($environment, $domain, $target) {
-            return str_replace(
-                [
-                    '@CMS_ROOT@',
-                    '@TARGET@',
-                    '@DOMAIN@',
-                    '@BROWSER@',
-                ],
-                [
-                    "/var/www/html/{$domain}",
-                    $target,
-                    $domain,
-                    $environment['browser']['type'],
-                ],
-                $content
-            );
-        };
-
-        $this->echo("System test for {$target} on {$domain}", 'info');
-
-        // Find bootstrap file
-        $bootstrap = $this->versionMatch(
-            'bootstrap-(.*).php',
-            "{$this->buildTemplates}/template/tests/system",
-            $this->environment['joomla']['version']
-        );
-
-        if (empty($bootstrap)) {
-            throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
-        }
-
-        // Configure bootstrap file
-        $this->copy(
-            $bootstrap,
-            "{$cmsRoot}/tests/system/bootstrap.php",
-            $systemTestFilter
-        );
-
-        // Configure phpunit
-        $this->copy(
-            "{$this->buildTemplates}/template/tests/system/phpunit.xml",
-            "{$cmsRoot}/tests/system/phpunit.xml",
-            $systemTestFilter
-        );
-
-        $container = "servers_{$environment['server']['type']}_1";
-
-        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
-
-        $this->copy(
-            (new Fileset("{$cmsRoot}/build/logs"))
-                ->include('system-*.cov'),
-            "{$this->build}/logs/coverage",
-            function ($content) use ($target, $domain) {
-                $content = str_replace("/var/www/html/{$domain}", $this->source, $content);
-                $content = preg_replace("~'(.*?)Test::test~", "{$target}: \1Test::test", $content);
-
-                return $content;
-            }
-        );
-    }
-
-    /**
-     * @param $application
-     * @param $domain
-     * @param $cmsRoot
-     * @param $target
-     * @param $container
-     */
-    private function testIntegrationApp($application, $domain, $cmsRoot, $target, $container): void
-    {
-        if (empty($application)) {
-            return;
-        }
-
-        $integrationTestFilter = static function ($content) use ($application, $domain, $target) {
-            return str_replace(
-                [
-                    '@APPLICATION@',
-                    '@CMS_ROOT@',
-                    '@TARGET@',
-                ],
-                [
-                    $application,
-                    "/var/www/html/{$domain}",
-                    $target,
-                ],
-                $content
-            );
-        };
-
-        $this->echo($application, 'info');
-
-        // Find bootstrap file
-        $bootstrap = $this->versionMatch(
-            'bootstrap-(.*).php',
-            "{$this->buildTemplates}/template/tests/integration",
-            $this->environment['joomla']['version']
-        );
-
-        if (empty($bootstrap)) {
-            throw new RuntimeException("No bootstrap file found for Joomla! {$this->environment['joomla']['version']}");
-        }
-
-        // Configure bootstrap file
-        $this->copy(
-            $bootstrap,
-            "{$cmsRoot}/tests/integration/{$application}/bootstrap.php",
-            $integrationTestFilter
-        );
-
-        // Configure phpunit
-        $this->copy(
-            "{$this->buildTemplates}/template/tests/integration/phpunit.xml",
-            "{$cmsRoot}/tests/integration/{$application}/phpunit.xml",
-            $integrationTestFilter
-        );
-
-        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
     }
 }

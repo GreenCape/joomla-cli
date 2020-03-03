@@ -48,7 +48,7 @@ class VersionTest extends TestCase
     use JoomlaPackagesTrait;
 
     /**
-     * @testdox  ... detects the correct version for Joomla! $release (tested with Joomla! $short)
+     * @testdox      ... detects the correct version for Joomla! $release (tested with Joomla! $short)
      *
      * @param  string  $path
      * @param  string  $release

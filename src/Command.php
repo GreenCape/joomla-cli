@@ -30,6 +30,8 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\Factory;
+use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
@@ -103,6 +105,18 @@ abstract class Command extends BaseCommand
     }
 
     /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     * @throws FileNotFoundException
+     */
+    protected function loadDriver(InputInterface $input, OutputInterface $output): void
+    {
+        $this->joomla = (new Factory)->create($this->joomlaFilesystem);
+    }
+
+    /**
      * Read the base path from the options
      *
      * @param  InputInterface   $input   An InputInterface instance
@@ -119,17 +133,5 @@ abstract class Command extends BaseCommand
         $output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
 
         return $path;
-    }
-
-    /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return void
-     * @throws FileNotFoundException
-     */
-    protected function loadDriver(InputInterface $input, OutputInterface $output): void
-    {
-        $this->joomla = (new DriverFactory)->create($this->joomlaFilesystem);
     }
 }

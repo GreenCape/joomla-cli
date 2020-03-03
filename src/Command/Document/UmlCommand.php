@@ -127,22 +127,6 @@ class UmlCommand extends Command
     }
 
     /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return Fileset
-     */
-    private function setupSource(InputInterface $input, OutputInterface $output): Fileset
-    {
-        $dir = $input->getOption('basepath');
-        $output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
-        $source = new Fileset($dir);
-        $source->include('**/*.php');
-
-        return $source;
-    }
-
-    /**
      * @param  UMLGenerator     $generator
      * @param  InputInterface   $input
      * @param  OutputInterface  $output
@@ -192,20 +176,6 @@ class UmlCommand extends Command
     }
 
     /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return bool|string|string[]|null
-     */
-    protected function setupTarget(InputInterface $input, OutputInterface $output)
-    {
-        $targetDir = $input->getOption('output');
-        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
-
-        return $targetDir;
-    }
-
-    /**
      * @param  UMLGenerator     $generator
      * @param  InputInterface   $input
      * @param  OutputInterface  $output
@@ -219,5 +189,35 @@ class UmlCommand extends Command
             $output->writeln(" SVGs will be created, discarding UML source files", OutputInterface::VERBOSITY_VERBOSE);
             $generator->createSvg();
         }
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return Fileset
+     */
+    private function setupSource(InputInterface $input, OutputInterface $output): Fileset
+    {
+        $dir = $input->getOption('basepath');
+        $output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
+        $source = new Fileset($dir);
+        $source->include('**/*.php');
+
+        return $source;
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return bool|string|string[]|null
+     */
+    protected function setupTarget(InputInterface $input, OutputInterface $output)
+    {
+        $targetDir = $input->getOption('output');
+        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+
+        return $targetDir;
     }
 }

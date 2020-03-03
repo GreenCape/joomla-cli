@@ -95,6 +95,22 @@ class OverrideCommand extends Command
     }
 
     /**
+     * @param                   $templatePath
+     * @param  OutputInterface  $output
+     *
+     * @return string
+     */
+    private function prepareTemplateDirectory($templatePath, OutputInterface $output): string
+    {
+        $templateDir = $templatePath . '/html';
+        $output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
+
+        $this->safeMakeDir($templateDir, $output);
+
+        return $templateDir;
+    }
+
+    /**
      * @param  string           $basePath
      * @param  string           $templateDir
      * @param  boolean          $force
@@ -156,53 +172,6 @@ class OverrideCommand extends Command
     }
 
     /**
-     * @param                   $templatePath
-     * @param  OutputInterface  $output
-     *
-     * @return string
-     */
-    private function prepareTemplateDirectory($templatePath, OutputInterface $output): string
-    {
-        $templateDir = $templatePath . '/html';
-        $output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-        $this->safeMakeDir($templateDir, $output);
-
-        return $templateDir;
-    }
-
-    /**
-     * @param                   $source
-     * @param                   $toDir
-     * @param                   $force
-     * @param  OutputInterface  $output
-     *
-     * @return void
-     */
-    private function safeCopy($source, $toDir, $force, OutputInterface $output): void
-    {
-        $filename = basename($source);
-        $target   = $toDir . '/' . $filename;
-        if ($force || !file_exists($target)) {
-            $output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
-            copy($source, $target);
-        }
-    }
-
-    /**
-     * @param                   $filePattern
-     * @param                   $toDir
-     * @param                   $force
-     * @param  OutputInterface  $output
-     */
-    private function safeCopyDir($filePattern, $toDir, $force, OutputInterface $output): void
-    {
-        foreach (glob($filePattern) as $file) {
-            $this->safeCopy($file, $toDir, $force, $output);
-        }
-    }
-
-    /**
      * @param                   $dir
      * @param  OutputInterface  $output
      */
@@ -239,6 +208,19 @@ class OverrideCommand extends Command
         }
     }
 
+    /**
+     * @param                   $filePattern
+     * @param                   $toDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     */
+    private function safeCopyDir($filePattern, $toDir, $force, OutputInterface $output): void
+    {
+        foreach (glob($filePattern) as $file) {
+            $this->safeCopy($file, $toDir, $force, $output);
+        }
+    }
+
     private function safeCopyRecursive($container, $pattern, $templateDir, $force, $output): void
     {
         foreach (glob($container . '/*') as $entry) {
@@ -249,6 +231,24 @@ class OverrideCommand extends Command
             } elseif (fnmatch($pattern, basename($entry))) {
                 $this->safeCopy($entry, $templateDir, $force, $output);
             }
+        }
+    }
+
+    /**
+     * @param                   $source
+     * @param                   $toDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     */
+    private function safeCopy($source, $toDir, $force, OutputInterface $output): void
+    {
+        $filename = basename($source);
+        $target   = $toDir . '/' . $filename;
+        if ($force || !file_exists($target)) {
+            $output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
+            copy($source, $target);
         }
     }
 }

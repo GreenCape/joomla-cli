@@ -27,6 +27,7 @@
  * @since           File available since Release __DEPLOY_VERSION__
  */
 
+use GreenCape\JoomlaCLI\Documentation\UML\ClassNameCollector;
 use Psr\Log\LoggerInterface;
 
 /**

@@ -68,7 +68,7 @@ class DownloadTest extends TestCase
     }
 
     /**
-     * @testdox  ... finds the correct source for Joomla! $release (tested with (Joomla! $short)
+     * @testdox      ... finds the correct source for Joomla! $release (tested with (Joomla! $short)
      *
      * @param  string  $path
      * @param  string  $release

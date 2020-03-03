@@ -127,14 +127,12 @@ class InstallCommand extends Command
         $manifest = $installer->getManifest();
         $data     = $this->joomla->getExtensionInfo($manifest);
 
-        $message = [
+        return [
             'Installed ' . $data['type'] . ' <info>' . $data['name'] . '</info> version <info>' . $data['version'] . '</info>',
             '',
             wordwrap($data['description'], 60),
             '',
         ];
-
-        return $message;
     }
 
     /**
