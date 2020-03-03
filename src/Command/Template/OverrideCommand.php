@@ -48,50 +48,51 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class OverrideCommand extends Command
 {
-	/**
-	 * Configure the options for the command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('template:override')
-			->setDescription('Creates template and layout overrides (Joomla! 1.5+)')
-			->addOption(
-				'force',
-				'f',
-				InputOption::VALUE_NONE,
-				'Overwrite existing overrides in the template directory.'
-			)
-			->addArgument(
-				'template',
-				InputArgument::REQUIRED,
-				'The system name of the template, e.g., `rhuk_milkyway`.'
-			);
-	}
+    /**
+     * Configure the options for the command
+     *
+     * @return  void
+     */
+    protected function configure(): void
+    {
+        $this
+            ->setName('template:override')
+            ->setDescription('Creates template and layout overrides (Joomla! 1.5+)')
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE,
+                'Overwrite existing overrides in the template directory.'
+            )
+            ->addArgument(
+                'template',
+                InputArgument::REQUIRED,
+                'The system name of the template, e.g., `rhuk_milkyway`.'
+            )
+        ;
+    }
 
-	/**
-	 * Execute the command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  void
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$basePath = $input->getOption('basepath');
-		$template = $input->getArgument('template');
-		$force    = $input->getOption('force');
+    /**
+     * Execute the command
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  void
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
+    {
+        $basePath = $input->getOption('basepath');
+        $template = $input->getArgument('template');
+        $force    = $input->getOption('force');
 
-		$templateDir = $this->prepareTemplateDirectory($basePath . '/templates/' . $template, $output);
+        $templateDir = $this->prepareTemplateDirectory($basePath . '/templates/' . $template, $output);
 
-		$this->handleComponents($basePath, $templateDir, $force, $output);
-		$this->handleModules($basePath, $templateDir, $force, $output);
-		$this->handlePlugins($basePath, $templateDir, $force, $output);
-		$this->handleLayouts($basePath, $templateDir, $force, $output);
-	}
+        $this->handleComponents($basePath, $templateDir, $force, $output);
+        $this->handleModules($basePath, $templateDir, $force, $output);
+        $this->handlePlugins($basePath, $templateDir, $force, $output);
+        $this->handleLayouts($basePath, $templateDir, $force, $output);
+    }
 
     /**
      * @param                   $templatePath
@@ -109,112 +110,103 @@ class OverrideCommand extends Command
         return $templateDir;
     }
 
-	/**
-	 * @param string          $basePath
-	 * @param string          $templateDir
-	 * @param boolean         $force
-	 * @param OutputInterface $output
-	 */
-	protected function handleComponents($basePath, $templateDir, $force, OutputInterface $output): void
-	{
-		foreach (glob($basePath . '/components/*') as $component)
-		{
-			if (!is_dir($component . '/views'))
-			{
-				continue;
-			}
-			$componentDir = basename($component);
-			$output->writeln($componentDir, OutputInterface::VERBOSITY_VERY_VERBOSE);
-			$this->safeCopyViews($component . '/views/*', $templateDir . '/' . $componentDir, $force, $output);
-		}
-	}
+    /**
+     * @param  string           $basePath
+     * @param  string           $templateDir
+     * @param  boolean          $force
+     * @param  OutputInterface  $output
+     */
+    protected function handleComponents($basePath, $templateDir, $force, OutputInterface $output): void
+    {
+        foreach (glob($basePath . '/components/*') as $component) {
+            if (!is_dir($component . '/views')) {
+                continue;
+            }
+            $componentDir = basename($component);
+            $output->writeln($componentDir, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            $this->safeCopyViews($component . '/views/*', $templateDir . '/' . $componentDir, $force, $output);
+        }
+    }
 
-	/**
-	 * @param                 $basePath
-	 * @param                 $templateDir
-	 * @param                 $force
-	 * @param OutputInterface $output
-	 */
-	protected function handleModules($basePath, $templateDir, $force, OutputInterface $output): void
-	{
-		$this->safeCopyViews($basePath . '/modules/*', $templateDir, $force, $output);
-	}
+    /**
+     * @param                   $basePath
+     * @param                   $templateDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     */
+    protected function handleModules($basePath, $templateDir, $force, OutputInterface $output): void
+    {
+        $this->safeCopyViews($basePath . '/modules/*', $templateDir, $force, $output);
+    }
 
-	/**
-	 * @param                 $basePath
-	 * @param                 $templateDir
-	 * @param                 $force
-	 * @param OutputInterface $output
-	 */
-	protected function handlePlugins($basePath, $templateDir, $force, OutputInterface $output): void
-	{
-		foreach (glob($basePath . '/plugins/*') as $pluginType)
-		{
-			foreach (glob($pluginType . '/*') as $container)
-			{
-				if (!is_dir($container . '/tmpl'))
-				{
-					continue;
-				}
-				$dir        = 'plg_' . basename($pluginType) . '_' . basename($container);
-				$overlayDir = $templateDir . '/' . $dir;
-				$this->safeMakeDir($overlayDir, $output);
-				$this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
-			}
-		}
-	}
+    /**
+     * @param                   $basePath
+     * @param                   $templateDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     */
+    protected function handlePlugins($basePath, $templateDir, $force, OutputInterface $output): void
+    {
+        foreach (glob($basePath . '/plugins/*') as $pluginType) {
+            foreach (glob($pluginType . '/*') as $container) {
+                if (!is_dir($container . '/tmpl')) {
+                    continue;
+                }
+                $dir        = 'plg_' . basename($pluginType) . '_' . basename($container);
+                $overlayDir = $templateDir . '/' . $dir;
+                $this->safeMakeDir($overlayDir, $output);
+                $this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
+            }
+        }
+    }
 
-	/**
-	 * @param                 $basePath
-	 * @param                 $templateDir
-	 * @param                 $force
-	 * @param OutputInterface $output
-	 */
-	protected function handleLayouts($basePath, $templateDir, $force, OutputInterface $output): void
-	{
-		$this->safeCopyRecursive($basePath . '/layouts', '*.php', $templateDir . '/layouts', $force, $output);
-	}
+    /**
+     * @param                   $basePath
+     * @param                   $templateDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     */
+    protected function handleLayouts($basePath, $templateDir, $force, OutputInterface $output): void
+    {
+        $this->safeCopyRecursive($basePath . '/layouts', '*.php', $templateDir . '/layouts', $force, $output);
+    }
 
-	/**
-	 * @param                 $dir
-	 * @param OutputInterface $output
-	 */
-	private function safeMakeDir($dir, OutputInterface $output): void
-	{
-		if (!file_exists($dir))
-		{
-			$output->writeln("Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
+    /**
+     * @param                   $dir
+     * @param  OutputInterface  $output
+     */
+    private function safeMakeDir($dir, OutputInterface $output): void
+    {
+        if (!file_exists($dir)) {
+            $output->writeln("Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
 
-			if (!mkdir($dir, 0775, true) && !is_dir($dir))
-			{
-				throw new RuntimeException(sprintf('Directory "%s" was not created', $dir)); // @codeCoverageIgnore
-			}
+            if (!mkdir($dir, 0775, true) && !is_dir($dir)) {
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $dir)); // @codeCoverageIgnore
+            }
 
-			touch($dir . '/index.html');
-		}
-	}
+            touch($dir . '/index.html');
+        }
+    }
 
-	/**
-	 * @param string          $pattern
-	 * @param string          $toDir
-	 * @param boolean         $force
-	 * @param OutputInterface $output
-	 */
-	private function safeCopyViews($pattern, $toDir, $force, OutputInterface $output): void
-	{
-		foreach (glob($pattern) as $container)
-		{
-			if (!is_dir($container . '/tmpl'))
-			{
-				continue;
-			}
-			$dir = basename($container);
-			$output->writeln($dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
-			$overlayDir = $toDir . '/' . $dir;
-			$this->safeMakeDir($overlayDir, $output);
-			$this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
-		}
-	}
+    /**
+     * @param  string           $pattern
+     * @param  string           $toDir
+     * @param  boolean          $force
+     * @param  OutputInterface  $output
+     */
+    private function safeCopyViews($pattern, $toDir, $force, OutputInterface $output): void
+    {
+        foreach (glob($pattern) as $container) {
+            if (!is_dir($container . '/tmpl')) {
+                continue;
+            }
+            $dir = basename($container);
+            $output->writeln($dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            $overlayDir = $toDir . '/' . $dir;
+            $this->safeMakeDir($overlayDir, $output);
+            $this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
+        }
+    }
 
     /**
      * @param                   $filePattern
@@ -229,22 +221,18 @@ class OverrideCommand extends Command
         }
     }
 
-	private function safeCopyRecursive($container, $pattern, $templateDir, $force, $output): void
-	{
-		foreach (glob($container . '/*') as $entry)
-		{
-			if (is_dir($entry))
-			{
-				$targetDir = $templateDir . '/' . basename($entry);
-				$this->safeMakeDir($targetDir, $output);
-				$this->safeCopyRecursive($entry, $pattern, $targetDir, $force, $output);
-			}
-			elseif (fnmatch($pattern, basename($entry)))
-			{
-				$this->safeCopy($entry, $templateDir, $force, $output);
-			}
-		}
-	}
+    private function safeCopyRecursive($container, $pattern, $templateDir, $force, $output): void
+    {
+        foreach (glob($container . '/*') as $entry) {
+            if (is_dir($entry)) {
+                $targetDir = $templateDir . '/' . basename($entry);
+                $this->safeMakeDir($targetDir, $output);
+                $this->safeCopyRecursive($entry, $pattern, $targetDir, $force, $output);
+            } elseif (fnmatch($pattern, basename($entry))) {
+                $this->safeCopy($entry, $templateDir, $force, $output);
+            }
+        }
+    }
 
     /**
      * @param                   $source

@@ -44,7 +44,7 @@ class Factory
      * Create a version specific driver to Joomla
      *
      * @param  Filesystem  $filesystem  The Joomla file system
-     * @param  string  $basePath
+     * @param  string      $basePath
      *
      * @return  JoomlaDriver
      * @throws FileNotFoundException

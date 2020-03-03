@@ -39,85 +39,82 @@ namespace GreenCape\JoomlaCLI;
  */
 class DataSource
 {
-	const DSN_PATTERN = '~(?:(\w+)(?::(\w+))?@)?((?:\w+://)?[\w.]+)(?::(\d+))?(?:/(\w+))?~';
+    const DSN_PATTERN = '~(?:(\w+)(?::(\w+))?@)?((?:\w+://)?[\w.]+)(?::(\d+))?(?:/(\w+))?~';
 
-	private $user;
-	private $pass;
-	private $host;
-	private $port;
-	private $base;
+    private $user;
+    private $pass;
+    private $host;
+    private $port;
+    private $base;
 
-	public function __construct($dsn, $default = null)
-	{
-		[$this->user, $this->pass, $this->host, $this->port, $this->base] = $this->extract($dsn, $default);
-	}
+    public function __construct($dsn, $default = null)
+    {
+        [$this->user, $this->pass, $this->host, $this->port, $this->base] = $this->extract($dsn, $default);
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getUser()
-	{
-		return $this->user;
-	}
+    /**
+     * @param        $dsn
+     * @param  null  $default
+     *
+     * @return array
+     */
+    private function extract($dsn, $default = null): array
+    {
+        if ($default === null) {
+            $default = ['sqladmin', 'sqladmin', 'localhost', '3306', 'database'];
+        } else {
+            $default = $this->extract($default);
+        }
 
-	/**
-	 * @return mixed
-	 */
-	public function getPass()
-	{
-		return $this->pass;
-	}
+        preg_match(self::DSN_PATTERN, $dsn, $matches, PREG_UNMATCHED_AS_NULL);
+        array_shift($matches);
 
-	/**
-	 * @return mixed
-	 */
-	public function getHost()
-	{
-		return $this->host;
-	}
+        return [
+            $matches[0] ?? $default[0],
+            $matches[1] ?? $default[1],
+            $matches[2] ?? $default[2],
+            $matches[3] ?? $default[3],
+            $matches[4] ?? $default[4],
+        ];
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getPort()
-	{
-		return $this->port;
-	}
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getBase()
-	{
-		return $this->base;
-	}
+    /**
+     * @return mixed
+     */
+    public function getPass()
+    {
+        return $this->pass;
+    }
 
-	/**
-	 * @param      $dsn
-	 * @param null $default
-	 *
-	 * @return array
-	 */
-	private function extract($dsn, $default = null): array
-	{
-		if ($default === null)
-		{
-			$default = ['sqladmin', 'sqladmin', 'localhost', '3306', 'database'];
-		}
-		else
-		{
-			$default = $this->extract($default);
-		}
+    /**
+     * @return mixed
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
 
-		preg_match(self::DSN_PATTERN, $dsn, $matches, PREG_UNMATCHED_AS_NULL);
-		array_shift($matches);
+    /**
+     * @return mixed
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
 
-		return [
-			$matches[0] ?? $default[0],
-			$matches[1] ?? $default[1],
-			$matches[2] ?? $default[2],
-			$matches[3] ?? $default[3],
-			$matches[4] ?? $default[4],
-		];
-	}
+    /**
+     * @return mixed
+     */
+    public function getBase()
+    {
+        return $this->base;
+    }
 }

@@ -113,6 +113,15 @@ class InitFileFixer
     }
 
     /**
+     * @param  string  $message
+     * @param  string  $level
+     */
+    private function log(string $message, string $level = 'debug'): void
+    {
+        #echo "$message\n";
+    }
+
+    /**
      * @param        $label
      * @param        $value
      * @param  null  $level
@@ -120,14 +129,5 @@ class InitFileFixer
     private function dump($label, $value, $level = null): void
     {
         $this->log(sprintf('%-30s %s', $label, substr($value, 0, 80)), $level ?? 'debug');
-    }
-
-    /**
-     * @param  string  $message
-     * @param  string  $level
-     */
-    private function log(string $message, string $level = 'debug'): void
-    {
-        #echo "$message\n";
     }
 }

@@ -31,11 +31,6 @@
 
 namespace GreenCape\JoomlaCLI\Utility;
 
-use DOMDocument;
-use DOMNode;
-use RuntimeException;
-use Throwable;
-
 /**
  * Array convenience methods from Phing
  *

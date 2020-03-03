@@ -29,9 +29,6 @@
 
 namespace GreenCape\JoomlaCLI\Driver\Crypt;
 
-use Exception;
-use JText;
-
 /**
  * Version specific password encryption
  *
@@ -44,9 +41,9 @@ class Salted32MD5 extends Salted16MD5
      */
     public function createSalt(): string
     {
-        $salt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        $base = strlen($salt);
-        $pass = '';
+        $salt   = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $base   = strlen($salt);
+        $pass   = '';
         $length = 32;
 
         $random = $this->genRandomBytes($length + 1);

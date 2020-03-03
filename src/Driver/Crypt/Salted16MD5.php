@@ -29,9 +29,6 @@
 
 namespace GreenCape\JoomlaCLI\Driver\Crypt;
 
-use Exception;
-use JText;
-
 /**
  * Version specific password encryption
  *
