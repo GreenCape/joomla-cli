@@ -95,6 +95,50 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
         }
     }
 
+    /**
+     * @param  ClassLike  $node
+     *
+     * @return bool
+     */
+    private function isAnonymous(ClassLike $node): bool
+    {
+        return !isset($node->namespacedName);
+    }
+
+    /**
+     * @param  ClassLike  $node
+     * @param  string     $type
+     */
+    private function addClass(ClassLike $node, string $type): void
+    {
+        $name                 = (string)$node->namespacedName;
+        $this->classes[$name] = [
+            'name'       => $name,
+            'type'       => $type,
+            'flags'      => (int)($node->flags ?? 0),
+            'extends'    => $this->namespaced($node->extends ?? []),
+            'implements' => $this->namespaced($node->implements ?? []),
+            'traits'     => [],
+        ];
+        $this->logger->debug("Found {$type} {$name}");
+    }
+
+    private function namespaced($node)
+    {
+        if ($node instanceof Node\Name\FullyQualified) {
+            return implode('\\', $node->parts);
+        }
+
+        return array_reduce(
+            $node,
+            function ($carry, $node) {
+                $carry[] = $this->namespaced($node);
+
+                return $carry;
+            }
+        );
+    }
+
     public function add($name, $uml, $includes = []): void
     {
         $this->uml[strtolower($name)] = [
@@ -102,16 +146,6 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
             'include' => $includes,
         ];
         $this->logger->debug("Added UML for $name");
-    }
-
-    public function addClassMap(string $classMapFile): void
-    {
-        JLoader::$separator = $this->separator;
-        JLoader::$collector = $this;
-        JLoader::$logger    = $this->logger;
-
-        define('_JEXEC', 1);
-        include $classMapFile;
     }
 
     public function writeDiagrams($targetDir, $flags = 0): int
@@ -137,52 +171,6 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
     public function getRelevantFiles(): array
     {
         return $this->relevantFiles;
-    }
-
-    private function render($namespace, $flags = 0): string
-    {
-        $separator = '\\\\';
-        $uml       = "@startuml\n!include skin.puml\nset namespaceSeparator \\\\\nhide members\nhide << alias >> circle\n!startsub INNER\n";
-
-        $namespace = trim(str_replace('\\', $separator, $namespace), '\\');
-        $rendered  = [];
-        $includes  = [];
-
-        $withIncludes  = ($flags & self::NO_INCLUDES) === 0;
-        $namespaceFlag = ($flags & self::NAMESPACE) === self::NAMESPACE;
-        $greedyFlag    = ($flags & self::GREEDY) === self::GREEDY;
-
-        /** @noinspection NestedTernaryOperatorInspection */
-        $stopper = $namespaceFlag ? ($greedyFlag ? '.*' : '\b') : '$';
-
-        foreach ($this->uml as $className => $data) {
-            if (!preg_match("~^{$namespace}{$stopper}~i", trim($className, '\\'))) {
-                continue;
-            }
-
-            $rendered[$className] = true;
-            $uml                  .= $data['diagram'];
-
-            foreach ($data['include'] as $include) {
-                $includes[$include] = true;
-            }
-        }
-
-        if ($withIncludes) {
-            foreach (array_keys($rendered) as $alreadyHandled) {
-                $includes[$alreadyHandled] = false;
-            }
-
-            foreach ($includes as $include => $doInclude) {
-                if ($doInclude) {
-                    $uml .= '!includesub ' . $this->filename($include) . "!INNER\n";
-                }
-            }
-        }
-
-        $uml .= "!endsub\n@enduml\n";
-
-        return $uml;
     }
 
     private function createClassUml(array $classes): void
@@ -236,38 +224,50 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
         return strtolower('class-' . $className . '.puml');
     }
 
-    /**
-     * @param  ClassLike  $node
-     * @param  string     $type
-     */
-    private function addClass(ClassLike $node, string $type): void
+    private function render($namespace, $flags = 0): string
     {
-        $name                 = (string)$node->namespacedName;
-        $this->classes[$name] = [
-            'name'       => $name,
-            'type'       => $type,
-            'flags'      => (int)($node->flags ?? 0),
-            'extends'    => $this->namespaced($node->extends ?? []),
-            'implements' => $this->namespaced($node->implements ?? []),
-            'traits'     => [],
-        ];
-        $this->logger->debug("Found {$type} {$name}");
-    }
+        $separator = '\\\\';
+        $uml       = "@startuml\n!include skin.puml\nset namespaceSeparator \\\\\nhide members\nhide << alias >> circle\n!startsub INNER\n";
 
-    private function namespaced($node)
-    {
-        if ($node instanceof Node\Name\FullyQualified) {
-            return implode('\\', $node->parts);
+        $namespace = trim(str_replace('\\', $separator, $namespace), '\\');
+        $rendered  = [];
+        $includes  = [];
+
+        $withIncludes  = ($flags & self::NO_INCLUDES) === 0;
+        $namespaceFlag = ($flags & self::NAMESPACE) === self::NAMESPACE;
+        $greedyFlag    = ($flags & self::GREEDY) === self::GREEDY;
+
+        /** @noinspection NestedTernaryOperatorInspection */
+        $stopper = $namespaceFlag ? ($greedyFlag ? '.*' : '\b') : '$';
+
+        foreach ($this->uml as $className => $data) {
+            if (!preg_match("~^{$namespace}{$stopper}~i", trim($className, '\\'))) {
+                continue;
+            }
+
+            $rendered[$className] = true;
+            $uml                  .= $data['diagram'];
+
+            foreach ($data['include'] as $include) {
+                $includes[$include] = true;
+            }
         }
 
-        return array_reduce(
-            $node,
-            function ($carry, $node) {
-                $carry[] = $this->namespaced($node);
-
-                return $carry;
+        if ($withIncludes) {
+            foreach (array_keys($rendered) as $alreadyHandled) {
+                $includes[$alreadyHandled] = false;
             }
-        );
+
+            foreach ($includes as $include => $doInclude) {
+                if ($doInclude) {
+                    $uml .= '!includesub ' . $this->filename($include) . "!INNER\n";
+                }
+            }
+        }
+
+        $uml .= "!endsub\n@enduml\n";
+
+        return $uml;
     }
 
     /**
@@ -281,13 +281,13 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
         return str_replace('\\', $separator, $class);
     }
 
-    /**
-     * @param  ClassLike  $node
-     *
-     * @return bool
-     */
-    private function isAnonymous(ClassLike $node): bool
+    public function addClassMap(string $classMapFile): void
     {
-        return !isset($node->namespacedName);
+        JLoader::$separator = $this->separator;
+        JLoader::$collector = $this;
+        JLoader::$logger    = $this->logger;
+
+        define('_JEXEC', 1);
+        include $classMapFile;
     }
 }

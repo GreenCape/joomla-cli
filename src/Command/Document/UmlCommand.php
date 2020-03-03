@@ -20,13 +20,11 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
- * @since           File available since Release 0.3.0
+ * @since           File available since Release __DEPLOY_VERSION__
  */
 
 namespace GreenCape\JoomlaCLI\Command\Document;
@@ -40,9 +38,7 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
- * @since       Class available since Release 0.3.0
+ * @since  Class available since Release __DEPLOY_VERSION__
  */
 class UmlCommand extends Command
 {
@@ -128,22 +124,6 @@ class UmlCommand extends Command
 	}
 
 	/**
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return Fileset
-	 */
-	private function setupSource(InputInterface $input, OutputInterface $output): Fileset
-	{
-		$dir = $input->getOption('basepath');
-		$output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
-		$source = new Fileset($dir);
-		$source->include('**/*.php');
-
-		return $source;
-	}
-
-	/**
 	 * @param UMLGenerator    $generator
 	 * @param InputInterface  $input
 	 * @param OutputInterface $output
@@ -194,20 +174,6 @@ class UmlCommand extends Command
 	}
 
 	/**
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return bool|string|string[]|null
-	 */
-	protected function setupTarget(InputInterface $input, OutputInterface $output)
-	{
-		$targetDir = $input->getOption('output');
-		$output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
-
-		return $targetDir;
-	}
-
-	/**
 	 * @param UMLGenerator    $generator
 	 * @param InputInterface  $input
 	 * @param OutputInterface $output
@@ -225,4 +191,34 @@ class UmlCommand extends Command
 			$generator->createSvg();
 		}
 	}
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return Fileset
+     */
+    private function setupSource(InputInterface $input, OutputInterface $output): Fileset
+    {
+        $dir = $input->getOption('basepath');
+        $output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
+        $source = new Fileset($dir);
+        $source->include('**/*.php');
+
+        return $source;
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return bool|string|string[]|null
+     */
+    protected function setupTarget(InputInterface $input, OutputInterface $output)
+    {
+        $targetDir = $input->getOption('output');
+        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+
+        return $targetDir;
+    }
 }

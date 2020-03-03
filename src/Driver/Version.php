@@ -86,6 +86,21 @@ class Version
         }
     }
 
+    /**
+     * @return string|null
+     * @throws FileNotFoundException
+     */
+    private function loadVersionFile(): ?string
+    {
+        foreach ($this->locations as $location) {
+            if ($this->filesystem->has($location)) {
+                return $this->filesystem->read($location);
+            }
+        }
+
+        return null;
+    }
+
     public function getRelease(): string
     {
         return $this->data['RELEASE'];
@@ -108,20 +123,5 @@ class Version
                . $this->data['DEV_STATUS']
                . ' [ ' . $this->data['CODENAME'] . ' ] ' . $this->data['RELDATE'] . ' '
                . $this->data['RELTIME'] . ' ' . $this->data['RELTZ'];
-    }
-
-    /**
-     * @return string|null
-     * @throws FileNotFoundException
-     */
-    private function loadVersionFile(): ?string
-    {
-        foreach ($this->locations as $location) {
-            if ($this->filesystem->has($location)) {
-                return $this->filesystem->read($location);
-            }
-        }
-
-        return null;
     }
 }

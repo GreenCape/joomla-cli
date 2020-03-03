@@ -20,8 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -43,8 +41,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Joomla introduced template / layout overrides in version 1.5 (components and modules),
  * and extended it in version 2.5 (plugins) and in version 3 (layouts).
  *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
  * @since       Class available since Release 0.1.0
  * @see         http://docs.joomla.org/Understanding_Output_Overrides for version 1.5+
  * @see         http://docs.joomla.org/Layout_Overrides_in_Joomla for version 2.5+
@@ -96,6 +92,22 @@ class OverrideCommand extends Command
 		$this->handlePlugins($basePath, $templateDir, $force, $output);
 		$this->handleLayouts($basePath, $templateDir, $force, $output);
 	}
+
+    /**
+     * @param                   $templatePath
+     * @param  OutputInterface  $output
+     *
+     * @return string
+     */
+    private function prepareTemplateDirectory($templatePath, OutputInterface $output): string
+    {
+        $templateDir = $templatePath . '/html';
+        $output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
+
+        $this->safeMakeDir($templateDir, $output);
+
+        return $templateDir;
+    }
 
 	/**
 	 * @param string          $basePath
@@ -164,55 +176,6 @@ class OverrideCommand extends Command
 	}
 
 	/**
-	 * @param                 $templatePath
-	 * @param OutputInterface $output
-	 *
-	 * @return string
-	 */
-	private function prepareTemplateDirectory($templatePath, OutputInterface $output): string
-	{
-		$templateDir = $templatePath . '/html';
-		$output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-		$this->safeMakeDir($templateDir, $output);
-
-		return $templateDir;
-	}
-
-	/**
-	 * @param                 $source
-	 * @param                 $toDir
-	 * @param                 $force
-	 * @param OutputInterface $output
-	 *
-	 * @return void
-	 */
-	private function safeCopy($source, $toDir, $force, OutputInterface $output): void
-	{
-		$filename = basename($source);
-		$target   = $toDir . '/' . $filename;
-		if ($force || !file_exists($target))
-		{
-			$output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
-			copy($source, $target);
-		}
-	}
-
-	/**
-	 * @param                 $filePattern
-	 * @param                 $toDir
-	 * @param                 $force
-	 * @param OutputInterface $output
-	 */
-	private function safeCopyDir($filePattern, $toDir, $force, OutputInterface $output): void
-	{
-		foreach (glob($filePattern) as $file)
-		{
-			$this->safeCopy($file, $toDir, $force, $output);
-		}
-	}
-
-	/**
 	 * @param                 $dir
 	 * @param OutputInterface $output
 	 */
@@ -253,6 +216,19 @@ class OverrideCommand extends Command
 		}
 	}
 
+    /**
+     * @param                   $filePattern
+     * @param                   $toDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     */
+    private function safeCopyDir($filePattern, $toDir, $force, OutputInterface $output): void
+    {
+        foreach (glob($filePattern) as $file) {
+            $this->safeCopy($file, $toDir, $force, $output);
+        }
+    }
+
 	private function safeCopyRecursive($container, $pattern, $templateDir, $force, $output): void
 	{
 		foreach (glob($container . '/*') as $entry)
@@ -269,4 +245,22 @@ class OverrideCommand extends Command
 			}
 		}
 	}
+
+    /**
+     * @param                   $source
+     * @param                   $toDir
+     * @param                   $force
+     * @param  OutputInterface  $output
+     *
+     * @return void
+     */
+    private function safeCopy($source, $toDir, $force, OutputInterface $output): void
+    {
+        $filename = basename($source);
+        $target   = $toDir . '/' . $filename;
+        if ($force || !file_exists($target)) {
+            $output->writeln("Copying $source to $target", OutputInterface::VERBOSITY_DEBUG);
+            copy($source, $target);
+        }
+    }
 }

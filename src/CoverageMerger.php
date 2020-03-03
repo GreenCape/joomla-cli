@@ -154,6 +154,33 @@ class CoverageMerger
     }
 
     /**
+     * @param  null  $pharLocation
+     */
+    private function loadPHPUnit($pharLocation = null): void
+    {
+        if (class_exists(CodeCoverage::class)) {
+            return;
+        }
+
+        if (empty($pharLocation)) {
+            $pharLocation = trim(shell_exec('which phpunit'));
+        }
+
+        $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+        if (file_exists($pharLocation)) {
+            ob_start();
+            include $pharLocation;
+            ob_end_clean();
+
+            include_once 'PHPUnit/Autoload.php';
+        }
+
+        if (!class_exists(CodeCoverage::class)) {
+            throw new RuntimeException('CoverageMerger requires PHPUnit to be installed');
+        }
+    }
+
+    /**
      * Iterate over all filesets and return the filename of all files.
      *
      * @return string[] an array of filenames
@@ -168,6 +195,15 @@ class CoverageMerger
         }
 
         return $filenames;
+    }
+
+    /**
+     * @param  string  $message
+     * @param  string  $level
+     */
+    private function log(string $message, string $level = 'debug'): void
+    {
+        echo $message . "\n";
     }
 
     /**
@@ -207,41 +243,5 @@ class CoverageMerger
             $writer = new Text(50, 90, false, false);
             $writer->process($coverage, $this->text);
         }
-    }
-
-    /**
-     * @param  null  $pharLocation
-     */
-    private function loadPHPUnit($pharLocation = null): void
-    {
-        if (class_exists(CodeCoverage::class)) {
-            return;
-        }
-
-        if (empty($pharLocation)) {
-            $pharLocation = trim(shell_exec('which phpunit'));
-        }
-
-        $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
-        if (file_exists($pharLocation)) {
-            ob_start();
-            include $pharLocation;
-            ob_end_clean();
-
-            include_once 'PHPUnit/Autoload.php';
-        }
-
-        if (!class_exists(CodeCoverage::class)) {
-            throw new RuntimeException('CoverageMerger requires PHPUnit to be installed');
-        }
-    }
-
-    /**
-     * @param  string  $message
-     * @param  string  $level
-     */
-    private function log(string $message, string $level = 'debug'): void
-    {
-        echo $message . "\n";
     }
 }

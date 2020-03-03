@@ -103,6 +103,23 @@ class Apigen implements APIGeneratorInterface
     }
 
     /**
+     * @param  Fileset|string  $fileset
+     * @param  callable        $filter
+     */
+    private function reflexive($fileset, callable $filter): void
+    {
+        if (is_string($fileset)) {
+            $this->copyFile($fileset, $fileset, $filter);
+
+            return;
+        }
+
+        foreach ($fileset->getFiles() as $file) {
+            $this->copyFile($file, $file, $filter);
+        }
+    }
+
+    /**
      * @param  string  $content  The file content
      * @param  string  $type     The unit type
      * @param  string  $name     The unit name
@@ -169,23 +186,6 @@ class Apigen implements APIGeneratorInterface
         );
 
         return $content;
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     * @param  callable        $filter
-     */
-    private function reflexive($fileset, callable $filter): void
-    {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $fileset, $filter);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, $file, $filter);
-        }
     }
 
     /**

@@ -71,45 +71,6 @@ class VersionList
     }
 
     /**
-     * @param  string  $version
-     *
-     * @return string
-     */
-    public function resolve(string $version): string
-    {
-        if (isset($this->versions['alias'][$version])) {
-            $version = $this->versions['alias'][$version];
-        }
-
-        return $version;
-    }
-
-    /**
-     * @param  string  $version
-     *
-     * @return bool
-     */
-    public function isBranch(string $version): bool
-    {
-        return isset($this->versions['heads'][$version]);
-    }
-
-    /**
-     * @param  string  $version
-     *
-     * @return bool
-     */
-    public function isTag(string $version): bool
-    {
-        return isset($this->versions['tags'][$version]);
-    }
-
-    public function getRepository(string $version)
-    {
-        return $this->versions['tags'][$version];
-    }
-
-    /**
      * @return void
      * @throws FileNotFoundException
      */
@@ -170,5 +131,44 @@ class VersionList
         if (!isset($versions['alias'][$alias]) || version_compare($versions['alias'][$alias], $version, '<')) {
             $versions['alias'][$alias] = $version;
         }
+    }
+
+    /**
+     * @param  string  $version
+     *
+     * @return string
+     */
+    public function resolve(string $version): string
+    {
+        if (isset($this->versions['alias'][$version])) {
+            $version = $this->versions['alias'][$version];
+        }
+
+        return $version;
+    }
+
+    /**
+     * @param  string  $version
+     *
+     * @return bool
+     */
+    public function isBranch(string $version): bool
+    {
+        return isset($this->versions['heads'][$version]);
+    }
+
+    /**
+     * @param  string  $version
+     *
+     * @return bool
+     */
+    public function isTag(string $version): bool
+    {
+        return isset($this->versions['tags'][$version]);
+    }
+
+    public function getRepository(string $version)
+    {
+        return $this->versions['tags'][$version];
     }
 }
