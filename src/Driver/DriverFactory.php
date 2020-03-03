@@ -29,10 +29,9 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Driver;
 
-use GreenCape\JoomlaCLI\Driver\Version;
-use League\Flysystem\Adapter\Local;
+use GreenCape\JoomlaCLI\JoomlaDriver;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
@@ -46,42 +45,40 @@ use RuntimeException;
  */
 class DriverFactory
 {
-	/**
-	 * Create a version specific driver to Joomla
-	 *
-	 * @param Filesystem $filesystem The Joomla file system
-	 *
-	 * @return  JoomlaDriver
-	 * @throws FileNotFoundException
-	 */
-	public function create(Filesystem $filesystem): JoomlaDriver
-	{
-		$parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
-		while (!empty($parts))
-		{
-			$version   = implode('Dot', $parts);
-			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
-			if (class_exists($classname))
-			{
-				return new $classname($filesystem);
-			}
-			array_pop($parts);
-		}
-		throw new RuntimeException('No driver found');
-	}
+    /**
+     * Create a version specific driver to Joomla
+     *
+     * @param  Filesystem  $filesystem  The Joomla file system
+     *
+     * @return  JoomlaDriver
+     * @throws FileNotFoundException
+     */
+    public function create(Filesystem $filesystem): JoomlaDriver
+    {
+        $parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
+        while (!empty($parts)) {
+            $version   = implode('Dot', $parts);
+            $classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
+            if (class_exists($classname)) {
+                return new $classname($filesystem);
+            }
+            array_pop($parts);
+        }
+        throw new RuntimeException('No driver found');
+    }
 
-	/**
-	 * Load the Joomla version
-	 *
-	 * @param Filesystem $filesystem
-	 *
-	 * @return  mixed
-	 *
-	 * @throws RuntimeException
-	 * @throws FileNotFoundException
-	 */
-	private function loadVersion(Filesystem $filesystem)
-	{
-		return new Version($filesystem);
-	}
+    /**
+     * Load the Joomla version
+     *
+     * @param  Filesystem  $filesystem
+     *
+     * @return  mixed
+     *
+     * @throws RuntimeException
+     * @throws FileNotFoundException
+     */
+    private function loadVersion(Filesystem $filesystem)
+    {
+        return new Version($filesystem);
+    }
 }

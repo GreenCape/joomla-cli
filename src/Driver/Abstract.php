@@ -48,119 +48,115 @@ use League\Flysystem\Filesystem;
  */
 abstract class JoomlaDriver
 {
-	/**
-	 * @var string
-	 */
-	protected $basePath;
+    /**
+     * @var string
+     */
+    protected $basePath;
 
-	/**
-	 * @var Filesystem
-	 */
-	private $filesystem;
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
 
-	/**
-	 * JoomlaDriver constructor.
-	 *
-	 * @param Filesystem $filesystem
-	 */
-	public function __construct(Filesystem $filesystem)
-	{
-		$this->filesystem = $filesystem;
-	}
+    /**
+     * JoomlaDriver constructor.
+     *
+     * @param  Filesystem  $filesystem
+     */
+    public function __construct(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
+    }
 
-	/**
-	 * Setup the environment
-	 *
-	 * @param string $application The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 * @throws Exception
-	 */
-	public function setupEnvironment($application = 'site'): void
-	{
-		if ($application !== 'site')
-		{
-			$this->basePath .= '/' . $application;
-		}
+    /**
+     * Setup the environment
+     *
+     * @param  string  $application  The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     * @throws Exception
+     */
+    public function setupEnvironment($application = 'site'): void
+    {
+        if ($application !== 'site') {
+            $this->basePath .= '/' . $application;
+        }
 
-		$server  = array(
-			'HTTP_HOST'       => 'undefined',
-			'HTTP_USER_AGENT' => 'undefined',
-			'REQUEST_METHOD'  => 'GET',
-		);
-		$_SERVER = array_merge($_SERVER, $server);
+        $server  = [
+            'HTTP_HOST'       => 'undefined',
+            'HTTP_USER_AGENT' => 'undefined',
+            'REQUEST_METHOD'  => 'GET',
+        ];
+        $_SERVER = array_merge($_SERVER, $server);
 
-		if (file_exists($this->basePath . '/defines.php'))
-		{
-			include_once $this->basePath . '/defines.php';
-		}
+        if (file_exists($this->basePath . '/defines.php')) {
+            include_once $this->basePath . '/defines.php';
+        }
 
-		if (!defined('_JDEFINES'))
-		{
-			define('JPATH_BASE', $this->basePath);
-			require_once JPATH_BASE . '/includes/defines.php';
-		}
+        if (!defined('_JDEFINES')) {
+            define('JPATH_BASE', $this->basePath);
+            require_once JPATH_BASE . '/includes/defines.php';
+        }
 
-		require_once JPATH_BASE . '/includes/framework.php';
+        require_once JPATH_BASE . '/includes/framework.php';
 
-		if ($application === 'administrator')
-		{
-			require_once JPATH_BASE . '/includes/helper.php';
-			require_once JPATH_BASE . '/includes/toolbar.php';
+        if ($application === 'administrator') {
+            require_once JPATH_BASE . '/includes/helper.php';
+            require_once JPATH_BASE . '/includes/toolbar.php';
 
-			// JUri uses $_SERVER['HTTP_HOST'] without check
-			$_SERVER['HTTP_HOST'] = 'CLI';
-		}
+            // JUri uses $_SERVER['HTTP_HOST'] without check
+            $_SERVER['HTTP_HOST'] = 'CLI';
+        }
 
-		$app = JFactory::getApplication($application);
-		$app->initialise();
-	}
+        $app = JFactory::getApplication($application);
+        $app->initialise();
+    }
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	abstract public function setCfg($key, $value);
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    abstract public function setCfg($key, $value);
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	abstract public function getCfg($key);
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    abstract public function getCfg($key);
 
-	/**
-	 * @param $manifest
-	 *
-	 * @return array
-	 */
-	public function getExtensionInfo($manifest): array
-	{
-		$data                = array();
-		$data['type']        = (string) $manifest['type'];
-		$data['extension']   = (string) $manifest->name;
-		$data['name']        = JText::_($manifest->name);
-		$data['version']     = (string) $manifest->version;
-		$data['description'] = JText::_($manifest->description);
+    /**
+     * @param $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest): array
+    {
+        $data                = [];
+        $data['type']        = (string)$manifest['type'];
+        $data['extension']   = (string)$manifest->name;
+        $data['name']        = JText::_($manifest->name);
+        $data['version']     = (string)$manifest->version;
+        $data['description'] = JText::_($manifest->description);
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * @return Version
-	 * @throws FileNotFoundException
-	 */
-	public function getVersion(): Version
-	{
-		$adapter    = new Local($this->basePath);
-		$filesystem = new Filesystem($adapter);
+    /**
+     * @return Version
+     * @throws FileNotFoundException
+     */
+    public function getVersion(): Version
+    {
+        $adapter    = new Local($this->basePath);
+        $filesystem = new Filesystem($adapter);
 
-		return new Version($filesystem);
-	}
+        return new Version($filesystem);
+    }
 }

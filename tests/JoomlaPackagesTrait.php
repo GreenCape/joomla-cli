@@ -33,49 +33,49 @@ namespace GreenCapeTest;
 
 trait JoomlaPackagesTrait
 {
-	/**
-	 * @return string[][]
-	 */
-	public function joomlaPackages(): array
-	{
-		return [
-			'1.0' => [
-				'j10',
-				'1.0',
-				'1.0.0',
-				'Joomla! 1.0.0 Stable [ Sunrise ] 17-Sep-2005 00:30 GMT'
-			],
-			'1.5' => [
-				'j15',
-				'1.5',
-				'1.5.26',
-				'Joomla! 1.5.26 Stable [ senu takaa ama busani ] 27-March-2012 18:00 GMT'
-			],
-			'1.7' => [
-				'j17',
-				'1.7',
-				'1.7.3',
-				'Joomla! 1.7.3 Stable [ Ember ] 14-Nov-2011 14:00 GMT'
-			],
-			'2.5' => [
-				'j25',
-				'2.5',
-				'2.5.0',
-				'Joomla! 2.5.0 Stable [ Ember ] 24-Jan-2012 14:00 GMT'
-			],
-			'3.5' => [
-				'j35',
-				'3.5',
-				'3.5.0',
-				'Joomla! 3.5.0 Stable [ Unicorn ] 21-March-2016 22:00 GMT'
-			],
-			'3.9' => [
-				'j39',
-				'3.9',
-				'3.9.11',
-				'Joomla! 3.9.11 Stable [ Amani ] 13-August-2019 15:00 GMT'
-			],
-		];
-	}
+    /**
+     * @return string[][]
+     */
+    public function joomlaPackages(): array
+    {
+        return [
+            '1.0' => [
+                'j10',
+                '1.0',
+                '1.0.0',
+                'Joomla! 1.0.0 Stable [ Sunrise ] 17-Sep-2005 00:30 GMT',
+            ],
+            '1.5' => [
+                'j15',
+                '1.5',
+                '1.5.26',
+                'Joomla! 1.5.26 Stable [ senu takaa ama busani ] 27-March-2012 18:00 GMT',
+            ],
+            '1.7' => [
+                'j17',
+                '1.7',
+                '1.7.3',
+                'Joomla! 1.7.3 Stable [ Ember ] 14-Nov-2011 14:00 GMT',
+            ],
+            '2.5' => [
+                'j25',
+                '2.5',
+                '2.5.0',
+                'Joomla! 2.5.0 Stable [ Ember ] 24-Jan-2012 14:00 GMT',
+            ],
+            '3.5' => [
+                'j35',
+                '3.5',
+                '3.5.0',
+                'Joomla! 3.5.0 Stable [ Unicorn ] 21-March-2016 22:00 GMT',
+            ],
+            '3.9' => [
+                'j39',
+                '3.9',
+                '3.9.11',
+                'Joomla! 3.9.11 Stable [ Amani ] 13-August-2019 15:00 GMT',
+            ],
+        ];
+    }
 
 }

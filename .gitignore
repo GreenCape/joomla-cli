@@ -16,3 +16,4 @@ data/*
 tests/tmp/
 /project.json
 /test.*
+/import.sql

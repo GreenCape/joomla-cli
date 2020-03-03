@@ -46,68 +46,63 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Application extends BaseApplication
 {
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		parent::__construct('Joomla CLI', '0.1.1');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Command');
-	}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct('Joomla CLI', '0.1.1');
+        $this->setCatchExceptions(false);
+        $this->addPlugins(__DIR__ . '/Command');
+    }
 
-	/**
-	 * Runs the current application.
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null): int
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (Exception $e)
-		{
-			if (null === $output)
-			{
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
+    /**
+     * Dynamically add all commands from a path
+     *
+     * @param  string  $path  The directory with the plugins
+     *
+     * @return  void
+     */
+    private function addPlugins($path): void
+    {
+        foreach (glob($path . '/**/*.php') as $filename) {
+            $filename     = str_replace($path, '', $filename);
+            $namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
+            $commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php');
+            $command      = new $commandClass;
+            $this->add($command);
+        }
+    }
 
-			return 1;
-		}
+    /**
+     * Runs the current application.
+     *
+     * @param  InputInterface   $input   An InputInterface instance
+     * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @return  integer  0 if everything went fine, or an error code
+     *
+     * @throws  Exception on problems
+     */
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
+    {
+        try {
+            parent::run($input, $output);
+        } catch (Exception $e) {
+            if (null === $output) {
+                $output = new ConsoleOutput();
+            }
+            $message = [
+                $this->getLongVersion(),
+                '',
+                $e->getMessage(),
+                '',
+            ];
+            $output->writeln($message);
 
-		return 0;
-	}
+            return 1;
+        }
 
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param string $path The directory with the plugins
-	 *
-	 * @return  void
-	 */
-	private function addPlugins($path): void
-	{
-		foreach (glob($path . '/**/*.php') as $filename)
-		{
-			$filename     = str_replace($path, '', $filename);
-			$namespace    = ltrim(str_replace('/', '\\', dirname($filename)) . '\\', '\\');
-			$commandClass = __NAMESPACE__ . '\\Command\\' . $namespace . basename($filename, '.php') . 'Command';
-			$command      = new $commandClass;
-			$this->add($command);
-		}
-	}
+        return 0;
+    }
 }
