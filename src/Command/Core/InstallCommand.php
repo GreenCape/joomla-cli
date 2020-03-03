@@ -32,6 +32,7 @@ namespace GreenCape\JoomlaCLI\Command\Core;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\DataSource;
 use GreenCape\JoomlaCLI\Driver\Version;
+use GreenCape\JoomlaCLI\InitFileFixer;
 use GreenCape\JoomlaCLI\Settings;
 use GreenCape\JoomlaCLI\Utility\Expander;
 use League\Flysystem\FileNotFoundException;
@@ -149,56 +150,12 @@ class InstallCommand extends Command
             return 1;
         }
 
-        $output->writeln('Initialising Joomla! environment', OutputInterface::VERBOSITY_DEBUG);
         $this->setupEnvironment('installation', $input, $output);
 
-        $output->writeln('Getting default settings', OutputInterface::VERBOSITY_DEBUG);
-        $settings    = new Settings('Joomla');
-        $defaultDir  = dirname(__DIR__, 3) . '/build/joomla';
-        $environment = $settings->environment($defaultDir . '/default.xml', $defaultDir);
-
-        $output->writeln('Getting settings from environment variables', OutputInterface::VERBOSITY_DEBUG);
-        /** @todo Get environment settings from ENV */
-
-        $output->writeln('Getting settings from command options', OutputInterface::VERBOSITY_DEBUG);
-        [$user, $pass] = explode(':', $input->getOption('admin'));
-        $email = $input->getOption('email');
-
-        if ($input->getOption('db-type') > '') {
-            $environment['database']['driver'] = $input->getOption('db-type');
-
-            if (in_array($environment['database']['driver'], ['mysqli', 'pdomysql'])) {
-                $environment['database']['engine'] = 'mysql';
-            } else {
-                $environment['database']['engine'] = $environment['database']['driver'];
-            }
-        }
-
-        if ($input->getOption('database') > '') {
-            $database                        = new DataSource($input->getOption('database'));
-            $environment['database']['user'] = $database->getUser();
-            $environment['database']['pass'] = $database->getPass();
-            $environment['database']['host'] = $database->getHost();
-            $environment['database']['port'] = $database->getPort();
-            $environment['database']['name'] = $database->getBase();
-        }
-
-        $engine = $environment['database']['engine'];
-
-        $output->writeln('Building database seed queries', OutputInterface::VERBOSITY_DEBUG);
-        $sql = $this->joomla->getDatabaseCreationQuery($engine);
-        $sql .= $this->joomla->getDatabaseSeed($engine);
-
-        if ($input->getOption('sample') > '') {
-            $sql .= $this->joomla->getDatabaseSeed($engine, $input->getOption('sample'));
-        }
-
-        $sql .= $this->joomla->getRootAccountCreationQuery($engine, $user, $pass, $email);
-
-        $sql = (new Expander())->expand($sql, ['environment' => $environment]);
-        $sql = str_replace('#__', $environment['database']['prefix'], $sql);
-
-        file_put_contents('init.sql', $sql);
+        $environment = $this->getDefaultEnvironment($output);
+        $this->setDatabaseDriver($environment, $input->getOption('db-type'));
+        $this->setDatabaseOptions($environment, $input->getOption('database'));
+        $this->generateSqlInitFile($input, $output, $environment);
 
         #$output->writeln(print_r($environment, true));
         $output->writeln('Installation failed due to unknown reason.');
@@ -226,6 +183,93 @@ class InstallCommand extends Command
         } else {
             $output->writeln('Found Joomla! ' . $joomlaVersion . ' in ' . $path,
                 OutputInterface::VERBOSITY_VERBOSE);
+        }
+    }
+
+    /**
+     * @param  OutputInterface  $output
+     *
+     * @return array
+     */
+    private function getDefaultEnvironment(OutputInterface $output): array
+    {
+        $output->writeln('Getting default settings', OutputInterface::VERBOSITY_DEBUG);
+        $settings    = new Settings('Joomla');
+        $defaultDir  = dirname(__DIR__, 3) . '/build/joomla';
+        $environment = $settings->environment($defaultDir . '/default.xml', $defaultDir);
+
+        return $environment;
+    }
+
+    /**
+     * @param  array  $environment
+     * @param         $driver
+     */
+    private function setDatabaseDriver(array &$environment, $driver): void
+    {
+        if ($driver > '') {
+            $environment['database']['driver'] = $driver;
+
+            if (in_array($environment['database']['driver'], ['mysqli', 'pdomysql'])) {
+                $environment['database']['engine'] = 'mysql';
+            } else {
+                $environment['database']['engine'] = $environment['database']['driver'];
+            }
+        }
+    }
+
+    /**
+     * @param  array  $environment
+     * @param         $dsn
+     */
+    protected function setDatabaseOptions(array &$environment, $dsn): void
+    {
+        if ($dsn > '') {
+            $database                        = new DataSource($dsn);
+            $environment['database']['user'] = $database->getUser();
+            $environment['database']['pass'] = $database->getPass();
+            $environment['database']['host'] = $database->getHost();
+            $environment['database']['port'] = $database->getPort();
+            $environment['database']['name'] = $database->getBase();
+        }
+    }
+
+    /**
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     * @param  array            $environment
+     *
+     * @throws FileNotFoundException
+     */
+    private function generateSqlInitFile(InputInterface $input, OutputInterface $output, array $environment): void
+    {
+        $engine = $environment['database']['engine'];
+
+        $output->writeln('Building database seed queries', OutputInterface::VERBOSITY_DEBUG);
+        $sql = $this->joomla->getDatabaseCreationQuery($engine);
+        $sql .= $this->joomla->getDatabaseSeed($engine);
+
+        if ($input->getOption('sample') > '') {
+            $sql .= $this->joomla->getDatabaseSeed($engine, $input->getOption('sample'));
+        }
+
+        [$user, $pass, $email] = $this->getUserOptions($input);
+
+        $sql .= $this->joomla->getRootAccountCreationQuery($engine, $user, $pass, $email);
+
+        $sql = (new Expander())->expand($sql, ['environment' => $environment]);
+        $sql = str_replace('#__', $environment['database']['prefix'], $sql);
+
+        if ($environment['database']['engine'] === 'postgresql') {
+            // Fix single quote escaping
+            $sql = str_replace("\\\'", "''", $sql);
+        }
+
+        file_put_contents($this->basePath . '/import.sql', $sql);
+
+        if ($environment['database']['engine'] === 'mysql') {
+            // Re-format import.sql to match MySQLd init-file restrictions
+            (new InitFileFixer())->fix($this->basePath . '/import.sql');
         }
     }
 
@@ -258,5 +302,18 @@ class InstallCommand extends Command
     {
         $download = new DownloadCommand();
         $download->run(new StringInput(" --basepath={$path} {$version}"), $output);
+    }
+
+    /**
+     * @param  InputInterface  $input
+     *
+     * @return array
+     */
+    private function getUserOptions(InputInterface $input): array
+    {
+        [$user, $pass] = explode(':', $input->getOption('admin'));
+        $email = $input->getOption('email');
+
+        return [$user, $pass, $email];
     }
 }

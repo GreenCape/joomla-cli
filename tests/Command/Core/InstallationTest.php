@@ -147,6 +147,7 @@ class InstallationTest extends TestCase
         $output  = new NullOutput();
         [$admin, $password] = explode(':', $this->admin);
         $prefix = 'j' . str_replace('.', '', $release);
+        $basePath = "tmp/{$path}";
 
         $options = implode(
             ' ',
@@ -158,7 +159,7 @@ class InstallationTest extends TestCase
                 '--prefix=' . $prefix,
             ]
         );
-        $command->run(new StringInput("-b tests/tmp/$path $options"), $output);
+        $command->run(new StringInput("-b $basePath $options"), $output);
 
         $dsn = new DataSource($this->database);
 
@@ -166,8 +167,8 @@ class InstallationTest extends TestCase
         $user      = $dsn->getUser();
         $pass      = $dsn->getPass();
         $base      = $dsn->getBase();
-        file_put_contents("tests/tmp/{$path}/query.sql", "SELECT * FROM {$prefix}_users WHERE username='{$admin}'");
-        $result = shell_exec("docker exec -i {$container} sh -c 'exec mysql -u{$user} -p\"{$pass}\" {$base}' < tests/tmp/{$path}/query.sql 2>&1");
+        file_put_contents("{$basePath}/query.sql", "SELECT * FROM {$prefix}_users WHERE username='{$admin}'");
+        $result = shell_exec("docker exec -i {$container} sh -c 'exec mysql -u{$user} -p\"{$pass}\" {$base}' < {$basePath}/query.sql 2>&1");
 
         $this->assertEquals('Foo', $result, "MySQL: {$result}");
 

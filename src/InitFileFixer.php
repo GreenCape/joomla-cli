@@ -128,6 +128,6 @@ class InitFileFixer
      */
     private function log(string $message, string $level = 'debug'): void
     {
-        echo $message;
+        #echo "$message\n";
     }
 }
