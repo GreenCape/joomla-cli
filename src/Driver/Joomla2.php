@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Unittests
+ * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -29,53 +29,59 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest;
+namespace GreenCape\JoomlaCLI;
 
-use GreenCape\JoomlaCLI\Application;
-use PHPUnit\Framework\TestCase;
+use Exception;
+use JFactory;
 
-class ApplicationTest extends TestCase
+/**
+ * Version specific methods
+ *
+ * @package     GreenCape\JoomlaCLI
+ * @subpackage  Driver
+ * @since       Class available since Release 0.1.0
+ */
+class Joomla2Driver extends JoomlaDriver
 {
-    /** @var  Application */
-    private $console;
-
     /**
-     * @return array
-     */
-    public function commandNameProvider(): array
-    {
-        return [
-            'version'  => ['core:version'],
-            'download' => ['core:download'],
-            'install'  => ['extension:install'],
-            'override' => ['template:override'],
-        ];
-    }
-
-    /**
-     * @dataProvider commandNameProvider
+     * Setup the environment
      *
-     * @param  string  $command
+     * @param  string  $application  The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     * @throws Exception
      */
-    public function testCommandIsDefined($command): void
+    public function setupEnvironment($application = 'site'): void
     {
-        $this->assertTrue($this->console->has($command));
+        define('DS', DIRECTORY_SEPARATOR);
+
+        parent::setupEnvironment($application);
+
+        jimport('joomla.application.component.helper');
     }
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
      */
-    protected function setUp(): void
+    public function setCfg($key, $value)
     {
-        $this->console = new Application();
+        return JFactory::getConfig()->set($key, $value);
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
      */
-    protected function tearDown(): void
+    public function getCfg($key)
     {
+        return JFactory::getConfig()->get($key);
     }
 }

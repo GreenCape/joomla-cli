@@ -29,53 +29,69 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest;
+namespace GreenCapeTest\Command;
 
-use GreenCape\JoomlaCLI\Application;
+use Exception;
+use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
+use GreenCape\JoomlaCLI\Command\Template\OverrideCommand;
+use GreenCapeTest\JoomlaPackagesTrait;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 
-class ApplicationTest extends TestCase
+class OverrideTest extends TestCase
 {
-    /** @var  Application */
-    private $console;
+    /**
+     * @var Filesystem
+     */
+    private static $filesystem;
+
+    use JoomlaPackagesTrait;
 
     /**
-     * @return array
      */
-    public function commandNameProvider(): array
+    public static function setUpBeforeClass(): void
     {
-        return [
-            'version'  => ['core:version'],
-            'download' => ['core:download'],
-            'install'  => ['extension:install'],
-            'override' => ['template:override'],
-        ];
+        self::$filesystem = new Filesystem(new Local('tests'));
     }
 
-    /**
-     * @dataProvider commandNameProvider
-     *
-     * @param  string  $command
-     */
-    public function testCommandIsDefined($command): void
-    {
-        $this->assertTrue($this->console->has($command));
-    }
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp(): void
-    {
-        $this->console = new Application();
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
     protected function tearDown(): void
     {
+        self::$filesystem->deleteDir('tmp');
+    }
+
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws Exception
+     * @dataProvider joomlaPackages
+     */
+    public function testOverride($path, $release, $short, $long): void
+    {
+        $command = new DownloadCommand();
+        $output  = new NullOutput();
+
+        $command->run(new StringInput("-b tests/tmp/$path $short"), $output);
+
+        $command = new OverrideCommand();
+        $output  = new NullOutput();
+
+        $command->run(new StringInput("-b tests/tmp/$path system"), $output);
+
+        $contents = array_reduce(
+            self::$filesystem->listContents("tmp/$path/templates/system/html"),
+            static function ($carry, $item) {
+                $carry[] = $item['basename'];
+
+                return $carry;
+            },
+            []
+        );
+        $this->assertTrue($release === '1.0' || count($contents) > 2);
     }
 }

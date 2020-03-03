@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2012-2015, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
+ * Copyright (c) 2012-2019, Niels Braczek <nbraczek@bsds.de>. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -23,7 +23,7 @@
  * @package         GreenCape\JoomlaCLI
  * @subpackage      Unittests
  * @author          Niels Braczek <nbraczek@bsds.de>
- * @copyright   (C) 2012-2015 GreenCape, Niels Braczek <nbraczek@bsds.de>
+ * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
  * @link            http://greencape.github.io
  * @since           File available since Release 1.1.0
@@ -33,50 +33,44 @@ namespace GreenCapeTest;
 
 use Exception;
 use GreenCape\JoomlaCLI\Application;
-use GreenCape\JoomlaCLI\DriverFactory;
+use GreenCape\JoomlaCLI\Driver\DriverFactory;
 use phpDocumentor\Reflection\DocBlock;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class AutoloadTest extends PHPUnit_Framework_TestCase
+class AutoloadTest extends TestCase
 {
-	public function testVendorClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(DocBlock::class, new DocBlock(''));
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
+    public function testVendorClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(DocBlock::class, new DocBlock(''));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 
-	public function testSourceClassesAreFoundByAutoloader(): void
-	{
-		try
-		{
-			$this->assertInstanceOf(Application::class, new Application());
-			$this->assertInstanceOf(DriverFactory::class, new DriverFactory());
-		}
-		catch (Exception $e)
-		{
-			$this->fail($e->getMessage());
-		}
-	}
+    public function testSourceClassesAreFoundByAutoloader(): void
+    {
+        try {
+            $this->assertInstanceOf(Application::class, new Application());
+            $this->assertInstanceOf(DriverFactory::class, new DriverFactory());
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
 
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{
-	}
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp(): void
+    {
+    }
 
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
-	{
-	}
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown(): void
+    {
+    }
 }

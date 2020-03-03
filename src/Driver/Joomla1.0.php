@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
 /**
  * GreenCape Joomla Command Line Interface
  *
@@ -31,72 +32,71 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use JVersion;
-use RuntimeException;
+use Exception;
+use JText;
 
 /**
- * The driver factory instantiates the proper driver for the addressed Joomla! version.
+ * Version specific methods
  *
  * @package     GreenCape\JoomlaCLI
  * @subpackage  Driver
  * @since       Class available since Release 0.1.0
  */
-class DriverFactory
+class Joomla1Dot0Driver extends JoomlaDriver
 {
-	/**
-	 * Create a version specific driver to Joomla
-	 *
-	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
-	 *
-	 * @return  JoomlaDriver
-	 *
-	 * @throws  RuntimeException
-	 */
-	public function create($basePath): JoomlaDriver
-	{
-		$parts = explode('.', $this->loadVersion($basePath)->getShortVersion());
-		while (!empty($parts))
-		{
-			$version   = implode('Dot', $parts);
-			$classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
-			if (class_exists($classname))
-			{
-				return new $classname;
-			}
-			array_pop($parts);
-		}
-		throw new RuntimeException('No driver found');
-	}
+    /**
+     * Setup the environment
+     *
+     * @param  string  $application  The application, eg., 'site' or 'administration'
+     *
+     * @return  void
+     * @throws Exception
+     */
+    public function setupEnvironment($application = 'site'): void
+    {
+    }
 
-	/**
-	 * Load the Joomla version
-	 *
-	 * @param string $basePath The Joomla base path (same as JPATH_BASE within Joomla)
-	 *
-	 * @return  JVersion
-	 *
-	 * @throws  RuntimeException
-	 */
-	private function loadVersion($basePath): JVersion
-	{
-		static $locations = array(
-			'/libraries/cms/version/version.php',
-			'/libraries/joomla/version.php',
-		);
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return $GLOBALS['mosConfig_' . $key] = $value;
+    }
 
-		define('_JEXEC', 1);
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return $GLOBALS['mosConfig_' . $key];
+    }
 
-		foreach ($locations as $location)
-		{
-			if (file_exists($basePath . $location))
-			{
-				$code = file_get_contents($basePath . $location);
-				$code = str_replace("defined('JPATH_BASE')", "defined('_JEXEC')", $code);
-				eval('?>' . $code);
+    /**
+     *
+     * @param  object  $manifest
+     *
+     * @return array
+     */
+    public function getExtensionInfo($manifest): array
+    {
+        $data                = [];
+        $manifest            = $manifest->document;
+        $data['type']        = (string)$manifest->attributes('type');
+        $data['extension']   = (string)$manifest->name[0]->data();
+        $data['name']        = JText::_($manifest->name[0]->data());
+        $data['version']     = (string)$manifest->version[0]->data();
+        $data['description'] = JText::_($manifest->description[0]->data());
 
-				return new JVersion;
-			}
-		}
-		throw new RuntimeException('Unable to locate version information');
-	}
+        return $data;
+    }
 }

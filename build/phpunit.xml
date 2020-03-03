@@ -2,9 +2,8 @@
 
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         syntaxCheck="false"
          bootstrap="../vendor/autoload.php"
-         strict="true">
+>
 
     <testsuites>
         <testsuite name="JoomlaCLI">
@@ -13,8 +12,9 @@
     </testsuites>
 
     <logging>
-        <log type="coverage-clover" target="../build/logs/clover.xml"/>
-        <log type="junit" target="../../build/logs/junit.xml" logIncompleteSkipped="false"/>
+        <log type="junit" target="logs/junit.xml"/>
+        <log type="coverage-clover" target="logs/clover.xml"/>
+        <log type="coverage-html" target="report"/>
     </logging>
 
     <filter>

@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Command
+ * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -31,76 +31,40 @@
 
 namespace GreenCape\JoomlaCLI;
 
-use JVersion;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use Exception;
+use JFactory;
 
 /**
- * The version command reports the version of a Joomla! installation.
+ * Version specific methods
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Command
+ * @subpackage  Driver
  * @since       Class available since Release 0.1.0
  */
-class VersionCommand extends Command
+class Joomla3Driver extends JoomlaDriver
 {
-	/**
-	 * Configure the options for the version command
-	 *
-	 * @return  void
-	 */
-	protected function configure(): void
-	{
-		$this
-			->setName('version')
-			->setDescription('Shows the Joomla! version')
-			->addOption(
-				'long',
-				'l',
-				InputOption::VALUE_NONE,
-				'The long version info, eg. Joomla! x.y.z Stable [ Codename ] DD-Month-YYYY HH:ii GMT (default).'
-			)
-			->addOption(
-				'short',
-				's',
-				InputOption::VALUE_NONE,
-				'The short version info, eg. x.y.z'
-			)
-			->addOption(
-				'release',
-				'r',
-				InputOption::VALUE_NONE,
-				'The release info, eg. x.y'
-			);
-	}
+    /**
+     * Set a configuration value.
+     *
+     * @param  string  $key    The key
+     * @param  mixed   $value  The value
+     *
+     * @return  mixed  The value
+     */
+    public function setCfg($key, $value)
+    {
+        return JFactory::getConfig()->set($key, $value);
+    }
 
-	/**
-	 * Execute the version command
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  void
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output): void
-	{
-		$this->setupEnvironment('site', $input, $output);
-
-		$version = new JVersion;
-
-		if ($input->getOption('short'))
-		{
-			$result = $version->getShortVersion();
-		}
-		elseif ($input->getOption('release'))
-		{
-			$result = $version->RELEASE;
-		}
-		else
-		{
-			$result = $version->getLongVersion();
-		}
-		$output->writeln($result);
-	}
+    /**
+     * Gets a configuration value.
+     *
+     * @param  string  $key  The name of the value to get
+     *
+     * @return  mixed  The value
+     */
+    public function getCfg($key)
+    {
+        return JFactory::getConfig()->get($key);
+    }
 }

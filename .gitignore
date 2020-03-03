@@ -3,9 +3,17 @@ build/joomla.bat
 build/joomla.php
 build/*.phar
 build/*.tgz
+build/report
+build/logs
+build/testdox.*
 cache.properties
 vendor
 debug.php
 gource.mp4
 data/*
 .cache
+.phpunit.result.cache
+tests/tmp/
+/project.json
+/test.*
+/import.sql

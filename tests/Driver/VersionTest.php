@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Driver
+ * @subpackage      Unittests
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -29,58 +29,51 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCapeTest\Driver;
 
-use JFactory;
+use GreenCape\JoomlaCLI\Driver\Version;
+use GreenCapeTest\JoomlaPackagesTrait;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Version specific methods
- *
- * @package     GreenCape\JoomlaCLI
- * @subpackage  Driver
- * @since       Class available since Release 0.1.0
- */
-class Joomla2Driver extends JoomlaDriver
+class VersionTest extends TestCase
 {
-	/**
-	 * Setup the environment
-	 *
-	 * @param string $basePath    The root of the Joomla! application
-	 * @param string $application The application, eg., 'site' or 'administration'
-	 *
-	 * @return  void
-	 */
-	public function setupEnvironment($basePath, $application = 'site'): void
-	{
-		define('DS', DIRECTORY_SEPARATOR);
+    use JoomlaPackagesTrait;
 
-		parent::setupEnvironment($basePath, $application);
+    /**
+     * @param  string  $path
+     * @param  string  $release
+     * @param  string  $short
+     * @param  string  $long
+     *
+     * @throws FileNotFoundException
+     * @dataProvider joomlaPackages
+     * @testdox      Version driver detects the correct version
+     */
+    public function testVersion($path, $release, $short, $long): void
+    {
+        $adapter    = new Local('tests/fixtures/' . $path);
+        $filesystem = new Filesystem($adapter);
 
-		jimport('joomla.application.component.helper');
-	}
+        $joomlaVersion = new Version($filesystem);
 
-	/**
-	 * Set a configuration value.
-	 *
-	 * @param string $key   The key
-	 * @param mixed  $value The value
-	 *
-	 * @return  mixed  The value
-	 */
-	public function setCfg($key, $value)
-	{
-		return JFactory::getConfig()->set($key, $value);
-	}
+        $this->assertEquals($release, $joomlaVersion->getRelease());
+        $this->assertEquals($short, $joomlaVersion->getShortVersion());
+        $this->assertEquals($long, $joomlaVersion->getLongVersion());
+    }
 
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param string $key The name of the value to get
-	 *
-	 * @return  mixed  The value
-	 */
-	public function getCfg($key)
-	{
-		return JFactory::getConfig()->get($key);
-	}
+    /**
+     * @throws FileNotFoundException
+     * @testdox Version driver throws FileNotFoundException if version file is not found
+     */
+    public function testException(): void
+    {
+        $adapter    = new Local('tests/fixtures/nx');
+        $filesystem = new Filesystem($adapter);
+
+        $this->expectException(FileNotFoundException::class);
+        new Version($filesystem);
+    }
 }
