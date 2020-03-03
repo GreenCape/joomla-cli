@@ -27,6 +27,3 @@ For a system-wide installation via Composer, you can run:
     composer global require 'greencape/joomla-cli=*'
 
 Make sure you have `~/.composer/vendor/bin/` in your path.
-
-## Usage Examples
-[ToDo]

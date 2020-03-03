@@ -21,7 +21,7 @@
  * SOFTWARE.
  *
  * @package         GreenCape\JoomlaCLI
- * @subpackage      Core
+ * @subpackage      Driver
  * @author          Niels Braczek <nbraczek@bsds.de>
  * @copyright   (C) 2012-2019 GreenCape, Niels Braczek <nbraczek@bsds.de>
  * @license         http://opensource.org/licenses/MIT The MIT license (MIT)
@@ -29,83 +29,56 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCape\JoomlaCLI;
+namespace GreenCape\JoomlaCLI\Driver;
 
-use Exception;
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
+use GreenCape\JoomlaCLI\JoomlaDriver;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
+use RuntimeException;
 
 /**
- * The main Joomla CLI application.
+ * The driver factory instantiates the proper driver for the addressed Joomla! version.
  *
  * @package     GreenCape\JoomlaCLI
- * @subpackage  Core
+ * @subpackage  Driver
  * @since       Class available since Release 0.1.0
  */
-class Application extends BaseApplication
+class DriverFactory
 {
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		parent::__construct('Joomla CLI', '0.1.1');
-		$this->setCatchExceptions(false);
-		$this->addPlugins(__DIR__ . '/Commands');
-	}
+    /**
+     * Create a version specific driver to Joomla
+     *
+     * @param  Filesystem  $filesystem  The Joomla file system
+     *
+     * @return  JoomlaDriver
+     * @throws FileNotFoundException
+     */
+    public function create(Filesystem $filesystem): JoomlaDriver
+    {
+        $parts = explode('.', $this->loadVersion($filesystem)->getShortVersion());
+        while (!empty($parts)) {
+            $version   = implode('Dot', $parts);
+            $classname = __NAMESPACE__ . '\\Joomla' . $version . 'Driver';
+            if (class_exists($classname)) {
+                return new $classname($filesystem);
+            }
+            array_pop($parts);
+        }
+        throw new RuntimeException('No driver found');
+    }
 
-	/**
-	 * Runs the current application.
-	 *
-	 * @param InputInterface  $input  An InputInterface instance
-	 * @param OutputInterface $output An OutputInterface instance
-	 *
-	 * @return  integer  0 if everything went fine, or an error code
-	 *
-	 * @throws  Exception on problems
-	 */
-	public function run(InputInterface $input = null, OutputInterface $output = null): int
-	{
-		try
-		{
-			parent::run($input, $output);
-		}
-		catch (Exception $e)
-		{
-			if (null === $output)
-			{
-				$output = new ConsoleOutput();
-			}
-			$message = array(
-				$this->getLongVersion(),
-				'',
-				$e->getMessage(),
-				''
-			);
-			$output->writeln($message);
-
-			return 1;
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Dynamically add all commands from a path
-	 *
-	 * @param string $path The directory with the plugins
-	 *
-	 * @return  void
-	 */
-	private function addPlugins($path): void
-	{
-		foreach (glob($path . '/*.php') as $filename)
-		{
-			$commandClass = __NAMESPACE__ . '\\' . basename($filename, '.php') . 'Command';
-			$command      = new $commandClass;
-			$this->add($command);
-		}
-	}
+    /**
+     * Load the Joomla version
+     *
+     * @param  Filesystem  $filesystem
+     *
+     * @return  mixed
+     *
+     * @throws RuntimeException
+     * @throws FileNotFoundException
+     */
+    private function loadVersion(Filesystem $filesystem)
+    {
+        return new Version($filesystem);
+    }
 }
