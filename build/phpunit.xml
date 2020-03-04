@@ -12,9 +12,9 @@
     </testsuites>
 
     <logging>
-        <log type="junit" target="logs/junit.xml"/>
-        <log type="coverage-clover" target="logs/clover.xml"/>
-        <log type="coverage-html" target="report"/>
+        <log type="junit" target="logs/junit-joomla-cli.xml"/>
+        <log type="coverage-clover" target="logs/clover-joomla-cli.xml"/>
+        <log type="coverage-php" target="logs/coverage/joomla-cli.cov"/>
     </logging>
 
     <filter>

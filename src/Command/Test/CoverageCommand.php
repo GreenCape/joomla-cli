@@ -32,6 +32,7 @@ namespace GreenCape\JoomlaCLI\Command\Test;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -51,6 +52,12 @@ class CoverageCommand extends Command
         $this
             ->setName('test:coverage')
             ->setDescription('Creates an consolidated HTML coverage report')
+            ->addOption(
+                'upload',
+                'u',
+                InputOption::VALUE_NONE,
+                'Upload coverage information to Code Climate (requires CODECLIMATE_REPO_TOKEN)'
+            )
         ;
     }
 
@@ -66,5 +73,9 @@ class CoverageCommand extends Command
         $project  = null;
 
         (new FromPhing($output, $basePath, $project))->testCoverageReport();
+
+        if ($input->getOption('upload')) {
+            shell_exec("build/upload-coverage.sh");
+        }
     }
 }

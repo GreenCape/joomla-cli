@@ -81,6 +81,15 @@ class CoverageCollector
                 continue;
             }
 
+            if (!isset($this->data[$file]) || !$this->hasCoverage($this->data[$file])) {
+                $this->data[$file] = $lines;
+                continue;
+            }
+
+            if (!$this->hasCoverage($lines)) {
+                continue;
+            }
+
             foreach ($lines as $line => $tests) {
                 if (!is_array($tests)) {
                     continue;
@@ -162,5 +171,23 @@ class CoverageCollector
         $filter->setWhitelistedFiles($this->whiteList);
 
         return $coverage;
+    }
+
+    /**
+     * @param $lines
+     *
+     * @return bool
+     */
+    private function hasCoverage($lines): bool
+    {
+        $hasCoverage = false;
+        foreach ($lines as $line => $tests) {
+            if (!empty($tests)) {
+                $hasCoverage = true;
+                break;
+            }
+        }
+
+        return $hasCoverage;
     }
 }
