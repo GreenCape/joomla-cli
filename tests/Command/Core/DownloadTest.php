@@ -29,11 +29,11 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Command;
+namespace UnitTest\Command;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use GreenCapeTest\Driver\JoomlaPackagesTrait;
+use UnitTest\Driver\JoomlaPackagesTrait;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;

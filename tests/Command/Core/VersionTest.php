@@ -29,11 +29,11 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Command;
+namespace UnitTest\Command;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\VersionCommand;
-use GreenCapeTest\Driver\JoomlaPackagesTrait;
+use UnitTest\Driver\JoomlaPackagesTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;

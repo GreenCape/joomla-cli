@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Driver;
+namespace UnitTest\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Version;
 use League\Flysystem\Adapter\Local;

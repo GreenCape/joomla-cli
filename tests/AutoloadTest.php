@@ -29,7 +29,7 @@
  * @since           File available since Release 1.1.0
  */
 
-namespace GreenCapeTest;
+namespace UnitTest;
 
 use Exception;
 use GreenCape\JoomlaCLI\Application;

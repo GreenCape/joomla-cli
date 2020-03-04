@@ -163,7 +163,7 @@ class CoverageCollector
      */
     public function coverage(): CodeCoverage
     {
-        $coverage = new CodeCoverage;
+        $coverage = new CodeCoverage();
         $coverage->setData($this->data);
         $coverage->setTests($this->tests);
         $filter = $coverage->filter();

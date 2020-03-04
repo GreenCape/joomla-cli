@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest\Repository;
+namespace UnitTest\Repository;
 
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use League\Flysystem\FileNotFoundException;

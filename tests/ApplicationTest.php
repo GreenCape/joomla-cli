@@ -29,7 +29,7 @@
  * @since           File available since Release 0.1.0
  */
 
-namespace GreenCapeTest;
+namespace UnitTest;
 
 use GreenCape\JoomlaCLI\Application;
 use PHPUnit\Framework\TestCase;
