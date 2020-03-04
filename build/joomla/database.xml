@@ -1,0 +1,4 @@
+<database>
+    <mysql version="latest" host="localhost" port="3306" name="joomla_test" user="sqladmin" password="sqladmin" rootPassword="root"/>
+    <postgresql version="latest" host="localhost" port="5432" name="joomla_test" user="sqladmin" password="sqladmin"/>
+</database>

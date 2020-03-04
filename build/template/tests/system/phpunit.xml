@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         timeoutForSmallTests="5">
+    <testsuites>
+        <testsuite name="system-@TARGET@">
+            <directory suffix="Test.php">suites</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-php" target="@CMS_ROOT@/build/logs/system-@TARGET@.cov"/>
+    </logging>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">@CMS_ROOT@</directory>
+            <exclude/>
+        </whitelist>
+    </filter>
+
+    <php>
+        <var name="browser_url" value="@DOMAIN@"/>
+    </php>
+</phpunit>
