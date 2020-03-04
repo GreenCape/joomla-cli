@@ -72,7 +72,7 @@ class Version
         $content = $this->loadVersionFile();
 
         if (!is_string($content)) {
-            throw new FileNotFoundException('Joomla! version file');
+            throw new FileNotFoundException("'" . implode("', ", $this->locations) . "'");
         }
 
         $prefix  = '(?:var\s*\$|public\s*\$|const\s*)';
