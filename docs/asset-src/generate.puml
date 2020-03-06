@@ -10,7 +10,7 @@ salt
 {+
 **Generate Code **
 ---
-{Target: | ^Joomla! 3.8      ^}
+{Target: | ^Joomla 3.8      ^}
 ---
 {[ <&x> Cancel ] | [ <&code> Generate ] }
 }

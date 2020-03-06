@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md)
+[Joomla CLI](../index.md)
 # Test
 
 - [test](test.md) - Runs all tests locally and in the test containers

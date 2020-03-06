@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md)
+[Joomla CLI](../index.md)
 # Dist
 
 - [dist](dist.md) - Generates the distribution

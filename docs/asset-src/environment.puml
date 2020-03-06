@@ -13,11 +13,11 @@ salt
     {/ <b>Joomla | Database | Web Server | PHP }
     {
         {SI
-            [] Joomla! 3.7
-            [] <back:lightblue>Joomla! 3.8                                        <&blank>
-            [X] Joomla! 3.9
-            [X] Joomla! latest
-            [] Joomla! staging
+            [] Joomla 3.7
+            [] <back:lightblue>Joomla 3.8                                        <&blank>
+            [X] Joomla 3.9
+            [X] Joomla latest
+            [] Joomla staging
         }|
         {[<&plus> Add]
         [<&pencil>Edit]

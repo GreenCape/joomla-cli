@@ -1,27 +1,27 @@
 {{ data.name }} {{ data.version }}
-# Joomla! Command Line Interface
+# Joomla Command Line Interface
 
-Joomla! CLI (`joomla-cli`) is a tool for managing Joomla! from the command line.
-It works for all Joomla! versions since 1.0.0, although it needs a current PHP installation.
+Joomla CLI (`joomla-cli`) is a tool for managing Joomla from the command line.
+It works for all Joomla versions since 1.0.0, although it needs a current PHP installation.
 
 Available commands are
 
 {% for group in data.commands %}
-    {% set isGroupWritten = false %}
-    {% for command in group %}
-        {% if isGroupWritten == false %}
-            {% if command.group > '' %}
+{% set isGroupWritten = false %}
+{% for command in group %}
+{% if isGroupWritten == false %}
+{% if command.group > '' %}
 
-                **[{{ command.group | title }}]({{ command.group }}/index.md)**
-            {% endif %}
-            {% set isGroupWritten = true %}
-        {% endif %}
-        {% if command.group > '' %}
-            - [{{ command.command }}]({{ command.path }}.md) - {{ command.description }}
-        {% else %}
-            - [{{ command.command }}]({{ command.command }}/{{ command.path }}.md) - {{ command.description }}
-        {% endif %}
-    {% endfor %}
+**[{{ command.group | title }}]({{ command.group }}/index.md)**
+{% endif %}
+{% set isGroupWritten = true %}
+{% endif %}
+{% if command.group > '' %}
+- [{{ command.command }}]({{ command.path }}.md) - {{ command.description }}
+{% else %}
+- [{{ command.command }}]({{ command.command }}/{{ command.path }}.md) - {{ command.description }}
+{% endif %}
+{% endfor %}
 {% endfor %}
 
 ## Common Options
@@ -31,6 +31,6 @@ All commands have these options in common:
 Options:
 ```
 {% for option in data.options %}
-    {{ option }}
+{{ option }}
 {% endfor %}
 ```

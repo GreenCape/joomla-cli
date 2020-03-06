@@ -1,8 +1,8 @@
 Joomla CLI 0.2.0
-# Joomla! Command Line Interface
+# Joomla Command Line Interface
 
-Joomla! CLI (`joomla-cli`) is a tool for managing Joomla! from the command line.
-It works for all Joomla! versions since 1.0.0, although it needs a current PHP installation.
+Joomla CLI (`joomla-cli`) is a tool for managing Joomla from the command line.
+It works for all Joomla versions since 1.0.0, although it needs a current PHP installation.
 
 Available commands are
 
@@ -18,8 +18,8 @@ Available commands are
 - [build:all](build/all.md) - Performs all tests and generates documentation and the quality report
 
 **[Core](core/index.md)**
-- [core:download](core/download.md) - Downloads a Joomla! version and unpacks it to the base path
-- [core:version](core/version.md) - Reports the version of the Joomla! installation at the base path
+- [core:download](core/download.md) - Downloads a Joomla version and unpacks it to the base path
+- [core:version](core/version.md) - Reports the version of the Joomla installation at the base path
 
 **[Dist](dist/index.md)**
 - [dist:clean](dist/clean.md) - Cleanup distribution directory
@@ -39,7 +39,7 @@ Available commands are
 - [document:uml](document/uml.md) - Generates UML diagrams
 
 **[Extension](extension/index.md)**
-- [extension:install](extension/install.md) - Installs a Joomla! extension
+- [extension:install](extension/install.md) - Installs a Joomla extension
 
 **[Patch](patch/index.md)**
 - [patch:create](patch/create.md) - Creates a patch set ready to drop into an existing installation
@@ -55,7 +55,7 @@ Available commands are
 - [self:update](self/update.md) - Updates the build environment
 
 **[Template](template/index.md)**
-- [template:override](template/override.md) - Creates template and layout overrides (Joomla! 1.5+)
+- [template:override](template/override.md) - Creates template and layout overrides (Joomla 1.5+)
 
 **[Test](test/index.md)**
 - [test:coverage](test/coverage.md) - Creates an consolidated HTML coverage report

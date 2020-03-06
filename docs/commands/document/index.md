@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md)
+[Joomla CLI](../index.md)
 # Document
 
 - [document](document.md) - Generates API documentation using the specified generator

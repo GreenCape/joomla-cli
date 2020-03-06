@@ -1,7 +1,7 @@
-[Joomla! CLI](../index.md) > [Template](index.md)
+[Joomla CLI](../index.md) > [Template](index.md)
 # template:override
 
-Creates template and layout overrides (Joomla! 1.5+).
+Creates template and layout overrides (Joomla 1.5+).
 
 ## Synopsis
 ```bash
@@ -16,7 +16,7 @@ template                 The system name of the template, e.g., `rhuk_milkyway`.
 ## Options
 ```
   -f, --force              Overwrite existing overrides in the template directory.
-  -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
+  -b, --basepath=BASEPATH  The root of the Joomla installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
   -V, --version            Display this application version
@@ -28,5 +28,5 @@ template                 The system name of the template, e.g., `rhuk_milkyway`.
 
 ## Description
 
-Creates template and layout overrides (Joomla! 1.5+)
+Creates template and layout overrides (Joomla 1.5+)
 

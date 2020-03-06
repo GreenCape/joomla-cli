@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md)
+[Joomla CLI](../index.md)
 # Quality
 
 - [quality](quality.md) - Generates a quality report using CodeBrowser

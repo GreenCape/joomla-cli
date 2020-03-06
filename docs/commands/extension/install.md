@@ -1,7 +1,7 @@
-[Joomla! CLI](../index.md) > [Extension](index.md)
+[Joomla CLI](../index.md) > [Extension](index.md)
 # extension:install
 
-Installs a Joomla! extension.
+Installs a Joomla extension.
 
 ## Synopsis
 ```bash
@@ -15,7 +15,7 @@ extension                The path to the extension.
 
 ## Options
 ```
-  -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
+  -b, --basepath=BASEPATH  The root of the Joomla installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
   -V, --version            Display this application version
@@ -27,5 +27,5 @@ extension                The path to the extension.
 
 ## Description
 
-Installs a Joomla! extension
+Installs a Joomla extension
 

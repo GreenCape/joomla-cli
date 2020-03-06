@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md) > [Quality](index.md)
+[Joomla CLI](../index.md) > [Quality](index.md)
 # quality:cs
 
 Generates checkstyle.xml using PHP CodeSniffer.
@@ -14,7 +14,8 @@ This command has no arguments.
 
 ## Options
 ```
-  -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
+  -f, --file=FILE          Path to the report file [default: "stdout"]
+  -b, --basepath=BASEPATH  The root of the Joomla installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
   -V, --version            Display this application version

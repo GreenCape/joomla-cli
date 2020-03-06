@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md) > [Test](index.md)
+[Joomla CLI](../index.md) > [Test](index.md)
 # test:coverage
 
 Creates an consolidated HTML coverage report.
@@ -13,7 +13,8 @@ This command has no arguments.
 
 ## Options
 ```
-  -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
+  -u, --upload             Upload coverage information to Code Climate (requires CODECLIMATE_REPO_TOKEN)
+  -b, --basepath=BASEPATH  The root of the Joomla installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
   -V, --version            Display this application version

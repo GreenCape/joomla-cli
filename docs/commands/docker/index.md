@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md)
+[Joomla CLI](../index.md)
 # Docker
 
 - [docker:build](build.md) - Generates the contents and prepares the test containers

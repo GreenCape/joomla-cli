@@ -1,4 +1,4 @@
-[Joomla! CLI](../index.md) > [Test](index.md)
+[Joomla CLI](../index.md) > [Test](index.md)
 # test:unit
 
 Runs local unit tests.
@@ -13,7 +13,7 @@ This command has no arguments.
 
 ## Options
 ```
-  -b, --basepath=BASEPATH  The root of the Joomla! installation. Defaults to the current working directory. [default: "."]
+  -b, --basepath=BASEPATH  The root of the Joomla installation. Defaults to the current working directory. [default: "."]
   -h, --help               Display this help message
   -q, --quiet              Do not output any message
   -V, --version            Display this application version
