@@ -30,8 +30,8 @@
 namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -52,6 +52,13 @@ class CheckStyleCommand extends Command
             ->setName('quality:check-style')
             ->setAliases(['quality:cs'])
             ->setDescription('Generates checkstyle.xml using PHP CodeSniffer')
+            ->addOption(
+                'file',
+                'f',
+                InputOption::VALUE_REQUIRED,
+                'Path to the report file',
+                'stdout'
+            )
         ;
     }
 
@@ -64,8 +71,22 @@ class CheckStyleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $basePath = $input->getOption('basepath');
-        $project  = null;
+        $file     = $input->getOption('file');
 
-        (new FromPhing($output, $basePath, $project))->qualityCheckStyle();
+        if ($file === 'stdout') {
+            $report = ' --report=full';
+        } else {
+            $report = " --report=checkstyle --report-file=$file";
+        }
+
+        $command = 'vendor/bin/phpcs'
+                   . ' -s'
+                   . $report
+                   . ' --standard=PSR12'
+                   . " {$basePath}";
+
+        $output->writeln($command, OutputInterface::VERBOSITY_DEBUG);
+
+        passthru($command);
     }
 }
