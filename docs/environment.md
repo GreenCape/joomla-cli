@@ -1,23 +1,102 @@
-## Test Environments
+# Environments
 
-Using the `Environment` tab, you can define the test environments.
+## Environment Definition File
 
-Although it seems to be very important to test as much as possible, there are way too many combinations of the selections shown in the images above.
-2 Joomla versions combined with 2 databases, 3 web servers and 5 PHP versions define 60 different test environments. Adding one more Joomla version would increase the number to 90(!).
+An environment can be defined in a json file like this (`build/joomla/default.json`):
 
-Fortunately, this problem is well known, and there is a solution for it, called [all-pairs testing](https://en.wikipedia.org/wiki/All-pairs_testing).
-This method uses the smallest set of combinations, that contains all pairs from the four dimensions 'Joomla', 'Database', Web Server' and 'PHP'. 
+```json
+{
+  "name": "default",
+  "server": {
+    "type":"nginx",
+    "offset": "UTC"
+  },
+  "database": {
+    "driver": "mysql",
+    "version": "latest",
+    "host": "localhost",
+    "port": "3306",
+    "name": "joomla_test",
+    "user": "sqladmin",
+    "password": "sqladmin",
+    "rootPassword": "root",
+    "prefix": "jos_"
+  },
+  "joomla": {
+    "version": "latest",
+    "sampleData": "",
+    "cache": {
+      "enabled": false,
+      "time": 15,
+      "handler": "file"
+    },
+    "debug": {
+      "system": true,
+      "language": true
+    },
+    "meta": {
+      "description": "Test installation",
+      "keywords": "",
+      "showVersion": true,
+      "showTitle": true,
+      "showAuthor": true
+    },
+    "sef": {
+      "enabled": false,
+      "rewrite": false,
+      "suffix": false,
+      "unicode": false
+    },
+    "feeds": {
+      "limit": 10,
+      "email": "author"
+    },
+    "session": {
+      "lifetime": "15",
+      "handler": "database"
+    }
+  }
+}
+```
 
-```xml
-<environment name="env-name">
-    <joomla version="3" sampleData="data"/>
-    <database driver="mysql" name="joomla3" prefix="j3m_"/>
-    <server type="nginx" offset="UTC"/>
-    <cache enabled="0" time="15" handler="file"/>
-    <debug system="1" language="1"/>
-    <meta description="Test installation" keywords="" showVersion="0" showTitle="1" showAuthor="1"/>
-    <sef enabled="0" rewrite="0" suffix="0" unicode="0"/>
-    <feeds limit="10" email="author"/>
-    <session lifetime="15" handler="database"/>
-</environment>
+## Environment Variables
+
+All values from the environment definition file can be overridden by environment variables.
+These variables can be set directly or in an `.env` file. 
+The `.env` file in the project's root directory is loaded automatically if present.
+Example (`build/joomla/.env`):
+
+```dotenv
+JCLI_NAME=default
+JCLI_SERVER_TYPE=nginx
+JCLI_SERVER_OFFSET=UTC
+JCLI_DATABASE_DRIVER=mysql
+JCLI_DATABASE_VERSION=latest
+JCLI_DATABASE_HOST=localhost
+JCLI_DATABASE_PORT=3306
+JCLI_DATABASE_NAME=joomla_test
+JCLI_DATABASE_USER=sqladmin
+JCLI_DATABASE_PASSWORD=sqladmin
+JCLI_DATABASE_ROOTPASSWORD=root
+JCLI_DATABASE_PREFIX=jos_
+JCLI_JOOMLA_VERSION=latest
+JCLI_JOOMLA_SAMPLEDATA=
+JCLI_JOOMLA_CACHE_ENABLED=0
+JCLI_JOOMLA_CACHE_TIME=15
+JCLI_JOOMLA_CACHE_HANDLER=file
+JCLI_JOOMLA_DEBUG_SYSTEM=1
+JCLI_JOOMLA_DEBUG_LANGUAGE=1
+JCLI_JOOMLA_META_DESCRIPTION=Test installation
+JCLI_JOOMLA_META_KEYWORDS=
+JCLI_JOOMLA_META_SHOWVERSION=1
+JCLI_JOOMLA_META_SHOWTITLE=1
+JCLI_JOOMLA_META_SHOWAUTHOR=1
+JCLI_JOOMLA_SEF_ENABLED=0
+JCLI_JOOMLA_SEF_REWRITE=0
+JCLI_JOOMLA_SEF_SUFFIX=0
+JCLI_JOOMLA_SEF_UNICODE=0
+JCLI_JOOMLA_FEEDS_LIMIT=10
+JCLI_JOOMLA_FEEDS_EMAIL=author
+JCLI_JOOMLA_SESSION_LIFETIME=15
+JCLI_JOOMLA_SESSION_HANDLER=database
 ```

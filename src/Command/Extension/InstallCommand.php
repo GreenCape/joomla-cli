@@ -73,7 +73,7 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->setupEnvironment('administrator', $input, $output);
+        $this->setupEnvironment('administrator');
 
         // Enable debug, so that JInstaller::install() throws exceptions on problems
         $this->joomla->setCfg('debug', 1);

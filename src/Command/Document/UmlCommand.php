@@ -63,7 +63,7 @@ class UmlCommand extends Command
             ->setDescription('Generates UML diagrams')
             ->addOption(
                 'jar',
-                'j',
+                'J',
                 InputOption::VALUE_REQUIRED,
                 "Path to the PlantUML jar file",
                 $this->home . '/build/plantuml/plantuml.jar'

@@ -63,11 +63,6 @@ class DownloadCommand extends Command
     private $cachePath;
 
     /**
-     * @var OutputInterface
-     */
-    private $output;
-
-    /**
      * Configure the options for the command
      *
      * @return  void
@@ -119,22 +114,18 @@ class DownloadCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->output      = $output;
         $this->version     = $input->getArgument('version');
         $this->versionFile = $input->getOption('file');
         $this->cachePath   = $input->getOption('cache');
 
-        $basePath = $input->getOption('basepath');
+        $this->mkdir($this->cachePath);
 
-        $versionList = $this->getAvailableVersions();
-        $this->createPath($this->cachePath);
-
-        $tarball = $this->getTarball($versionList);
+        $tarball = $this->getTarball($this->version, $this->getAvailableVersions());
         $this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $this->unpack($basePath, $tarball);
+        $this->untar($this->basePath, $tarball);
 
-        $this->output->writeln("Installed Joomla! files to  {$basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $this->output->writeln("Installed Joomla! files to  {$this->basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
     }
 
     /**
@@ -149,21 +140,14 @@ class DownloadCommand extends Command
         return new VersionList($filesystem, $cacheFile);
     }
 
-    private function createPath(string $path): void
-    {
-        if (!@mkdir($path, 0777, true) && !is_dir($path)) {
-            throw new RuntimeException(sprintf('Directory "%s" could not be created', $path));  // @codeCoverageIgnore
-        }
-    }
-
     /**
+     * @param  string       $version
      * @param  VersionList  $versions
      *
      * @return string
      */
-    private function getTarball(VersionList $versions): string
+    private function getTarball(string $version, VersionList $versions): string
     {
-        $version   = $this->version;
         $cachePath = $this->cachePath;
 
         $requested = $version;
@@ -203,52 +187,7 @@ class DownloadCommand extends Command
                 return $this->download($tarball, $url);
             }
         }
+
         throw new RuntimeException("$requested: Version is unknown");
-    }
-
-    /**
-     * @param          $basePath
-     * @param  string  $tarball
-     */
-    private function unpack($basePath, string $tarball): void
-    {
-        $this->createPath($basePath);
-        shell_exec("tar -zxvf {$tarball} -C {$basePath} --exclude-vcs");
-
-        // If $basePath contains only a single directory, we need to lift everything up one level.
-        $dirList = glob("{$basePath}/*", GLOB_ONLYDIR);
-
-        if (count($dirList) === 1) {
-            $subDir  = $dirList[0];
-            $dirList = array_filter(
-                glob("{$subDir}/{*,.*}", GLOB_NOSORT | GLOB_BRACE),
-                static function ($filename) {
-                    $basename = basename($filename);
-
-                    return ($basename !== '.' && $basename !== '..');
-                }
-            );
-            foreach ($dirList as $item) {
-                shell_exec("mv {$item} {$basePath}");
-            }
-            shell_exec("rm -d {$subDir}");
-        }
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
     }
 }

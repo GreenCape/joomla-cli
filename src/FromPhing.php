@@ -170,6 +170,8 @@ class FromPhing
      */
     private $user;
 
+    use FilesystemMethods;
+
     /**
      * FromPhing constructor.
      *
@@ -184,236 +186,12 @@ class FromPhing
     }
 
     /**
-     * Initialise.
-     *
-     * @param  string  $dir          The absolute path to the project root
-     * @param  string  $projectFile  The path to the project file, relative to $dir
-     */
-    private function init($dir, $projectFile): void
-    {
-        $this->basedir = $dir;
-        $this->user    = getmyuid() . ':' . getmygid();
-
-        if (!file_exists($this->basedir . '/' . $projectFile)) {
-            throw new RuntimeException(
-                sprintf(
-                    'Project file %s/%s not found',
-                    $this->basedir,
-                    $projectFile
-                )
-            );
-        }
-
-        $this->echo("Reading project file {$projectFile}", 'debug');
-
-        $settings = json_decode(file_get_contents($this->basedir . '/' . $projectFile), true);
-
-        $this->project = $settings['project'];
-
-        $this->package['name']     = $settings['package']['name'] ?? 'com_' . strtolower(preg_replace('~\W+~', '_',
-                $this->project['name']));
-        $this->package['type']     = $settings['package']['type'] ?? 'component';
-        $this->package['manifest'] = $settings['package']['manifest'] ?? 'manifest.xml';
-        $this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
-
-        if (isset($settings['package']['extensions'])) {
-            foreach ($settings['package']['extensions'] as $extension) {
-                $extension['version']                            = $extension['version'] ?? $this->package['version'];
-                $this->package['extensions'][$extension['name']] = $extension;
-            }
-        }
-
-        $this->echo("Project: {$this->project['name']} {$this->project['version']}", 'verbose');
-
-        $this->source = rtrim($this->basedir . '/' . $this->project['paths']['source'] ?? 'source', '/');
-
-        if (file_exists($this->source . '/' . $settings['package']['manifest'])) {
-            $this->echo("Reading manifest file {$settings['package']['manifest']}", 'debug');
-
-            $manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
-
-            $this->package['name']   = $manifest->getName();
-            $this->package['type']   = $manifest->getType();
-            $this->package['target'] = $manifest->getTarget();
-
-            if ($manifest->getType() === 'package') {
-                foreach ($manifest->getSection('files')->getStructure() as $extension) {
-                    $this->package['extensions'][$extension['@id']]['archive'] = ltrim(($extension['@base'] ?? '') . '/' . $extension['file'],
-                        '/');
-                    $this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
-                }
-            }
-        } else {
-            $this->echo("Manifest file '{$settings['package']['manifest']}' not found.", 'warning');
-        }
-
-        $this->echo(ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}",
-            'verbose');
-
-        $this->build            = $this->basedir . '/build';
-        $this->tests            = $this->basedir . '/tests';
-        $this->bin              = $this->basedir . '/vendor/bin';
-        $this->unitTests        = $this->tests . '/unit';
-        $this->integrationTests = $this->tests . '/integration';
-        $this->systemTests      = $this->tests . '/system';
-        $this->testEnvironments = $this->tests . '/servers';
-        $this->serverDockyard   = $this->build . '/servers';
-        $this->versionCache     = $this->build . '/versions.json';
-        $this->downloadCache    = $this->build . '/cache';
-        $this->php              = [
-            'host' => 'php',
-            'port' => 9000,
-        ];
-
-        if (empty($this->project['name'])) {
-            $this->project['name'] = $this->package['name'];
-        }
-
-        $this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['name']}-{$this->project['version']}";
-
-        $this->mkdir($this->downloadCache);
-
-        $this->filterExpand = function ($content) {
-            return $this->expand($content);
-        };
-
-        $this->sourceFiles          = (new Fileset($this->source))->include('**.*');
-        $this->phpFiles             = (new Fileset($this->source))->include('**.*.php');
-        $this->xmlFiles             = (new Fileset($this->source))->include('**.*.xml');
-        $this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
-        $this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
-
-        $this->buildTemplates = dirname(__DIR__) . '/build';
-    }
-
-    /**
-     * @param  string  $message
-     * @param  string  $level
-     */
-    private function echo(string $message, string $level): void
-    {
-        $verbosity = [
-            'info'    => OutputInterface::VERBOSITY_NORMAL,
-            'warning' => OutputInterface::VERBOSITY_NORMAL,
-            'error'   => OutputInterface::VERBOSITY_NORMAL,
-            'verbose' => OutputInterface::VERBOSITY_VERBOSE,
-            'debug'   => OutputInterface::VERBOSITY_DEBUG,
-        ];
-
-        $this->output->writeln(strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message),
-            $verbosity[$level]);
-    }
-
-    /**
-     * @param  string  $dir
-     */
-    private function mkdir(string $dir): void
-    {
-        $this->exec("mkdir --mode=0775 --parents $dir", $this->basedir);
-    }
-
-    /**
-     * @param  string  $content
-     *
-     * @return string
-     */
-    private function expand(string $content): string
-    {
-        return preg_replace_callback(
-            '~\${(.*?)}~',
-            function ($match) {
-                $var   = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $match[1]))));
-                $parts = explode('.', $var);
-                $var   = array_shift($parts);
-                $var   = $this->{$var};
-
-                for ($index = array_shift($parts); $index !== null; $index = array_shift($parts)) {
-                    $var = $var[$index];
-                }
-
-                return $var;
-            },
-            $content
-        );
-    }
-
-    /** @noinspection PhpUnused */
-
-    /**
-     * @param  string  $command
-     * @param  string  $dir
-     * @param  bool    $passthru
-     *
-     * @return string|null
-     */
-    private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
-    {
-        $this->echo("Running `{$command}` in `{$dir}`", 'debug');
-
-        if ($dir !== '.') {
-            $current = getcwd();
-            $command = 'cd ' . $dir . ' && ' . $command . ' && cd ' . $current;
-        }
-
-        $result = '';
-
-        if ($passthru) {
-            passthru($command . ' 2>&1', $result);
-        } else {
-            $result = shell_exec($command . ' 2>&1');
-        }
-
-        return $result;
-    }
-
-    /************************
-     * Docker related tasks *
-     ************************/
-
-    /**
      * Updates the build environment
      */
     public function selfUpdate(): void
     {
         $this->clean();
         $this->exec('git pull origin && composer update', $this->build);
-    }
-
-    /**
-     * Cleanup artifact directories
-     */
-    private function clean(): void
-    {
-        $this->delete("{$this->build}/logs");
-        $this->delete("{$this->build}/servers");
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     */
-    private function delete($fileset): void
-    {
-        if (is_string($fileset)) {
-            $this->deleteFile($fileset);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->deleteFile($file);
-        }
-    }
-
-    /**
-     * @param $file
-     */
-    private function deleteFile($file): void
-    {
-        if (!file_exists($file)) {
-            return;
-        }
-
-        $this->exec(is_dir($file) ? "rm -rf $file" : "rm $file");
     }
 
     /**
@@ -452,106 +230,6 @@ class FromPhing
         $this->delete($this->serverDockyard);
     }
 
-    /*******************************
-     * Documentation related tasks *
-     *******************************/
-
-    /**
-     * Generate API documentation using PHPDocumentor2
-     *
-     * @param $apidocTitle
-     *
-     * @noinspection PhpUnusedPrivateMethodInspection
-     */
-    private function documentPhpdoc($apidocTitle): void
-    {
-        $this->exec(
-            "{$this->bin}/phpdoc --target={$this->build}/report/api --directory={$this->source} --title=\"{$apidocTitle}\" --template=responsive",
-            $this->basedir
-        );
-        $this->copy(
-            (new Fileset("{$this->build}/plantuml"))
-                ->include('*.js'),
-            "{$this->build}/report/api/js",
-            static function ($content) {
-                return str_replace("'rawdeflate.js'", "'../js/rawdeflate.js'", $content);
-            }
-        );
-        $this->reflexive(
-            (new Fileset("{$this->build}/report/api/classes"))
-                ->include('*.html'),
-            static function ($content) {
-                $content = str_replace('</head>',
-                    '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>', $content);
-                $content = preg_replace(
-                    "~<th>startuml</th>(\n)<td>(.+?)</td>~sm",
-                    /** @lang text */ '<th>UML</th><td><img uml="\\1!include ' . $this->build . '/report/api/uml/skin.puml\\1\\2\\1" alt=""/></td>',
-                    $content
-                );
-                $content = preg_replace("~<tr>\s*<th>enduml</th>\s*<td></td>\s*</tr>~m", '', $content);
-
-                return $content;
-            }
-        );
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     * @param  string          $toDir
-     * @param  callable|null   $filter
-     */
-    private function copy($fileset, string $toDir, callable $filter = null): void
-    {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $toDir, $filter);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
-        }
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     * @param  callable        $filter
-     */
-    private function reflexive($fileset, callable $filter): void
-    {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $fileset, $filter);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, $file, $filter);
-        }
-    }
-
-    /**
-     * @param  string         $file
-     * @param  string         $toFile
-     * @param  callable|null  $filter
-     */
-    private function copyFile(string $file, string $toFile, callable $filter = null): void
-    {
-        if (is_dir($file)) {
-            return;
-        }
-
-        $this->echo("Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}", 'debug');
-
-        $content = file_get_contents($file);
-
-        if (is_callable($filter)) {
-            $content = $filter($content);
-        }
-
-        file_put_contents($toFile, $content);
-    }
-
     /**
      * Creates a patch set ready to drop into an existing installation.
      */
@@ -586,41 +264,6 @@ class FromPhing
         }
     }
 
-    /*********************************
-     * Quality Metrics related tasks *
-     *********************************/
-
-    /**
-     * Checks if (every file from) target is newer than (every file from) source
-     *
-     * @param  Fileset|string  $target
-     * @param  Fileset|string  ...$sources
-     *
-     * @return bool
-     */
-    private function isUptodate($target, ...$sources): bool
-    {
-        $targetFiles = is_string($target) ? [$target] : $target->getFiles();
-
-        $targetTime = array_reduce(
-            $targetFiles,
-            static function ($carry, $file) {
-                return min($carry, filemtime($file));
-            }
-        );
-
-        foreach ($sources as $source) {
-            $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
-            foreach ($sourceFiles as $file) {
-                if (filemtime($file) > $targetTime) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
     /**
      *
      */
@@ -643,10 +286,14 @@ class FromPhing
 
         $packageName = "{$this->package['name']}-{$this->project['version']}";
         $this->exec("zip -r ../packages/{$packageName}.zip * > /dev/null", $this->dist['basedir']);
-        $this->exec("tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null",
-            $this->dist['basedir']);
-        $this->exec("tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
-            $this->dist['basedir']);
+        $this->exec(
+            "tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null",
+            $this->dist['basedir']
+        );
+        $this->exec(
+            "tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
+            $this->dist['basedir']
+        );
     }
 
     /**
@@ -719,18 +366,6 @@ class FromPhing
     }
 
     /**
-     * Create artifact directories
-     */
-    private function prepare(): void
-    {
-        $this->mkdir("{$this->build}/logs");
-    }
-
-    /***************************
-     * Patch Set related tasks *
-     ***************************/
-
-    /**
      * Runs all tests locally and in the test containers.
      *
      * @throws FileNotFoundException
@@ -742,10 +377,6 @@ class FromPhing
         $this->testSystem();
         $this->testCoverageReport();
     }
-
-    /**********************
-     * Test related tasks *
-     **********************/
 
     /**
      * Generates a quality report using CodeBrowser.
@@ -774,17 +405,12 @@ class FromPhing
         $this->documentChangelog();
 
         $generator = new APIGenerator($apidocGenerator ?? 'apigen');
-        $generator->run("{$this->project['name']} {$this->project['version']} API Documentation", $this->source,
-            $this->build . '/report/api', '../uml');
-    }
-
-    /**
-     * Generate autoload script
-     */
-    private function phpAb(): void
-    {
-        $this->exec("{$this->bin}/phpab --tolerant --basedir . --output {$this->tests}/autoload.php {$this->tests}");
-        $this->exec("{$this->bin}/phpab --tolerant --basedir {$this->source} --output {$this->source}/autoload.php {$this->source}");
+        $generator->run(
+            "{$this->project['name']} {$this->project['version']} API Documentation",
+            $this->source,
+            $this->build . '/report/api',
+            '../uml'
+        );
     }
 
     /**
@@ -911,10 +537,6 @@ class FromPhing
         $this->exec($command);
     }
 
-    /******************************
-     * Distribution related tasks *
-     ******************************/
-
     /**
      * Generates pmd.xml using PHP MessDetector.
      */
@@ -957,10 +579,6 @@ class FromPhing
 
         $this->exec($command);
     }
-
-    /******************
-     * Internal tasks *
-     ******************/
 
     /**
      * Aggregates the results from all the measurement tools.
@@ -1033,6 +651,386 @@ class FromPhing
         );
     }
 
+    /**
+     * Starts the test containers, building them only if not existing.
+     *
+     * @throws FileNotFoundException
+     */
+    public function dockerStart(): void
+    {
+        $this->dockerBuild();
+        $this->exec(
+            'docker-compose up --no-recreate -d',
+            $this->serverDockyard
+        );
+
+        // Give the containers time to setup
+        sleep(15);
+    }
+
+    /**
+     * Stops and removes the test containers.
+     */
+    public function dockerStop(): void
+    {
+        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
+            $this->echo('Servers are not set up. Nothing to do', 'info');
+
+            return;
+        }
+
+        $this->exec(
+            'docker-compose stop',
+            $this->serverDockyard
+        );
+
+        // Give the containers time to stop
+        sleep(2);
+    }
+
+    /**
+     * Generates the contents and prepares the test containers.
+     *
+     * @throws FileNotFoundException
+     */
+    public function dockerBuild(): void
+    {
+        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
+            $uptodate = false;
+        } else {
+            $uptodate = $this->isUptodate(
+                $this->serverDockyard . '/docker-compose.yml',
+                (new Fileset('.'))
+                    ->include($this->source . '/**')
+                    ->include($this->integrationTests . '/**')
+                    ->include($this->testEnvironments . '/**')
+            );
+        }
+
+        if ($uptodate) {
+            $this->echo('Container setups are up to date - skipping.', 'info');
+
+            return;
+        }
+
+        // Recreate directories for container contents
+        $this->delete($this->serverDockyard);
+        $this->mkdir($this->serverDockyard . '/nginx/conf');
+        $this->mkdir($this->serverDockyard . '/nginx/html');
+        $this->mkdir($this->serverDockyard . '/apache/conf');
+        $this->mkdir($this->serverDockyard . '/apache/html');
+        $this->mkdir($this->serverDockyard . '/proxy/conf');
+        $this->mkdir($this->serverDockyard . '/mysql');
+        $this->mkdir($this->serverDockyard . '/postgresql');
+
+        // Get available Joomla! versions
+        $this->joomlaVersions($this->versionCache);
+
+        // Set default values for keys not defined in database.xml
+        $this->database = [
+            'mysql'      => [
+                'version'      => 'latest',
+                'name'         => 'joomla_test',
+                'user'         => 'db_user',
+                'password'     => 'db_pass',
+                'rootPassword' => '',
+            ],
+            'postgresql' => [
+                'version'  => 'latest',
+                'name'     => 'joomla_test',
+                'user'     => 'db_user',
+                'password' => 'db_pass',
+            ],
+        ];
+
+        // Load database environment, if provided
+        if (file_exists($this->testEnvironments . '/database.xml')) {
+            $this->database = $this->merge(
+                $this->database,
+                $this->xmlProperty($this->testEnvironments . '/database.xml', false, true)
+            );
+        }
+
+        $this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
+            ? ''
+            : "-p'{$this->database['mysql']['rootPassword']}'";
+
+        $this->copy(
+            (new Fileset($this->buildTemplates . '/docker'))
+                ->include('docker-compose.yml'),
+            $this->serverDockyard,
+            $this->filterExpand
+        );
+
+        // Handle each test environment
+        foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition) {
+            if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml'])) {
+                continue;
+            }
+
+            $this->dockerBuildSystem($environmentDefinition);
+        }
+    }
+
+    /**
+     * Initialise.
+     *
+     * @param  string  $dir          The absolute path to the project root
+     * @param  string  $projectFile  The path to the project file, relative to $dir
+     */
+    private function init($dir, $projectFile): void
+    {
+        $this->basedir = $dir;
+        $this->user    = getmyuid() . ':' . getmygid();
+
+        if (!file_exists($this->basedir . '/' . $projectFile)) {
+            throw new RuntimeException(
+                sprintf(
+                    'Project file %s/%s not found',
+                    $this->basedir,
+                    $projectFile
+                )
+            );
+        }
+
+        $this->echo("Reading project file {$projectFile}", 'debug');
+
+        $settings = json_decode(file_get_contents($this->basedir . '/' . $projectFile), true);
+
+        $this->project = $settings['project'];
+
+        $this->package['name']     = $settings['package']['name'] ?? 'com_' . strtolower(
+                preg_replace(
+                    '~\W+~',
+                    '_',
+                    $this->project['name']
+                )
+            );
+        $this->package['type']     = $settings['package']['type'] ?? 'component';
+        $this->package['manifest'] = $settings['package']['manifest'] ?? 'manifest.xml';
+        $this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
+
+        if (isset($settings['package']['extensions'])) {
+            foreach ($settings['package']['extensions'] as $extension) {
+                $extension['version']                            = $extension['version'] ?? $this->package['version'];
+                $this->package['extensions'][$extension['name']] = $extension;
+            }
+        }
+
+        $this->echo("Project: {$this->project['name']} {$this->project['version']}", 'verbose');
+
+        $this->source = rtrim($this->basedir . '/' . $this->project['paths']['source'] ?? 'source', '/');
+
+        if (file_exists($this->source . '/' . $settings['package']['manifest'])) {
+            $this->echo("Reading manifest file {$settings['package']['manifest']}", 'debug');
+
+            $manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+
+            $this->package['name']   = $manifest->getName();
+            $this->package['type']   = $manifest->getType();
+            $this->package['target'] = $manifest->getTarget();
+
+            if ($manifest->getType() === 'package') {
+                foreach ($manifest->getSection('files')->getStructure() as $extension) {
+                    $this->package['extensions'][$extension['@id']]['archive'] = ltrim(
+                        ($extension['@base'] ?? '') . '/' . $extension['file'],
+                        '/'
+                    );
+                    $this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
+                }
+            }
+        } else {
+            $this->echo("Manifest file '{$settings['package']['manifest']}' not found.", 'warning');
+        }
+
+        $this->echo(
+            ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}",
+            'verbose'
+        );
+
+        $this->build            = $this->basedir . '/build';
+        $this->tests            = $this->basedir . '/tests';
+        $this->bin              = $this->basedir . '/vendor/bin';
+        $this->unitTests        = $this->tests . '/unit';
+        $this->integrationTests = $this->tests . '/integration';
+        $this->systemTests      = $this->tests . '/system';
+        $this->testEnvironments = $this->tests . '/servers';
+        $this->serverDockyard   = $this->build . '/servers';
+        $this->versionCache     = $this->build . '/versions.json';
+        $this->downloadCache    = $this->build . '/cache';
+        $this->php              = [
+            'host' => 'php',
+            'port' => 9000,
+        ];
+
+        if (empty($this->project['name'])) {
+            $this->project['name'] = $this->package['name'];
+        }
+
+        $this->dist['basedir'] = "{$this->basedir}/dist/{$this->package['name']}-{$this->project['version']}";
+
+        $this->mkdir($this->downloadCache);
+
+        $this->filterExpand = function ($content) {
+            return $this->expand($content);
+        };
+
+        $this->sourceFiles          = (new Fileset($this->source))->include('**.*');
+        $this->phpFiles             = (new Fileset($this->source))->include('**.*.php');
+        $this->xmlFiles             = (new Fileset($this->source))->include('**.*.xml');
+        $this->integrationTestFiles = (new Fileset($this->integrationTests))->include('**.*');
+        $this->distFiles            = (new Fileset($this->dist['basedir']))->include('**.*');
+
+        $this->buildTemplates = dirname(__DIR__) . '/build';
+    }
+
+    /******************
+     * Internal tasks *
+     ******************/
+
+    /**
+     * @param  string  $message
+     * @param  string  $level
+     */
+    private function echo(string $message, string $level): void
+    {
+        $verbosity = [
+            'info'    => OutputInterface::VERBOSITY_NORMAL,
+            'warning' => OutputInterface::VERBOSITY_NORMAL,
+            'error'   => OutputInterface::VERBOSITY_NORMAL,
+            'verbose' => OutputInterface::VERBOSITY_VERBOSE,
+            'debug'   => OutputInterface::VERBOSITY_DEBUG,
+        ];
+
+        $this->output->writeln(
+            strtoupper($level) . ': ' . str_replace($this->basedir, '.', $message),
+            $verbosity[$level]
+        );
+    }
+
+    /**
+     * @param  string  $content
+     *
+     * @return string
+     */
+    private function expand(string $content): string
+    {
+        return preg_replace_callback(
+            '~\${(.*?)}~',
+            function ($match) {
+                $var   = lcfirst(str_replace(' ', '', ucwords(str_replace('-', ' ', $match[1]))));
+                $parts = explode('.', $var);
+                $var   = array_shift($parts);
+                $var   = $this->{$var};
+
+                for ($index = array_shift($parts); $index !== null; $index = array_shift($parts)) {
+                    $var = $var[$index];
+                }
+
+                return $var;
+            },
+            $content
+        );
+    }
+
+    /**
+     * @param  string  $command
+     * @param  string  $dir
+     * @param  bool    $passthru
+     *
+     * @return string|null
+     */
+    private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
+    {
+        $this->echo("Running `{$command}` in `{$dir}`", 'debug');
+
+        if ($dir !== '.') {
+            $current = getcwd();
+            $command = 'cd ' . $dir . ' && ' . $command . ' && cd ' . $current;
+        }
+
+        $result = '';
+
+        if ($passthru) {
+            passthru($command . ' 2>&1', $result);
+        } else {
+            $result = shell_exec($command . ' 2>&1');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Cleanup artifact directories
+     */
+    private function clean(): void
+    {
+        $this->delete("{$this->build}/logs");
+        $this->delete("{$this->build}/servers");
+    }
+
+    /**
+     * Generate API documentation using PHPDocumentor2
+     *
+     * @param $apidocTitle
+     *
+     * @noinspection PhpUnusedPrivateMethodInspection
+     */
+    private function documentPhpdoc($apidocTitle): void
+    {
+        $this->exec(
+            "{$this->bin}/phpdoc --target={$this->build}/report/api --directory={$this->source} --title=\"{$apidocTitle}\" --template=responsive",
+            $this->basedir
+        );
+        $this->copy(
+            (new Fileset("{$this->build}/plantuml"))
+                ->include('*.js'),
+            "{$this->build}/report/api/js",
+            static function ($content) {
+                return str_replace("'rawdeflate.js'", "'../js/rawdeflate.js'", $content);
+            }
+        );
+        $this->reflexive(
+            (new Fileset("{$this->build}/report/api/classes"))
+                ->include('*.html'),
+            static function ($content) {
+                $content = str_replace(
+                    '</head>',
+                    '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>',
+                    $content
+                );
+                $content = preg_replace(
+                    "~<th>startuml</th>(\n)<td>(.+?)</td>~sm",
+                    /** @lang text */
+                    '<th>UML</th><td><img uml="\\1!include ' . $this->build . '/report/api/uml/skin.puml\\1\\2\\1" alt=""/></td>',
+                    $content
+                );
+                $content = preg_replace("~<tr>\s*<th>enduml</th>\s*<td></td>\s*</tr>~m", '', $content);
+
+                return $content;
+            }
+        );
+    }
+
+    /**
+     * Create artifact directories
+     */
+    private function prepare(): void
+    {
+        $this->mkdir("{$this->build}/logs");
+    }
+
+    /**
+     * Generate autoload script
+     */
+    private function phpAb(): void
+    {
+        $this->exec("{$this->bin}/phpab --tolerant --basedir . --output {$this->tests}/autoload.php {$this->tests}");
+        $this->exec(
+            "{$this->bin}/phpab --tolerant --basedir {$this->source} --output {$this->source}/autoload.php {$this->source}"
+        );
+    }
+
     private function ensureBootstrapExistsForUnitTests(): void
     {
         if (!file_exists("{$this->tests}/unit/bootstrap.php")) {
@@ -1080,23 +1078,6 @@ class FromPhing
     }
 
     /**
-     * Starts the test containers, building them only if not existing.
-     *
-     * @throws FileNotFoundException
-     */
-    public function dockerStart(): void
-    {
-        $this->dockerBuild();
-        $this->exec(
-            'docker-compose up --no-recreate -d',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to setup
-        sleep(15);
-    }
-
-    /**
      * Run integrations tests on a single test installation
      *
      * @param $environmentDefinition
@@ -1124,7 +1105,8 @@ class FromPhing
 
         $container = $environment['server']['type'] === 'nginx' ? 'servers_php_1' : "servers_{$environment['server']['type']}_1";
 
-        $uptodate = $this->isUptodate("{$this->build}/logs/coverage/integration-{$target}.cov",
+        $uptodate = $this->isUptodate(
+            "{$this->build}/logs/coverage/integration-{$target}.cov",
             $this->sourceFiles,
             $this->integrationTestFiles,
             (new Fileset($this->testEnvironments))
@@ -1141,8 +1123,10 @@ class FromPhing
         $this->delete("{$cmsRoot}/build/logs");
         $this->mkdir("{$cmsRoot}/build/logs");
 
-        $applications = (new Fileset("{$cmsRoot}/tests/integration"))->include('*',
-            Fileset::NO_RECURSE | Fileset::ONLY_DIRS);
+        $applications = (new Fileset("{$cmsRoot}/tests/integration"))->include(
+            '*',
+            Fileset::NO_RECURSE | Fileset::ONLY_DIRS
+        );
 
         foreach ($applications as $application) {
             $this->testIntegrationApp($application, $domain, $cmsRoot, $target, $container);
@@ -1164,26 +1148,6 @@ class FromPhing
                 return preg_replace("~'(.*?)Test::test~", "'{$target}: \1Test::test", $content);
             }
         );
-    }
-
-    /**
-     * Stops and removes the test containers.
-     */
-    public function dockerStop(): void
-    {
-        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
-            $this->echo('Servers are not set up. Nothing to do', 'info');
-
-            return;
-        }
-
-        $this->exec(
-            'docker-compose stop',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to stop
-        sleep(2);
     }
 
     /**
@@ -1262,7 +1226,9 @@ class FromPhing
 
         $container = "servers_{$environment['server']['type']}_1";
 
-        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\"");
+        $this->exec(
+            "docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/system; /usr/local/lib/php/vendor/bin/phpunit\""
+        );
 
         $this->copy(
             (new Fileset("{$cmsRoot}/build/logs"))
@@ -1275,28 +1241,6 @@ class FromPhing
                 return $content;
             }
         );
-    }
-
-    /**
-     * @param $pattern
-     * @param $path
-     * @param $version
-     *
-     * @return string|null
-     */
-    private function versionMatch($pattern, $path, $version): ?string
-    {
-        $bestVersion = '0';
-        $bestFile    = null;
-        foreach (glob("$path/*") as $filename) {
-            if (preg_match("~{$pattern}~", $filename, $match) && version_compare($bestVersion, $match[1],
-                    '<') && version_compare($match[1], $version, '<=')) {
-                $bestVersion = $match[1];
-                $bestFile    = $filename;
-            }
-        }
-
-        return $bestFile;
     }
 
     /**
@@ -1340,110 +1284,6 @@ class FromPhing
         }
 
         throw new RuntimeException("$requested: Version is unknown");
-    }
-
-    /**
-     * @param  string  $toDir
-     * @param  string  $file
-     */
-    private function untar(string $toDir, string $file): void
-    {
-        $this->mkdir($toDir);
-        $this->exec("tar -zxvf {$file} -C {$toDir} --exclude-vcs");
-
-        // If $toDir contains only a single directory, we need to lift everything up one level.
-        $dirList = glob("{$toDir}/*", GLOB_ONLYDIR);
-
-        if (count($dirList) === 1) {
-            $this->copy(
-                new Fileset($dirList[0]),
-                $toDir
-            );
-
-            $this->delete($dirList[0]);
-        }
-    }
-
-    /**
-     * Generates the contents and prepares the test containers.
-     *
-     * @throws FileNotFoundException
-     */
-    public function dockerBuild(): void
-    {
-        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
-            $uptodate = false;
-        } else {
-            $uptodate = $this->isUptodate(
-                $this->serverDockyard . '/docker-compose.yml',
-                (new Fileset('.'))
-                    ->include($this->source . '/**')
-                    ->include($this->integrationTests . '/**')
-                    ->include($this->testEnvironments . '/**')
-            );
-        }
-
-        if ($uptodate) {
-            $this->echo('Container setups are up to date - skipping.', 'info');
-
-            return;
-        }
-
-        // Recreate directories for container contents
-        $this->delete($this->serverDockyard);
-        $this->mkdir($this->serverDockyard . '/nginx/conf');
-        $this->mkdir($this->serverDockyard . '/nginx/html');
-        $this->mkdir($this->serverDockyard . '/apache/conf');
-        $this->mkdir($this->serverDockyard . '/apache/html');
-        $this->mkdir($this->serverDockyard . '/proxy/conf');
-        $this->mkdir($this->serverDockyard . '/mysql');
-        $this->mkdir($this->serverDockyard . '/postgresql');
-
-        // Get available Joomla! versions
-        $this->joomlaVersions($this->versionCache);
-
-        // Set default values for keys not defined in database.xml
-        $this->database = [
-            'mysql'      => [
-                'version'      => 'latest',
-                'name'         => 'joomla_test',
-                'user'         => 'db_user',
-                'password'     => 'db_pass',
-                'rootPassword' => '',
-            ],
-            'postgresql' => [
-                'version'  => 'latest',
-                'name'     => 'joomla_test',
-                'user'     => 'db_user',
-                'password' => 'db_pass',
-            ],
-        ];
-
-        // Load database environment, if provided
-        if (file_exists($this->testEnvironments . '/database.xml')) {
-            $this->database = $this->merge($this->database,
-                $this->xmlProperty($this->testEnvironments . '/database.xml', false, true));
-        }
-
-        $this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
-            ? ''
-            : "-p'{$this->database['mysql']['rootPassword']}'";
-
-        $this->copy(
-            (new Fileset($this->buildTemplates . '/docker'))
-                ->include('docker-compose.yml'),
-            $this->serverDockyard,
-            $this->filterExpand
-        );
-
-        // Handle each test environment
-        foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition) {
-            if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml'])) {
-                continue;
-            }
-
-            $this->dockerBuildSystem($environmentDefinition);
-        }
     }
 
     /**
@@ -1552,7 +1392,9 @@ class FromPhing
             $integrationTestFilter
         );
 
-        $this->exec("docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\"");
+        $this->exec(
+            "docker exec --user={$this->user} {$container} /bin/bash -c \"cd /var/www/html/{$domain}/tests/integration/{$application}; /usr/local/lib/php/vendor/bin/phpunit\""
+        );
     }
 
     /**
@@ -1564,23 +1406,6 @@ class FromPhing
     private function joomlaVersions($versionCache): VersionList
     {
         return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
-    }
-
-    /**
-     * @param  string  $filename
-     * @param  string  $url
-     *
-     * @return string
-     */
-    private function download(string $filename, string $url): string
-    {
-        $bytes = file_put_contents($filename, @fopen($url, 'rb'));
-
-        if ($bytes === false || $bytes === 0) {
-            throw new RuntimeException("Failed to download $url");
-        }
-
-        return $filename;
     }
 
     /**
@@ -1641,16 +1466,24 @@ class FromPhing
             ],
         ];
 
-        $this->environment = $this->merge($this->environment,
-            $this->xmlProperty($this->testEnvironments . '/default.xml', false, true));
+        $this->environment = $this->merge(
+            $this->environment,
+            $this->xmlProperty($this->testEnvironments . '/default.xml', false, true)
+        );
         $this->environment = $this->merge($this->environment, $this->xmlProperty($environmentDefinition, false, true));
 
         $domain = "{$this->environment['name']}.{$this->environment['server']['tld']}";
 
-        $this->environment['meta']['description'] = str_replace('{$this->version}',
-            $this->environment['joomla']['version'], $this->environment['meta']['description']);
-        $this->environment['database']['prefix']  = str_replace('{$this->target}', $this->environment['name'],
-            $this->environment['database']['prefix']);
+        $this->environment['meta']['description'] = str_replace(
+            '{$this->version}',
+            $this->environment['joomla']['version'],
+            $this->environment['meta']['description']
+        );
+        $this->environment['database']['prefix']  = str_replace(
+            '{$this->target}',
+            $this->environment['name'],
+            $this->environment['database']['prefix']
+        );
 
         if (in_array($this->environment['database']['driver'], ['mysqli', 'pdomysql'])) {
             $this->environment['database']['engine'] = 'mysql';
@@ -1660,8 +1493,11 @@ class FromPhing
 
         // Download and unpack the specified Joomla! version
         $cmsRoot = $this->serverDockyard . '/' . $this->environment['server']['type'] . '/html/' . $domain;
-        $tarball = $this->joomlaDownload($this->environment['joomla']['version'], $this->versionCache,
-            $this->downloadCache);
+        $tarball = $this->joomlaDownload(
+            $this->environment['joomla']['version'],
+            $this->versionCache,
+            $this->downloadCache
+        );
         $this->untar($cmsRoot, $tarball);
         $version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
 
@@ -1701,7 +1537,9 @@ class FromPhing
 
         // Build the database import script
         if (!file_exists("{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}")) {
-            throw new RuntimeException("Joomla! {$version} does not support {$this->environment['database']['engine']} databases");
+            throw new RuntimeException(
+                "Joomla! {$version} does not support {$this->environment['database']['engine']} databases"
+            );
         }
 
         // Get the database info - use global values, if not provided with local environment
@@ -1712,7 +1550,9 @@ class FromPhing
         $sampleData = "{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}/sample_{$this->environment['joomla']['sampledata']}.sql";
 
         if (!file_exists($sampleData)) {
-            throw new RuntimeException("No '{$this->environment['joomla']['sampledata']}' sample data found for Joomla! {$version} with {$this->environment['database']['engine']} database");
+            throw new RuntimeException(
+                "No '{$this->environment['joomla']['sampledata']}' sample data found for Joomla! {$version} with {$this->environment['database']['engine']} database"
+            );
         }
 
         $testData = $this->versionMatch(
@@ -1722,10 +1562,13 @@ class FromPhing
         );
 
         if (empty($testData)) {
-            throw new RuntimeException("No test data found for Joomla! {$version} with {$this->environment['database']['engine']} database");
+            throw new RuntimeException(
+                "No test data found for Joomla! {$version} with {$this->environment['database']['engine']} database"
+            );
         }
 
-        $this->echo(<<<ECHO
+        $this->echo(
+            <<<ECHO
     Joomla version:  {$version}
     Domain:          {$domain}
     Server:          {$this->environment['server']['type']}
@@ -1765,7 +1608,9 @@ ECHO
             $this->exec("sed -i \"s/\\\'/''/g\" \"{$importSql}\"");
             $this->exec("echo '#!/bin/bash' > '{$importSh}'");
             $this->exec("echo 'set -e' >> '{$importSh}'");
-            $this->exec("echo 'gosu postgres postgres --single -j {$this->environment['database']['name']} < /docker-entrypoint-initdb.d/{$this->environment['name']}.sql' > '{$importSh}'");
+            $this->exec(
+                "echo 'gosu postgres postgres --single -j {$this->environment['database']['name']} < /docker-entrypoint-initdb.d/{$this->environment['name']}.sql' > '{$importSh}'"
+            );
         } elseif ($this->environment['database']['engine'] === 'mysql') {
             // Re-format import.sql to match MySQLd init-file restrictions
             (new InitFileFixer())->fix($importSql);

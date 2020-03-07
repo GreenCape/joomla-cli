@@ -33,13 +33,13 @@ namespace UnitTest\Command;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
-use UnitTest\Driver\JoomlaPackagesTrait;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use GreenCape\JoomlaCLI\FilesystemMethods;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+use UnitTest\Driver\JoomlaPackagesTrait;
 
 /**
  * Class DownloadTest
@@ -49,22 +49,20 @@ use Symfony\Component\Console\Output\NullOutput;
 class DownloadTest extends TestCase
 {
     /**
-     * @var Filesystem
+     * @var string
      */
-    private static $filesystem;
-
-    use JoomlaPackagesTrait;
+    private $tmpDir = 'tmp';
 
     /**
+     * @var OutputInterface
      */
-    public static function setUpBeforeClass(): void
-    {
-        self::$filesystem = new Filesystem(new Local('tests'));
-    }
+    protected $output;
 
-    protected function tearDown(): void
+    use JoomlaPackagesTrait, FilesystemMethods;
+
+    public function setUp(): void
     {
-        self::$filesystem->deleteDir('tmp');
+        $this->output = new NullOutput();
     }
 
     /**
@@ -81,16 +79,24 @@ class DownloadTest extends TestCase
     public function testDownload($path, $release, $short, $long): void
     {
         $command = new DownloadCommand();
-        $output  = new BufferedOutput();
 
-        $command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
+        $dir = $this->tmpDir . '/' . $path;
+        $cacheFile = "{$this->tmpDir}/cache/{$short}.tar.gz";
+        $arguments = "-b {$dir} -c {$this->tmpDir}/cache {$short}";
 
-        $this->assertFileExists("tests/tmp/$path/index.php",
-            "Expected files in tests/tmp/$path, but mandatory index.php was not found");
+        $this->delete($dir);
+        $this->delete($cacheFile);
 
-        $time1 = filemtime("tests/tmp/cache/{$short}.tar.gz");
-        $command->run(new StringInput("-b tests/tmp/$path -c tests/tmp/cache $short"), $output);
-        $time2 = filemtime("tests/tmp/cache/{$short}.tar.gz");
+        $command->run(new StringInput($arguments), $this->output);
+
+        $this->assertFileExists(
+            "{$dir}/index.php",
+            "Expected files in {$dir}, but mandatory index.php was not found"
+        );
+
+        $time1 = filemtime($cacheFile);
+        $command->run(new StringInput($arguments), $this->output);
+        $time2 = filemtime($cacheFile);
 
         $this->assertEquals($time1, $time2, 'Second call should have been served from the cache');
     }
@@ -103,11 +109,15 @@ class DownloadTest extends TestCase
     public function testDownload2(): void
     {
         $command = new DownloadCommand();
-        $output  = new NullOutput();
 
-        $command->run(new StringInput('-b tests/tmp/staging staging'), $output);
-        $this->assertFileExists('tests/tmp/staging/index.php',
-            'Expected files in tests/tmp/staging, but mandatory index.php was not found');
+        $dir = $this->tmpDir . '/staging';
+
+        $this->delete($dir);
+        $command->run(new StringInput("-b {$dir} staging"), $this->output);
+        $this->assertFileExists(
+            "{$dir}/index.php",
+            "Expected files in {$dir}, but mandatory index.php was not found"
+        );
     }
 
     /**
@@ -118,10 +128,9 @@ class DownloadTest extends TestCase
     public function testDownload3(): void
     {
         $command = new DownloadCommand();
-        $output  = new BufferedOutput();
 
         $this->expectExceptionMessage('nx: Version is unknown');
 
-        $command->run(new StringInput('-b tests/tmp/nx nx'), $output);
+        $command->run(new StringInput("-b {$this->tmpDir}/nx nx"), $this->output);
     }
 }

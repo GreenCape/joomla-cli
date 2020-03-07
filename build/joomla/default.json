@@ -1,0 +1,52 @@
+{
+  "name": "default",
+  "server": {
+    "type":"nginx",
+    "offset": "UTC"
+  },
+  "database": {
+    "driver": "mysql",
+    "version": "latest",
+    "host": "localhost",
+    "port": "3306",
+    "name": "joomla_test",
+    "user": "sqladmin",
+    "password": "sqladmin",
+    "rootPassword": "root",
+    "prefix": "jos_"
+  },
+  "joomla": {
+    "version": "latest",
+    "sampleData": "",
+    "cache": {
+      "enabled": false,
+      "time": 15,
+      "handler": "file"
+    },
+    "debug": {
+      "system": true,
+      "language": true
+    },
+    "meta": {
+      "description": "Test installation",
+      "keywords": "",
+      "showVersion": true,
+      "showTitle": true,
+      "showAuthor": true
+    },
+    "sef": {
+      "enabled": false,
+      "rewrite": false,
+      "suffix": false,
+      "unicode": false
+    },
+    "feeds": {
+      "limit": 10,
+      "email": "author"
+    },
+    "session": {
+      "lifetime": "15",
+      "handler": "database"
+    }
+  }
+}

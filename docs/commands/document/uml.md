@@ -13,13 +13,14 @@ This command has no arguments.
 
 ## Options
 ```
-  -j, --jar=JAR                  Path to the PlantUML jar file [default: "/home/nibra/Development/GreenCape/joomla-cli/build/plantuml/plantuml.jar"]
-  -c, --classmap[=CLASSMAP]      Path to the Joomla classmap file [default: "joomla/libraries/classmap.php"]
+  -J, --jar=JAR                  Path to the PlantUML jar file [default: "/home/nibra/Development/GreenCape/joomla-cli/build/plantuml/plantuml.jar"]
+  -c, --classmap[=CLASSMAP]      Path to the Joomla! classmap file [default: "joomla/libraries/classmap.php"]
   -p, --predefined[=PREDEFINED]  Path to predefined diagrams [default: "build/uml"]
   -s, --skin=SKIN                Name ('bw', 'bw-gradient' or 'default') of or path to the skin [default: "default"]
   -o, --output=OUTPUT            Output directory [default: "build/report/uml"]
       --no-svg                   Do not create .svg files, keep .puml files instead
-  -b, --basepath=BASEPATH        The root of the Joomla installation. Defaults to the current working directory. [default: "."]
+  -b, --basepath=BASEPATH        The root of the project [default: "."]
+  -e, --environment=ENVIRONMENT  The environment definition [default: ""]
   -h, --help                     Display this help message
   -q, --quiet                    Do not output any message
   -V, --version                  Display this application version

@@ -85,7 +85,7 @@ class VersionCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->handleBasePath($input, $output);
+        $this->handleBasePath();
         $version = new Version($this->joomlaFilesystem);
 
         if ($input->getOption('short')) {

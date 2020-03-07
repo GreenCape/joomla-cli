@@ -105,7 +105,7 @@ class OverrideCommand extends Command
         $templateDir = $templatePath . '/html';
         $output->writeln("Creating override views in $templateDir", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $this->safeMakeDir($templateDir, $output);
+        $this->mkdir($templateDir, true);
 
         return $templateDir;
     }
@@ -154,7 +154,7 @@ class OverrideCommand extends Command
                 }
                 $dir        = 'plg_' . basename($pluginType) . '_' . basename($container);
                 $overlayDir = $templateDir . '/' . $dir;
-                $this->safeMakeDir($overlayDir, $output);
+                $this->mkdir($overlayDir, true);
                 $this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
             }
         }
@@ -172,23 +172,6 @@ class OverrideCommand extends Command
     }
 
     /**
-     * @param                   $dir
-     * @param  OutputInterface  $output
-     */
-    private function safeMakeDir($dir, OutputInterface $output): void
-    {
-        if (!file_exists($dir)) {
-            $output->writeln("Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
-
-            if (!mkdir($dir, 0775, true) && !is_dir($dir)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $dir)); // @codeCoverageIgnore
-            }
-
-            touch($dir . '/index.html');
-        }
-    }
-
-    /**
      * @param  string           $pattern
      * @param  string           $toDir
      * @param  boolean          $force
@@ -203,7 +186,7 @@ class OverrideCommand extends Command
             $dir = basename($container);
             $output->writeln($dir, OutputInterface::VERBOSITY_VERY_VERBOSE);
             $overlayDir = $toDir . '/' . $dir;
-            $this->safeMakeDir($overlayDir, $output);
+            $this->mkdir($overlayDir, true);
             $this->safeCopyDir($container . '/tmpl/*.php', $overlayDir, $force, $output);
         }
     }
@@ -226,7 +209,7 @@ class OverrideCommand extends Command
         foreach (glob($container . '/*') as $entry) {
             if (is_dir($entry)) {
                 $targetDir = $templateDir . '/' . basename($entry);
-                $this->safeMakeDir($targetDir, $output);
+                $this->mkdir($targetDir, true);
                 $this->safeCopyRecursive($entry, $pattern, $targetDir, $force, $output);
             } elseif (fnmatch($pattern, basename($entry))) {
                 $this->safeCopy($entry, $templateDir, $force, $output);
