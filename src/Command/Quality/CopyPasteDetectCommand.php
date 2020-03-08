@@ -53,6 +53,7 @@ class CopyPasteDetectCommand extends Command
             ->setAliases(['quality:cpd'])
             ->setDescription('Generates pmd-cpd.xml using PHP CopyPasteDetector')
             ->addSourcePathOption()
+            ->addLogPathOption()
         ;
     }
 
@@ -65,7 +66,7 @@ class CopyPasteDetectCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $command = 'phpcpd'
-                   . " --log-pmd=build/logs/pmd-cpd.xml"
+                   . " --log-pmd={$this->logPath}/pmd-cpd.xml"
                    . ' --fuzzy'
                    . " {$this->sourcePath}";
 

@@ -53,13 +53,7 @@ class CheckStyleCommand extends Command
             ->setAliases(['quality:cs'])
             ->setDescription('Checks the code style using PHP CodeSniffer')
             ->addSourcePathOption()
-            ->addOption(
-                'file',
-                'f',
-                InputOption::VALUE_REQUIRED,
-                'Path to the report file',
-                'stdout'
-            )
+            ->addLogPathOption()
         ;
     }
 
@@ -71,8 +65,7 @@ class CheckStyleCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $file   = $input->getOption('file');
-        $report = '--report=' . ($file === 'stdout' ? 'full' : 'checkstyle --report-file=' . $file);
+        $report = '--report=checkstyle --report-file=' . $this->logPath . '/checkstyle.xml';
 
         $this->exec("vendor/bin/phpcs -s {$report} --standard=PSR12 {$this->sourcePath}");
     }

@@ -51,6 +51,7 @@ class DependCommand extends Command
             ->setName('quality:depend')
             ->setDescription('Generates depend.xml and software metrics charts using PHP Depend')
             ->addSourcePathOption()
+            ->addLogPathOption()
         ;
     }
 
@@ -62,17 +63,14 @@ class DependCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $chartsDir = 'build/logs/charts';
-        $logDir    = 'build/logs';
-
-        $this->mkdir($chartsDir);
+        $this->mkdir($this->logPath . '/charts');
 
         $command = "vendor/bin/pdepend"
                    . ' --suffix=php'
-                   . " --jdepend-chart={$chartsDir}/dependencies.svg"
-                   . " --overview-pyramid={$chartsDir}/overview-pyramid.svg"
-                   . " --jdepend-xml={$logDir}/depend.xml"
-                   . " --summary-xml={$logDir}/summary.xml"
+                   . " --jdepend-chart={$this->logPath}/charts/dependencies.svg"
+                   . " --overview-pyramid={$this->logPath}/charts/overview-pyramid.svg"
+                   . " --jdepend-xml={$this->logPath}/depend.xml"
+                   . " --summary-xml={$this->logPath}/summary.xml"
                    . " {$this->sourcePath}";
 
         $this->exec($command);

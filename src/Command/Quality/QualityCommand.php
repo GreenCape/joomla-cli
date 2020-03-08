@@ -52,6 +52,7 @@ class QualityCommand extends Command
             ->setName('quality')
             ->setDescription('Generates a quality report using CodeBrowser')
             ->addSourcePathOption()
+            ->addLogPathOption()
         ;
     }
 

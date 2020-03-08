@@ -63,6 +63,11 @@ trait CommonOptions
     protected $sourcePath;
 
     /**
+     * @var string
+     */
+    protected $logPath;
+
+    /**
      * @param  InputInterface  $input
      */
     protected function initialiseGlobalOptions(InputInterface $input): void
@@ -81,6 +86,10 @@ trait CommonOptions
 
         if ($input->hasOption('source')) {
             $this->sourcePath = $input->getOption('source');
+        }
+
+        if ($input->hasOption('logs')) {
+            $this->logPath = $input->getOption('logs');
         }
     }
 
@@ -134,6 +143,20 @@ trait CommonOptions
             InputOption::VALUE_REQUIRED,
             'The source directory',
             'source'
+        );
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this;
+    }
+
+    protected function addLogPathOption(): Command
+    {
+        $this->addOption(
+            'logs',
+            'l',
+            InputOption::VALUE_REQUIRED,
+            'The logs directory',
+            'build/logs'
         );
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */

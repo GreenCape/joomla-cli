@@ -53,6 +53,7 @@ class MessDetectCommand extends Command
             ->setAliases(['quality:md'])
             ->setDescription('Generates pmd.xml using PHP MessDetector')
             ->addSourcePathOption()
+            ->addLogPathOption()
         ;
     }
 
@@ -71,7 +72,7 @@ class MessDetectCommand extends Command
                    . ' xml'
                    . " {$buildTemplates}/config/phpmd.xml"
                    . ' --suffixes php'
-                   . " --reportfile build/logs/pmd.xml";
+                   . " --reportfile {$this->logPath}/pmd.xml";
 
         $this->exec($command);
     }

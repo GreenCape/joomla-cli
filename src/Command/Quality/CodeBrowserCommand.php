@@ -54,6 +54,7 @@ class CodeBrowserCommand extends Command
             ->setAliases(['quality:cb'])
             ->setDescription('Aggregates the results from all the measurement tools')
             ->addSourcePathOption()
+            ->addLogPathOption()
         ;
     }
 
@@ -66,13 +67,12 @@ class CodeBrowserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $reportDir = 'build/report/code-browser';
-        $logDir = 'build/logs';
 
         $this->mkdir($reportDir);
 
         // CodeBrowser has a bug regarding crapThreshold, so remove all crap-values below 10 (i.e., 1 digit)
         $this->reflexive(
-            (new Fileset($logDir))->include('clover.xml'),
+            (new Fileset($this->logPath))->include('clover.xml'),
             static function ($content) {
                 return preg_replace('~crap="\d"~', '', $content);
             }
@@ -80,7 +80,7 @@ class CodeBrowserCommand extends Command
 
         $this->exec(
             'vendor/bin/phpcb'
-            . ' --log=' . $logDir
+            . ' --log=' . $this->logPath
             . ' --source=' . $this->sourcePath
             . ' --output=' . $reportDir
             . ' --crapThreshold=10'
