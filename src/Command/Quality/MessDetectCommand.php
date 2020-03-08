@@ -52,6 +52,7 @@ class MessDetectCommand extends Command
             ->setName('quality:mess-detect')
             ->setAliases(['quality:md'])
             ->setDescription('Generates pmd.xml using PHP MessDetector')
+            ->addSourcePathOption()
         ;
     }
 
@@ -63,9 +64,15 @@ class MessDetectCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
+        $buildTemplates = dirname(__DIR__, 3) . '/build';
 
-        (new FromPhing($output, $basePath, $project))->qualityMessDetect();
+        $command = "vendor/bin/phpmd"
+                   . " {$this->sourcePath}"
+                   . ' xml'
+                   . " {$buildTemplates}/config/phpmd.xml"
+                   . ' --suffixes php'
+                   . " --reportfile build/logs/pmd.xml";
+
+        $this->exec($command);
     }
 }

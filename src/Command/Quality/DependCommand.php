@@ -30,7 +30,6 @@
 namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -51,6 +50,7 @@ class DependCommand extends Command
         $this
             ->setName('quality:depend')
             ->setDescription('Generates depend.xml and software metrics charts using PHP Depend')
+            ->addSourcePathOption()
         ;
     }
 
@@ -62,9 +62,19 @@ class DependCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
+        $chartsDir = 'build/logs/charts';
+        $logDir    = 'build/logs';
 
-        (new FromPhing($output, $basePath, $project))->qualityDepend();
+        $this->mkdir($chartsDir);
+
+        $command = "vendor/bin/pdepend"
+                   . ' --suffix=php'
+                   . " --jdepend-chart={$chartsDir}/dependencies.svg"
+                   . " --overview-pyramid={$chartsDir}/overview-pyramid.svg"
+                   . " --jdepend-xml={$logDir}/depend.xml"
+                   . " --summary-xml={$logDir}/summary.xml"
+                   . " {$this->sourcePath}";
+
+        $this->exec($command);
     }
 }

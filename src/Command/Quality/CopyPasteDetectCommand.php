@@ -52,6 +52,7 @@ class CopyPasteDetectCommand extends Command
             ->setName('quality:copy-paste-detect')
             ->setAliases(['quality:cpd'])
             ->setDescription('Generates pmd-cpd.xml using PHP CopyPasteDetector')
+            ->addSourcePathOption()
         ;
     }
 
@@ -63,9 +64,11 @@ class CopyPasteDetectCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
+        $command = 'phpcpd'
+                   . " --log-pmd=build/logs/pmd-cpd.xml"
+                   . ' --fuzzy'
+                   . " {$this->sourcePath}";
 
-        (new FromPhing($output, $basePath, $project))->qualityCopyPasteDetect();
+        $this->exec($command);
     }
 }

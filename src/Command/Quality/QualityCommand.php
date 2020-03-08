@@ -51,6 +51,7 @@ class QualityCommand extends Command
         $this
             ->setName('quality')
             ->setDescription('Generates a quality report using CodeBrowser')
+            ->addSourcePathOption()
         ;
     }
 
@@ -59,12 +60,15 @@ class QualityCommand extends Command
      *
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->quality();
+        (new DependCommand())->run($input, $output);
+        (new MessDetectCommand())->run($input, $output);
+        (new CopyPasteDetectCommand())->run($input, $output);
+        (new CheckStyleCommand())->run($input, $output);
+        (new CodeBrowserCommand())->run($input, $output);
     }
 }

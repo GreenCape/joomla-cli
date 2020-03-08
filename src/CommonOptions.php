@@ -29,6 +29,8 @@
 
 namespace GreenCape\JoomlaCLI;
 
+use GreenCape\JoomlaCLI\Driver\Environment;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -40,6 +42,48 @@ use Symfony\Component\Console\Input\InputOption;
  */
 trait CommonOptions
 {
+    /**
+     * @var string
+     */
+    protected $basePath;
+
+    /**
+     * @var Environment
+     */
+    protected $environment;
+
+    /**
+     * @var string
+     */
+    protected $joomlaPath;
+
+    /**
+     * @var string
+     */
+    protected $sourcePath;
+
+    /**
+     * @param  InputInterface  $input
+     */
+    protected function initialiseGlobalOptions(InputInterface $input): void
+    {
+        if ($input->hasOption('basepath')) {
+            $this->basePath = $input->getOption('basepath');
+        }
+
+        if ($input->hasOption('environment')) {
+            $this->environment = new Environment($input->getOption('environment'));
+        }
+
+        if ($input->hasOption('joomla')) {
+            $this->joomlaPath = $input->getOption('joomla');
+        }
+
+        if ($input->hasOption('source')) {
+            $this->sourcePath = $input->getOption('source');
+        }
+    }
+
     protected function addEnvironmentOption(): Command
     {
         $this->addOption(
@@ -76,6 +120,20 @@ trait CommonOptions
             InputOption::VALUE_REQUIRED,
             'The root of the Joomla installation',
             'joomla'
+        );
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this;
+    }
+
+    protected function addSourcePathOption(): Command
+    {
+        $this->addOption(
+            'source',
+            's',
+            InputOption::VALUE_REQUIRED,
+            'The source directory',
+            'source'
         );
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */

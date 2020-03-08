@@ -53,16 +53,6 @@ abstract class Command extends BaseCommand
     protected $joomla;
 
     /**
-     * @var Environment
-     */
-    protected $environment;
-
-    /**
-     * @var string
-     */
-    protected $basePath;
-
-    /**
      * @var Filesystem
      */
     protected $joomlaFilesystem;
@@ -120,8 +110,7 @@ abstract class Command extends BaseCommand
     {
         $this->input       = $input;
         $this->output      = $output;
-        $this->basePath    = $input->getOption('basepath');
-        $this->environment = new Environment($input->getOption('environment'));
+        $this->initialiseGlobalOptions($input);
     }
 
     /**
@@ -185,7 +174,7 @@ abstract class Command extends BaseCommand
 
         $current = getcwd();
 
-        if ($this->input->getOption('quiet')) {
+        if ($this->output->getVerbosity() === OutputInterface::VERBOSITY_QUIET) {
             ob_start();
         }
 
@@ -207,7 +196,7 @@ abstract class Command extends BaseCommand
 
         chdir($current);
 
-        if ($this->input->getOption('quiet')) {
+        if ($this->output->getVerbosity() === OutputInterface::VERBOSITY_QUIET) {
             ob_end_clean();
         }
 

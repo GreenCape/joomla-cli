@@ -379,9 +379,9 @@ class FromPhing
     }
 
     /**
-     * Generates a quality report using CodeBrowser.
+     * REPLACED IN COMMAND
      */
-    public function quality(): void
+    private function quality(): void
     {
         $this->qualityDepend();
         $this->qualityMessDetect();
@@ -521,9 +521,9 @@ class FromPhing
     }
 
     /**
-     * Generates depend.xml and software metrics charts using PHP Depend.
+     * REPLACED IN COMMAND
      */
-    public function qualityDepend(): void
+    private function qualityDepend(): void
     {
         $this->mkdir("{$this->build}/logs/charts");
         $command = "{$this->bin}/pdepend"
@@ -538,9 +538,9 @@ class FromPhing
     }
 
     /**
-     * Generates pmd.xml using PHP MessDetector.
+     * REPLACED IN COMMAND
      */
-    public function qualityMessDetect(): void
+    private function qualityMessDetect(): void
     {
         $command = "{$this->bin}/phpmd"
                    . " {$this->source}"
@@ -553,9 +553,9 @@ class FromPhing
     }
 
     /**
-     * Generates pmd-cpd.xml using PHP CopyPasteDetector.
+     * REPLACED IN COMMAND
      */
-    public function qualityCopyPasteDetect(): void
+    private function qualityCopyPasteDetect(): void
     {
         $command = 'phpcpd'
                    . " --log-pmd={$this->build}/logs/pmd-cpd.xml"
@@ -566,24 +566,24 @@ class FromPhing
     }
 
     /**
-     * Generates checkstyle.xml using PHP CodeSniffer.
+     * REPLACED IN COMMAND
      */
-    public function qualityCheckStyle(): void
+    private function qualityCheckStyle(): void
     {
         $command = 'phpcs'
                    . ' -s'
                    . ' --report=checkstyle'
                    . " --report-file={$this->build}/logs/checkstyle.xml"
-                   . " --standard={$this->basedir}/vendor/greencape/coding-standards/src/Joomla"
+                   . " --standard=PSR12"
                    . " {$this->source}";
 
         $this->exec($command);
     }
 
     /**
-     * Aggregates the results from all the measurement tools.
+     * REPLACED IN COMMAND
      */
-    public function qualityCodeBrowser(): void
+    private function qualityCodeBrowser(): void
     {
         $this->mkdir("{$this->build}/report/code-browser");
 
