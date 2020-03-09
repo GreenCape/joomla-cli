@@ -78,7 +78,8 @@ trait FilesystemMethods
             $targetFiles,
             static function ($carry, $file) {
                 return min($carry, filemtime($file));
-            }
+            },
+            PHP_INT_MAX
         );
 
         foreach ($sources as $source) {
@@ -170,19 +171,19 @@ trait FilesystemMethods
      * Copy files with optional filtering
      *
      * @param  Fileset|string  $fileset  A Fileset or a single filename to be copied
-     * @param  string          $toDir    The target directory
+     * @param  string          $to       The target directory for Filesets, target file for files
      * @param  callable|null   $filter   Optional filter callback
      */
-    protected function copy($fileset, string $toDir, callable $filter = null): void
+    protected function copy($fileset, string $to, callable $filter = null): void
     {
         if (is_string($fileset)) {
-            $this->copyFile($fileset, $toDir, $filter);
+            $this->copyFile($fileset, $to, $filter);
 
             return;
         }
 
         foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, str_replace($fileset->getDir(), $toDir, $file), $filter);
+            $this->copyFile($file, str_replace($fileset->getDir(), $to, $file), $filter);
         }
     }
 

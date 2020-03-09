@@ -115,4 +115,37 @@ class FilesetTest extends TestCase
 
         $this->assertEquals($expected, $files);
     }
+
+    /**
+     * @testdox ... can be configured to not recurse into subdirectories
+     */
+    public function testNoRecurse(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset->include('**.xml', Fileset::NO_RECURSE)->getFiles();
+        sort($files);
+
+        $expected = [
+            $this->dir . '/root.ent.xml',
+            $this->dir . '/test_42.xml',
+        ];
+
+        $this->assertEquals($expected, $files);
+    }
+
+    /**
+     * @testdox ... can be configured to only return subdirectories
+     */
+    public function testOnlyDirs(): void
+    {
+        $fileset = new Fileset($this->dir);
+        $files   = $fileset->include('**', Fileset::ONLY_DIRS)->getFiles();
+        sort($files);
+
+        $expected = [
+            $this->dir . '/test',
+        ];
+
+        $this->assertEquals($expected, $files);
+    }
 }
