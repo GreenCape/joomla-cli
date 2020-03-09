@@ -31,7 +31,6 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem;
 
 /**
  * Version specific methods
@@ -40,11 +39,6 @@ use League\Flysystem\Filesystem;
  */
 class Version
 {
-    /**
-     * @var Filesystem The file system containing the Joomla! files
-     */
-    private $filesystem;
-
     /**
      * @var string[] Possible locations of the version file
      */
@@ -61,15 +55,13 @@ class Version
     /**
      * Version constructor.
      *
-     * @param  Filesystem  $filesystem  The file system containing the Joomla! files
+     * @param  string  $joomlaDir  The directory containing the Joomla files
      *
      * @throws FileNotFoundException
      */
-    public function __construct(Filesystem $filesystem)
+    public function __construct(string $joomlaDir)
     {
-        $this->filesystem = $filesystem;
-
-        $content = $this->loadVersionFile();
+        $content = $this->loadVersionFile($joomlaDir);
 
         if (!is_string($content)) {
             throw new FileNotFoundException("'" . implode("', ", $this->locations) . "'");
@@ -84,21 +76,6 @@ class Version
         foreach ($matches as $match) {
             $this->data[$match[1]] = $match[2];
         }
-    }
-
-    /**
-     * @return string|null
-     * @throws FileNotFoundException
-     */
-    private function loadVersionFile(): ?string
-    {
-        foreach ($this->locations as $location) {
-            if ($this->filesystem->has($location)) {
-                return $this->filesystem->read($location);
-            }
-        }
-
-        return null;
     }
 
     public function getRelease(): string
@@ -123,5 +100,23 @@ class Version
                . $this->data['DEV_STATUS']
                . ' [ ' . $this->data['CODENAME'] . ' ] ' . $this->data['RELDATE'] . ' '
                . $this->data['RELTIME'] . ' ' . $this->data['RELTZ'];
+    }
+
+    /**
+     * @param  string  $joomlaDir
+     *
+     * @return string|null
+     */
+    private function loadVersionFile(string $joomlaDir): ?string
+    {
+        foreach ($this->locations as $location) {
+            $versionFile = $joomlaDir . '/' . $location;
+
+            if (file_exists($versionFile)) {
+                return file_get_contents($versionFile);
+            }
+        }
+
+        return null;
     }
 }

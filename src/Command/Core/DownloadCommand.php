@@ -71,13 +71,14 @@ class DownloadCommand extends Command
     {
         $this
             ->setName('core:download')
-            ->setDescription('Downloads a Joomla! version and unpacks it to the base path')
+            ->setDescription('Downloads a Joomla! version and unpacks it to the given path')
             ->addArgument(
                 'version',
                 InputArgument::OPTIONAL,
                 'The Joomla! version to install.',
                 'latest'
             )
+            ->addJoomlaPathOption()
             ->addOption(
                 'file',
                 'f',
@@ -123,9 +124,9 @@ class DownloadCommand extends Command
         $tarball = $this->getTarball($this->version, $this->getAvailableVersions());
         $this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $this->untar($this->basePath, $tarball);
+        $this->untar($this->joomlaPath, $tarball);
 
-        $this->output->writeln("Installed Joomla! files to  {$this->basePath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $this->output->writeln("Installed Joomla! files to  {$this->joomlaPath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
     }
 
     /**

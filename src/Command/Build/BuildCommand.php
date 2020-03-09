@@ -53,6 +53,8 @@ class BuildCommand extends Command
             ->setName('build:all')
             ->setAliases(['build'])
             ->setDescription('Performs all tests and generates documentation and the quality report')
+            ->addSourcePathOption()
+            ->addBasePathOption()
             ->setHelp(
                 wordwrap(
                     'A valid manifest file is required in the base path. '
@@ -75,6 +77,6 @@ class BuildCommand extends Command
         $basePath = $input->getOption('basepath');
         $project  = null;
 
-        (new FromPhing($output, $basePath, $project))->build();
+        (new FromPhing($output, $basePath, $project))->build($this->sourcePath);
     }
 }

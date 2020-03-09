@@ -70,30 +70,6 @@ abstract class Command extends BaseCommand
     use CommonOptions, FilesystemMethods;
 
     /**
-     * Constructor.
-     *
-     * @param  string  $name  The name of the command
-     */
-    public function __construct($name = null)
-    {
-        parent::__construct($name);
-        $this->addGlobalOptions();
-    }
-
-    /**
-     * Add options common to all commands
-     *
-     * @return  void
-     */
-    protected function addGlobalOptions(): void
-    {
-        $this
-            ->addBasePathOption()
-            ->addEnvironmentOption()
-        ;
-    }
-
-    /**
      * Initializes the command after the input has been bound and before the input
      * is validated.
      *
@@ -134,22 +110,6 @@ abstract class Command extends BaseCommand
     protected function loadDriver(): void
     {
         $this->joomla = (new Factory)->create($this->joomlaFilesystem);
-    }
-
-    /**
-     * Read the base path from the options
-     *
-     * @return  string  The base path
-     */
-    protected function handleBasePath(): string
-    {
-        $path                   = realpath($this->input->getOption('basepath'));
-        $adapter                = new Local($path);
-        $this->joomlaFilesystem = new Filesystem($adapter);
-
-        $this->output->writeln('Joomla! installation expected in ' . $path, OutputInterface::VERBOSITY_DEBUG);
-
-        return $path;
     }
 
     /**

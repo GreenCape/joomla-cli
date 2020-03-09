@@ -47,7 +47,7 @@ Available commands are
 **[Quality](quality/index.md)**
 - [quality:cb](quality/cb.md) - Aggregates the results from all the measurement tools
 - [quality:cpd](quality/cpd.md) - Generates pmd-cpd.xml using PHP CopyPasteDetector
-- [quality:cs](quality/cs.md) - Generates checkstyle.xml using PHP CodeSniffer
+- [quality:cs](quality/cs.md) - Checks the code style using PHP CodeSniffer
 - [quality:depend](quality/depend.md) - Generates depend.xml and software metrics charts using PHP Depend
 - [quality:md](quality/md.md) - Generates pmd.xml using PHP MessDetector
 

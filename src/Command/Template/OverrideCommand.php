@@ -58,6 +58,7 @@ class OverrideCommand extends Command
         $this
             ->setName('template:override')
             ->setDescription('Creates template and layout overrides (Joomla! 1.5+)')
+            ->addJoomlaPathOption()
             ->addOption(
                 'force',
                 'f',
@@ -82,16 +83,15 @@ class OverrideCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
         $template = $input->getArgument('template');
         $force    = $input->getOption('force');
 
-        $templateDir = $this->prepareTemplateDirectory($basePath . '/templates/' . $template, $output);
+        $templateDir = $this->prepareTemplateDirectory($this->joomlaPath . '/templates/' . $template, $output);
 
-        $this->handleComponents($basePath, $templateDir, $force, $output);
-        $this->handleModules($basePath, $templateDir, $force, $output);
-        $this->handlePlugins($basePath, $templateDir, $force, $output);
-        $this->handleLayouts($basePath, $templateDir, $force, $output);
+        $this->handleComponents($this->joomlaPath, $templateDir, $force, $output);
+        $this->handleModules($this->joomlaPath, $templateDir, $force, $output);
+        $this->handlePlugins($this->joomlaPath, $templateDir, $force, $output);
+        $this->handleLayouts($this->joomlaPath, $templateDir, $force, $output);
     }
 
     /**

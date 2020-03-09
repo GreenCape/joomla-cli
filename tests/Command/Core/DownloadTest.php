@@ -82,7 +82,7 @@ class DownloadTest extends TestCase
 
         $dir = $this->tmpDir . '/' . $path;
         $cacheFile = "{$this->tmpDir}/cache/{$short}.tar.gz";
-        $arguments = "-b {$dir} -c {$this->tmpDir}/cache {$short}";
+        $arguments = "--joomla={$dir} --cache={$this->tmpDir}/cache {$short}";
 
         $this->delete($dir);
         $this->delete($cacheFile);
@@ -113,7 +113,7 @@ class DownloadTest extends TestCase
         $dir = $this->tmpDir . '/staging';
 
         $this->delete($dir);
-        $command->run(new StringInput("-b {$dir} staging"), $this->output);
+        $command->run(new StringInput("--joomla={$dir} staging"), $this->output);
         $this->assertFileExists(
             "{$dir}/index.php",
             "Expected files in {$dir}, but mandatory index.php was not found"
@@ -131,6 +131,6 @@ class DownloadTest extends TestCase
 
         $this->expectExceptionMessage('nx: Version is unknown');
 
-        $command->run(new StringInput("-b {$this->tmpDir}/nx nx"), $this->output);
+        $command->run(new StringInput("-joomla={$this->tmpDir}/nx nx"), $this->output);
     }
 }

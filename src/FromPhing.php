@@ -277,11 +277,13 @@ class FromPhing
     /**
      * Generate the distribution
      *
+     * @param $source
+     *
      * @throws FileNotFoundException
      */
-    public function dist(): void
+    public function dist($source): void
     {
-        $this->build();
+        $this->build($source);
         $this->distPrepare();
 
         $packageName = "{$this->package['name']}-{$this->project['version']}";
@@ -299,11 +301,17 @@ class FromPhing
     /**
      * Performs all tests and generates documentation and the quality report.
      *
+     * @param $source
+     *
      * @throws FileNotFoundException
      * @throws Exception
      */
-    public function build(): void
+    public function build($source = null): void
     {
+        if ($source !== null) {
+            $this->source = $source;
+        }
+
         $this->prepare();
         $this->test();
         $this->quality();
@@ -376,18 +384,6 @@ class FromPhing
         $this->testIntegration();
         $this->testSystem();
         $this->testCoverageReport();
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function quality(): void
-    {
-        $this->qualityDepend();
-        $this->qualityMessDetect();
-        $this->qualityCopyPasteDetect();
-        $this->qualityCheckStyle();
-        $this->qualityCodeBrowser();
     }
 
     /**
@@ -498,9 +494,9 @@ class FromPhing
     }
 
     /**
-     * Creates an consolidated HTML coverage report
+     * REPLACED IN COMMAND
      */
-    public function testCoverageReport(): void
+    private function testCoverageReport(): void
     {
         $this->mkdir("{$this->build}/report/coverage");
 
@@ -521,90 +517,6 @@ class FromPhing
     }
 
     /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityDepend(): void
-    {
-        $this->mkdir("{$this->build}/logs/charts");
-        $command = "{$this->bin}/pdepend"
-                   . ' --suffix=php'
-                   . " --jdepend-chart={$this->build}/logs/charts/dependencies.svg"
-                   . " --jdepend-xml={$this->build}/logs/depend.xml"
-                   . " --overview-pyramid={$this->build}/logs/charts/overview-pyramid.svg"
-                   . " --summary-xml={$this->build}/logs/summary.xml"
-                   . " {$this->source}";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityMessDetect(): void
-    {
-        $command = "{$this->bin}/phpmd"
-                   . " {$this->source}"
-                   . ' xml'
-                   . " {$this->buildTemplates}/config/phpmd.xml"
-                   . ' --suffixes php'
-                   . " --reportfile {$this->build}/logs/pmd.xml";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCopyPasteDetect(): void
-    {
-        $command = 'phpcpd'
-                   . " --log-pmd={$this->build}/logs/pmd-cpd.xml"
-                   . ' --fuzzy'
-                   . " {$this->source}";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCheckStyle(): void
-    {
-        $command = 'phpcs'
-                   . ' -s'
-                   . ' --report=checkstyle'
-                   . " --report-file={$this->build}/logs/checkstyle.xml"
-                   . " --standard=PSR12"
-                   . " {$this->source}";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCodeBrowser(): void
-    {
-        $this->mkdir("{$this->build}/report/code-browser");
-
-        // CodeBrowser has a bug regarding crapThreshold, so remove all crap-values below 10 (i.e., 1 digit)
-        $this->reflexive(
-            (new Fileset("{$this->build}/logs"))
-                ->include('clover.xml'),
-            static function ($content) {
-                return preg_replace('~crap="\d"~', '', $content);
-            }
-        );
-
-        $command = "{$this->bin}/phpcb"
-                   . " --log={$this->build}/logs"
-                   . " --output={$this->build}/report/code-browser"
-                   . ' --crapThreshold=10';
-
-        $this->exec($command, $this->basedir);
-    }
-
-    /**
      *
      */
     public function documentClean(): void
@@ -620,12 +532,11 @@ class FromPhing
      */
     public function documentUml(bool $keepSources = false): void
     {
-        $basepath = $this->source;
-        $skin     = 'bw-gradient';
-        $target   = "{$this->build}/report/uml";
-        $svg      = $keepSources ? '--no-svg' : '';
+        $skin   = 'bw-gradient';
+        $target = "{$this->build}/report/uml";
+        $svg    = $keepSources ? '--no-svg' : '';
 
-        $input = new StringInput("--basepath={$basepath} --skin={$skin} --output={$target} {$svg}");
+        $input = new StringInput("--source={$this->source} --skin={$skin} --output={$target} {$svg}");
 
         $command = new UmlCommand();
         $command->run($input, $this->output);
@@ -770,6 +681,102 @@ class FromPhing
 
             $this->dockerBuildSystem($environmentDefinition);
         }
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function quality(): void
+    {
+        $this->qualityDepend();
+        $this->qualityMessDetect();
+        $this->qualityCopyPasteDetect();
+        $this->qualityCheckStyle();
+        $this->qualityCodeBrowser();
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function qualityDepend(): void
+    {
+        $this->mkdir("{$this->build}/logs/charts");
+        $command = "{$this->bin}/pdepend"
+                   . ' --suffix=php'
+                   . " --jdepend-chart={$this->build}/logs/charts/dependencies.svg"
+                   . " --jdepend-xml={$this->build}/logs/depend.xml"
+                   . " --overview-pyramid={$this->build}/logs/charts/overview-pyramid.svg"
+                   . " --summary-xml={$this->build}/logs/summary.xml"
+                   . " {$this->source}";
+
+        $this->exec($command);
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function qualityMessDetect(): void
+    {
+        $command = "{$this->bin}/phpmd"
+                   . " {$this->source}"
+                   . ' xml'
+                   . " {$this->buildTemplates}/config/phpmd.xml"
+                   . ' --suffixes php'
+                   . " --reportfile {$this->build}/logs/pmd.xml";
+
+        $this->exec($command);
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function qualityCopyPasteDetect(): void
+    {
+        $command = 'phpcpd'
+                   . " --log-pmd={$this->build}/logs/pmd-cpd.xml"
+                   . ' --fuzzy'
+                   . " {$this->source}";
+
+        $this->exec($command);
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function qualityCheckStyle(): void
+    {
+        $command = 'phpcs'
+                   . ' -s'
+                   . ' --report=checkstyle'
+                   . " --report-file={$this->build}/logs/checkstyle.xml"
+                   . " --standard=PSR12"
+                   . " {$this->source}";
+
+        $this->exec($command);
+    }
+
+    /**
+     * REPLACED IN COMMAND
+     */
+    private function qualityCodeBrowser(): void
+    {
+        $this->mkdir("{$this->build}/report/code-browser");
+
+        // CodeBrowser has a bug regarding crapThreshold, so remove all crap-values below 10 (i.e., 1 digit)
+        $this->reflexive(
+            (new Fileset("{$this->build}/logs"))
+                ->include('clover.xml'),
+            static function ($content) {
+                return preg_replace('~crap="\d"~', '', $content);
+            }
+        );
+
+        $command = "{$this->bin}/phpcb"
+                   . " --log={$this->build}/logs"
+                   . " --output={$this->build}/report/code-browser"
+                   . ' --crapThreshold=10';
+
+        $this->exec($command, $this->basedir);
     }
 
     /**

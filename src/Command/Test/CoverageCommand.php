@@ -30,7 +30,8 @@
 namespace GreenCape\JoomlaCLI\Command\Test;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
+use GreenCape\JoomlaCLI\CoverageMerger;
+use GreenCape\JoomlaCLI\Fileset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -52,6 +53,8 @@ class CoverageCommand extends Command
         $this
             ->setName('test:coverage')
             ->setDescription('Creates an consolidated HTML coverage report')
+            ->addSourcePathOption()
+            ->addLogPathOption()
             ->addOption(
                 'upload',
                 'u',
@@ -69,10 +72,22 @@ class CoverageCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
+        $this->mkdir("build/report/coverage");
 
-        (new FromPhing($output, $basePath, $project))->testCoverageReport();
+        $merger = new CoverageMerger();
+        $merger
+            ->fileset((new Fileset("{$this->logPath}/coverage"))->include('**/*.cov'))
+            ->html("build/report/coverage")
+            ->clover("{$this->logPath}/clover.xml")
+            ->merge()
+        ;
+
+        $this->reflexive(
+            new Fileset("build/report/coverage"),
+            function ($content) {
+                return str_replace($this->sourcePath . '/', '', $content);
+            }
+        );
 
         if ($input->getOption('upload')) {
             shell_exec("build/upload-coverage.sh");

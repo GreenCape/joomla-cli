@@ -32,9 +32,7 @@
 namespace UnitTest\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Version;
-use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -59,10 +57,7 @@ class VersionTest extends TestCase
      */
     public function testVersion($path, $release, $short, $long): void
     {
-        $adapter    = new Local('tests/fixtures/' . $path);
-        $filesystem = new Filesystem($adapter);
-
-        $joomlaVersion = new Version($filesystem);
+        $joomlaVersion = new Version('tests/fixtures/' . $path);
 
         $this->assertEquals($release, $joomlaVersion->getRelease());
         $this->assertEquals($short, $joomlaVersion->getShortVersion());
@@ -76,10 +71,7 @@ class VersionTest extends TestCase
      */
     public function testException(): void
     {
-        $adapter    = new Local('tests/fixtures/nx');
-        $filesystem = new Filesystem($adapter);
-
         $this->expectException(FileNotFoundException::class);
-        new Version($filesystem);
+        new Version('tests/fixtures/nx');
     }
 }

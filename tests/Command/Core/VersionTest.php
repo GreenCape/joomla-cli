@@ -63,26 +63,32 @@ class VersionTest extends TestCase
         $command = new VersionCommand();
         $output  = new BufferedOutput();
 
-        $command->run(new StringInput('-b tests/fixtures/' . $path), $output);
-        $this->assertEquals($long, trim($output->fetch()), '`version` with no option should return ' . $long);
+        $command->run(new StringInput('--joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($long, $actual, '`version` with no option should return ' . $long . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('--long -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($long, trim($output->fetch()), '`version` with option `--long` should return ' . $long);
+        $command->run(new StringInput('--long --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($long, $actual, '`version` with option `--long` should return ' . $long . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('-l -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($long, trim($output->fetch()), '`version` with option `-l` should return ' . $long);
+        $command->run(new StringInput('-l --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($long, $actual, '`version` with option `-l` should return ' . $long . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('--release -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($release, trim($output->fetch()),
-            '`version` with option `--release` should return ' . $release);
+        $command->run(new StringInput('--release --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($release, $actual, '`version` with option `--release` should return ' . $release . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('-r -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($release, trim($output->fetch()), '`version` with option `-r` should return ' . $release);
+        $command->run(new StringInput('-r --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($release, $actual, '`version` with option `-r` should return ' . $release . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('--short -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($short, trim($output->fetch()), '`version` with option `--short` should return ' . $short);
+        $command->run(new StringInput('--short --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($short, $actual, '`version` with option `--short` should return ' . $short . ', got ' . $actual . ' instead');
 
-        $command->run(new StringInput('-s -b tests/fixtures/' . $path), $output);
-        $this->assertEquals($short, trim($output->fetch()), '`version` with option `-s` should return ' . $short);
+        $command->run(new StringInput('-s --joomla=tests/fixtures/' . $path), $output);
+        $actual = trim($output->fetch());
+        $this->assertEquals($short, $actual, '`version` with option `-s` should return ' . $short . ', got ' . $actual . ' instead');
     }
 }

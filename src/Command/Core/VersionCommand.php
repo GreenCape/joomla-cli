@@ -52,7 +52,8 @@ class VersionCommand extends Command
     {
         $this
             ->setName('core:version')
-            ->setDescription('Reports the version of the Joomla! installation at the base path')
+            ->setDescription('Reports the version of the Joomla! installation at the given path')
+            ->addJoomlaPathOption()
             ->addOption(
                 'long',
                 'l',
@@ -85,8 +86,7 @@ class VersionCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->handleBasePath();
-        $version = new Version($this->joomlaFilesystem);
+        $version = new Version($this->joomlaPath);
 
         if ($input->getOption('short')) {
             $result = $version->getShortVersion();

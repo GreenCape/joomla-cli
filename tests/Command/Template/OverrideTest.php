@@ -34,12 +34,10 @@ namespace UnitTest\Command;
 use Exception;
 use GreenCape\JoomlaCLI\Command\Core\DownloadCommand;
 use GreenCape\JoomlaCLI\Command\Template\OverrideCommand;
-use UnitTest\Driver\JoomlaPackagesTrait;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
+use UnitTest\Driver\JoomlaPackagesTrait;
 
 /**
  * Class OverrideTest
@@ -48,24 +46,7 @@ use Symfony\Component\Console\Output\NullOutput;
  */
 class OverrideTest extends TestCase
 {
-    /**
-     * @var Filesystem
-     */
-    private static $filesystem;
-
     use JoomlaPackagesTrait;
-
-    /**
-     */
-    public static function setUpBeforeClass(): void
-    {
-        self::$filesystem = new Filesystem(new Local('tests'));
-    }
-
-    protected function tearDown(): void
-    {
-        self::$filesystem->deleteDir('tmp');
-    }
 
     public function joomlaPackagesWithout10()
     {
@@ -91,22 +72,15 @@ class OverrideTest extends TestCase
         $command = new DownloadCommand();
         $output  = new NullOutput();
 
-        $command->run(new StringInput("-b tests/tmp/$path $short"), $output);
+        $command->run(new StringInput("--joomla=tmp/$path $short"), $output);
 
         $command = new OverrideCommand();
         $output  = new NullOutput();
 
-        $command->run(new StringInput("-b tests/tmp/$path system"), $output);
+        $command->run(new StringInput("--joomla=tmp/$path system"), $output);
 
-        $contents = array_reduce(
-            self::$filesystem->listContents("tmp/$path/templates/system/html"),
-            static function ($carry, $item) {
-                $carry[] = $item['basename'];
+        $contents = glob("tmp/$path/templates/system/html/*");
 
-                return $carry;
-            },
-            []
-        );
-        $this->assertTrue($release === '1.0' || count($contents) > 2);
+        $this->assertTrue(count($contents) > 2);
     }
 }

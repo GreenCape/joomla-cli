@@ -27,7 +27,7 @@
  * @since           File available since Release __DEPLOY_VERSION__
  */
 
-namespace GreenCape\JoomlaCLI\Command\Quality;
+namespace GreenCape\JoomlaCLI\Command\Document;
 
 use GreenCape\JoomlaCLI\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,12 +48,8 @@ class CheckStyleCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('quality:check-style')
-            ->setAliases(['quality:cs'])
-            ->setDescription('Checks the code style using PHP CodeSniffer')
-            ->addBasePathOption()
-            ->addSourcePathOption()
-            ->addLogPathOption()
+            ->setName('document:code-style')
+            ->setDescription('Generates documentation for the coding style')
         ;
     }
 
@@ -65,23 +61,6 @@ class CheckStyleCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $verbosity = [
-            OutputInterface::VERBOSITY_QUIET        => ' -q',
-            OutputInterface::VERBOSITY_NORMAL       => ' -p',
-            OutputInterface::VERBOSITY_VERBOSE      => ' -v',
-            OutputInterface::VERBOSITY_VERY_VERBOSE => ' -vv',
-            OutputInterface::VERBOSITY_DEBUG        => ' -vvv',
-        ];
-
-        $this->exec(
-            'vendor/bin/phpcs'
-            . ' -s'
-            . ' --report=checkstyle'
-            . " --report-file={$this->logPath}/checkstyle.xml"
-            . ' --standard=PSR12'
-            . " --basepath={$this->basePath}"
-            . $verbosity[$output->getVerbosity()]
-            . " {$this->sourcePath}"
-        );
+        $this->exec("vendor/bin/phpcs --generator=Markdown --standard=PSR12 > docs/codestyle.md");
     }
 }

@@ -1,7 +1,7 @@
 [Joomla CLI](../index.md) > [Quality](index.md)
 # quality:cs
 
-Generates checkstyle.xml using PHP CodeSniffer.
+Checks the code style using PHP CodeSniffer.
 
 ## Synopsis
 ```bash
@@ -14,7 +14,8 @@ This command has no arguments.
 
 ## Options
 ```
-  -f, --file=FILE                Path to the report file [default: "stdout"]
+  -s, --source=SOURCE            The source directory [default: "source"]
+  -l, --logs=LOGS                The logs directory [default: "build/logs"]
   -b, --basepath=BASEPATH        The root of the project [default: "."]
   -e, --environment=ENVIRONMENT  The environment definition [default: ""]
   -h, --help                     Display this help message
@@ -28,5 +29,5 @@ This command has no arguments.
 
 ## Description
 
-Generates checkstyle.xml using PHP CodeSniffer
+Checks the code style using PHP CodeSniffer
 

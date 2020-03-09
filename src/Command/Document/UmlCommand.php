@@ -61,6 +61,7 @@ class UmlCommand extends Command
         $this
             ->setName('document:uml')
             ->setDescription('Generates UML diagrams')
+            ->addSourcePathOption()
             ->addOption(
                 'jar',
                 'J',
@@ -84,7 +85,7 @@ class UmlCommand extends Command
             )
             ->addOption(
                 'skin',
-                's',
+                'S',
                 InputOption::VALUE_REQUIRED,
                 "Name ('bw', 'bw-gradient' or 'default') of or path to the skin",
                 'default'
@@ -199,9 +200,8 @@ class UmlCommand extends Command
      */
     private function setupSource(InputInterface $input, OutputInterface $output): Fileset
     {
-        $dir = $input->getOption('basepath');
-        $output->writeln("Creating UML diagrams from $dir", OutputInterface::VERBOSITY_NORMAL);
-        $source = new Fileset($dir);
+        $output->writeln("Creating UML diagrams from {$this->sourcePath}", OutputInterface::VERBOSITY_NORMAL);
+        $source = new Fileset($this->sourcePath);
         $source->include('**/*.php');
 
         return $source;

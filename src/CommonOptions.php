@@ -112,9 +112,8 @@ trait CommonOptions
         $this->addOption(
             'basepath',
             'b',
-            InputOption::VALUE_REQUIRED,
-            'The root of the project',
-            '.'
+            InputOption::VALUE_OPTIONAL,
+            'A path to strip from the front of file paths inside reports'
         );
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
