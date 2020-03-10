@@ -51,6 +51,7 @@ class CleanCommand extends Command
         $this
             ->setName('dist:clean')
             ->setDescription('Cleanup distribution directory')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class CleanCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->distClean();
+        (new FromPhing($output, $this->basePath, null))->distClean();
     }
 }

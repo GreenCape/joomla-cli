@@ -27,45 +27,19 @@
  * @since           File available since Release __DEPLOY_VERSION__
  */
 
-namespace GreenCape\JoomlaCLI\Command\Test;
+namespace GreenCape\JoomlaCLI\Exception;
 
-use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
-use League\Flysystem\FileNotFoundException;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use RuntimeException;
 
 /**
- * Class SystemCommand
+ * Class FileNotFoundException
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */
-class SystemCommand extends Command
+class FileNotFoundException extends RuntimeException
 {
-    /**
-     * Configure the options for the command
-     *
-     * @return  void
-     */
-    protected function configure(): void
+    public function __construct($path)
     {
-        $this
-            ->setName('test:system')
-            ->setDescription('Runs system tests on all test installations')
-            ->addBasePathOption()
-        ;
-    }
-
-    /**
-     * Execute the command
-     *
-     * @param  InputInterface   $input   An InputInterface instance
-     * @param  OutputInterface  $output  An OutputInterface instance
-     *
-     * @throws FileNotFoundException
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
-    {
-        (new FromPhing($output, $this->basePath, null))->testSystem();
+        parent::__construct('File not found at path: ' . $path);
     }
 }

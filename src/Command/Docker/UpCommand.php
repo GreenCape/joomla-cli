@@ -51,6 +51,7 @@ class UpCommand extends Command
         $this
             ->setName('docker:up')
             ->setDescription('Starts the test containers after rebuilding them')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class UpCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dockerUp();
+        (new FromPhing($output, $this->basePath, null))->dockerUp();
     }
 }

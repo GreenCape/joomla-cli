@@ -52,6 +52,7 @@ class StartCommand extends Command
         $this
             ->setName('docker:start')
             ->setDescription('Starts the test containers, building them only if not existing')
+            ->addBasePathOption()
         ;
     }
 
@@ -65,9 +66,6 @@ class StartCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dockerStart();
+        (new FromPhing($output, $this->basePath, null))->dockerStart();
     }
 }

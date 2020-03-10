@@ -52,6 +52,7 @@ class BuildCommand extends Command
         $this
             ->setName('docker:build')
             ->setDescription('Generates the contents and prepares the test containers')
+            ->addBasePathOption()
         ;
     }
 
@@ -65,9 +66,6 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dockerBuild();
+        (new FromPhing($output, $this->basePath, null))->dockerBuild();
     }
 }

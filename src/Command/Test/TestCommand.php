@@ -52,6 +52,7 @@ class TestCommand extends Command
         $this
             ->setName('test')
             ->setDescription('Runs all tests locally and in the test containers')
+            ->addBasePathOption()
         ;
     }
 
@@ -65,9 +66,6 @@ class TestCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->test();
+        (new FromPhing($output, $this->basePath, null))->test();
     }
 }

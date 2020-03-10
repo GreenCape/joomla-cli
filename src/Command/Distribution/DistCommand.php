@@ -52,6 +52,7 @@ class DistCommand extends Command
         $this
             ->setName('dist')
             ->setDescription('Generates the distribution')
+            ->addBasePathOption()
             ->addSourcePathOption()
         ;
     }
@@ -66,9 +67,6 @@ class DistCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dist($this->sourcePath);
+        (new FromPhing($output, $this->basePath, null))->dist($this->sourcePath);
     }
 }

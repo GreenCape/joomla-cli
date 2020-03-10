@@ -543,7 +543,7 @@ class FromPhing
     }
 
     /**
-     * Generates CHANGELOG.md from the git commit history.
+     * REPLACED IN COMMAND
      */
     public function documentChangelog(): void
     {

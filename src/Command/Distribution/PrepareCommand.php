@@ -51,6 +51,7 @@ class PrepareCommand extends Command
         $this
             ->setName('dist:prepare')
             ->setDescription('Create and populate distribution directory')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class PrepareCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->distPrepare();
+        (new FromPhing($output, $this->basePath, null))->distPrepare();
     }
 }

@@ -30,7 +30,7 @@
 
 namespace GreenCape\JoomlaCLI\Driver;
 
-use League\Flysystem\FileNotFoundException;
+use GreenCape\JoomlaCLI\Exception\FileNotFoundException;
 
 /**
  * Version specific methods

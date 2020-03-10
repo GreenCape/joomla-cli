@@ -74,9 +74,6 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->build($this->sourcePath);
+        (new FromPhing($output, $this->basePath, null))->build($this->sourcePath);
     }
 }

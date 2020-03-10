@@ -51,6 +51,7 @@ class UpdateCommand extends Command
         $this
             ->setName('self:update')
             ->setDescription('Updates the build environment')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class UpdateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->selfUpdate();
+        (new FromPhing($output, $this->basePath, null))->selfUpdate();
     }
 }

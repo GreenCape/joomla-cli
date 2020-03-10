@@ -52,6 +52,7 @@ class UnitCommand extends Command
         $this
             ->setName('test:unit')
             ->setDescription('Runs local unit tests')
+            ->addBasePathOption()
         ;
     }
 
@@ -65,9 +66,6 @@ class UnitCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->testUnit();
+        (new FromPhing($output, $this->basePath, null))->testUnit();
     }
 }

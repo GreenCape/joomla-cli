@@ -54,6 +54,7 @@ class DocumentCommand extends Command
             ->setName('document')
             ->setAliases(['document:api'])
             ->setDescription('Generates API documentation using the specified generator')
+            ->addBasePathOption()
             ->addOption(
                 'generator',
                 'g',
@@ -74,9 +75,6 @@ class DocumentCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->document($input->getOption('generator'));
+        (new FromPhing($output, $this->basePath, null))->document($input->getOption('generator'));
     }
 }

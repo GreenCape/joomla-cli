@@ -30,10 +30,8 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
-use GreenCape\JoomlaCLI\Driver\Environment;
 use GreenCape\JoomlaCLI\Driver\Factory;
 use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
-use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use Symfony\Component\Console\Command\Command as BaseCommand;
@@ -67,6 +65,11 @@ abstract class Command extends BaseCommand
      */
     protected $input;
 
+    /**
+     * @var array
+     */
+    protected $project;
+
     use CommonOptions, FilesystemMethods;
 
     /**
@@ -84,9 +87,11 @@ abstract class Command extends BaseCommand
      */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $this->input       = $input;
-        $this->output      = $output;
+        $this->input  = $input;
+        $this->output = $output;
+
         $this->initialiseGlobalOptions($input);
+        $this->readProjectSettings();
     }
 
     /**
@@ -161,5 +166,20 @@ abstract class Command extends BaseCommand
         }
 
         return $result;
+    }
+
+    private function readProjectSettings(): void
+    {
+        $projectFile = ($this->basePath ?: '.') . '/project.json';
+
+        if (file_exists($projectFile)) {
+            $this->project = json_decode(file_get_contents($projectFile));
+            $this->output->writeln("Found project settings at {$projectFile}", OutputInterface::VERBOSITY_VERBOSE);
+        } else {
+            $this->project = [
+                'name' => 'Untitled',
+            ];
+            $this->output->writeln("Found no project settings. Consider creating {$projectFile}", OutputInterface::VERBOSITY_VERBOSE);
+        }
     }
 }

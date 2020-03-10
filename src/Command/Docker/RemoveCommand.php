@@ -51,6 +51,7 @@ class RemoveCommand extends Command
         $this
             ->setName('docker:remove')
             ->setDescription('Removes the content of test containers')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class RemoveCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dockerRemove();
+        (new FromPhing($output, $this->basePath, null))->dockerRemove();
     }
 }

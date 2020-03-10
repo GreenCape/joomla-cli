@@ -32,7 +32,7 @@
 namespace UnitTest\Driver;
 
 use GreenCape\JoomlaCLI\Driver\Version;
-use League\Flysystem\FileNotFoundException;
+use GreenCape\JoomlaCLI\Exception\FileNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 /**

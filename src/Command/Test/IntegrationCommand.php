@@ -52,6 +52,7 @@ class IntegrationCommand extends Command
         $this
             ->setName('test:integration')
             ->setDescription('Runs integration tests on all test installations')
+            ->addBasePathOption()
         ;
     }
 
@@ -65,9 +66,6 @@ class IntegrationCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->testIntegration();
+        (new FromPhing($output, $this->basePath, null))->testIntegration();
     }
 }

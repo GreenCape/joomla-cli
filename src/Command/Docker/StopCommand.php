@@ -51,6 +51,7 @@ class StopCommand extends Command
         $this
             ->setName('docker:stop')
             ->setDescription('Stops and removes the test containers')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,7 @@ class StopCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->dockerStop();
+        (new FromPhing($output, $this->basePath, null
+        ))->dockerStop();
     }
 }

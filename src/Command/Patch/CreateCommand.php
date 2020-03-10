@@ -51,6 +51,7 @@ class CreateCommand extends Command
         $this
             ->setName('patch:create')
             ->setDescription('Creates a patch set ready to drop into an existing installation')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class CreateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->patchCreate();
+        (new FromPhing($output, $this->basePath, null))->patchCreate();
     }
 }

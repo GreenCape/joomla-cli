@@ -51,6 +51,7 @@ class TargetsCommand extends Command
         $this
             ->setName('test:targets')
             ->setDescription('Lists the test targets')
+            ->addBasePathOption()
         ;
     }
 
@@ -62,9 +63,6 @@ class TargetsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
-
-        (new FromPhing($output, $basePath, $project))->testTargets();
+        (new FromPhing($output, $this->basePath, null))->testTargets();
     }
 }

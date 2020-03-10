@@ -30,7 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Document;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
+use GreenCape\JoomlaCLI\Fileset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -62,9 +62,18 @@ class ChangelogCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $basePath = $input->getOption('basepath');
-        $project  = null;
+        $this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > CHANGELOG.md");
+        $this->reflexive(
+            (new Fileset('.'))
+                ->include('CHANGELOG.md'),
+            function ($content) {
+                $content = preg_replace("~\n\s*\(([^)]+)\)~", "\n\n## Version $1\n\n", $content);
+                $content = preg_replace("~\n +~", "\n", $content);
+                $content = preg_replace("~\n(\d)~", "\n    $1", $content);
+                $content = preg_replace("~^\n~", "# {$this->project['name']} Changelog\n", $content);
 
-        (new FromPhing($output, $basePath, $project))->documentChangelog();
+                return $content;
+            }
+        );
     }
 }
