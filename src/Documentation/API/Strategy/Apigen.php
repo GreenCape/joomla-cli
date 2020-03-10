@@ -30,6 +30,8 @@
 namespace GreenCape\JoomlaCLI\Documentation\API\Strategy;
 
 use GreenCape\JoomlaCLI\Fileset;
+use GreenCape\JoomlaCLI\FilesystemMethods;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Class Apigen
@@ -44,7 +46,18 @@ class Apigen implements APIGeneratorInterface
      * @var string
      */
     private $target;
+
+    /**
+     * @var string
+     */
     private $classTreePattern = '~<dl class="tree well">.*?</dl>~sm';
+
+    use FilesystemMethods;
+
+    public function __construct()
+    {
+        $this->output = new NullOutput();
+    }
 
     /**
      * Generate the API documentation
@@ -100,23 +113,6 @@ class Apigen implements APIGeneratorInterface
                 return $content;
             }
         );
-    }
-
-    /**
-     * @param  Fileset|string  $fileset
-     * @param  callable        $filter
-     */
-    private function reflexive($fileset, callable $filter): void
-    {
-        if (is_string($fileset)) {
-            $this->copyFile($fileset, $fileset, $filter);
-
-            return;
-        }
-
-        foreach ($fileset->getFiles() as $file) {
-            $this->copyFile($file, $file, $filter);
-        }
     }
 
     /**
@@ -186,22 +182,6 @@ class Apigen implements APIGeneratorInterface
         );
 
         return $content;
-    }
-
-    /**
-     * @param  string         $file
-     * @param  string         $toFile
-     * @param  callable|null  $filter
-     */
-    private function copyFile(string $file, string $toFile, callable $filter = null): void
-    {
-        if (is_dir($file)) {
-            return;
-        }
-
-        if (is_callable($filter)) {
-            file_put_contents($toFile, $filter(file_get_contents($file)));
-        }
     }
 
     /**

@@ -182,7 +182,7 @@ class FromPhing
     public function __construct(OutputInterface $output, $basedir = null, $projectFile = null)
     {
         $this->output = $output;
-        $this->init(realpath($basedir ?? '.'), $projectFile ?? 'project.json');
+        $this->init($basedir ?? '.', $projectFile ?? 'project.json');
     }
 
     /**

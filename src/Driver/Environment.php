@@ -31,7 +31,6 @@
 namespace GreenCape\JoomlaCLI\Driver;
 
 use Dotenv\Dotenv;
-use LogicException;
 
 /**
  * Represents environment settings
@@ -69,6 +68,17 @@ class Environment
         $this->envFile = $envFile;
 
         $this->init();
+    }
+
+    /**
+     * @param $var
+     *
+     * @return mixed
+     * @noinspection MagicMethodsValidityInspection
+     */
+    public function __get($var)
+    {
+        return $this->vars[$var];
     }
 
     /**
@@ -138,36 +148,5 @@ class Environment
                 $vars[$key] = $envVars[$keyPrefix];
             }
         }
-    }
-
-    /**
-     * @param $var
-     *
-     * @return mixed
-     */
-    public function __get($var)
-    {
-        return $this->vars[$var];
-    }
-
-    /**
-     * @param  string  $name
-     * @param  mixed   $value
-     *
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        throw new LogicException("Environment data is immutable, can not set $name");
-    }
-
-    /**
-     * @param  string  $name
-     *
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($this->vars[$name]);
     }
 }

@@ -173,7 +173,8 @@ abstract class Command extends BaseCommand
         $projectFile = ($this->basePath ?: '.') . '/project.json';
 
         if (file_exists($projectFile)) {
-            $this->project = json_decode(file_get_contents($projectFile));
+            $content    = json_decode(file_get_contents($projectFile), JSON_OBJECT_AS_ARRAY);
+            $this->project = $content['project'];
             $this->output->writeln("Found project settings at {$projectFile}", OutputInterface::VERBOSITY_VERBOSE);
         } else {
             $this->project = [
