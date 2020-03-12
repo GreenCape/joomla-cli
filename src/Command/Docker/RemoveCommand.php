@@ -63,6 +63,6 @@ class RemoveCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->dockerRemove();
+        (new FromPhing($output, $this->base, null))->dockerRemove();
     }
 }

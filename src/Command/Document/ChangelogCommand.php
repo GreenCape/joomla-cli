@@ -42,6 +42,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ChangelogCommand extends Command
 {
     /**
+     * @var string 
+     */
+    private $outFile = 'CHANGELOG.md';
+    
+    /**
      * Configure the options for the command
      *
      * @return  void
@@ -50,7 +55,13 @@ class ChangelogCommand extends Command
     {
         $this
             ->setName('document:changelog')
-            ->setDescription('Generates CHANGELOG.md from the git commit history')
+            ->setDescription('Generates changelog from the git commit history')
+            ->setHelp(
+                wordwrap(
+                    "This command creates a changelog including all commits from the git commit history"
+                    . " in the file {$this->outFile}."
+                )
+            )
         ;
     }
 
@@ -62,10 +73,10 @@ class ChangelogCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > CHANGELOG.md");
+        $this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > {$this->outFile}");
         $this->reflexive(
             (new Fileset('.'))
-                ->include('CHANGELOG.md'),
+                ->include($this->outFile),
             function ($content) {
                 $content = preg_replace("~\n\s*\(([^)]+)\)~", "\n\n## Version $1\n\n", $content);
                 $content = preg_replace("~\n +~", "\n", $content);

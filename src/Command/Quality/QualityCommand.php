@@ -30,6 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -50,6 +51,7 @@ class QualityCommand extends Command
         $this
             ->setName('quality')
             ->setDescription('Generates a quality report using CodeBrowser')
+            ->addBasePathOption()
             ->addSourcePathOption()
             ->addLogPathOption()
         ;
@@ -65,10 +67,60 @@ class QualityCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new DependCommand())->run($input, $output);
-        (new MessDetectCommand())->run($input, $output);
-        (new CopyPasteDetectCommand())->run($input, $output);
-        (new CheckStyleCommand())->run($input, $output);
-        (new CodeBrowserCommand())->run($input, $output);
+        $this->runCommand(
+            DependCommand::class,
+            new ArrayInput(
+                [
+                    '--source' => $this->source,
+                    '--logs'   => $this->logs,
+                ]
+            ),
+            $output
+        );
+
+        $this->runCommand(
+            MessDetectCommand::class,
+            new ArrayInput(
+                [
+                    '--source' => $this->source,
+                    '--logs'   => $this->logs,
+                ]
+            ),
+            $output
+        );
+
+        $this->runCommand(
+            CopyPasteDetectCommand::class,
+            new ArrayInput(
+                [
+                    '--source' => $this->source,
+                    '--logs'   => $this->logs,
+                ]
+            ),
+            $output
+        );
+
+        $this->runCommand(
+            CheckStyleCommand::class,
+            new ArrayInput(
+                [
+                    '--basepath' => $this->base,
+                    '--source'   => $this->source,
+                    '--logs'     => $this->logs,
+                ]
+            ),
+            $output
+        );
+
+        $this->runCommand(
+            CodeBrowserCommand::class,
+            new ArrayInput(
+                [
+                    '--source' => $this->source,
+                    '--logs'   => $this->logs,
+                ]
+            ),
+            $output
+        );
     }
 }

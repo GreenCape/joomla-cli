@@ -41,6 +41,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CheckStyleCommand extends Command
 {
     /**
+     * @var string 
+     */
+    private $codeStyle = 'PSR-12';
+
+    /**
+     * @var string 
+     */
+    private $format = 'Markdown';
+
+    /**
+     * @var string 
+     */
+    private $outFile = 'docs/codestyle.md';
+    
+    /**
      * Configure the options for the command
      *
      * @return  void
@@ -50,6 +65,12 @@ class CheckStyleCommand extends Command
         $this
             ->setName('document:code-style')
             ->setDescription('Generates documentation for the coding style')
+            ->setHelp(
+                wordwrap(
+                    "This command creates a description including examples for the coding style $this->codeStyle"
+                    . " using {$this->format} format in the file {$this->outFile}."
+                )
+            )
         ;
     }
 
@@ -61,6 +82,8 @@ class CheckStyleCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->exec("vendor/bin/phpcs --generator=Markdown --standard=PSR12 > docs/codestyle.md");
+        $standard = str_replace('-', '', $this->codeStyle);
+        
+        $this->exec("vendor/bin/phpcs --generator={$this->format} --standard={$standard} > {$this->outFile}");
     }
 }

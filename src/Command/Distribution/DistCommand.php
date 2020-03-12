@@ -30,8 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Distribution;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
-use League\Flysystem\FileNotFoundException;
+use GreenCape\JoomlaCLI\Fileset;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -63,10 +62,76 @@ class DistCommand extends Command
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
      *
-     * @throws FileNotFoundException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->dist($this->sourcePath);
+        // Installation files
+        $this->delete($this->dist['basedir']);
+        $this->mkdir($this->dist['basedir']);
+        $this->copy(
+            (new Fileset("{$this->source}/installation"))
+                ->include('*.php')
+                ->include('*.xml'),
+            $this->dist['basedir']
+        );
+        $this->copy(
+            (new Fileset($this->base))
+                ->include('*.md'),
+            $this->dist['basedir']
+        );
+
+        $this->createDistributionPackages($this->package);
+    }
+
+    /**
+     * @param $package
+     *
+     * @return string
+     */
+    private function createDistributionPackages($package): string
+    {
+        // Admin component
+        $this->mkdir("{$this->dist['basedir']}/{$package['administration']['files']['folder']}");
+        $this->copy(
+            (new Fileset("{$this->source}/administrator/components/{$package['name']}"))
+                ->include($package['administration']['files']['folder'])
+                ->include($package['administration']['files']['filename']),
+            "{$this->dist['basedir']}/{$package['administration']['files']['folder']}"
+        );
+
+        // Admin language
+        $this->mkdir("{$this->dist['basedir']}/{$package['administration']['languages']['folder']}");
+        $this->copy(
+            new Fileset("{$this->source}/administrator/language"),
+            "{$this->dist['basedir']}/{$package['administration']['languages']['folder']}"
+        );
+
+        // Frontend component
+        $this->mkdir("{$this->dist['basedir']}/{$package['files']['folder']}");
+        $this->copy(
+            (new Fileset("{$this->source}/components/{$package['name']}"))
+                ->include($package['files']['folder'])
+                ->include($package['files']['filename']),
+            "{$this->dist['basedir']}/{$package['files']['folder']}"
+        );
+
+        // Frontend language
+        $this->mkdir("{$this->dist['basedir']}/{$package['languages']['folder']}");
+        $this->copy(
+            new Fileset("{$this->source}/language"),
+            "{$this->dist['basedir']}/{$package['languages']['folder']}"
+        );
+
+        $packageName = "{$package['name']}-{$package['version']}";
+        $this->exec("zip -r ../packages/{$packageName}.zip * > /dev/null", $this->dist['basedir']);
+        $this->exec(
+            "tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null",
+            $this->dist['basedir']
+        );
+        $this->exec(
+            "tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
+            $this->dist['basedir']
+        );
     }
 }

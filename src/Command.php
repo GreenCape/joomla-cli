@@ -30,10 +30,13 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
+use GreenCape\JoomlaCLI\Driver\Environment;
 use GreenCape\JoomlaCLI\Driver\Factory;
 use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
+use GreenCape\Manifest\Manifest;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -70,6 +73,87 @@ abstract class Command extends BaseCommand
      */
     protected $project;
 
+    /**
+     * @var array
+     */
+    protected $package;
+
+    /**
+     * @var array
+     */
+    protected $verbosity = [
+        OutputInterface::VERBOSITY_QUIET        => ' -q',
+        OutputInterface::VERBOSITY_NORMAL       => ' -p',
+        OutputInterface::VERBOSITY_VERBOSE      => ' -v',
+        OutputInterface::VERBOSITY_VERY_VERBOSE => ' -vv',
+        OutputInterface::VERBOSITY_DEBUG        => ' -vvv',
+    ];
+
+    /**
+     * @var string The user as uig:gid
+     */
+    protected $user;
+
+    /**
+     * @var string
+     */
+    protected $build;
+
+    /**
+     * @var string
+     */
+    protected $tests;
+
+    /**
+     * @var string
+     */
+    protected $bin;
+
+    /**
+     * @var string
+     */
+    protected $unitTests;
+
+    /**
+     * @var string
+     */
+    protected $integrationTests;
+
+    /**
+     * @var string
+     */
+    protected $systemTests;
+
+    /**
+     * @var string
+     */
+    protected $testEnvironments;
+
+    /**
+     * @var string
+     */
+    protected $serverDockyard;
+
+    /**
+     * @var string
+     */
+    protected $versionCache;
+
+    /**
+     * @var string
+     */
+    protected $downloadCache;
+
+    /**
+     * @var array
+     */
+    protected $dist = [];
+
+    /**
+     * @var string
+     */
+    protected $buildTemplates;
+
     use CommonOptions, FilesystemMethods;
 
     /**
@@ -90,8 +174,7 @@ abstract class Command extends BaseCommand
         $this->input  = $input;
         $this->output = $output;
 
-        $this->initialiseGlobalOptions($input);
-        $this->readProjectSettings();
+        $this->initProject();
     }
 
     /**
@@ -168,19 +251,152 @@ abstract class Command extends BaseCommand
         return $result;
     }
 
-    private function readProjectSettings(): void
+    /**
+     * Get the verbosity option for symfony (sub-)commands.
+     *
+     * Might be overridden in subsequent commands.
+     *
+     * @return string
+     */
+    protected function verbosity(): string
     {
-        $projectFile = ($this->basePath ?: '.') . '/project.json';
+        return $this->verbosity[$this->output->getVerbosity()];
+    }
 
-        if (file_exists($projectFile)) {
-            $content    = json_decode(file_get_contents($projectFile), JSON_OBJECT_AS_ARRAY);
-            $this->project = $content['project'];
-            $this->output->writeln("Found project settings at {$projectFile}", OutputInterface::VERBOSITY_VERBOSE);
+    /**
+     * @param  string           $commandClass
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @return int
+     * @throws Exception
+     */
+    protected function runCommand(string $commandClass, InputInterface $input, OutputInterface $output): int
+    {
+        /** @var BaseCommand $command */
+        $command = new $commandClass();
+
+        return $command->run($input, $output);
+    }
+
+    /**
+     * Initialise.
+     */
+    private function initProject(): void
+    {
+        $this->user = getmyuid() . ':' . getmygid();
+        $this->base = getcwd();
+
+        if ($this->input->hasOption('basepath')) {
+            $this->base = $this->input->getOption('basepath');
+        }
+
+        $projectFile = 'project.json';
+
+        if (!file_exists($this->base . '/' . $projectFile)) {
+            throw new RuntimeException(
+                sprintf(
+                    'Project file %s/%s not found',
+                    $this->base,
+                    $projectFile
+                )
+            );
+        }
+
+        $this->output->writeln("Reading project file {$projectFile}", OutputInterface::VERBOSITY_DEBUG);
+
+        $settings = json_decode(file_get_contents($this->base . '/' . $projectFile), true);
+
+        $this->project = $settings['project'];
+
+        $this->package['name']     = $settings['package']['name'] ?? 'com_' . strtolower(
+                preg_replace('~\W+~', '_', $this->project['name'])
+            );
+        $this->package['type']     = $settings['package']['type'] ?? 'component';
+        $this->package['manifest'] = $settings['package']['manifest'] ?? 'manifest.xml';
+        $this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
+
+        if (isset($settings['package']['extensions'])) {
+            foreach ($settings['package']['extensions'] as $extension) {
+                $extension['version']                            = $extension['version'] ?? $this->package['version'];
+                $this->package['extensions'][$extension['name']] = $extension;
+            }
+        }
+
+        $this->output->writeln(
+            "Project: {$this->project['name']} {$this->project['version']}",
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        $this->source = rtrim($this->base . '/' . $this->project['paths']['source'] ?? 'source', '/');
+        if ($this->input->hasOption('source')) {
+            $this->source = $this->input->getOption('source');
+        }
+
+        if (file_exists($this->source . '/' . $settings['package']['manifest'])) {
+            $this->output->writeln(
+                "Reading manifest file {$settings['package']['manifest']}",
+                OutputInterface::VERBOSITY_DEBUG
+            );
+
+            $manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+
+            $this->package['name']   = $manifest->getName();
+            $this->package['type']   = $manifest->getType();
+            $this->package['target'] = $manifest->getTarget();
+
+            if ($manifest->getType() === 'package') {
+                foreach ($manifest->getSection('files')->getStructure() as $extension) {
+                    $this->package['extensions'][$extension['@id']]['archive'] = ltrim(
+                        ($extension['@base'] ?? '') . '/' . $extension['file'],
+                        '/'
+                    );
+                    $this->package['extensions'][$extension['@id']]['type']    = $extension['@type'];
+                }
+            }
         } else {
-            $this->project = [
-                'name' => 'Untitled',
-            ];
-            $this->output->writeln("Found no project settings. Consider creating {$projectFile}", OutputInterface::VERBOSITY_VERBOSE);
+            $this->output->writeln(
+                "Manifest file '{$settings['package']['manifest']}' not found.",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+        }
+
+        $this->output->writeln(
+            ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}",
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        $this->build            = $this->base . '/build';
+        $this->tests            = $this->base . '/tests';
+        $this->bin              = $this->base . '/vendor/bin';
+        $this->unitTests        = $this->tests . '/unit';
+        $this->integrationTests = $this->tests . '/integration';
+        $this->systemTests      = $this->tests . '/system';
+        $this->testEnvironments = $this->tests . '/servers';
+        $this->serverDockyard   = $this->build . '/servers';
+        $this->versionCache     = $this->build . '/versions.json';
+        $this->downloadCache    = $this->build . '/cache';
+        $this->buildTemplates   = dirname(__DIR__) . '/build';
+
+        $this->logs = $this->build . '/logs';
+        if ($this->input->hasOption('logs')) {
+            $this->logs = $this->input->getOption('logs');
+        }
+
+        if (empty($this->project['name'])) {
+            $this->project['name'] = $this->package['name'];
+        }
+
+        $this->dist['basedir'] = "{$this->base}/dist/{$this->package['name']}-{$this->project['version']}";
+
+        $this->mkdir($this->downloadCache);
+
+        if ($this->input->hasOption('environment')) {
+            $this->environment = new Environment($this->input->getOption('environment'));
+        }
+
+        if ($this->input->hasOption('joomla')) {
+            $this->joomla = $this->input->getOption('joomla');
         }
     }
 }

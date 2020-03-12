@@ -200,8 +200,8 @@ class UmlCommand extends Command
      */
     private function setupSource(InputInterface $input, OutputInterface $output): Fileset
     {
-        $output->writeln("Creating UML diagrams from {$this->sourcePath}", OutputInterface::VERBOSITY_NORMAL);
-        $source = new Fileset($this->sourcePath);
+        $output->writeln("Creating UML diagrams from {$this->source}", OutputInterface::VERBOSITY_NORMAL);
+        $source = new Fileset($this->source);
         $source->include('**/*.php');
 
         return $source;

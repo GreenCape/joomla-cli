@@ -31,6 +31,7 @@ namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Fileset;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -62,6 +63,8 @@ class CodeBrowserCommand extends Command
      *
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -71,18 +74,23 @@ class CodeBrowserCommand extends Command
 
         // CodeBrowser has a bug regarding crapThreshold, so remove all crap-values below 10 (i.e., 1 digit)
         $this->reflexive(
-            (new Fileset($this->logPath))->include('clover.xml'),
+            $this->logs . '/clover.xml',
             static function ($content) {
                 return preg_replace('~crap="\d"~', '', $content);
             }
         );
 
-        $this->exec(
-            'vendor/bin/phpcb'
-            . ' --log=' . $this->logPath
-            . ' --source=' . $this->sourcePath
-            . ' --output=' . $reportDir
-            . ' --crapThreshold=10'
+        $this->runCommand(
+            \PHPCodeBrowser\Command\RunCommand::class,
+            new ArrayInput(
+                [
+                    '--log'           => $this->logs,
+                    '--source'        => [$this->source],
+                    '--output'        => $reportDir,
+                    '--crapThreshold' => 10,
+                ]
+            ),
+            $output
         );
     }
 }

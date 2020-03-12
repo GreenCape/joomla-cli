@@ -66,6 +66,6 @@ class StartCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->dockerStart();
+        (new FromPhing($output, $this->base, null))->dockerStart();
     }
 }

@@ -63,6 +63,6 @@ class UpdateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->selfUpdate();
+        (new FromPhing($output, $this->base, null))->selfUpdate();
     }
 }

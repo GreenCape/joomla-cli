@@ -76,16 +76,16 @@ class CoverageCommand extends Command
 
         $merger = new CoverageMerger();
         $merger
-            ->fileset((new Fileset("{$this->logPath}/coverage"))->include('**/*.cov'))
+            ->fileset((new Fileset("{$this->logs}/coverage"))->include('**/*.cov'))
             ->html("build/report/coverage")
-            ->clover("{$this->logPath}/clover.xml")
+            ->clover("{$this->logs}/clover.xml")
             ->merge()
         ;
 
         $this->reflexive(
             new Fileset("build/report/coverage"),
             function ($content) {
-                return str_replace($this->sourcePath . '/', '', $content);
+                return str_replace($this->source . '/', '', $content);
             }
         );
 

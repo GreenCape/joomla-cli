@@ -124,9 +124,9 @@ class DownloadCommand extends Command
         $tarball = $this->getTarball($this->version, $this->getAvailableVersions());
         $this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $this->untar($this->joomlaPath, $tarball);
+        $this->untar($this->joomla, $tarball);
 
-        $this->output->writeln("Installed Joomla! files to  {$this->joomlaPath}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $this->output->writeln("Installed Joomla! files to  {$this->joomla}", OutputInterface::VERBOSITY_VERY_VERBOSE);
     }
 
     /**

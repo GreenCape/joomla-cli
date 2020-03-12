@@ -30,6 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -65,23 +66,15 @@ class CheckStyleCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $verbosity = [
-            OutputInterface::VERBOSITY_QUIET        => ' -q',
-            OutputInterface::VERBOSITY_NORMAL       => ' -p',
-            OutputInterface::VERBOSITY_VERBOSE      => ' -v',
-            OutputInterface::VERBOSITY_VERY_VERBOSE => ' -vv',
-            OutputInterface::VERBOSITY_DEBUG        => ' -vvv',
-        ];
-
         $this->exec(
             'vendor/bin/phpcs'
+            . $this->verbosity()
             . ' -s'
             . ' --report=checkstyle'
-            . " --report-file={$this->logPath}/checkstyle.xml"
+            . " --report-file={$this->logs}/checkstyle.xml"
             . ' --standard=PSR12'
-            . " --basepath={$this->basePath}"
-            . $verbosity[$output->getVerbosity()]
-            . " {$this->sourcePath}"
+            #. " --basepath={$this->base}"
+            . " {$this->source}"
         );
     }
 }

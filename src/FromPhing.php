@@ -190,7 +190,6 @@ class FromPhing
      */
     public function selfUpdate(): void
     {
-        $this->clean();
         $this->exec('git pull origin && composer update', $this->build);
     }
 
@@ -275,105 +274,6 @@ class FromPhing
     }
 
     /**
-     * Generate the distribution
-     *
-     * @param $source
-     *
-     * @throws FileNotFoundException
-     */
-    public function dist($source): void
-    {
-        $this->build($source);
-        $this->distPrepare();
-
-        $packageName = "{$this->package['name']}-{$this->project['version']}";
-        $this->exec("zip -r ../packages/{$packageName}.zip * > /dev/null", $this->dist['basedir']);
-        $this->exec(
-            "tar --create --gzip --file ../packages/{$packageName}.tar.gz * > /dev/null",
-            $this->dist['basedir']
-        );
-        $this->exec(
-            "tar --create --bzip2 --file ../packages/{$packageName}.tar.bz2 * > /dev/null",
-            $this->dist['basedir']
-        );
-    }
-
-    /**
-     * Performs all tests and generates documentation and the quality report.
-     *
-     * @param $source
-     *
-     * @throws FileNotFoundException
-     * @throws Exception
-     */
-    public function build($source = null): void
-    {
-        if ($source !== null) {
-            $this->source = $source;
-        }
-
-        $this->prepare();
-        $this->test();
-        $this->quality();
-        $this->document();
-    }
-
-    /**
-     * Create distribution directory
-     */
-    public function distPrepare(): void
-    {
-        $this->phpAb();
-        $this->distClean();
-
-        // Installation files
-        $this->mkdir($this->dist['basedir']);
-        $this->copy(
-            (new Fileset("{$this->source}/installation"))
-                ->include('*.php')
-                ->include('*.xml'),
-            $this->dist['basedir']
-        );
-        $this->copy(
-            (new Fileset($this->basedir))
-                ->include('*.md'),
-            $this->dist['basedir']
-        );
-
-        // Admin component
-        $this->mkdir("{$this->dist['basedir']}/{$this->package['administration']['files']['folder']}");
-        $this->copy(
-            (new Fileset("{$this->source}/administrator/components/{$this->package['name']}"))
-                ->include($this->package['administration']['files']['folder'])
-                ->include($this->package['administration']['files']['filename']),
-            "{$this->dist['basedir']}/{$this->package['administration']['files']['folder']}"
-        );
-
-        // Admin language
-        $this->mkdir("{$this->dist['basedir']}/{$this->package['administration']['languages']['folder']}");
-        $this->copy(
-            new Fileset("{$this->source}/administrator/language"),
-            "{$this->dist['basedir']}/{$this->package['administration']['languages']['folder']}"
-        );
-
-        // Frontend component
-        $this->mkdir("{$this->dist['basedir']}/{$this->package['files']['folder']}");
-        $this->copy(
-            (new Fileset("{$this->source}/components/{$this->package['name']}"))
-                ->include($this->package['files']['folder'])
-                ->include($this->package['files']['filename']),
-            "{$this->dist['basedir']}/{$this->package['files']['folder']}"
-        );
-
-        // Frontend language
-        $this->mkdir("{$this->dist['basedir']}/{$this->package['languages']['folder']}");
-        $this->copy(
-            new Fileset("{$this->source}/language"),
-            "{$this->dist['basedir']}/{$this->package['languages']['folder']}"
-        );
-    }
-
-    /**
      * Runs all tests locally and in the test containers.
      *
      * @throws FileNotFoundException
@@ -407,14 +307,6 @@ class FromPhing
             $this->build . '/report/api',
             '../uml'
         );
-    }
-
-    /**
-     * Cleanup distribution directory
-     */
-    public function distClean(): void
-    {
-        $this->delete($this->dist['basedir']);
     }
 
     /**
@@ -491,29 +383,6 @@ class FromPhing
         }
 
         $this->dockerStop();
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function testCoverageReport(): void
-    {
-        $this->mkdir("{$this->build}/report/coverage");
-
-        $merger = new CoverageMerger();
-        $merger
-            ->fileset((new Fileset("{$this->build}/logs/coverage"))->include('**/*.cov'))
-            ->html("{$this->build}/report/coverage")
-            ->clover("{$this->build}/logs/clover.xml")
-            ->merge()
-        ;
-
-        $this->reflexive(
-            new Fileset("{$this->build}/report/coverage"),
-            function ($content) {
-                return str_replace($this->source, $this->project['name'], $content);
-            }
-        );
     }
 
     /**
@@ -686,97 +555,24 @@ class FromPhing
     /**
      * REPLACED IN COMMAND
      */
-    private function quality(): void
+    private function testCoverageReport(): void
     {
-        $this->qualityDepend();
-        $this->qualityMessDetect();
-        $this->qualityCopyPasteDetect();
-        $this->qualityCheckStyle();
-        $this->qualityCodeBrowser();
-    }
+        $this->mkdir("{$this->build}/report/coverage");
 
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityDepend(): void
-    {
-        $this->mkdir("{$this->build}/logs/charts");
-        $command = "{$this->bin}/pdepend"
-                   . ' --suffix=php'
-                   . " --jdepend-chart={$this->build}/logs/charts/dependencies.svg"
-                   . " --jdepend-xml={$this->build}/logs/depend.xml"
-                   . " --overview-pyramid={$this->build}/logs/charts/overview-pyramid.svg"
-                   . " --summary-xml={$this->build}/logs/summary.xml"
-                   . " {$this->source}";
+        $merger = new CoverageMerger();
+        $merger
+            ->fileset((new Fileset("{$this->build}/logs/coverage"))->include('**/*.cov'))
+            ->html("{$this->build}/report/coverage")
+            ->clover("{$this->build}/logs/clover.xml")
+            ->merge()
+        ;
 
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityMessDetect(): void
-    {
-        $command = "{$this->bin}/phpmd"
-                   . " {$this->source}"
-                   . ' xml'
-                   . " {$this->buildTemplates}/config/phpmd.xml"
-                   . ' --suffixes php'
-                   . " --reportfile {$this->build}/logs/pmd.xml";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCopyPasteDetect(): void
-    {
-        $command = 'phpcpd'
-                   . " --log-pmd={$this->build}/logs/pmd-cpd.xml"
-                   . ' --fuzzy'
-                   . " {$this->source}";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCheckStyle(): void
-    {
-        $command = 'phpcs'
-                   . ' -s'
-                   . ' --report=checkstyle'
-                   . " --report-file={$this->build}/logs/checkstyle.xml"
-                   . " --standard=PSR12"
-                   . " {$this->source}";
-
-        $this->exec($command);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    private function qualityCodeBrowser(): void
-    {
-        $this->mkdir("{$this->build}/report/code-browser");
-
-        // CodeBrowser has a bug regarding crapThreshold, so remove all crap-values below 10 (i.e., 1 digit)
         $this->reflexive(
-            (new Fileset("{$this->build}/logs"))
-                ->include('clover.xml'),
-            static function ($content) {
-                return preg_replace('~crap="\d"~', '', $content);
+            new Fileset("{$this->build}/report/coverage"),
+            function ($content) {
+                return str_replace($this->source, $this->project['name'], $content);
             }
         );
-
-        $command = "{$this->bin}/phpcb"
-                   . " --log={$this->build}/logs"
-                   . " --output={$this->build}/report/code-browser"
-                   . ' --crapThreshold=10';
-
-        $this->exec($command, $this->basedir);
     }
 
     /**
@@ -968,15 +764,6 @@ class FromPhing
     }
 
     /**
-     * Cleanup artifact directories
-     */
-    private function clean(): void
-    {
-        $this->delete("{$this->build}/logs");
-        $this->delete("{$this->build}/servers");
-    }
-
-    /**
      * Generate API documentation using PHPDocumentor2
      *
      * @param $apidocTitle
@@ -1017,14 +804,6 @@ class FromPhing
                 return $content;
             }
         );
-    }
-
-    /**
-     * Create artifact directories
-     */
-    private function prepare(): void
-    {
-        $this->mkdir("{$this->build}/logs");
     }
 
     /**

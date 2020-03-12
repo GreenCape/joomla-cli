@@ -63,6 +63,6 @@ class CleanCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->documentClean();
+        (new FromPhing($output, $this->base, null))->documentClean();
     }
 }

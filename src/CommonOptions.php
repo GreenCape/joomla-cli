@@ -45,7 +45,7 @@ trait CommonOptions
     /**
      * @var string
      */
-    protected $basePath;
+    protected $base;
 
     /**
      * @var Environment
@@ -55,43 +55,17 @@ trait CommonOptions
     /**
      * @var string
      */
-    protected $joomlaPath;
+    protected $joomla;
 
     /**
      * @var string
      */
-    protected $sourcePath;
+    protected $source;
 
     /**
      * @var string
      */
-    protected $logPath;
-
-    /**
-     * @param  InputInterface  $input
-     */
-    protected function initialiseGlobalOptions(InputInterface $input): void
-    {
-        if ($input->hasOption('basepath')) {
-            $this->basePath = $input->getOption('basepath');
-        }
-
-        if ($input->hasOption('environment')) {
-            $this->environment = new Environment($input->getOption('environment'));
-        }
-
-        if ($input->hasOption('joomla')) {
-            $this->joomlaPath = $input->getOption('joomla');
-        }
-
-        if ($input->hasOption('source')) {
-            $this->sourcePath = $input->getOption('source');
-        }
-
-        if ($input->hasOption('logs')) {
-            $this->logPath = $input->getOption('logs');
-        }
-    }
+    protected $logs;
 
     protected function addEnvironmentOption(): Command
     {
@@ -112,9 +86,8 @@ trait CommonOptions
         $this->addOption(
             'basepath',
             'b',
-            InputOption::VALUE_REQUIRED,
-            'A path to strip from the front of file paths inside reports',
-            '.'
+            InputOption::VALUE_OPTIONAL,
+            'The path of the project root, defaults to current directory'
         );
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
@@ -140,9 +113,8 @@ trait CommonOptions
         $this->addOption(
             'source',
             's',
-            InputOption::VALUE_REQUIRED,
-            'The source directory',
-            'source'
+            InputOption::VALUE_OPTIONAL,
+            'The source directory'
         );
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */

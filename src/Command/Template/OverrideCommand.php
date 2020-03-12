@@ -86,12 +86,12 @@ class OverrideCommand extends Command
         $template = $input->getArgument('template');
         $force    = $input->getOption('force');
 
-        $templateDir = $this->prepareTemplateDirectory($this->joomlaPath . '/templates/' . $template, $output);
+        $templateDir = $this->prepareTemplateDirectory($this->joomla . '/templates/' . $template, $output);
 
-        $this->handleComponents($this->joomlaPath, $templateDir, $force, $output);
-        $this->handleModules($this->joomlaPath, $templateDir, $force, $output);
-        $this->handlePlugins($this->joomlaPath, $templateDir, $force, $output);
-        $this->handleLayouts($this->joomlaPath, $templateDir, $force, $output);
+        $this->handleComponents($this->joomla, $templateDir, $force, $output);
+        $this->handleModules($this->joomla, $templateDir, $force, $output);
+        $this->handlePlugins($this->joomla, $templateDir, $force, $output);
+        $this->handleLayouts($this->joomla, $templateDir, $force, $output);
     }
 
     /**

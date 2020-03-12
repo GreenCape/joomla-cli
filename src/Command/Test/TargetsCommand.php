@@ -63,6 +63,6 @@ class TargetsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->testTargets();
+        (new FromPhing($output, $this->base, null))->testTargets();
     }
 }

@@ -75,6 +75,6 @@ class DocumentCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->document($input->getOption('generator'));
+        (new FromPhing($output, $this->base, null))->document($input->getOption('generator'));
     }
 }

@@ -66,6 +66,6 @@ class TestCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->basePath, null))->test();
+        (new FromPhing($output, $this->base, null))->test();
     }
 }

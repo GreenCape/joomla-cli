@@ -86,7 +86,7 @@ class VersionCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $version = new Version($this->joomlaPath);
+        $version = new Version($this->joomla);
 
         if ($input->getOption('short')) {
             $result = $version->getShortVersion();

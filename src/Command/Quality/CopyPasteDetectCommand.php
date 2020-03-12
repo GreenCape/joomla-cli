@@ -30,6 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Quality;
 
 use GreenCape\JoomlaCLI\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -61,14 +62,21 @@ class CopyPasteDetectCommand extends Command
      *
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $command = 'phpcpd'
-                   . " --log-pmd={$this->logPath}/pmd-cpd.xml"
-                   . ' --fuzzy'
-                   . " {$this->sourcePath}";
-
-        $this->exec($command);
+        $this->runCommand(
+            \SebastianBergmann\PHPCPD\CLI\Command::class,
+            new ArrayInput(
+                [
+                    '--log-pmd' => $this->logs . '/pmd-cpd.xml',
+                    '--fuzzy'   => null,
+                    'values'    => [$this->source],
+                ]
+            ),
+            $output
+        );
     }
 }

@@ -67,12 +67,21 @@ class MessDetectCommand extends Command
         $buildTemplates = dirname(__DIR__, 3) . '/build';
 
         $command = "vendor/bin/phpmd"
-                   . " {$this->sourcePath}"
+                   . $this->verbosity()
+                   . " {$this->source}"
                    . ' xml'
                    . " {$buildTemplates}/config/phpmd.xml"
                    . ' --suffixes php'
-                   . " --reportfile {$this->logPath}/pmd.xml";
+                   . " --reportfile {$this->logs}/pmd.xml";
 
         $this->exec($command);
+    }
+
+    /**
+     * @return string
+     */
+    protected function verbosity(): string
+    {
+        return '';
     }
 }

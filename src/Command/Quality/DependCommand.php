@@ -63,16 +63,33 @@ class DependCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->mkdir($this->logPath . '/charts');
+        $this->mkdir($this->logs . '/charts');
 
         $command = "vendor/bin/pdepend"
+                   . $this->verbosity()
                    . ' --suffix=php'
-                   . " --jdepend-chart={$this->logPath}/charts/dependencies.svg"
-                   . " --overview-pyramid={$this->logPath}/charts/overview-pyramid.svg"
-                   . " --jdepend-xml={$this->logPath}/depend.xml"
-                   . " --summary-xml={$this->logPath}/summary.xml"
-                   . " {$this->sourcePath}";
+                   . " --jdepend-chart={$this->logs}/charts/dependencies.svg"
+                   . " --overview-pyramid={$this->logs}/charts/overview-pyramid.svg"
+                   . " --jdepend-xml={$this->logs}/depend.xml"
+                   . " --summary-xml={$this->logs}/summary.xml"
+                   . " {$this->source}";
 
         $this->exec($command);
+    }
+
+    /**
+     * @return string
+     */
+    protected function verbosity(): string
+    {
+        $verbosity = [
+            OutputInterface::VERBOSITY_QUIET        => ' --quiet',
+            OutputInterface::VERBOSITY_NORMAL       => '',
+            OutputInterface::VERBOSITY_VERBOSE      => '',
+            OutputInterface::VERBOSITY_VERY_VERBOSE => '',
+            OutputInterface::VERBOSITY_DEBUG        => ' --debug',
+        ];
+
+        return $verbosity[$this->output->getVerbosity()];
     }
 }
