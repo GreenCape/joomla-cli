@@ -1,4 +1,4 @@
-Joomla CLI 0.2.0
+Joomla CLI __DEPLOY_VERSION__
 # Joomla Command Line Interface
 
 Joomla CLI (`joomla-cli`) is a tool for managing Joomla from the command line.
@@ -18,12 +18,8 @@ Available commands are
 - [build:all](build/all.md) - Performs all tests and generates documentation and the quality report
 
 **[Core](core/index.md)**
-- [core:download](core/download.md) - Downloads a Joomla! version and unpacks it to the base path
-- [core:version](core/version.md) - Reports the version of the Joomla! installation at the base path
-
-**[Dist](dist/index.md)**
-- [dist:clean](dist/clean.md) - Cleanup distribution directory
-- [dist:prepare](dist/prepare.md) - Create and populate distribution directory
+- [core:download](core/download.md) - Downloads a Joomla! version and unpacks it to the given path
+- [core:version](core/version.md) - Reports the version of the Joomla! installation at the given path
 
 **[Docker](docker/index.md)**
 - [docker:build](docker/build.md) - Generates the contents and prepares the test containers
@@ -34,8 +30,7 @@ Available commands are
 
 **[Document](document/index.md)**
 - [document:api](document/api.md) - Generates API documentation using the specified generator
-- [document:changelog](document/changelog.md) - Generates CHANGELOG.md from the git commit history
-- [document:clean](document/clean.md) - Cleans the API doc directory
+- [document:changelog](document/changelog.md) - Generates changelog from the git commit history
 - [document:uml](document/uml.md) - Generates UML diagrams
 
 **[Extension](extension/index.md)**

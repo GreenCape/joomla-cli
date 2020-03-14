@@ -30,8 +30,9 @@
 namespace GreenCape\JoomlaCLI\Command\Patch;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
+use GreenCape\JoomlaCLI\Fileset;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -51,7 +52,13 @@ class CreateCommand extends Command
         $this
             ->setName('patch:create')
             ->setDescription('Creates a patch set ready to drop into an existing installation')
-            ->addBasePathOption()
+            ->addSourcePathOption()
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE,
+                'Enforce patch creation regardless up-to-date status'
+            )
         ;
     }
 
@@ -63,6 +70,121 @@ class CreateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->base, null))->patchCreate();
+        $patchsetLocation = $this->dist['basedir'] . '-full';
+
+        $uptodate = $this->isUptodate(
+            new Fileset($patchsetLocation),
+            new Fileset($this->source)
+        );
+
+        if ($uptodate && !$input->getOption('force')) {
+            $output->writeln("Patchset {$patchsetLocation} is up to date", OutputInterface::VERBOSITY_NORMAL);
+
+            return;
+        }
+
+        $this->delete($patchsetLocation);
+        $this->mkdir($patchsetLocation);
+
+        $this->createPatchSet($this->package, $patchsetLocation);
+    }
+
+    /**
+     * @param $package
+     * @param $patchsetLocation
+     */
+    private function createPatchSet($package, $patchsetLocation): void
+    {
+        if ($package['type'] === 'package') {
+            foreach ($package['extensions'] as $extension) {
+                $this->createPatchSet($extension, $patchsetLocation);
+            }
+
+            $this->copy(
+                ($this->source . '/' . $package['manifest']),
+                $patchsetLocation . '/administrator/manifests/packages/' . strtolower($package['name']) . '.xml'
+            );
+
+            return;
+        }
+
+        if ($package['type'] === 'component') {
+            $componentRoot = file_exists($this->source . '/component')
+                ? $this->source . '/component'
+                : $this->source;
+            $shortName     = preg_replace('~^com_~', '', $package['name']);
+
+            $this->copy(
+                (new Fileset($componentRoot))
+                    ->include('administrator/components/' . $package['name'] . '/**')
+                    ->exclude('administrator/components/' . $package['name'] . '/language/**')
+                    ->include('components/' . $package['name'] . '/**')
+                    ->exclude('components/' . $package['name'] . '/language/**')
+                    ->include('media/' . $package['name'] . '/**'),
+                $patchsetLocation
+            );
+
+            $this->copy(
+                (new Fileset($componentRoot . '/installation'))
+                    ->include('**'),
+                $patchsetLocation . '/administrator/components/' . $package['name']
+            );
+
+            $this->copy(
+                (new Fileset($componentRoot))
+                    ->include($shortName . '.xml'),
+                $patchsetLocation . '/administrator/components/' . $package['name']
+            );
+
+            $this->copy(
+                (new Fileset($componentRoot . '/administrator/components/' . $package['name'] ))
+                    ->include('language/**'),
+                $patchsetLocation . '/administrator'
+            );
+
+            $this->copy(
+                (new Fileset($componentRoot . '/components/' . $package['name']))
+                    ->include('language/**'),
+                $patchsetLocation
+            );
+
+            return;
+        }
+
+        if ($package['type'] === 'module') {
+            $this->copy(
+                (new Fileset($this->source . '/modules'))
+                    ->include($package['name'] . '/**')
+                    ->exclude($package['name'] . '/language/**'),
+                $patchsetLocation . '/modules'
+            );
+
+            $this->copy(
+                (new Fileset($this->source . '/modules/' . $package['name'] . '/language'))
+                    ->include('/**.ini'),
+                $patchsetLocation . '/language'
+            );
+
+            return;
+        }
+
+        if ($package['type'] === 'plugin') {
+            $shortName = preg_replace('~^plg_' . $package['group'] . '_~', '', $package['name']);
+
+            $this->copy(
+                (new Fileset($this->source . '/plugins/' . $package['group']))
+                    ->include($shortName . '/**')
+                    ->exclude($shortName . '/language/**'),
+                $patchsetLocation . '/plugins/' . $package['group']
+            );
+
+            $this->copy(
+                (new Fileset($this->source . '/plugins/' . $package['group'] . '/' . $shortName . '/language'))
+                    ->include('/**.ini'),
+                $patchsetLocation . '/administrator/language'
+            );
+
+            return;
+        }
     }
 }

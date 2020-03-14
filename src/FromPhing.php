@@ -4,17 +4,13 @@ namespace GreenCape\JoomlaCLI;
 
 use DOMDocument;
 use DOMNode;
-use Exception;
 use GreenCape\JoomlaCLI\Command\Docker;
-use GreenCape\JoomlaCLI\Command\Document\UmlCommand;
-use GreenCape\JoomlaCLI\Documentation\API\APIGenerator;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
@@ -287,29 +283,6 @@ class FromPhing
     }
 
     /**
-     * Generates API documentation using the specified generator.
-     *
-     * @param $apidocGenerator
-     *
-     * @throws Exception
-     */
-    public function document($apidocGenerator = null): void
-    {
-        $apidocGenerator = $apidocGenerator ?? 'apigen'; // Supported generators: phpdoc, apigen;
-        $this->documentClean();
-        $this->documentUml();
-        $this->documentChangelog();
-
-        $generator = new APIGenerator($apidocGenerator ?? 'apigen');
-        $generator->run(
-            "{$this->project['name']} {$this->project['version']} API Documentation",
-            $this->source,
-            $this->build . '/report/api',
-            '../uml'
-        );
-    }
-
-    /**
      * Runs local unit tests
      *
      * @throws FileNotFoundException
@@ -383,52 +356,6 @@ class FromPhing
         }
 
         $this->dockerStop();
-    }
-
-    /**
-     *
-     */
-    public function documentClean(): void
-    {
-        $this->delete("{$this->build}/report/api");
-        $this->mkdir("{$this->build}/report/api");
-    }
-
-    /**
-     * @param  bool  $keepSources
-     *
-     * @throws Exception
-     */
-    public function documentUml(bool $keepSources = false): void
-    {
-        $skin   = 'bw-gradient';
-        $target = "{$this->build}/report/uml";
-        $svg    = $keepSources ? '--no-svg' : '';
-
-        $input = new StringInput("--source={$this->source} --skin={$skin} --output={$target} {$svg}");
-
-        $command = new UmlCommand();
-        $command->run($input, $this->output);
-    }
-
-    /**
-     * REPLACED IN COMMAND
-     */
-    public function documentChangelog(): void
-    {
-        $this->exec("git log --pretty=format:'%+d %ad [%h] %s (%an)' --date=short > {$this->basedir}/CHANGELOG.md");
-        $this->reflexive(
-            (new Fileset($this->basedir))
-                ->include('CHANGELOG.md'),
-            function ($content) {
-                $content = preg_replace("~\n\s*\(([^)]+)\)~", "\n\n## Version $1\n\n", $content);
-                $content = preg_replace("~\n +~", "\n", $content);
-                $content = preg_replace("~\n(\d)~", "\n    $1", $content);
-                $content = preg_replace("~^\n~", "# {$this->project['name']} Changelog\n", $content);
-
-                return $content;
-            }
-        );
     }
 
     /**

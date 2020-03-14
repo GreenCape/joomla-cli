@@ -31,7 +31,8 @@ namespace GreenCape\JoomlaCLI\Command\Document;
 
 use Exception;
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
+use GreenCape\JoomlaCLI\Documentation\API\APIGenerator;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -55,6 +56,8 @@ class DocumentCommand extends Command
             ->setAliases(['document:api'])
             ->setDescription('Generates API documentation using the specified generator')
             ->addBasePathOption()
+            ->addSourcePathOption()
+            ->addLogPathOption()
             ->addOption(
                 'generator',
                 'g',
@@ -75,6 +78,38 @@ class DocumentCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->base, null))->document($input->getOption('generator'));
+        $report  = "{$this->build}/report/api";
+        $umlPath = "{$this->build}/report/uml";
+
+        $this->delete($report);
+        $this->mkdir($report);
+
+        $this->runCommand(
+            UmlCommand::class,
+            new ArrayInput(
+                [
+                    '--source' => $this->source,
+                    '--output' => $umlPath,
+                ]
+            ),
+            $output
+        );
+
+        $this->runCommand(
+            ChangelogCommand::class,
+            new ArrayInput(
+                [
+                ]
+            ),
+            $output
+        );
+
+        $generator = new APIGenerator($input->getOption('generator'));
+        $generator->run(
+            "{$this->project['name']} {$this->project['version']} API Documentation",
+            $this->source,
+            $report,
+            $umlPath
+        );
     }
 }

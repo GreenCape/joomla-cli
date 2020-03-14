@@ -82,6 +82,15 @@ trait FilesystemMethods
             PHP_INT_MAX
         );
 
+        if ($targetTime === PHP_INT_MAX) {
+            $this->output->writeln(
+                'Target files not found, so obviously not up to date',
+                OutputInterface::VERBOSITY_DEBUG
+            );
+
+            return false;
+        }
+
         foreach ($sources as $source) {
             $sourceFiles = is_string($source) ? [$source] : $source->getFiles();
             foreach ($sourceFiles as $file) {
@@ -138,7 +147,7 @@ trait FilesystemMethods
             throw new RuntimeException("`{$dir}` exists but is not a directory");
         }
 
-        $this->output->writeln("Creating directory $dir", OutputInterface::VERBOSITY_DEBUG);
+        $this->output->writeln("Creating directory <info>$dir</info>", OutputInterface::VERBOSITY_DEBUG);
 
         if (!@mkdir($dir, 0775, true) && !is_dir($dir)) {
             throw new RuntimeException("Directory `{$dir}` could not be created");  // @codeCoverageIgnore
@@ -244,7 +253,7 @@ trait FilesystemMethods
         }
 
         $this->output->writeln(
-            "Copying {$file}" . ($filter !== null ? ' with filter' : '') . " to {$toFile}",
+            "Copying <info>{$file}</info>" . ($filter !== null ? ' with filter' : '') . " to <info>{$toFile}</info>",
             OutputInterface::VERBOSITY_DEBUG
         );
 
@@ -274,7 +283,7 @@ trait FilesystemMethods
             return;
         }
 
-        $this->output->writeln("Deleting {$file}", OutputInterface::VERBOSITY_DEBUG);
+        $this->output->writeln("Deleting <info>{$file}</info>", OutputInterface::VERBOSITY_DEBUG);
 
         passthru(is_dir($file) ? "rm -rf $file" : "rm $file");
     }

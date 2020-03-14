@@ -28,9 +28,14 @@ $template = $twig->load('index.twig');
 if (!file_exists($out)) {
     mkdir($out, 0777, true);
 }
-file_put_contents($out . '/index.md', $template->render([
-    'data' => $commands,
-]));
+file_put_contents(
+    $out . '/index.md',
+    $template->render(
+        [
+            'data' => $commands,
+        ]
+    )
+);
 
 $shorts = $commands['commands'][''];
 
@@ -51,20 +56,31 @@ foreach ($commands['commands'] as $group => $details) {
         $details                 = [$group => $shorts[$group]] + $details;
     }
 
-    file_put_contents($out . '/' . $group . '/index.md', $template->render([
-        'group' => $group,
-        'data'  => $details,
-    ]));
+    file_put_contents(
+        $out . '/' . $group . '/index.md',
+        $template->render(
+            [
+                'group' => $group,
+                'data'  => $details,
+            ]
+        )
+    );
 
     foreach ($details as $detail) {
         $template = $twig->load('command.twig');
 
-        file_put_contents($out . '/' . $detail['path'] . '.md', $template->render([
-            'data' => $detail,
-        ]));
+        $detail['options'] = removeGlobalOptions($detail['options'], $commands['options']);
+
+        file_put_contents(
+            $out . '/' . $detail['path'] . '.md',
+            $template->render(
+                [
+                    'data' => $detail,
+                ]
+            )
+        );
     }
 }
-#print_r($commands);
 
 /**
  * @param  string  $bin
@@ -153,4 +169,33 @@ function parseSections(array $sections): array
     } while (!empty($sections));
 
     return $list;
+}
+
+/**
+ * @param  array  $detail
+ * @param  array  $global
+ *
+ * @return array
+ */
+function removeGlobalOptions(array $detail, array $global): array
+{
+    $patterns = array_map(
+        static function ($s) {
+            return preg_replace('~\s+~', '\\s+', $s);
+        },
+        $global
+    );
+
+    return array_filter(
+        $detail,
+        static function ($s) use ($patterns) {
+            foreach ($patterns as $pattern) {
+                if (preg_match("~$pattern~", $s)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    );
 }

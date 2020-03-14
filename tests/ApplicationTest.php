@@ -33,6 +33,8 @@ namespace UnitTest;
 
 use GreenCape\JoomlaCLI\Application;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class ApplicationTest
@@ -48,16 +50,17 @@ class ApplicationTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
         $this->console = new Application();
+        $this->console->setAutoExit(false);
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void
+    public function tearDown(): void
     {
     }
 
@@ -84,5 +87,35 @@ class ApplicationTest extends TestCase
     public function testCommandIsDefined($command): void
     {
         $this->assertTrue($this->console->has($command));
+    }
+
+    /**
+     * @testdox ... forwards arguments to command
+     *
+     * @throws \Exception
+     */
+    public function testCall(): void
+    {
+        $input  = new StringInput('core:version --joomla=tests/fixtures/j39 --release');
+        $output = new BufferedOutput();
+
+        $this->console->run($input, $output);
+
+        $this->assertEquals('3.9', trim($output->fetch()));
+    }
+
+    /**
+     * @testdox ... issues error message on failures
+     *
+     * @throws \Exception
+     */
+    public function testException(): void
+    {
+        $input  = new StringInput('core:version --joomla=tests/fixtures/nx --release');
+        $output = new BufferedOutput();
+
+        $this->console->run($input, $output);
+
+        $this->assertRegExp('~Joomla CLI version.*?\n\nFile not found~', $output->fetch());
     }
 }

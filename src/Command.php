@@ -30,7 +30,6 @@
 namespace GreenCape\JoomlaCLI;
 
 use Exception;
-use GreenCape\JoomlaCLI\Driver\Environment;
 use GreenCape\JoomlaCLI\Driver\Factory;
 use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
 use GreenCape\Manifest\Manifest;
@@ -174,7 +173,7 @@ abstract class Command extends BaseCommand
         $this->input  = $input;
         $this->output = $output;
 
-        $this->initProject();
+        $this->init();
     }
 
     /**
@@ -282,45 +281,63 @@ abstract class Command extends BaseCommand
     /**
      * Initialise.
      */
-    private function initProject(): void
+    private function init(): void
+    {
+        $this->output->writeln('Command: ' . get_class($this), OutputInterface::VERBOSITY_DEBUG);
+
+        $this->initUser();
+        $this->initBasePath(getcwd());
+
+        $settings = $this->readProject('project.json');
+
+        $this->initSourcePath();
+
+        $this->readManifest($settings['package']['manifest']);
+
+        $this->output->writeln(
+            ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}",
+            OutputInterface::VERBOSITY_VERBOSE
+        );
+
+        $this->initLogPath();
+        $this->initDistPath();
+        $this->initEnvironment();
+        $this->initJoomlaPath();
+    }
+
+    private function initUser(): void
     {
         $this->user = getmyuid() . ':' . getmygid();
-        $this->base = getcwd();
+    }
 
-        if ($this->input->hasOption('basepath')) {
-            $this->base = $this->input->getOption('basepath');
-        }
+    /**
+     * @param  string  $projectFile
+     *
+     * @return array
+     */
+    private function readProject(string $projectFile): array
+    {
+        $filename = $this->base . '/' . $projectFile;
 
-        $projectFile = 'project.json';
-
-        if (!file_exists($this->base . '/' . $projectFile)) {
+        if (!file_exists($filename)) {
             throw new RuntimeException(
                 sprintf(
-                    'Project file %s/%s not found',
-                    $this->base,
-                    $projectFile
+                    'Project file %s not found at base path %s',
+                    $projectFile,
+                    $this->base
                 )
             );
         }
 
         $this->output->writeln("Reading project file {$projectFile}", OutputInterface::VERBOSITY_DEBUG);
 
-        $settings = json_decode(file_get_contents($this->base . '/' . $projectFile), true);
+        $settings = json_decode(file_get_contents($filename), true);
 
         $this->project = $settings['project'];
+        $this->package = $this->readPackage($settings['package']);
 
-        $this->package['name']     = $settings['package']['name'] ?? 'com_' . strtolower(
-                preg_replace('~\W+~', '_', $this->project['name'])
-            );
-        $this->package['type']     = $settings['package']['type'] ?? 'component';
-        $this->package['manifest'] = $settings['package']['manifest'] ?? 'manifest.xml';
-        $this->package['version']  = $settings['package']['version'] ?? $this->project['version'];
-
-        if (isset($settings['package']['extensions'])) {
-            foreach ($settings['package']['extensions'] as $extension) {
-                $extension['version']                            = $extension['version'] ?? $this->package['version'];
-                $this->package['extensions'][$extension['name']] = $extension;
-            }
+        if (empty($this->project['name'])) {
+            $this->project['name'] = $this->package['name'];
         }
 
         $this->output->writeln(
@@ -328,18 +345,45 @@ abstract class Command extends BaseCommand
             OutputInterface::VERBOSITY_VERBOSE
         );
 
-        $this->source = rtrim($this->base . '/' . $this->project['paths']['source'] ?? 'source', '/');
-        if ($this->input->hasOption('source')) {
-            $this->source = $this->input->getOption('source');
+        return $settings;
+    }
+
+    /**
+     * @param $settings
+     *
+     * @return mixed
+     */
+    private function readPackage($settings): array
+    {
+        $package['name']     = $settings['name'] ?? 'com_' . strtolower(
+                preg_replace('~\W+~', '_', $this->project['name'])
+            );
+        $package['type']     = $settings['type'] ?? 'component';
+        $package['manifest'] = $settings['manifest'] ?? 'manifest.xml';
+        $package['version']  = $settings['version'] ?? $this->project['version'];
+
+        if (isset($settings['extensions'])) {
+            foreach ($settings['extensions'] as $extension) {
+                $extension['version']                      = $extension['version'] ?? $package['version'];
+                $package['extensions'][$extension['name']] = $extension;
+            }
         }
 
-        if (file_exists($this->source . '/' . $settings['package']['manifest'])) {
+        return $package;
+    }
+
+    /**
+     * @param $manifestFile
+     */
+    private function readManifest($manifestFile): void
+    {
+        if (file_exists($this->source . '/' . $manifestFile)) {
             $this->output->writeln(
-                "Reading manifest file {$settings['package']['manifest']}",
+                "Reading manifest file {$manifestFile}",
                 OutputInterface::VERBOSITY_DEBUG
             );
 
-            $manifest = Manifest::load($this->source . '/' . $settings['package']['manifest']);
+            $manifest = Manifest::load($this->source . '/' . $manifestFile);
 
             $this->package['name']   = $manifest->getName();
             $this->package['type']   = $manifest->getType();
@@ -356,47 +400,14 @@ abstract class Command extends BaseCommand
             }
         } else {
             $this->output->writeln(
-                "Manifest file '{$settings['package']['manifest']}' not found.",
+                "Manifest file '{$manifestFile}' not found.",
                 OutputInterface::VERBOSITY_VERBOSE
             );
         }
+    }
 
-        $this->output->writeln(
-            ucfirst($this->package['type']) . " {$this->package['name']} {$this->package['version']}",
-            OutputInterface::VERBOSITY_VERBOSE
-        );
-
-        $this->build            = $this->base . '/build';
-        $this->tests            = $this->base . '/tests';
-        $this->bin              = $this->base . '/vendor/bin';
-        $this->unitTests        = $this->tests . '/unit';
-        $this->integrationTests = $this->tests . '/integration';
-        $this->systemTests      = $this->tests . '/system';
-        $this->testEnvironments = $this->tests . '/servers';
-        $this->serverDockyard   = $this->build . '/servers';
-        $this->versionCache     = $this->build . '/versions.json';
-        $this->downloadCache    = $this->build . '/cache';
-        $this->buildTemplates   = dirname(__DIR__) . '/build';
-
-        $this->logs = $this->build . '/logs';
-        if ($this->input->hasOption('logs')) {
-            $this->logs = $this->input->getOption('logs');
-        }
-
-        if (empty($this->project['name'])) {
-            $this->project['name'] = $this->package['name'];
-        }
-
+    private function initDistPath(): void
+    {
         $this->dist['basedir'] = "{$this->base}/dist/{$this->package['name']}-{$this->project['version']}";
-
-        $this->mkdir($this->downloadCache);
-
-        if ($this->input->hasOption('environment')) {
-            $this->environment = new Environment($this->input->getOption('environment'));
-        }
-
-        if ($this->input->hasOption('joomla')) {
-            $this->joomla = $this->input->getOption('joomla');
-        }
     }
 }

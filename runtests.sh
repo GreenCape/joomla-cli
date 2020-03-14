@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-phing phpunit -Dbasedir=.
+phpunit -c build/phpunit.xml
 
 cd ../joomla-cli-test && phpunit
 cd ../joomla-cli
