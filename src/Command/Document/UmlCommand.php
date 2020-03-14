@@ -32,6 +32,7 @@ namespace GreenCape\JoomlaCLI\Command\Document;
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Documentation\UML\UMLGenerator;
 use GreenCape\JoomlaCLI\Fileset;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -73,15 +74,13 @@ class UmlCommand extends Command
                 'classmap',
                 'c',
                 InputOption::VALUE_OPTIONAL,
-                "Path to the Joomla! classmap file",
-                'joomla/libraries/classmap.php'
+                "Path to the Joomla! classmap file"
             )
             ->addOption(
                 'predefined',
                 'p',
-                InputOption::VALUE_OPTIONAL,
-                "Path to predefined diagrams",
-                'build/uml'
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
+                "Path to predefined diagrams or `php`, `vendor`"
             )
             ->addOption(
                 'skin',
@@ -103,6 +102,12 @@ class UmlCommand extends Command
                 InputOption::VALUE_NONE,
                 "Do not create .svg files, keep .puml files instead"
             )
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE,
+                'Enforce UML creation regardless up-to-date status'
+            )
         ;
     }
 
@@ -111,6 +116,8 @@ class UmlCommand extends Command
      *
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
+     *
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -128,17 +135,17 @@ class UmlCommand extends Command
     }
 
     /**
-     * @param  UMLGenerator     $generator
      * @param  InputInterface   $input
      * @param  OutputInterface  $output
+     *
+     * @return bool|string|string[]|null
      */
-    private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+    protected function setupTarget(InputInterface $input, OutputInterface $output)
     {
-        $classMapFile = $input->getOption('classmap');
-        if (!empty($classMapFile)) {
-            $output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
-            $generator->classMap($classMapFile);
-        }
+        $targetDir = $input->getOption('output');
+        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
+
+        return $targetDir;
     }
 
     /**
@@ -146,18 +153,101 @@ class UmlCommand extends Command
      * @param  InputInterface   $input
      * @param  OutputInterface  $output
      */
+    private function setupClassMap(UMLGenerator $generator, InputInterface $input, OutputInterface $output): void
+    {
+        if ($input->hasOption('classmap')) {
+            $classMapFile = $input->getOption('classmap');
+        }
+
+        if (empty($classMapFile)) {
+            return;
+        }
+
+        $output->writeln("Including class aliases from $classMapFile", OutputInterface::VERBOSITY_VERBOSE);
+        $generator->classMap($classMapFile);
+    }
+
+    /**
+     * @param  UMLGenerator     $generator
+     * @param  InputInterface   $input
+     * @param  OutputInterface  $output
+     *
+     * @throws \Exception
+     */
     private function setupPredefinedDiagrams(
         UMLGenerator $generator,
         InputInterface $input,
         OutputInterface $output
     ): void {
-        $predefined = $input->getOption('predefined');
-        if (!empty($predefined)) {
-            if ($predefined === 'php') {
-                $predefined = $this->home . '/build/plantuml/php';
+        if ($input->hasOption('predefined')) {
+            $predefined = $input->getOption('predefined');
+        }
+
+        if (empty($predefined)) {
+            return;
+        }
+
+        foreach ($predefined as $diagrams) {
+            if ($diagrams === 'php') {
+                $path = $this->home . '/build/plantuml/php';
+            } elseif ($diagrams === 'vendor') {
+                $uptodate = $this->isUptodate(
+                    new Fileset('build/uml/vendor'),
+                    (new Fileset('.'))
+                        ->include('composer.lock')
+                );
+
+                if (!$uptodate || $input->getOption('force')) {
+                    $output->writeln(
+                        "Vendor diagrams need to be updated",
+                        OutputInterface::VERBOSITY_VERBOSE
+                    );
+
+                    $composer = json_decode(file_get_contents('composer.lock'), JSON_OBJECT_AS_ARRAY);
+
+                    foreach ($composer['packages'] as $package) {
+                        $output->writeln(
+                            'Creating diagrams for ' . $package['name'],
+                            OutputInterface::VERBOSITY_VERY_VERBOSE
+                        );
+
+                        $source = 'vendor/' . $package['name'];
+
+                        $autoload = $package['autoload'] ?? ['undefined' => ['src']];
+
+                        foreach ($autoload as $mode => $dirs) {
+                            $output->writeln("$mode: " . print_r($dirs, true), OutputInterface::VERBOSITY_DEBUG);
+
+                            if ($mode === 'exclude-from-classmap' || $mode === 'files') {
+                                continue;
+                            }
+
+                            if (!is_array($dirs)) {
+                                $output->writeln("$source - $mode: " . print_r($dirs, true), OutputInterface::VERBOSITY_NORMAL);
+                            }
+
+                            foreach ($dirs as $dir) {
+                                $this->runCommand(
+                                    UmlCommand::class,
+                                    new ArrayInput(
+                                        [
+                                            '--source' => $source . '/' . rtrim($dir, '/'),
+                                            '--no-svg' => null,
+                                            '--output' => 'build/uml/vendor',
+                                        ]
+                                    ),
+                                    $this->output
+                                );
+                            }
+                        }
+                    }
+                }
+                $path = 'build/uml/vendor';
+            } else {
+                $path = $diagrams;
             }
-            $output->writeln("Including predefined diagrams from $predefined", OutputInterface::VERBOSITY_VERBOSE);
-            $generator->includeReferences($predefined);
+            $output->writeln("Including predefined diagrams from $diagrams", OutputInterface::VERBOSITY_VERBOSE);
+            $generator->includeReferences($path);
         }
     }
 
@@ -202,22 +292,8 @@ class UmlCommand extends Command
     {
         $output->writeln("Creating UML diagrams from {$this->source}", OutputInterface::VERBOSITY_NORMAL);
         $source = new Fileset($this->source);
-        $source->include('**/*.php');
+        $source->include('**.php');
 
         return $source;
-    }
-
-    /**
-     * @param  InputInterface   $input
-     * @param  OutputInterface  $output
-     *
-     * @return bool|string|string[]|null
-     */
-    protected function setupTarget(InputInterface $input, OutputInterface $output)
-    {
-        $targetDir = $input->getOption('output');
-        $output->writeln("Storing results in $targetDir", OutputInterface::VERBOSITY_VERBOSE);
-
-        return $targetDir;
     }
 }

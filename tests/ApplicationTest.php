@@ -116,6 +116,6 @@ class ApplicationTest extends TestCase
 
         $this->console->run($input, $output);
 
-        $this->assertRegExp('~Joomla CLI version.*?\n\nFile not found~', $output->fetch());
+        $this->assertRegExp('~Joomla CLI .*?\n\nFile not found~', $output->fetch());
     }
 }

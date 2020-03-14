@@ -90,6 +90,7 @@ class DocumentCommand extends Command
                 [
                     '--source' => $this->source,
                     '--output' => $umlPath,
+                    '--predefined' => ['vendor', 'php'],
                 ]
             ),
             $output

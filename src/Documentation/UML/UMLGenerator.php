@@ -44,10 +44,10 @@ class UMLGenerator implements LoggerAwareInterface
     private $dir;
     private $skin;
     private $jar;
-    private $includeRef = true;
-    private $predefinedClasses;
+    private $includeRef        = true;
+    private $predefinedClasses = [];
     private $classMap;
-    private $createSvg  = true;
+    private $createSvg         = true;
 
     use LoggerAwareTrait;
 
@@ -69,8 +69,8 @@ class UMLGenerator implements LoggerAwareInterface
      */
     public function includeReferences(string $repository = null): self
     {
-        $this->predefinedClasses = $repository;
-        $this->includeRef        = true;
+        $this->predefinedClasses[] = $repository;
+        $this->includeRef          = true;
 
         return $this;
     }
@@ -145,9 +145,11 @@ class UMLGenerator implements LoggerAwareInterface
         if ($this->includeRef === false) {
             $flags |= UMLCollector::NO_INCLUDES;
         } elseif (!empty($this->predefinedClasses)) {
-            $cmd = "cp -fu {$this->predefinedClasses}/*.puml {$targetDir}";
-            $this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
-            shell_exec($cmd);
+            foreach ($this->predefinedClasses as $predefinedClass) {
+                $cmd = "cp -fu {$predefinedClass}/*.puml {$targetDir}";
+                $this->logger->debug("Copying predefined diagrams to temporary directory\n\$ {$cmd}");
+                shell_exec($cmd);
+            }
         }
 
         $count = $scanner->writeDiagrams($targetDir, $flags);

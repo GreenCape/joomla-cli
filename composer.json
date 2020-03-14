@@ -17,27 +17,25 @@
     "php": ">=7.2",
     "ext-json": "*",
     "ext-dom": "*",
-    "sebastian/finder-facade": "*",
-    "sebastian/git": "*",
-    "symfony/console": "~2",
-    "league/flysystem": "^1.0",
-    "league/flysystem-ziparchive": "^1.0",
-    "theseer/autoload": "^1.25",
-    "phpunit/phpunit": "^8.3",
-    "greencape/joomla-manifest": "^0.4",
-    "pdepend/pdepend": "^2.5",
-    "phpmd/phpmd": "^2.7",
-    "sebastian/phpcpd": "^4.1",
-    "mayflower/php-codebrowser": "^2.0",
-    "nikic/php-parser": "^4.2",
-    "squizlabs/php_codesniffer": "^3.5",
-    "vlucas/phpdotenv": "^4.1"
+    "symfony/console": "*",
+    "league/flysystem": "*",
+    "league/flysystem-ziparchive": "*",
+    "theseer/autoload": "*",
+    "phpunit/phpunit": "*",
+    "greencape/joomla-manifest": "dev-master",
+    "pdepend/pdepend": "*",
+    "phpmd/phpmd": "*",
+    "sebastian/phpcpd": "*",
+    "mayflower/php-codebrowser": "*",
+    "nikic/php-parser": "*",
+    "squizlabs/php_codesniffer": "*",
+    "vlucas/phpdotenv": "*",
+    "twig/twig": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
     "codeclimate/php-test-reporter": "dev-master",
-    "league/flysystem-memory": "^1.0",
-    "twig/twig": "^3.0"
+    "league/flysystem-memory": "*"
   },
   "autoload": {
     "psr-4": {
