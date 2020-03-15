@@ -1,6 +1,10 @@
 # [PROJECT_NAME] Changelog
 
-## Version HEAD -> from-phing, origin/from-phing
+## Version HEAD -> from-phing
+
+    2020-03-14 [6884d90] Include classes from `vendor/` in UML diagrams (Niels Braczek)
+
+## Version origin/from-phing
 
     2020-03-14 [b1e45ac] Improved initialisation (Niels Braczek)
     2020-03-12 [fbcc0bf] Moved initialisation from FromPhing to Command (Niels Braczek)

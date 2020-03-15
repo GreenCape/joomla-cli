@@ -35,7 +35,6 @@ use GreenCape\JoomlaCLI\Driver\JoomlaDriver;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
-use RuntimeException;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -291,6 +290,14 @@ abstract class Command extends BaseCommand
         $settings = $this->readProject('project.json');
 
         $this->initSourcePath();
+        $this->initJoomlaPath();
+        $this->initLogPath();
+
+        $this->initEnvironment();
+
+        if (empty($settings)) {
+            return;
+        }
 
         $this->readManifest($settings['package']['manifest']);
 
@@ -299,10 +306,7 @@ abstract class Command extends BaseCommand
             OutputInterface::VERBOSITY_VERBOSE
         );
 
-        $this->initLogPath();
         $this->initDistPath();
-        $this->initEnvironment();
-        $this->initJoomlaPath();
     }
 
     private function initUser(): void
@@ -320,13 +324,12 @@ abstract class Command extends BaseCommand
         $filename = $this->base . '/' . $projectFile;
 
         if (!file_exists($filename)) {
-            throw new RuntimeException(
-                sprintf(
-                    'Project file %s not found at base path %s',
-                    $projectFile,
-                    $this->base
-                )
+            $this->output->writeln(
+                'Project file {$projectFile} not found at base path {$this->base}',
+                OutputInterface::VERBOSITY_VERBOSE
             );
+
+            return [];
         }
 
         $this->output->writeln("Reading project file {$projectFile}", OutputInterface::VERBOSITY_DEBUG);
