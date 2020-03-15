@@ -167,7 +167,6 @@ class CoverageCollector
         $coverage->setData($this->data);
         $coverage->setTests($this->tests);
         $filter = $coverage->filter();
-        #$filter->setBlacklistedFiles($this->blackList);
         $filter->setWhitelistedFiles($this->whiteList);
 
         return $coverage;

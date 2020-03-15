@@ -32,11 +32,11 @@ namespace GreenCape\JoomlaCLI\Documentation\UML;
 use PhpParser\NodeVisitor;
 
 /**
- * Interface UMLCollector
+ * Interface UMLCollectorInterface
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */
-interface UMLCollector extends NodeVisitor
+interface UMLCollectorInterface extends NodeVisitor
 {
     /** @var int Do not generate include statements for referenced classes */
     public const NO_INCLUDES = 1;

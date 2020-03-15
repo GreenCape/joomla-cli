@@ -224,7 +224,7 @@ class CoverageMerger
      */
     private function log(string $message, string $level = 'debug'): void
     {
-        echo $message . "\n";
+        echo "[$level] $message\n";
     }
 
     /**

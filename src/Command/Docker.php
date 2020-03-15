@@ -113,7 +113,7 @@ class Docker
      */
     private function log(string $message, string $level = 'info'): void
     {
-        echo $message . "\n";
+        echo "[$level] $message\n";
     }
 
     /**

@@ -33,7 +33,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Class JLoader
  *
- * Fake version of Joomla!'s JLoader registering aliases from a class map to a UMLCollector
+ * Fake version of Joomla!'s JLoader registering aliases from a class map to a UMLCollectorInterface
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */

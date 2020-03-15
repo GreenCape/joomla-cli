@@ -51,7 +51,7 @@ class UMLScanner
      */
     private $traverser;
     /**
-     * @var UMLCollector[]
+     * @var UMLCollectorInterface[]
      */
     private $collectors;
     /**
@@ -66,7 +66,7 @@ class UMLScanner
         $this->traverser->addVisitor(new NameResolver);
     }
 
-    public function addCollector(UMLCollector $collector): void
+    public function addCollector(UMLCollectorInterface $collector): void
     {
         $this->collectors[] = $collector;
         $this->traverser->addVisitor($collector);

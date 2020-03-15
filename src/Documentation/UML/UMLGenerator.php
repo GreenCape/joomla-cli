@@ -41,7 +41,6 @@ use Psr\Log\NullLogger;
  */
 class UMLGenerator implements LoggerAwareInterface
 {
-    private $dir;
     private $skin;
     private $jar;
     private $includeRef        = true;
@@ -143,7 +142,7 @@ class UMLGenerator implements LoggerAwareInterface
         $flags = 0;
 
         if ($this->includeRef === false) {
-            $flags |= UMLCollector::NO_INCLUDES;
+            $flags |= UMLCollectorInterface::NO_INCLUDES;
         } elseif (!empty($this->predefinedClasses)) {
             foreach ($this->predefinedClasses as $predefinedClass) {
                 $cmd = "cp -fu {$predefinedClass}/*.puml {$targetDir}";

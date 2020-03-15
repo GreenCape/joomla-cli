@@ -47,7 +47,7 @@ use Psr\Log\NullLogger;
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */
-class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
+class ClassNameCollector extends NodeVisitorAbstract implements UMLCollectorInterface, LoggerAwareInterface
 {
     private $classes = [];
     private $uml     = [];
@@ -131,11 +131,12 @@ class ClassNameCollector extends NodeVisitorAbstract implements UMLCollector, Lo
 
         return array_reduce(
             $node,
-            function ($carry, $node) {
+            function (array $carry, Node $node) {
                 $carry[] = $this->namespaced($node);
 
                 return $carry;
-            }
+            },
+            []
         );
     }
 

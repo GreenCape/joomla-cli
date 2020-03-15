@@ -41,7 +41,7 @@ use Psr\Log\LoggerAwareTrait;
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */
-class AnnotationCollector extends NodeVisitorAbstract implements UMLCollector, LoggerAwareInterface
+class AnnotationCollector extends NodeVisitorAbstract implements UMLCollectorInterface, LoggerAwareInterface
 {
     private $currentClass;
 
