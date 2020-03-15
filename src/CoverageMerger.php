@@ -9,6 +9,7 @@ use SebastianBergmann\CodeCoverage\Report\Crap4j;
 use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use SebastianBergmann\CodeCoverage\Report\Text;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Class CoverageMerger
@@ -32,6 +33,13 @@ class CoverageMerger
     private $html;
     private $php;
     private $text;
+
+    use FilesystemMethods;
+
+    public function __construct()
+    {
+        $this->output = new NullOutput();
+    }
 
     /**
      * @param  string  $pattern
@@ -142,12 +150,25 @@ class CoverageMerger
         foreach ($this->getFilenames() as $file) {
             $this->log("Merging $file");
             $coverage = null;
-            $code     = file_get_contents($file);
-            $code     = str_replace(CodeCoverage::class, CoverageCollector::class, $code);
-            if (!empty($this->pattern)) {
-                $code = preg_replace($this->pattern, $this->replace, $code);
-            }
-            eval('?>' . $code);
+            $toFile = 'tmp/' . basename($file);
+
+            $this->copy(
+                $file,
+                $toFile,
+                function ($code) {
+                    $code = str_replace(CodeCoverage::class, CoverageCollector::class, $code);
+
+                    if (!empty($this->pattern)) {
+                        $code = preg_replace($this->pattern, $this->replace, $code);
+                    }
+
+                    return $code;
+                }
+            );
+
+            include $toFile;
+            $this->delete($toFile);
+
             $collection->merge($coverage);
         }
         $this->handleReports($collection->coverage());
