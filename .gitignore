@@ -17,3 +17,6 @@ tests/tmp/
 /project.json
 /test.*
 /import.sql
+/possible-commands.md
+/automap-methods-includes/
+/automap-methods.php

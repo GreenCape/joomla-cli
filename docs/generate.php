@@ -8,8 +8,10 @@ use Twig\Loader\FilesystemLoader;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$bin = dirname(__DIR__) . '/joomla';
-$out = __DIR__ . '/commands';
+#$bin = dirname(__DIR__) . '/joomla';
+#$out = __DIR__ . '/commands';
+$bin = 'php ' . dirname(__DIR__) . '/automap-methods.php';
+$out = __DIR__ . '/automap-commands';
 
 $commands = getInfo($bin);
 
@@ -106,11 +108,13 @@ function getCommandList(string $bin): array
 {
     $raw      = shell_exec("$bin list");
     $sections = explode("\n\n", $raw);
-    [$name, $version] = explode(' version ', array_shift($sections));
+
+    $firstLine = array_shift($sections);
+    preg_match('~^(.*?)\s+(?:version\s*)?([\d.]+)$~', $firstLine, $match);
 
     $list = [
-        'name'    => $name,
-        'version' => $version,
+        'name'    => $match[1],
+        'version' => $match[2],
     ];
 
     $list += parseSections($sections);

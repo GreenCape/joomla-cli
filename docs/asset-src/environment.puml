@@ -1,21 +1,21 @@
 @startuml
-!unquoted function SALT($x)
+!unquoted procedure SALT($x)
 "{{
 salt
-%invoke_void_func("_"+$x)
+%invoke_procedure("_"+$x)
 }}" as $x
-!endfunction
+!endprocedure
 
-!function _chooseJ()
+!procedure _chooseJ()
 {+
 **Test Environments**
 ---
     {/ <b>Joomla | Database | Web Server | PHP }
     {
         {SI
-            [] Joomla 3.7
-            [] <back:lightblue>Joomla 3.8                                        <&blank>
+            [] back:lightblue>Joomla 3.8                                        <&blank>
             [X] Joomla 3.9
+            [] Joomla 4.0
             [X] Joomla latest
             [] Joomla staging
         }|
@@ -26,39 +26,39 @@ salt
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _addJ()
+!procedure _addJ()
 {+
 **Joomla**
 ---
 {SI
-Title:     | "                 "
-Version:   | ^latest          ^
-Superuser: | "                 "
-Password:  | "                 "
+**Title:**     | "                 "
+**Version:**   | ^latest          ^
+**Superuser:** | "                 "
+**Password:**  | "                 "
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _editJ()
+!procedure _editJ()
 {+
 **Joomla**
 ---
 {SI
-Title:     | "Joomla 3.8       "
-Version:   | ^3.8             ^
-Superuser: | "admin            "
-Password:  | "admin            "
+**Title:**     | "Joomla 3.8       "
+**Version:**   | ^3.8             ^
+**Superuser:** | "admin            "
+**Password:**  | "admin            "
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _chooseD()
+!procedure _chooseD()
 {+
 **Test Environments**
 ---
@@ -78,39 +78,39 @@ Password:  | "admin            "
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _addD()
+!procedure _addD()
 {+
 **Database**
 ---
 {SI
-Title:     | "                 "
-Database:  | ^MySQL           ^
-Version:   | ^latest          ^
-User:      | "                 "
+**Title:**     | "                 "
+**Database:**  | ^MySQL           ^
+**Version:**   | ^latest          ^
+**User:**      | "                 "
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _editD()
+!procedure _editD()
 {+
 **Database**
 ---
 {SI
-Title:     | "PostGreSQL       "
-Database:  | ^PostGreSQL      ^
-Version:   | ^latest          ^
-User:      | "sqladmin         "
+**Title:**     | "PostGreSQL       "
+**Database:**  | ^PostGreSQL      ^
+**Version:**   | ^latest          ^
+**User:**      | "sqladmin         "
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _chooseW()
+!procedure _chooseW()
 {+
 **Test Environments**
 ---
@@ -119,7 +119,7 @@ User:      | "sqladmin         "
         {SI
             [X] Apache2 w/ mod_php
             [X] Apache2 w/ PHP-FPM
-            [X] <back:lightblue>NginX                                                 <&blank>
+            [X] back:lightblue>NginX                                                 <&blank>
             [] LigHTTPd
             <&blank>
         }|
@@ -130,49 +130,49 @@ User:      | "sqladmin         "
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _addW()
+!procedure _addW()
 {+
 **Web Server**
 ---
 {SI
-Title:     | "                 "
-Server:    | ^Apache2+mod_php ^
-Version:   | ^latest          ^
+**Title:**     | "                 "
+**Server:**    | ^Apache2+mod_php ^
+**Version:**   | ^latest          ^
 <&blank>
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _editW()
+!procedure _editW()
 {+
 **Web Server**
 ---
 {SI
-Title:     | "NginX            "
-Server:    | ^NginX           ^
-Version:   | ^1.9             ^
+**Title:**     | "NginX            "
+**Server:**    | ^NginX           ^
+**Version:**   | ^1.9             ^
 <&blank>
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _chooseP()
+!procedure _chooseP()
 {+
 **Test Environments**
 ---
     {/ Joomla | Database | Web Server | <b>PHP }
     {
         {SI
-            [X] PHP 7.0
-            [X] PHP 7.1
             [X] PHP 7.2
             [X] PHP 7.3
+            [X] PHP 7.4
+            [X] PHP 8.0
             [X] <back:lightblue>PHP latest                                        <&blank>
         }|
         {[<&plus> Add]
@@ -182,65 +182,64 @@ Version:   | ^1.9             ^
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _addP()
+!procedure _addP()
 {+
 **PHP**
 ---
 {SI
-Title:     | "                 "
-Version:   | ^latest          ^
+**Title:**     | "                 "
+**Version:**   | ^latest          ^
 <&blank>
 <&blank>
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
-!function _editP()
+!procedure _editP()
 {+
 **PHP**
 ---
 {SI
-Title:     | "PHP latest        "
-Version:   | ^latest           ^
+**Title:**     | "PHP latest        "
+**Version:**   | ^latest           ^
 <&blank>
 <&blank>
 }
 ---
 {[ <&x> Cancel ] | [ <&check> Save ]}
 }
-!endfunction
+!endprocedure
 
 (*) --> SALT(chooseJ)
--->['Remove'] chooseJ
--->['Add'] SALT(addJ)
---> chooseJ
--->['Edit'] SALT(editJ)
---> chooseJ
---->['Cancel'] (*)
+-> [Remove] chooseJ
+--> [Add] SALT(addJ)
+-> [Cancel/Save] chooseJ
+--> [Edit] SALT(editJ)
+-> [Cancel/Save] chooseJ
+---> [Cancel/Save] (*)
 (*) --> SALT(chooseD)
--->['Remove'] chooseD
--->['Add'] SALT(addD)
---> chooseD
--->['Edit'] SALT(editD)
---> chooseD
---->['Cancel'] (*)
+-> [Remove] chooseD
+--> [Add] SALT(addD)
+-> [Cancel/Save] chooseD
+--> [Edit] SALT(editD)
+-> [Cancel/Save] chooseD
+---> [Cancel/Save] (*)
 (*) --> SALT(chooseW)
--->['Remove'] chooseW
--->['Add'] SALT(addW)
---> chooseW
--->['Edit'] SALT(editW)
---> chooseW
---->['Cancel'] (*)
+--> [Remove] chooseW
+--> [Add] SALT(addW)
+-> [Cancel/Save] chooseW
+--> [Edit] SALT(editW)
+-> [Cancel/Save] chooseW
+---> [Cancel/Save] (*)
 (*) --> SALT(chooseP)
--->['Remove'] chooseP
--->['Add'] SALT(addP)
---> chooseP
--->['Edit'] SALT(editP)
---> chooseP
---->['Cancel'] (*)
-
+-> [Remove] chooseP
+--> [Add] SALT(addP)
+-> [Cancel/Save] chooseP
+--> [Edit] SALT(editP)
+-> [Cancel/Save] chooseP
+---> [Cancel/Save] (*)
 @enduml

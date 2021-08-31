@@ -30,7 +30,8 @@
     "nikic/php-parser": "*",
     "squizlabs/php_codesniffer": "*",
     "vlucas/phpdotenv": "*",
-    "twig/twig": "*"
+    "twig/twig": "*",
+    "joomla/string": "^1.4"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
