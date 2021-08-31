@@ -100,11 +100,14 @@ class VersionListTest extends TestCase
      */
     public function testALot3(): void
     {
+        // The heads are indexed by branch names. Just take the first index.
+        $branch = array_keys(json_decode(self::$filesystem->read(self::$cacheFile), true)['heads'])[0];
+
         $this->assertFalse(self::$versionList->isBranch('3.5.0'), 'Tag `3.5.0` is not a branch name');
-        $this->assertTrue(self::$versionList->isBranch('staging'), '`Branch `staging` should be recognised');
+        $this->assertTrue(self::$versionList->isBranch($branch), "Branch `$branch` should be recognised");
 
         $this->assertTrue(self::$versionList->isTag('3.5.0'), 'Tag `3.5.0` should be recognised');
-        $this->assertFalse(self::$versionList->isTag('staging'), '`Branch `staging` is not a tag');
+        $this->assertFalse(self::$versionList->isTag($branch), "Branch `$branch` is not a tag");
     }
 
     /**
