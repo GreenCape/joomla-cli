@@ -30,7 +30,6 @@
 namespace GreenCape\JoomlaCLI\Command\Docker;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -48,10 +47,7 @@ class StopCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setName('docker:stop')
-            ->setDescription('Stops and removes the test containers')
-            ->addBasePathOption()
+        $this->setName('docker:stop')->setDescription('Stops and removes the test containers')->addBasePathOption()
         ;
     }
 
@@ -63,7 +59,18 @@ class StopCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->base, null
-        ))->dockerStop();
+        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
+            $output->writeln('Servers are not set up. Nothing to do');
+
+            return;
+        }
+
+        $this->exec(
+            'docker-compose stop',
+            $this->serverDockyard
+        );
+
+        // Give the containers time to stop
+        sleep(2);
     }
 }

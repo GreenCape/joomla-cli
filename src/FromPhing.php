@@ -5,12 +5,15 @@ namespace GreenCape\JoomlaCLI;
 use DOMDocument;
 use DOMNode;
 use GreenCape\JoomlaCLI\Command\Docker;
+use GreenCape\JoomlaCLI\Command\Docker\StartCommand;
+use GreenCape\JoomlaCLI\Command\Docker\StopCommand;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
@@ -190,42 +193,6 @@ class FromPhing
     }
 
     /**
-     * Starts the test containers after rebuilding them.
-     */
-    public function dockerUp(): void
-    {
-        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
-            throw new RuntimeException('Servers are not set up.');
-        }
-
-        $this->exec(
-            'docker-compose up -d',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to setup
-        sleep(15);
-    }
-
-    /**
-     * Removes the content of test containers.
-     */
-    public function dockerRemove(): void
-    {
-        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
-            $this->echo('Servers are not set up. Nothing to do', 'info');
-
-            return;
-        }
-
-        $this->exec(
-            'docker-compose rm --force',
-            $this->serverDockyard
-        );
-        $this->delete($this->serverDockyard);
-    }
-
-    /**
      * Creates a patch set ready to drop into an existing installation.
      */
     public function patchCreate(): void
@@ -313,10 +280,11 @@ class FromPhing
      * Runs integration tests on all test installations.
      *
      * @throws FileNotFoundException
+     * @throws \Exception
      */
     public function testIntegration(): void
     {
-        $this->dockerStart();
+        (new StartCommand())->run(new StringInput(''), $this->output);
 
         $environments = (new Fileset($this->testEnvironments))
             ->include('*.xml')
@@ -329,17 +297,18 @@ class FromPhing
             $this->testIntegrationSingle($environmentDefinition);
         }
 
-        $this->dockerStop();
+        (new StopCommand())->run(new StringInput(''), $this->output);
     }
 
     /**
      * Runs system tests on all test installations.
      *
      * @throws FileNotFoundException
+     * @throws \Exception
      */
     public function testSystem(): void
     {
-        $this->dockerStart();
+        (new StartCommand())->run(new StringInput(''), $this->output);
 
         $this->delete("{$this->build}/screenshots");
         $this->mkdir("{$this->build}/screenshots");
@@ -355,128 +324,7 @@ class FromPhing
             $this->testSystemSingle($environmentDefinition);
         }
 
-        $this->dockerStop();
-    }
-
-    /**
-     * Starts the test containers, building them only if not existing.
-     *
-     * @throws FileNotFoundException
-     */
-    public function dockerStart(): void
-    {
-        $this->dockerBuild();
-        $this->exec(
-            'docker-compose up --no-recreate -d',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to setup
-        sleep(15);
-    }
-
-    /**
-     * Stops and removes the test containers.
-     */
-    public function dockerStop(): void
-    {
-        if (!file_exists("{$this->serverDockyard}/docker-compose.yml")) {
-            $this->echo('Servers are not set up. Nothing to do', 'info');
-
-            return;
-        }
-
-        $this->exec(
-            'docker-compose stop',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to stop
-        sleep(2);
-    }
-
-    /**
-     * Generates the contents and prepares the test containers.
-     *
-     * @throws FileNotFoundException
-     */
-    public function dockerBuild(): void
-    {
-        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
-            $uptodate = false;
-        } else {
-            $uptodate = $this->isUptodate(
-                $this->serverDockyard . '/docker-compose.yml',
-                (new Fileset('.'))
-                    ->include($this->source . '/**')
-                    ->include($this->integrationTests . '/**')
-                    ->include($this->testEnvironments . '/**')
-            );
-        }
-
-        if ($uptodate) {
-            $this->echo('Container setups are up to date - skipping.', 'info');
-
-            return;
-        }
-
-        // Recreate directories for container contents
-        $this->delete($this->serverDockyard);
-        $this->mkdir($this->serverDockyard . '/nginx/conf');
-        $this->mkdir($this->serverDockyard . '/nginx/html');
-        $this->mkdir($this->serverDockyard . '/apache/conf');
-        $this->mkdir($this->serverDockyard . '/apache/html');
-        $this->mkdir($this->serverDockyard . '/proxy/conf');
-        $this->mkdir($this->serverDockyard . '/mysql');
-        $this->mkdir($this->serverDockyard . '/postgresql');
-
-        // Get available Joomla! versions
-        $this->joomlaVersions($this->versionCache);
-
-        // Set default values for keys not defined in database.xml
-        $this->database = [
-            'mysql'      => [
-                'version'      => 'latest',
-                'name'         => 'joomla_test',
-                'user'         => 'db_user',
-                'password'     => 'db_pass',
-                'rootPassword' => '',
-            ],
-            'postgresql' => [
-                'version'  => 'latest',
-                'name'     => 'joomla_test',
-                'user'     => 'db_user',
-                'password' => 'db_pass',
-            ],
-        ];
-
-        // Load database environment, if provided
-        if (file_exists($this->testEnvironments . '/database.xml')) {
-            $this->database = $this->merge(
-                $this->database,
-                $this->xmlProperty($this->testEnvironments . '/database.xml', false, true)
-            );
-        }
-
-        $this->database['mysql']['passwordOption'] = empty($this->database['mysql']['rootPassword'])
-            ? ''
-            : "-p'{$this->database['mysql']['rootPassword']}'";
-
-        $this->copy(
-            (new Fileset($this->buildTemplates . '/docker'))
-                ->include('docker-compose.yml'),
-            $this->serverDockyard,
-            $this->filterExpand
-        );
-
-        // Handle each test environment
-        foreach (glob($this->testEnvironments . '/*.xml') as $environmentDefinition) {
-            if (in_array(basename($environmentDefinition), ['database.xml', 'default.xml'])) {
-                continue;
-            }
-
-            $this->dockerBuildSystem($environmentDefinition);
-        }
+        (new StopCommand())->run(new StringInput(''), $this->output);
     }
 
     /**
@@ -714,7 +562,7 @@ class FromPhing
         $this->reflexive(
             (new Fileset("{$this->build}/report/api/classes"))
                 ->include('*.html'),
-            static function ($content) {
+            function ($content) {
                 $content = str_replace(
                     '</head>',
                     '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>',
@@ -1119,327 +967,6 @@ class FromPhing
     private function joomlaVersions($versionCache): VersionList
     {
         return new VersionList(new Filesystem(new Local(dirname($versionCache))), basename($versionCache));
-    }
-
-    /**
-     * @param $environmentDefinition
-     *
-     * @throws FileNotFoundException
-     */
-    private function dockerBuildSystem($environmentDefinition): void
-    {
-        $target = basename($environmentDefinition, '.xml');
-
-        // Get the environment settings
-        $this->environment = [
-            'name'     => $target,
-            'server'   => [
-                'type'   => 'nginx',
-                'offset' => 'UTC',
-                'tld'    => 'dev',
-            ],
-            'cache'    => [
-                'enabled' => 0,
-                'time'    => 15,
-                'handler' => 'file',
-            ],
-            'debug'    => [
-                'system'   => 1,
-                'language' => 1,
-            ],
-            'meta'     => [
-                'description' => "Test installation for {$this->project['name']} on Joomla! \${version}",
-                'keywords'    => "{$this->project['name']} Joomla Test",
-                'showVersion' => 1,
-                'showTitle'   => 1,
-                'showAuthor'  => 1,
-            ],
-            'sef'      => [
-                'enabled' => 0,
-                'rewrite' => 0,
-                'suffix'  => 0,
-                'unicode' => 0,
-            ],
-            'session'  => [
-                'lifetime' => 15,
-                'handler'  => 'database',
-            ],
-            'joomla'   => [
-                'version'    => 'latest',
-                'sampleData' => 'data',
-            ],
-            'database' => [
-                'driver' => 'mysqli',
-                'name'   => 'joomla_test',
-                'prefix' => "{$target}_",
-            ],
-            'feeds'    => [
-                'limit' => 10,
-                'email' => 'author',
-            ],
-        ];
-
-        $this->environment = $this->merge(
-            $this->environment,
-            $this->xmlProperty($this->testEnvironments . '/default.xml', false, true)
-        );
-        $this->environment = $this->merge($this->environment, $this->xmlProperty($environmentDefinition, false, true));
-
-        $domain = "{$this->environment['name']}.{$this->environment['server']['tld']}";
-
-        $this->environment['meta']['description'] = str_replace(
-            '{$this->version}',
-            $this->environment['joomla']['version'],
-            $this->environment['meta']['description']
-        );
-        $this->environment['database']['prefix']  = str_replace(
-            '{$this->target}',
-            $this->environment['name'],
-            $this->environment['database']['prefix']
-        );
-
-        if (in_array($this->environment['database']['driver'], ['mysqli', 'pdomysql'])) {
-            $this->environment['database']['engine'] = 'mysql';
-        } else {
-            $this->environment['database']['engine'] = $this->environment['database']['driver'];
-        }
-
-        // Download and unpack the specified Joomla! version
-        $cmsRoot = $this->serverDockyard . '/' . $this->environment['server']['type'] . '/html/' . $domain;
-        $tarball = $this->joomlaDownload(
-            $this->environment['joomla']['version'],
-            $this->versionCache,
-            $this->downloadCache
-        );
-        $this->untar($cmsRoot, $tarball);
-        $version = preg_replace('~^.*?(\d+\.\d+\.\d+)\.tar\.gz$~', '\1', $tarball);
-
-        // Add SUT
-        $this->copy(
-            (new Fileset($this->source))
-                ->exclude('installation/**/*'),
-            $cmsRoot
-        );
-
-        // Add test files
-        $this->delete($cmsRoot . '/tests');
-        $this->mkdir($cmsRoot . '/tests');
-        $this->copy(
-            (new Fileset($this->tests))
-                ->include('mocks/**/*')
-                ->include('integration/**/*')
-                ->include('system/**/*')
-                ->include('autoload.php'),
-            $cmsRoot . '/tests',
-            $this->filterExpand
-        );
-        $this->copy(
-            (new Fileset($this->buildTemplates . '/template/selenium'))
-                ->exclude('server_files/**/*'),
-            $cmsRoot . '/tests/system'
-        );
-
-        $this->exec(
-            "phpab --tolerant --basedir '.' --exclude '*Test.php' --template '{$this->buildTemplates}/template/tests/system/autoload.php.in' --output '{$cmsRoot}/tests/system/autoload.php' .",
-            "{$cmsRoot}/tests/system"
-        );
-
-        // Create build directory
-        $this->delete($cmsRoot . '/build');
-        $this->mkdir($cmsRoot . '/build/logs/coverage');
-
-        // Build the database import script
-        if (!file_exists("{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}")) {
-            throw new RuntimeException(
-                "Joomla! {$version} does not support {$this->environment['database']['engine']} databases"
-            );
-        }
-
-        // Get the database info - use global values, if not provided with local environment
-        $this->environment['database']['name'] = $this->environment['database']['name'] ?? $this->database[$this->environment['database']['engine']]['name'];
-
-        // Gather the database contents
-        $coreData   = "{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}/joomla.sql";
-        $sampleData = "{$cmsRoot}/installation/sql/{$this->environment['database']['engine']}/sample_{$this->environment['joomla']['sampledata']}.sql";
-
-        if (!file_exists($sampleData)) {
-            throw new RuntimeException(
-                "No '{$this->environment['joomla']['sampledata']}' sample data found for Joomla! {$version} with {$this->environment['database']['engine']} database"
-            );
-        }
-
-        $testData = $this->versionMatch(
-            'joomla-(.*).sql',
-            "{$this->buildTemplates}/template/{$this->environment['database']['engine']}",
-            $version
-        );
-
-        if (empty($testData)) {
-            throw new RuntimeException(
-                "No test data found for Joomla! {$version} with {$this->environment['database']['engine']} database"
-            );
-        }
-
-        $this->echo(
-            <<<ECHO
-    Joomla version:  {$version}
-    Domain:          {$domain}
-    Server:          {$this->environment['server']['type']}
-
-    Database type:   {$this->environment['database']['engine']}:{$this->database[$this->environment['database']['engine']]['version']}
-                     ({$this->environment['database']['driver']})
-    Database name:   {$this->environment['database']['name']}
-    Database prefix: {$this->environment['database']['prefix']}
-    Database user:   {$this->database[$this->environment['database']['engine']]['user']}:{$this->database[$this->environment['database']['engine']]['password']}
-ECHO
-            ,
-            'info'
-        );
-
-        // Build the import files
-        $importSql = "{$this->serverDockyard}/{$this->environment['database']['engine']}/{$this->environment['name']}.sql";
-        $importSh  = "{$this->serverDockyard}/{$this->environment['database']['engine']}/{$this->environment['name']}.sh";
-
-        if ($this->environment['database']['name'] === $this->database[$this->environment['database']['engine']]['name']) {
-            file_put_contents($importSql, '');
-        } else {
-            $this->copy(
-                "{$this->buildTemplates}/template/{$this->environment['database']['engine']}/createdb.sql",
-                $importSql,
-                $this->filterExpand
-            );
-        }
-
-        $this->exec("cat '{$coreData}' >> '{$importSql}'");
-        $this->exec("cat '{$sampleData}' >> '{$importSql}'");
-        $this->exec("cat '{$testData}' >> '{$importSql}'");
-        $this->exec("sed -i 's/#__/{$this->environment['database']['prefix']}/g' '{$importSql}'");
-
-        // Prepare database initialization
-        if ($this->environment['database']['engine'] === 'postgresql') {
-            // Fix single quote escaping
-            $this->exec("sed -i \"s/\\\'/''/g\" \"{$importSql}\"");
-            $this->exec("echo '#!/bin/bash' > '{$importSh}'");
-            $this->exec("echo 'set -e' >> '{$importSh}'");
-            $this->exec(
-                "echo 'gosu postgres postgres --single -j {$this->environment['database']['name']} < /docker-entrypoint-initdb.d/{$this->environment['name']}.sql' > '{$importSh}'"
-            );
-        } elseif ($this->environment['database']['engine'] === 'mysql') {
-            // Re-format import.sql to match MySQLd init-file restrictions
-            (new InitFileFixer())->fix($importSql);
-        }
-
-        $this->echo("Created database import script in {$importSql}", 'debug');
-
-        // Setup web server
-        $this->copy(
-            "{$this->buildTemplates}/template/{$this->environment['server']['type']}/vhost.conf",
-            "{$this->serverDockyard}/{$this->environment['server']['type']}/conf/{$domain}.conf",
-            $this->filterExpand
-        );
-        $this->copy(
-            "{$this->buildTemplates}/template/{$this->environment['server']['type']}/proxy.conf",
-            "{$this->serverDockyard}/proxy/conf/{$domain}.conf",
-            $this->filterExpand
-        );
-
-        // Create Joomla! configuration file
-        if (file_exists("{$cmsRoot}/configuration.php-dist")) {
-            $configFile = "{$cmsRoot}/configuration.php-dist";
-        } else {
-            $configFile = "{$cmsRoot}/installation/configuration.php-dist";
-        }
-
-        $errorReporting       = E_ALL & ~E_STRICT & ~E_DEPRECATED;
-        $prettyServerName     = ucfirst($this->environment['server']['type']);
-        $prettyDatabaseDriver = ucfirst(
-            str_replace(
-                [
-                    'sql',
-                    'my',
-                ],
-                [
-                    'SQL',
-                    'My',
-                ],
-                $this->environment['database']['driver']
-            )
-        );
-
-        $map = [
-            // Site Settings
-            'sitename'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
-            // Database settings
-            'dbtype'          => $this->environment['database']['driver'],
-            'host'            => $this->environment['database']['engine'],
-            'user'            => $this->database[$this->environment['database']['engine']]['user'],
-            'password'        => $this->database[$this->environment['database']['engine']]['password'],
-            'db'              => $this->environment['database']['name'],
-            'dbprefix'        => $this->environment['database']['prefix'],
-            // Server settings
-            'error_reporting' => $errorReporting,
-            // Locale settings
-            'offset'          => $this->environment['server']['offset'],
-            // Session settings
-            'lifetime'        => $this->environment['session']['lifetime'],
-            'session_handler' => $this->environment['session']['handler'],
-            // Mail settings
-            'mailer'          => 'smtp',
-            'mailfrom'        => "admin@{$domain}",
-            'fromname'        => "Joomla! {$version}/{$prettyServerName}/{$prettyDatabaseDriver}",
-            'sendmail'        => '/usr/bin/env catchmail',
-            'smtpauth'        => 0,
-            'smtpuser'        => '',
-            'smtppass'        => '',
-            'smtphost'        => 'mail:1025',
-            'smtpsecure'      => 'none',
-            // Cache settings
-            'caching'         => $this->environment['cache']['enabled'],
-            'cachetime'       => $this->environment['cache']['time'],
-            'cache_handler'   => $this->environment['cache']['handler'],
-            // Debug settings
-            'debug'           => $this->environment['debug']['system'],
-            'debug_db'        => $this->environment['debug']['system'],
-            'debug_lang'      => $this->environment['debug']['language'],
-            // Meta settings
-            'MetaDesc'        => $this->environment['meta']['description'],
-            'MetaKeys'        => $this->environment['meta']['keywords'],
-            'MetaTitle'       => $this->environment['meta']['showTitle'],
-            'MetaAuthor'      => $this->environment['meta']['showAuthor'],
-            'MetaVersion'     => $this->environment['meta']['showVersion'],
-            // SEO settings
-            'sef'             => $this->environment['sef']['enabled'],
-            'sef_rewrite'     => $this->environment['sef']['rewrite'],
-            'sef_suffix'      => $this->environment['sef']['suffix'],
-            'unicodeslugs'    => $this->environment['sef']['unicode'],
-            // Feed settings
-            'feed_limit'      => $this->environment['feeds']['limit'],
-            'feed_email'      => $this->environment['feeds']['email'],
-        ];
-
-        $this->copy(
-            $configFile,
-            "{$cmsRoot}/configuration.php",
-            function ($content) use ($map) {
-                foreach ($map as $key => $value) {
-                    $pattern = "~(\{$this->$key}\s*=\s*)(.*?);(?:\s*//\s*(.*))?~";
-                    $replace = "\1'{$value}'; // \3 was: \2";
-                    $content = preg_replace(
-                        $pattern,
-                        $replace,
-                        $content
-                    );
-                }
-
-                return $content;
-            }
-        );
-
-        // Remove installation folder
-        $this->delete("{$cmsRoot}/installation");
-
-        // A better way would be to change ownership within the containers
-        $this->exec("chmod -R 0777 \"{$cmsRoot}\"");
     }
 
     /**

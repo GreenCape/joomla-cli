@@ -152,6 +152,11 @@ abstract class Command extends BaseCommand
      */
     protected $buildTemplates;
 
+    /**
+     * @var string
+     */
+    protected $joomlaPath;
+
     use CommonOptions, FilesystemMethods;
 
     /**

@@ -81,7 +81,6 @@ trait CommonOptions
             ''
         );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this;
     }
 
@@ -101,7 +100,6 @@ trait CommonOptions
             'The path of the project root, defaults to current directory'
         );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this;
     }
 
@@ -128,7 +126,7 @@ trait CommonOptions
         $this->buildTemplates   = dirname(__DIR__) . '/build';
 
         $this->output->writeln(
-            "Base path set by {$setBy} to <info>{$this->base}</info>",
+            "Base path set by $setBy to <info>$this->base</info>",
             OutputInterface::VERBOSITY_DEBUG
         );
     }
@@ -143,28 +141,27 @@ trait CommonOptions
             'joomla'
         );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this;
     }
 
     protected function initJoomlaPath(): void
     {
-        $setBy        = 'default';
-        $this->joomla = $this->base . '/joomla';
+        $setBy            = 'default';
+        $this->joomlaPath = $this->base . '/joomla';
 
         if (isset($this->project['paths']['joomla'])) {
-            $setBy        = 'project.json';
-            $this->joomla = rtrim($this->base . '/' . $this->project['paths']['joomla'], '/');
+            $setBy            = 'project.json';
+            $this->joomlaPath = rtrim($this->base . '/' . $this->project['paths']['joomla'], '/');
         }
 
         if ($this->input->hasOption('joomla') && $this->input->getOption('joomla') > '') {
-            $setBy        = 'option `--joomla`';
-            $option = $this->input->getOption('joomla');
-            $this->joomla = (strpos($option, '/') === 0 ? '' : $this->base . '/') . $option;
+            $setBy            = 'option `--joomla`';
+            $option           = $this->input->getOption('joomla');
+            $this->joomlaPath = (strpos($option, '/') === 0 ? '' : $this->base . '/') . $option;
         }
 
         $this->output->writeln(
-            "Joomla path set by {$setBy} to <info>{$this->joomla}</info>",
+            "Joomla path set by $setBy to <info>$this->joomlaPath</info>",
             OutputInterface::VERBOSITY_DEBUG
         );
     }
@@ -178,7 +175,6 @@ trait CommonOptions
             'The source directory'
         );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this;
     }
 
@@ -198,7 +194,7 @@ trait CommonOptions
         }
 
         $this->output->writeln(
-            "Source path set by {$setBy} to <info>{$this->source}</info>",
+            "Source path set by $setBy to <info>$this->source</info>",
             OutputInterface::VERBOSITY_DEBUG
         );
     }
@@ -213,7 +209,6 @@ trait CommonOptions
             'build/logs'
         );
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this;
     }
 
@@ -234,7 +229,7 @@ trait CommonOptions
         }
 
         $this->output->writeln(
-            "Logs path set by {$setBy} to <info>{$this->logs}</info>",
+            "Logs path set by $setBy to <info>$this->logs</info>",
             OutputInterface::VERBOSITY_DEBUG
         );
     }

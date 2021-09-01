@@ -31,13 +31,10 @@ namespace GreenCape\JoomlaCLI\Command\Build;
 
 use GreenCape\JoomlaCLI\Command;
 use GreenCape\JoomlaCLI\Command\Document\DocumentCommand;
-use GreenCape\JoomlaCLI\Command\Quality\CodeBrowserCommand;
 use GreenCape\JoomlaCLI\Command\Quality\QualityCommand;
-use GreenCape\JoomlaCLI\FromPhing;
-use League\Flysystem\FileNotFoundException;
+use GreenCape\JoomlaCLI\Command\Test\TestCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -54,19 +51,13 @@ class BuildCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setName('build:all')
-            ->setAliases(['build'])
-            ->setDescription('Performs all tests and generates documentation and the quality report')
-            ->addSourcePathOption()
-            ->addBasePathOption()
-            ->addLogPathOption()
-            ->setHelp(
-                wordwrap(
-                    'A valid manifest file is required in the base path. '
-                    . 'Its name and location are defined in the `project.json` file.'
-                )
+        $this->setName('build:all')->setAliases(['build'])->setDescription(
+            'Performs all tests and generates documentation and the quality report'
+        )->addSourcePathOption()->addBasePathOption()->addLogPathOption()->setHelp(
+            wordwrap(
+                'A valid manifest file is required in the base path. ' . 'Its name and location are defined in the `project.json` file.'
             )
+        )
         ;
     }
 
@@ -76,34 +67,33 @@ class BuildCommand extends Command
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
      *
-     * @throws FileNotFoundException
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $this->mkdir($this->logs);
 
-        (new FromPhing($output, $this->base, null))->test();
+        $this->runCommand(
+            TestCommand::class,
+            new ArrayInput([]),
+            $output
+        );
 
         $this->runCommand(
             QualityCommand::class,
-            new ArrayInput(
-                [
-                    '--source' => $this->source,
-                    '--logs'   => $this->logs,
-                ]
-            ),
+            new ArrayInput([
+                               '--source' => $this->source,
+                               '--logs'   => $this->logs,
+                           ]),
             $output
         );
 
         $this->runCommand(
             DocumentCommand::class,
-            new ArrayInput(
-                [
-                    '--source' => $this->source,
-                    '--logs'   => $this->logs,
-                ]
-            ),
+            new ArrayInput([
+                               '--source' => $this->source,
+                               '--logs'   => $this->logs,
+                           ]),
             $output
         );
     }

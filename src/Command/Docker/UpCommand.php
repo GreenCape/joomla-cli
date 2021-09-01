@@ -30,7 +30,6 @@
 namespace GreenCape\JoomlaCLI\Command\Docker;
 
 use GreenCape\JoomlaCLI\Command;
-use GreenCape\JoomlaCLI\FromPhing;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -48,10 +47,9 @@ class UpCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setName('docker:up')
-            ->setDescription('Starts the test containers after rebuilding them')
-            ->addBasePathOption()
+        $this->setName('docker:up')
+             ->setDescription('Starts the test containers after rebuilding them')
+             ->addBasePathOption()
         ;
     }
 
@@ -63,6 +61,16 @@ class UpCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        (new FromPhing($output, $this->base, null))->dockerUp();
+        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
+            throw new \RuntimeException('Servers are not set up.');
+        }
+
+        $this->exec(
+            'docker-compose up -d',
+            $this->serverDockyard
+        );
+
+        // Give the containers time to set up
+        sleep(15);
     }
 }

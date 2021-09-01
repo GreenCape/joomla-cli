@@ -38,12 +38,21 @@ use RuntimeException;
  */
 class Docker
 {
-    private $container = '*';
+    private $container          = '*';
+
     private $containerList;
+
     private $dir;
+
     private $state;
 
-    private $supportedFileNames = ['docker-compose.yml', 'docker-compose.yaml', 'fig.yml', 'fig.yaml'];
+    private $supportedFileNames = [
+        'docker-compose.yml',
+        'docker-compose.yaml',
+        'fig.yml',
+        'fig.yaml',
+    ];
+
     private $configFile;
 
     /**
@@ -70,7 +79,10 @@ class Docker
 
         $this->checkConfigurationFile();
 
-        $replace   = ['?' => '.', '*' => '.*?'];
+        $replace   = [
+            '?' => '.',
+            '*' => '.*?',
+        ];
         $container = str_replace(array_keys($replace), array_values($replace), $this->container);
         $this->log("Searching containers matching '{$this->container}'", 'debug');
 
@@ -102,8 +114,12 @@ class Docker
             }
         }
         if (empty($this->configFile)) {
-            throw new RuntimeException("Can't find a suitable configuration file. Are you in the right directory?\n\nSupported filenames: " . implode(', ',
-                    $$this->supportedFileNames));
+            throw new RuntimeException(
+                "Can't find a suitable configuration file. Are you in the right directory?\n\nSupported filenames: " . implode(
+                    ', ',
+                    $$this->supportedFileNames
+                )
+            );
         }
     }
 

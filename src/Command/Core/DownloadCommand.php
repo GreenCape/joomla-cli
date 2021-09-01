@@ -55,11 +55,6 @@ class DownloadCommand extends Command
     /**
      * @var string
      */
-    private $version;
-
-    /**
-     * @var string
-     */
     private $cachePath;
 
     /**
@@ -69,39 +64,34 @@ class DownloadCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setName('core:download')
-            ->setDescription('Downloads a Joomla! version and unpacks it to the given path')
-            ->addArgument(
-                'version',
-                InputArgument::OPTIONAL,
-                'The Joomla! version to install.',
-                'latest'
-            )
-            ->addJoomlaPathOption()
-            ->addOption(
-                'file',
-                'f',
-                InputArgument::OPTIONAL,
-                'Location of the version cache file',
-                '/tmp/versions.json'
-            )
-            ->addOption(
-                'cache',
-                'c',
-                InputArgument::OPTIONAL,
-                'Location of the cache for Joomla! packages',
-                '.cache'
-            )
-            ->setHelp(
-                wordwrap(
-                    '`version` can be any existing version number, branch name or tag. If the requested version is not '
-                    . 'found in the [official Joomla! release list](https://github.com/joomla/joomla-cms/releases), the '
-                    . 'download command looks for a matching tag in the official archive. Older versions not in Joomla!\'s '
-                    . 'archive down to version 1.0.0 are provided by '
-                    . '[GreenCape\'s legacy archive](https://github.com/GreenCape/joomla-legacy/releases).'
-                )
-            )
+        $this->setName('core:download')
+             ->setDescription('Downloads a Joomla! version and unpacks it to the given path')
+             ->addArgument(
+                 'version',
+                 InputArgument::OPTIONAL,
+                 'The Joomla! version to install.',
+                 'latest'
+             )
+             ->addJoomlaPathOption()
+             ->addOption(
+                 'file',
+                 'f',
+                 InputArgument::OPTIONAL,
+                 'Location of the version cache file',
+                 '/tmp/versions.json'
+             )
+             ->addOption(
+                 'cache',
+                 'c',
+                 InputArgument::OPTIONAL,
+                 'Location of the cache for Joomla! packages',
+                 '.cache'
+             )
+             ->setHelp(
+                 wordwrap(
+                     '`version` can be any existing version number, branch name or tag. If the requested version is not ' . 'found in the [official Joomla! release list](https://github.com/joomla/joomla-cms/releases), the ' . 'download command looks for a matching tag in the official archive. Older versions not in Joomla!\'s ' . 'archive down to version 1.0.0 are provided by ' . '[GreenCape\'s legacy archive](https://github.com/GreenCape/joomla-legacy/releases).'
+                 )
+             )
         ;
     }
 
@@ -115,18 +105,21 @@ class DownloadCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $this->version     = $input->getArgument('version');
+        $version           = $input->getArgument('version');
         $this->versionFile = $input->getOption('file');
         $this->cachePath   = $input->getOption('cache');
 
         $this->mkdir($this->cachePath);
 
-        $tarball = $this->getTarball($this->version, $this->getAvailableVersions());
-        $this->output->writeln("Archive is {$tarball}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $tarball = $this->getTarball($version, $this->getAvailableVersions());
+        $this->output->writeln("Archive is $tarball", OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $this->untar($this->joomla, $tarball);
+        $this->untar($this->joomlaPath, $tarball);
 
-        $this->output->writeln("Installed Joomla! files to  {$this->joomla}", OutputInterface::VERBOSITY_VERY_VERBOSE);
+        $this->output->writeln(
+            "Installed Joomla! files to $this->joomlaPath",
+            OutputInterface::VERBOSITY_VERY_VERBOSE
+        );
     }
 
     /**
@@ -156,16 +149,20 @@ class DownloadCommand extends Command
         $tarball   = $cachePath . '/' . $version . '.tar.gz';
 
         if (!$versions->isBranch($version) && file_exists($tarball)) {
-            $this->output->writeln("$requested: Joomla $version is already in cache",
-                OutputInterface::VERBOSITY_VERBOSE);
+            $this->output->writeln(
+                "$requested: Joomla $version is already in cache",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
 
             return $tarball;
         }
 
         if ($versions->isBranch($version)) {
-            $this->output->writeln("$requested: Downloading Joomla $version branch",
-                OutputInterface::VERBOSITY_VERBOSE);
-            $url = 'http://github.com/joomla/joomla-cms/tarball/' . $version;
+            $this->output->writeln(
+                "$requested: Downloading Joomla $version branch",
+                OutputInterface::VERBOSITY_VERBOSE
+            );
+            $url = "https://github.com/joomla/joomla-cms/archive/refs/heads/$version.tar.gz/";
 
             return $this->download($tarball, $url);
         }
@@ -176,13 +173,13 @@ class DownloadCommand extends Command
             try // to get the official release for that version
             {
                 $this->output->writeln('Trying release channel', OutputInterface::VERBOSITY_VERY_VERBOSE);
-                $url = "https://github.com/joomla/joomla-cms/releases/download/{$version}/Joomla_{$version}-Stable-Full_Package.tar.gz";
+                $url = "https://github.com/joomla/joomla-cms/releases/download/$version/Joomla_$version-Stable-Full_Package.tar.gz";
 
                 return $this->download($tarball, $url);
             } catch (Throwable $exception) // else get it from the archive
             {
                 $repository = $versions->getRepository($version);
-                $this->output->writeln("Trying {$repository} archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
+                $this->output->writeln("Trying $repository archive", OutputInterface::VERBOSITY_VERY_VERBOSE);
                 $url = 'https://github.com/' . $repository . '/archive/' . $version . '.tar.gz';
 
                 return $this->download($tarball, $url);
