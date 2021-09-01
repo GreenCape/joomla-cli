@@ -48,10 +48,12 @@ class Fileset
      * @var string
      */
     private $dir;
+
     /**
      * @var array
      */
     private $files = [];
+
     /**
      * @var array
      */
@@ -86,9 +88,9 @@ class Fileset
     /**
      * @param  string  $pattern
      *
-     * @return mixed|string
+     * @return string
      */
-    private function convertPattern(string $pattern)
+    private function convertPattern(string $pattern): string
     {
         $pattern = str_replace(
             [
@@ -99,9 +101,10 @@ class Fileset
                 '.*',
                 '[^/]*',
             ],
-            preg_quote($pattern, '~'));
+            preg_quote($pattern, '~')
+        );
 
-        return "~^{$pattern}\$~";
+        return "~^$pattern\$~";
     }
 
     /**
@@ -121,24 +124,22 @@ class Fileset
             $this->include('**');
         }
 
+        $files = array_filter($this->files, function ($file) {
+            foreach ($this->excludes as $pattern) {
+                if (preg_match($pattern, $file)) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+        $files = array_values($files);
+
         return array_map(
             function ($file) {
-                return "{$this->dir}/$file";
+                return "$this->dir/$file";
             },
-            array_values(
-                array_filter(
-                    $this->files,
-                    function ($file) {
-                        foreach ($this->excludes as $pattern) {
-                            if (preg_match($pattern, $file)) {
-                                return false;
-                            }
-                        }
-
-                        return true;
-                    }
-                )
-            )
+            $files
         );
     }
 
@@ -148,15 +149,16 @@ class Fileset
      *
      * @return Fileset
      */
-    public function include($patterns, $flags = 0): self
+    public function include($patterns, int $flags = 0): self
     {
         foreach ((array)$patterns as $pattern) {
             $pattern     = $this->convertPattern($pattern);
+            $files       = array_merge(
+                $this->files,
+                $this->collectFiles($this->dir, $pattern, $flags)
+            );
             $this->files = array_unique(
-                array_merge(
-                    $this->files,
-                    $this->collectFiles($this->dir, $pattern, $flags)
-                )
+                $files
             );
         }
 
@@ -176,14 +178,13 @@ class Fileset
         $files = [];
 
         if (!is_dir($dir)) {
-            return $files;
+            return $files; // @codeCoverageIgnore
         }
 
         $iterator = ($flags & self::NO_RECURSE) === self::NO_RECURSE
             ? new DirectoryIterator($dir)
             : new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($dir),
-                RecursiveIteratorIterator::SELF_FIRST
+                new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::SELF_FIRST
             );
         $len      = strlen($dir) + 1;
 

@@ -95,7 +95,7 @@ class Docker
         ];
         $container = str_replace(array_keys($replace), array_values($replace), $this->container);
         $this->output->writeln(
-            "Searching containers matching '{$this->container}'",
+            "Searching containers matching '$this->container'",
             OutputInterface::VERBOSITY_VERY_VERBOSE
         );
 
