@@ -82,9 +82,10 @@ class BuildCommand extends Command
         } else {
             $uptodate = $this->isUptodate(
                 $this->serverDockyard . '/docker-compose.yml',
-                (new Fileset('.'))->include($this->source . '/**')->include($this->integrationTests . '/**')->include(
-                    $this->testEnvironments . '/**'
-                )
+                (new Fileset('.'))
+                    ->include($this->source . '/**')
+                    ->include($this->integrationTests . '/**')
+                    ->include($this->testEnvironments . '/**')
             );
         }
 

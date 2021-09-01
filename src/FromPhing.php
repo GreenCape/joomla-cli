@@ -5,15 +5,12 @@ namespace GreenCape\JoomlaCLI;
 use DOMDocument;
 use DOMNode;
 use GreenCape\JoomlaCLI\Command\Docker;
-use GreenCape\JoomlaCLI\Command\Docker\StartCommand;
-use GreenCape\JoomlaCLI\Command\Docker\StopCommand;
 use GreenCape\JoomlaCLI\Repository\VersionList;
 use GreenCape\Manifest\Manifest;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use RuntimeException;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
@@ -80,90 +77,112 @@ class FromPhing
      * @var string
      */
     private $tests;
+
     /**
      * @var string
      */
     private $build;
+
     /**
      * @var array
      */
     private $dist;
+
     /**
      * @var string
      */
     private $unitTests;
+
     /**
      * @var string
      */
     private $integrationTests;
+
     /**
      * @var string
      */
     private $systemTests;
+
     /**
      * @var string
      */
     private $testEnvironments;
+
     /**
      * @var string
      */
     private $buildTemplates;
+
     /**
      * @var string
      */
     private $serverDockyard;
+
     /**
      * @var string
      */
     private $bin;
+
     /**
      * @var string
      */
     private $versionCache;
+
     /**
      * @var string
      */
     private $downloadCache;
+
     /**
      * @var array
      */
     private $database;
+
     /**
      * @var array
      */
     private $environment;
+
     /**
      * @var callable
      */
     private $filterExpand;
+
     /**
      * @var Fileset
      */
     private $sourceFiles;
+
     /**
      * @var Fileset
      */
     private $phpFiles;
+
     /**
      * @var Fileset
      */
     private $xmlFiles;
+
     /**
      * @var Fileset
      */
     private $integrationTestFiles;
+
     /**
      * @var Fileset
      */
     private $distFiles;
+
     /**
      * @var array
      */
     private $php;
+
     /**
      * @var OutputInterface
      */
     private $output;
+
     /**
      * @var string
      */
@@ -212,15 +231,13 @@ class FromPhing
         $this->delete($patchsetLocation);
         $this->mkdir($patchsetLocation);
         $this->copy(
-            (new Fileset($this->source))
-                ->exclude('installation/**'),
+            (new Fileset($this->source))->exclude('installation/**'),
             $patchsetLocation
         );
 
         if ($this->package['type'] === 'com_') {
             $this->copy(
-                (new Fileset($this->source))
-                    ->include('installation/**'),
+                (new Fileset($this->source))->include('installation/**'),
                 "{$patchsetLocation}/administrator/components/com_{$this->package['name']}"
             );
         }
@@ -231,7 +248,7 @@ class FromPhing
      */
     public function testTargets(): void
     {
-        $docker = new Docker($this->serverDockyard);
+        $docker = new Docker($this->output, $this->serverDockyard);
         $this->echo('Matching containers: ' . implode(', ', $docker->dockerList()), 'info');
         $this->echo('Defined containers: ' . implode(', ', $docker->dockerDef()), 'info');
     }
@@ -261,43 +278,31 @@ class FromPhing
 
         $this->phpAb();
         $this->mkdir("{$this->build}/logs/coverage");
-        $command = "{$this->bin}/phpunit"
-                   . " --bootstrap {$this->tests}/unit/bootstrap.php"
-                   . " --coverage-php {$this->build}/logs/coverage/unit.cov"
-                   . " --whitelist {$this->source}"
-                   . ' --colors=always'
-                   . " {$this->unitTests}";
+        $command = "{$this->bin}/phpunit" . " --bootstrap {$this->tests}/unit/bootstrap.php" . " --coverage-php {$this->build}/logs/coverage/unit.cov" . " --whitelist {$this->source}" . ' --colors=always' . " {$this->unitTests}";
         $this->exec($command, $this->basedir);
-        $this->reflexive(
-            new Fileset("{$this->build}/logs/coverage"),
-            static function ($content) {
-                return preg_replace("~'(.*?)Test::test~", "'Unit: \1Test::test", $content);
-            }
-        );
+        $this->reflexive(new Fileset("{$this->build}/logs/coverage"), static function ($content) {
+            return preg_replace("~'(.*?)Test::test~", "'Unit: \1Test::test", $content);
+        });
     }
 
     /**
      * Runs integration tests on all test installations.
      *
-     * @throws FileNotFoundException
      * @throws \Exception
      */
     public function testIntegration(): void
     {
-        (new StartCommand())->run(new StringInput(''), $this->output);
+        (new Docker($this->output, $this->serverDockyard))->dockerStart();
 
-        $environments = (new Fileset($this->testEnvironments))
-            ->include('*.xml')
-            ->exclude('database.xml')
-            ->exclude('default.xml')
-            ->getFiles()
-        ;
+        $environments = (new Fileset($this->testEnvironments))->include('*.xml')->exclude('database.xml')->exclude(
+            'default.xml'
+        )->getFiles();
 
         foreach ($environments as $environmentDefinition) {
             $this->testIntegrationSingle($environmentDefinition);
         }
 
-        (new StopCommand())->run(new StringInput(''), $this->output);
+        (new Docker($this->output, $this->serverDockyard))->dockerStop();
     }
 
     /**
@@ -308,23 +313,20 @@ class FromPhing
      */
     public function testSystem(): void
     {
-        (new StartCommand())->run(new StringInput(''), $this->output);
+        (new Docker($this->output, $this->serverDockyard))->dockerStart();
 
         $this->delete("{$this->build}/screenshots");
         $this->mkdir("{$this->build}/screenshots");
 
-        $environments = (new Fileset($this->testEnvironments))
-            ->include('*.xml')
-            ->exclude('database.xml')
-            ->exclude('default.xml')
-            ->getFiles()
-        ;
+        $environments = (new Fileset($this->testEnvironments))->include('*.xml')->exclude('database.xml')->exclude(
+                'default.xml'
+            )->getFiles();
 
         foreach ($environments as $environmentDefinition) {
             $this->testSystemSingle($environmentDefinition);
         }
 
-        (new StopCommand())->run(new StringInput(''), $this->output);
+        (new Docker($this->output, $this->serverDockyard))->dockerStop();
     }
 
     /**
@@ -335,19 +337,14 @@ class FromPhing
         $this->mkdir("{$this->build}/report/coverage");
 
         $merger = new CoverageMerger();
-        $merger
-            ->fileset((new Fileset("{$this->build}/logs/coverage"))->include('**/*.cov'))
-            ->html("{$this->build}/report/coverage")
-            ->clover("{$this->build}/logs/clover.xml")
-            ->merge()
+        $merger->fileset((new Fileset("{$this->build}/logs/coverage"))->include('**/*.cov'))->html(
+            "{$this->build}/report/coverage"
+        )->clover("{$this->build}/logs/clover.xml")->merge()
         ;
 
-        $this->reflexive(
-            new Fileset("{$this->build}/report/coverage"),
-            function ($content) {
-                return str_replace($this->source, $this->project['name'], $content);
-            }
-        );
+        $this->reflexive(new Fileset("{$this->build}/report/coverage"), function ($content) {
+            return str_replace($this->source, $this->project['name'], $content);
+        });
     }
 
     /**
@@ -520,22 +517,7 @@ class FromPhing
      */
     private function exec(string $command, string $dir = '.', bool $passthru = true): ?string
     {
-        $this->echo("Running `{$command}` in `{$dir}`", 'debug');
-
-        if ($dir !== '.') {
-            $current = getcwd();
-            $command = 'cd ' . $dir . ' && ' . $command . ' && cd ' . $current;
-        }
-
-        $result = '';
-
-        if ($passthru) {
-            passthru($command . ' 2>&1', $result);
-        } else {
-            $result = shell_exec($command . ' 2>&1');
-        }
-
-        return $result;
+        return (new Shell($this->output))->exec($command, $dir, $passthru);
     }
 
     /**
@@ -552,33 +534,28 @@ class FromPhing
             $this->basedir
         );
         $this->copy(
-            (new Fileset("{$this->build}/plantuml"))
-                ->include('*.js'),
+            (new Fileset("{$this->build}/plantuml"))->include('*.js'),
             "{$this->build}/report/api/js",
             static function ($content) {
                 return str_replace("'rawdeflate.js'", "'../js/rawdeflate.js'", $content);
             }
         );
-        $this->reflexive(
-            (new Fileset("{$this->build}/report/api/classes"))
-                ->include('*.html'),
-            function ($content) {
-                $content = str_replace(
-                    '</head>',
-                    '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>',
-                    $content
-                );
-                $content = preg_replace(
-                    "~<th>startuml</th>(\n)<td>(.+?)</td>~sm",
-                    /** @lang text */
-                    '<th>UML</th><td><img uml="\\1!include ' . $this->build . '/report/api/uml/skin.puml\\1\\2\\1" alt=""/></td>',
-                    $content
-                );
-                $content = preg_replace("~<tr>\s*<th>enduml</th>\s*<td></td>\s*</tr>~m", '', $content);
+        $this->reflexive((new Fileset("{$this->build}/report/api/classes"))->include('*.html'), function ($content) {
+            $content = str_replace(
+                '</head>',
+                '<script type="text/javascript" src="../js/jquery_plantuml.js"></script></head>',
+                $content
+            );
+            $content = preg_replace(
+                "~<th>startuml</th>(\n)<td>(.+?)</td>~sm",
+                /** @lang text */
+                '<th>UML</th><td><img uml="\\1!include ' . $this->build . '/report/api/uml/skin.puml\\1\\2\\1" alt=""/></td>',
+                $content
+            );
+            $content = preg_replace("~<tr>\s*<th>enduml</th>\s*<td></td>\s*</tr>~m", '', $content);
 
-                return $content;
-            }
-        );
+            return $content;
+        });
     }
 
     /**
@@ -664,14 +641,14 @@ class FromPhing
         $domain      = "{$environment['name']}.{$this->environment['server']['tld']}";
         $cmsRoot     = "{$this->serverDockyard}/{$environment['server']['type']}/html/{$domain}";
 
-        $container = $environment['server']['type'] === 'nginx' ? 'servers_php_1' : "servers_{$environment['server']['type']}_1";
+        $container = $environment['server']['type'] === 'nginx' ? 'servers_php_1'
+            : "servers_{$environment['server']['type']}_1";
 
         $uptodate = $this->isUptodate(
             "{$this->build}/logs/coverage/integration-{$target}.cov",
             $this->sourceFiles,
             $this->integrationTestFiles,
-            (new Fileset($this->testEnvironments))
-                ->include($environmentDefinition)
+            (new Fileset($this->testEnvironments))->include($environmentDefinition)
         );
 
         if ($uptodate) {
@@ -694,12 +671,9 @@ class FromPhing
         }
 
         $merger = new CoverageMerger();
-        $merger
-            ->fileset((new Fileset("{$cmsRoot}/build/logs"))->include('**/*.cov'))
-            ->pattern("/var/www/html/{$domain}")
-            ->replace("{$this->source}/")
-            ->php("{$cmsRoot}/build/logs/integration-{$target}.cov")
-            ->merge()
+        $merger->fileset((new Fileset("{$cmsRoot}/build/logs"))->include('**/*.cov'))->pattern(
+            "/var/www/html/{$domain}"
+        )->replace("{$this->source}/")->php("{$cmsRoot}/build/logs/integration-{$target}.cov")->merge()
         ;
 
         $this->copy(
@@ -792,8 +766,7 @@ class FromPhing
         );
 
         $this->copy(
-            (new Fileset("{$cmsRoot}/build/logs"))
-                ->include('system-*.cov'),
+            (new Fileset("{$cmsRoot}/build/logs"))->include('system-*.cov'),
             "{$this->build}/logs/coverage",
             function ($content) use ($target, $domain) {
                 $content = str_replace("/var/www/html/{$domain}", $this->source, $content);

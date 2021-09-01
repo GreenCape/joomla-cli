@@ -30,6 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Docker;
 
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Command\Docker;
 use League\Flysystem\FileNotFoundException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -60,19 +61,11 @@ class StartCommand extends Command
      * @param  InputInterface   $input   An InputInterface instance
      * @param  OutputInterface  $output  An OutputInterface instance
      *
-     * @throws FileNotFoundException
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         (new BuildCommand())->run($input, $output);
-
-        $this->exec(
-            'docker-compose up --no-recreate -d',
-            $this->serverDockyard
-        );
-
-        // Give the containers time to set up
-        sleep(15);
+        (new Docker($output, $this->serverDockyard))->dockerUp('--no-recreate');
     }
 }

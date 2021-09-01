@@ -221,37 +221,7 @@ abstract class Command extends BaseCommand
      */
     protected function exec(string $command, string $dir = '.', bool $passthru = true): int
     {
-        $this->output->writeln("Running `{$command}` in `{$dir}`", OutputInterface::VERBOSITY_DEBUG);
-
-        $current = getcwd();
-
-        if ($this->output->getVerbosity() === OutputInterface::VERBOSITY_QUIET) {
-            ob_start();
-        }
-
-        chdir($dir);
-
-        $result = '';
-
-        if ($passthru) {
-            passthru($command . ' 2>&1', $result);
-        } else {
-            $output   = '';
-            $lastLine = exec($command . ' 2>&1', $output, $result);
-            $this->output->writeln($output, OutputInterface::VERBOSITY_VERBOSE);
-
-            if ($this->output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
-                $this->output->writeln($lastLine, OutputInterface::VERBOSITY_NORMAL);
-            }
-        }
-
-        chdir($current);
-
-        if ($this->output->getVerbosity() === OutputInterface::VERBOSITY_QUIET) {
-            ob_end_clean();
-        }
-
-        return $result;
+        return (new Shell($this->output))->exec($command, $dir, $passthru);
     }
 
     /**

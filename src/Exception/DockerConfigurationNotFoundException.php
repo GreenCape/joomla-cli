@@ -32,17 +32,19 @@ namespace GreenCape\JoomlaCLI\Exception;
 use RuntimeException;
 
 /**
- * Class FileNotFoundException
+ * Class DockerConfigurationNotFoundException
  *
  * @since  Class available since Release __DEPLOY_VERSION__
  */
-class FileNotFoundException extends RuntimeException
+class DockerConfigurationNotFoundException extends RuntimeException
 {
-    /**
-     * @param  string  $path  The path to the file that was not found
-     */
-    public function __construct(string $path)
+    public function __construct($supportedFileNames)
     {
-        parent::__construct('File not found at path: ' . $path);
+        parent::__construct(
+            "Can't find a suitable configuration file. Are you in the right directory?\n\nSupported filenames: " . implode(
+                ', ',
+                $supportedFileNames
+            )
+        );
     }
 }

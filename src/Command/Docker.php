@@ -29,7 +29,10 @@
 
 namespace GreenCape\JoomlaCLI\Command;
 
+use GreenCape\JoomlaCLI\Exception\DockerConfigurationNotFoundException;
+use GreenCape\JoomlaCLI\Shell;
 use RuntimeException;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class Docker
@@ -56,13 +59,20 @@ class Docker
     private $configFile;
 
     /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
      * Run as a task.
      *
-     * @param $dir
+     * @param  OutputInterface  $output
+     * @param  string           $dir
      */
-    public function __construct($dir)
+    public function __construct(OutputInterface $output, string $dir)
     {
-        $this->dir = $dir;
+        $this->output = $output;
+        $this->dir    = $dir;
         $this->getContainerInfo();
     }
 
@@ -84,7 +94,10 @@ class Docker
             '*' => '.*?',
         ];
         $container = str_replace(array_keys($replace), array_values($replace), $this->container);
-        $this->log("Searching containers matching '{$this->container}'", 'debug');
+        $this->output->writeln(
+            "Searching containers matching '{$this->container}'",
+            OutputInterface::VERBOSITY_VERY_VERBOSE
+        );
 
         $this->containerList = [];
         foreach (explode("\n", shell_exec('docker-compose ps')) as $line) {
@@ -98,7 +111,10 @@ class Docker
             }
         }
         chdir($oldDir);
-        $this->log(" - Found " . count($this->containerList) . ' containers', 'debug');
+        $this->output->writeln(
+            " - Found " . count($this->containerList) . ' containers',
+            OutputInterface::VERBOSITY_VERY_VERBOSE
+        );
     }
 
     /**
@@ -107,29 +123,17 @@ class Docker
     private function checkConfigurationFile(): void
     {
         $this->configFile = null;
+
         foreach ($this->supportedFileNames as $filename) {
             if (file_exists($filename)) {
                 $this->configFile = $filename;
                 break;
             }
         }
-        if (empty($this->configFile)) {
-            throw new RuntimeException(
-                "Can't find a suitable configuration file. Are you in the right directory?\n\nSupported filenames: " . implode(
-                    ', ',
-                    $$this->supportedFileNames
-                )
-            );
-        }
-    }
 
-    /**
-     * @param  string  $message
-     * @param  string  $level
-     */
-    private function log(string $message, string $level = 'info'): void
-    {
-        echo "[$level] $message\n";
+        if (empty($this->configFile)) {
+            throw new DockerConfigurationNotFoundException($this->supportedFileNames);
+        }
     }
 
     /**
@@ -199,5 +203,68 @@ class Docker
         preg_match_all('~^(\w+):~m', file_get_contents($this->dir . '/' . $this->configFile), $match);
 
         return $match[1];
+    }
+
+    /**
+     * Start the test containers
+     *
+     * @param  string  $options  Additional options for `docker-compose up`
+     *
+     * @throws RuntimeException
+     */
+    public function dockerUp(string $options = ''): void
+    {
+        (new Shell($this->output))->exec(
+            'docker-compose up $options -d',
+            $this->dir
+        );
+
+        // Give the containers time to set up
+        sleep(15);
+    }
+
+    /**
+     * Start the test containers
+     */
+    public function dockerStart(): void
+    {
+        $this->dockerUp('--no-recreate');
+    }
+
+    /**
+     * Stop and removes the test containers
+     *
+     * @throws RuntimeException
+     */
+    public function dockerStop(): void
+    {
+        try {
+            (new Shell($this->output))->exec(
+                'docker-compose stop',
+                $this->dir
+            );
+
+            // Give the containers time to stop
+            sleep(2);
+        } catch (DockerConfigurationNotFoundException $exception) {
+            $this->output->writeln('Servers are not set up. Nothing to do');
+        }
+    }
+
+    /**
+     * Remove the content of test containers
+     *
+     * @throws RuntimeException
+     */
+    public function dockerRemove(): void
+    {
+        try {
+            (new Shell($this->output))->exec(
+                'docker-compose rm --force',
+                $this->dir
+            );
+        } catch (DockerConfigurationNotFoundException $exception) {
+            $this->output->writeln('Servers are not set up. Nothing to do');
+        }
     }
 }

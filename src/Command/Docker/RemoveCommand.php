@@ -30,6 +30,7 @@
 namespace GreenCape\JoomlaCLI\Command\Docker;
 
 use GreenCape\JoomlaCLI\Command;
+use GreenCape\JoomlaCLI\Command\Docker;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -47,8 +48,7 @@ class RemoveCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setName('docker:remove')->setDescription('Removes the content of test containers')->addBasePathOption()
-        ;
+        $this->setName('docker:remove')->setDescription('Removes the content of test containers')->addBasePathOption();
     }
 
     /**
@@ -59,16 +59,7 @@ class RemoveCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        if (!file_exists($this->serverDockyard . '/docker-compose.yml')) {
-            $output->writeln('Servers are not set up. Nothing to do');
-
-            return;
-        }
-
-        $this->exec(
-            'docker-compose rm --force',
-            $this->serverDockyard
-        );
+        (new Docker($output, $this->serverDockyard))->dockerRemove();
 
         $this->delete($this->serverDockyard);
     }
